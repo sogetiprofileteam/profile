@@ -2,7 +2,7 @@
 
 .search-component {
   border-bottom: 1px solid $color-light;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 40px;
+  padding-top: $spacing-reg;
+  padding-bottom: $spacing-reg;
+  margin-bottom: $spacing-reg * 2;
 }
