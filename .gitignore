@@ -8,6 +8,7 @@
 
 # dependencies
 /node_modules
+sogeti-portfolio/node_modules
 
 # IDEs and editors
 /.idea
