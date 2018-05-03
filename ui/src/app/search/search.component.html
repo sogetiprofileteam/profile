@@ -3,7 +3,9 @@
     <form #searchForm="ngForm" class="row align-items-center">
       <div class="col-12 col-md-2 form-group">
         <label for="employeeATO">ATO</label>
-        <select class="form-control" id="employeeATO">
+        <select class="form-control" 
+                id="employeeATO"
+                [(ngModel)]="profile.ato" name="ato">
           <option>Yes</option>
           <option>No</option>
         </select>
