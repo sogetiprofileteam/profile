@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from '../app/app-routing.module';
 
 import { AppComponent } from './app.component';
 
-import { PortfolioItemModule } from '../portfolio-item/portfolio-item.module';
+import { PortfolioAddModule } from '../portfolio-add/portfolio-add.module';
 import { SearchModule } from '../search/search.module';
 
 
@@ -12,9 +13,10 @@ import { SearchModule } from '../search/search.module';
     AppComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    SearchModule,
-    PortfolioItemModule
+    PortfolioAddModule,
+    SearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

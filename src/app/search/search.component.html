@@ -1,30 +1,41 @@
-<div class="search-component">
+<div class="search-component section">
   <div class="container">
-    <form class="row">
-      <div class="col-12 col-md-3 form-group">
-        <label for="employeePractice">Practice</label>
-        <select class="form-control" id="employeePractice">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+    <form class="row align-items-center">
+      <div class="col-12 col-md-2 form-group">
+        <label for="employeeATO">ATO</label>
+        <select class="form-control" id="employeeATO">
+          <option>Yes</option>
+          <option>No</option>
         </select>
       </div>
-      <div class="col-12 col-md-3 form-group">
+      <div class="col-12 col-md-2 form-group">
+        <label for="employeePractice">Practice</label>
+        <select class="form-control" id="employeePractice">
+          <option>ACT</option>
+          <option>BI & Analytics</option>
+          <option>Cloud</option>
+          <option>Testing</option>
+          <option>DT</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-2 form-group">
         <label for="employeeSkill">Skill</label>
         <select class="form-control" id="employeeSkill">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+          <option>HTML</option>
+          <option>CSS</option>
+          <option>JavaScript</option>
+          <option>.NET</option>
         </select>
       </div>
       <div class="col-12 col-md-6 form-group">
-        <label for="employeeName">Employee Name</label>
-        <input type="text" class="form-control" id="employeeName" aria-describedby="employee name" placeholder="Search">
+        <label for="employeeSearch">Search</label>
+        <input type="text" class="form-control" id="employeeSearch" aria-describedby="employee search" placeholder="Search">
       </div>
     </form>
+  </div>
+  <div class="container">
+    <app-portfolio-item name="Joe Slater" title="Manager" practice="Digital Transformation"></app-portfolio-item>
+    <app-portfolio-item name="Joe Slater" title="Manager" practice="Digital Transformation"></app-portfolio-item>
+    <app-portfolio-item name="Joe Slater" title="Manager" practice="Digital Transformation"></app-portfolio-item>
   </div>
 </div>
