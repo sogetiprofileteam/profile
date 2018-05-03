@@ -1,6 +1,6 @@
 <div class="search-component section">
   <div class="container">
-    <form class="row align-items-center">
+    <form #searchForm="ngForm" class="row align-items-center">
       <div class="col-12 col-md-2 form-group">
         <label for="employeeATO">ATO</label>
         <select class="form-control" id="employeeATO">
@@ -10,7 +10,9 @@
       </div>
       <div class="col-12 col-md-2 form-group">
         <label for="employeePractice">Practice</label>
-        <select class="form-control" id="employeePractice">
+        <select class="form-control" 
+                id="employeePractice"
+                [(ngModel)]="profile.practice" name="practice">
           <option>ACT</option>
           <option>BI & Analytics</option>
           <option>Cloud</option>
@@ -20,7 +22,9 @@
       </div>
       <div class="col-12 col-md-2 form-group">
         <label for="employeeSkill">Skill</label>
-        <select class="form-control" id="employeeSkill">
+        <select class="form-control" 
+                id="employeeSkill"
+                [(ngModel)]="profile.skill" name="skill">
           <option>HTML</option>
           <option>CSS</option>
           <option>JavaScript</option>
@@ -29,7 +33,11 @@
       </div>
       <div class="col-12 col-md-6 form-group">
         <label for="employeeSearch">Search</label>
-        <input type="text" class="form-control" id="employeeSearch" aria-describedby="employee search" placeholder="Search">
+        <input aria-describedby="profile search"
+              class="form-control" 
+              id="employeeSearch" 
+              placeholder="Search" 
+              [(ngModel)]="profile.search" name="search" />
       </div>
     </form>
   </div>
