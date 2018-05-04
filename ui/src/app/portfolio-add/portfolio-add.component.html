@@ -25,9 +25,9 @@
           <select class="form-control" 
                   id="profileSkills"
                   [(ngModel)]="profile.skills" name="skills">
-            <option>HTML</option>
-            <option>SCSS</option>
-            <option>JavaScript</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="javascript">JavaScript</option>
           </select>
         </div>
         <div class="col-12 col-md-6 form-group">
@@ -35,20 +35,20 @@
           <select class="form-control" 
                   id="profilePractice"
                   [(ngModel)]="profile.practice" name="practice">
-            <option>ACT</option>
-            <option>BI & Analytics</option>
-            <option>Cloud</option>
-            <option>Testing</option>
-            <option>DT</option>
+            <option value="act">ACT</option>
+            <option value="analytics">BI & Analytics</option>
+            <option value="cloud">Cloud</option>
+            <option value="testing">Testing</option>
+            <option value="dt">DT</option>
           </select>
         </div>
         <div class="col-12 col-md-6 form-group">
-          <label for="employeeATO">ATO</label>
+          <label for="employeeATO">On ATO</label>
           <select class="form-control" 
                   id="employeeATO"
                   [(ngModel)]="profile.ato" name="ato">
-            <option>Yes</option>
-            <option>No</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
           </select>
         </div>
       </div>
