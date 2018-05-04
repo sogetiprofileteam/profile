@@ -14,7 +14,18 @@ const dbUri = `mongodb://${user}:${pwd}@ds113358.mlab.com:13358/sog-profile-dev`
 
 app.use(bodyParser.json());
 
+var db;
 
+// Initialize connection once
+MongoClient.connect(dbUri, function(err, database) {
+  if(err) throw err;
+
+  db = database;
+
+  // Start the application after the database connection is ready
+  app.listen(3000);
+  console.log("Listening on port 3000");
+});
 
 app.get('/search', (req, res)=> {
   var id = req.query;
@@ -29,10 +40,10 @@ app.post('/profile', (req, res) => {
     if (err) {
       throw err;
     }
-    const db = client.db(dbName);
+    // const db = client.db(dbName);
     const collection = db.collection('profiles');
     collection.insertOne(profile, (err, result) => {
-      client.close();
+      // client.close();
       res.send(result.insertedId);
     });
   });
@@ -41,5 +52,3 @@ app.post('/profile', (req, res) => {
 app.put('/profile/{id}', (req, res) => res.send('Profile Put here'));
 app.delete('/profile/{id}', (req, res) => res.send('Profile delete here'));
 app.get('/profile/{id}', (req, res) => res.send('Profile get here'));
-
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
