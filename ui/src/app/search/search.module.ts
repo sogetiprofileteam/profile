@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { SearchComponent } from './search.component';
-
 import { PortfolioItemModule } from '../portfolio-item/portfolio-item.module';
+
+import { SearchComponent } from './search.component';
+import { SearchService } from './search.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { PortfolioItemModule } from '../portfolio-item/portfolio-item.module';
     PortfolioItemModule
   ],
   declarations: [SearchComponent],
-  exports: [SearchComponent]
+  exports: [SearchComponent],
+  providers: [SearchService]
 })
 export class SearchModule { }

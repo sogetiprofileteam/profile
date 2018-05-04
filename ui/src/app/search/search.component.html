@@ -1,46 +1,49 @@
 <div class="search-component section">
   <div class="container">
-    <form #searchForm="ngForm" class="row align-items-center">
+    <form #searchForm="ngForm" class="row align-items-end" (ngSubmit)="onSubmit()">
       <div class="col-12 col-md-2 form-group">
         <label for="employeeATO">ATO</label>
         <select class="form-control" 
                 id="employeeATO"
-                [(ngModel)]="profile.ato" name="ato">
-          <option>Yes</option>
-          <option>No</option>
+                [(ngModel)]="search.ato" name="ato">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
         </select>
       </div>
       <div class="col-12 col-md-2 form-group">
         <label for="employeePractice">Practice</label>
         <select class="form-control" 
                 id="employeePractice"
-                [(ngModel)]="profile.practice" name="practice">
-          <option>ACT</option>
-          <option>BI & Analytics</option>
-          <option>Cloud</option>
-          <option>Testing</option>
-          <option>DT</option>
+                [(ngModel)]="search.practice" name="practice">
+          <option value="act">ACT</option>
+          <option value="analytics">BI & Analytics</option>
+          <option value="cloud">Cloud</option>
+          <option value="testing">Testing</option>
+          <option value="dt">DT</option>
         </select>
       </div>
       <div class="col-12 col-md-2 form-group">
         <label for="employeeSkill">Skill</label>
         <select class="form-control" 
                 id="employeeSkill"
-                [(ngModel)]="profile.skill" name="skill">
-          <option>HTML</option>
-          <option>CSS</option>
-          <option>JavaScript</option>
-          <option>.NET</option>
+                [(ngModel)]="search.skill" name="skill">
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="javascript">JavaScript</option>
+          <option value="dotnet">.NET</option>
         </select>
       </div>
-      <div class="col-12 col-md-6 form-group">
+      <div class="col-12 col-md-2 form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <!-- <div class="col-12 col-md-6 form-group">
         <label for="employeeSearch">Search</label>
         <input aria-describedby="profile search"
               class="form-control" 
               id="employeeSearch" 
               placeholder="Search" 
-              [(ngModel)]="profile.search" name="search" />
-      </div>
+              [(ngModel)]="search.search" name="search" />
+      </div> -->
     </form>
   </div>
 </div>

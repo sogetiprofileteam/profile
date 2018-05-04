@@ -14,6 +14,7 @@ export class PortfolioAddComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
   onSubmit() {

@@ -14,8 +14,9 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   getSearchResponse(query: Search) {
-    return this.http.get('https://localhost:3000/search?practice=' + query.practice + '&skill=' + query.skills + '&ato=' + query.ato);
-}
+    console.log(query);
+    return this.http.get('http://localhost:3000/search' + query);
+  }
 
 
 }
