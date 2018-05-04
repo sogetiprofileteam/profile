@@ -14,13 +14,13 @@ const dbUri = `mongodb://${user}:${pwd}@ds113358.mlab.com:13358/sog-profile-dev`
 
 app.use(bodyParser.json());
 
-var db;
+let db;
 
 // Initialize connection once
-MongoClient.connect(dbUri, function(err, database) {
+MongoClient.connect(dbUri, function(err, client) {
   if(err) throw err;
 
-  db = database;
+  db = client.db(dbName);
 
   // Start the application after the database connection is ready
   app.listen(3000);
@@ -28,25 +28,35 @@ MongoClient.connect(dbUri, function(err, database) {
 });
 
 app.get('/search', (req, res)=> {
-  var id = req.query;
-  console.log(id);
-  res.send('search');
+  const practice = req.query.practice;
+  const skills = req.query.skill;
+  console.log(skills);
+  const ato = req.query.ato;
+
+  const query = {};
+  if (practice) {
+    query['practice'] = practice;
+  }
+  if (ato) {
+    query['ato'] = ato;
+  }
+  console.log(query);
+  console.log(db);
+  db.collection('profiles').find(query).toArray(function(err, results) {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+  });
 });
 
 app.post('/profile', (req, res) => {
   const profile = req.body;
-
-  db.connect(dbUri, function(err, client) {
-    if (err) {
-      throw err;
-    }
-    // const db = client.db(dbName);
-    const collection = db.collection('profiles');
+  const collection = db.collection('profiles');
     collection.insertOne(profile, (err, result) => {
       // client.close();
       res.send(result.insertedId);
     });
-  });
 });
 
 app.put('/profile/{id}', (req, res) => res.send('Profile Put here'));
