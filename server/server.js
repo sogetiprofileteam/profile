@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+var url = require('url');
 
 const user = process.env.DB_USER;
 const pwd = process.env.DB_PWD;
@@ -13,7 +14,13 @@ const dbUri = `mongodb://${user}:${pwd}@ds113358.mlab.com:13358/sog-profile-dev`
 
 app.use(bodyParser.json());
 
-app.get('/search', (req, res) => res.send('search'));
+
+
+app.get('/search', (req, res)=> {
+  var id = req.query;
+  console.log(id);
+  res.send('search');
+});
 
 app.post('/profile', (req, res) => {
   const profile = req.body;
