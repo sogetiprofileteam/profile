@@ -36,7 +36,7 @@ app.get('/search', (req, res)=> {
 app.post('/profile', (req, res) => {
   const profile = req.body;
 
-  MongoClient.connect(dbUri, function(err, client) {
+  db.connect(dbUri, function(err, client) {
     if (err) {
       throw err;
     }
