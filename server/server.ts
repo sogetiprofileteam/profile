@@ -52,7 +52,6 @@ app.post('/profile', (req: Request, res: Response) => {
   const profile = req.body;
   const collection = db.collection('profiles');
     collection.insertOne(profile, (err, result) => {
-      // client.close();
       res.send(result.insertedId);
     });
 });
