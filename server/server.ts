@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { Request, Response, Application } from 'express';
 import { MongoClient, Db, MongoError } from 'mongodb';
-import { RequestHandler } from 'express-serve-static-core';
+import { RequestHandler, NextFunction } from 'express-serve-static-core';
 
 const app: Application = express();
 
@@ -24,6 +24,12 @@ MongoClient.connect(dbUri, function(err: MongoError, client: MongoClient) {
   // Start the application after the database connection is ready
   app.listen(3000);
   console.log("Listening on port 3000");
+});
+
+app.use(function(req: Request, res: Response, next: NextFunction) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.get('/search', (req: Request, res: Response)=> {
