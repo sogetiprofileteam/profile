@@ -1,6 +1,5 @@
 import * as express from 'express';
 import { Request, Response, Application } from 'express';
-//import bodyParser from 'body-parser';
 import { MongoClient, Db, MongoError } from 'mongodb';
 import { RequestHandler } from 'express-serve-static-core';
 
@@ -13,8 +12,6 @@ if (!user || !pwd) {
   throw 'Database username or password not specified.'
 }
 const dbUri = `mongodb://${user}:${pwd}@ds113358.mlab.com:13358/sog-profile-dev`;
-
-//app.use(bodyParser.json());
 
 let db: Db;
 
