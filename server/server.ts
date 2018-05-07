@@ -1,8 +1,10 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-var url = require('url');
+import * as express from 'express';
+import { Request, Response, Application } from 'express';
+//import bodyParser from 'body-parser';
+import { MongoClient, Db, MongoError } from 'mongodb';
+import { RequestHandler } from 'express-serve-static-core';
+
+const app: Application = express();
 
 const user = process.env.DB_USER;
 const pwd = process.env.DB_PWD;
@@ -12,12 +14,12 @@ if (!user || !pwd) {
 }
 const dbUri = `mongodb://${user}:${pwd}@ds113358.mlab.com:13358/sog-profile-dev`;
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
-let db;
+let db: Db;
 
 // Initialize connection once
-MongoClient.connect(dbUri, function(err, client) {
+MongoClient.connect(dbUri, function(err: MongoError, client: MongoClient) {
   if(err) throw err;
 
   db = client.db(dbName);
@@ -27,13 +29,13 @@ MongoClient.connect(dbUri, function(err, client) {
   console.log("Listening on port 3000");
 });
 
-app.get('/search', (req, res)=> {
+app.get('/search', (req: Request, res: Response)=> {
   const practice = req.query.practice;
   const skills = req.query.skill;
   console.log(skills);
   const ato = req.query.ato;
 
-  const query = {};
+  const query: { [index:string] : string | string[] } = {};
   if (practice) {
     query['practice'] = practice;
   }
@@ -49,8 +51,7 @@ app.get('/search', (req, res)=> {
     res.send(results);
   });
 });
-
-app.post('/profile', (req, res) => {
+app.post('/profile', (req: Request, res: Response) => {
   const profile = req.body;
   const collection = db.collection('profiles');
     collection.insertOne(profile, (err, result) => {
@@ -59,6 +60,6 @@ app.post('/profile', (req, res) => {
     });
 });
 
-app.put('/profile/{id}', (req, res) => res.send('Profile Put here'));
-app.delete('/profile/{id}', (req, res) => res.send('Profile delete here'));
-app.get('/profile/{id}', (req, res) => res.send('Profile get here'));
+app.put('/profile/{id}', (req: Request, res: Response) => res.send('Profile Put here'));
+app.delete('/profile/{id}', (req: Request, res: Response) => res.send('Profile delete here'));
+app.get('/profile/{id}', (req: Request, res: Response) => res.send('Profile get here'));
