@@ -26,13 +26,22 @@ MongoClient.connect(dbUri, function(err: MongoError, client: MongoClient) {
   console.log("Listening on port 3000");
 });
 
-app.use(function(req: Request, res: Response, next: NextFunction) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+const allowCrossDomain = function(req: Request, res: Response, next: NextFunction) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(204);
+  }
+  else {
+    next();
+  }
+};
+app.use(allowCrossDomain);
 
-app.get('/search', (req: Request, res: Response)=> {
+app.get('/search', (req: Request, res: Response) => {
   const practice = req.query.practice;
   const skills = req.query.skill;
   console.log(skills);
