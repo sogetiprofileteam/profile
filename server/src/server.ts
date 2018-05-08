@@ -33,17 +33,21 @@ app.use(corsMiddleware);
 app.get('/search', (req: Request, res: Response) => {
   const practice = req.query.practice;
   const skills = req.query.skill;
-  console.log(skills);
   const ato = req.query.ato;
 
-  const query: { [index:string] : string | string[] } = {};
+  const query: { [index:string] : string | {} } = {};
   if (practice) {
     query['practice'] = practice;
   }
   if (ato) {
     query['ato'] = ato;
   }
-  console.log(query);
+  if (skills) {
+    // if skills is not already an array, make one
+    const arrayOfSkills = [].concat(skills);
+    query['skills'] = { $in: arrayOfSkills }
+  }
+  
   db.collection('profiles').find(query).toArray(function(err, results) {
     if (err) {
       throw err;
