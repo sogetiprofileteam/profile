@@ -44,7 +44,6 @@ app.get('/search', (req: Request, res: Response) => {
     query['ato'] = ato;
   }
   console.log(query);
-  console.log(db);
   db.collection('profiles').find(query).toArray(function(err, results) {
     if (err) {
       throw err;
