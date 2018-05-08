@@ -20,6 +20,7 @@ export class ProfileRouter {
       const profile = req.body;
       try { 
         const result = await this.collection.insertOne(profile);
+        res.status(201);
         res.send(result.insertedId);
       } catch (error) {
         console.log(error);
@@ -38,5 +39,23 @@ export class ProfileRouter {
       console.log(req.params.id);
       res.send('Profile Put here');
     });
+
+    router.get('/', async (req: Request, res: Response) => {
+      const page = req.query.page && req.query.page * 1 || 1;
+      const size = req.query.size && req.query.size * 1 || 10;
+      const skip = (page - 1) * size;
+      console.log(page)
+      console.log(size)
+      console.log(skip)
+      try { 
+        const result = await this.collection.find();
+        const allProfiles = await result.skip(skip).limit(size).toArray();
+        res.send(allProfiles);
+      } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+      }
+      res.send('Profile Put here');
+    })
   }
 }
