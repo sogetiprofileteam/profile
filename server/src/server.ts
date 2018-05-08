@@ -18,8 +18,6 @@ let db: Db;
 const app: Application = express();
 app.use(corsMiddleware);
 
-
-
 app.get('/search', (req: Request, res: Response) => {
   const practice = req.query.practice;
   const skills = req.query.skill;
@@ -46,30 +44,8 @@ app.get('/search', (req: Request, res: Response) => {
   });
 });
 
-// app.post('/profile', (req: Request, res: Response) => {
-//   const profile = req.body;
-//   const collection = db.collection('profiles');
-//     collection.insertOne(profile, (err, result) => {
-//       res.send(result.insertedId);
-//     });
-// });
-
-// app.put('/profile/:id', (req: Request, res: Response) => {
-//   console.log(req.params.id);
-//   res.send('Profile Put here');
-// });
-
-// app.delete('/profile/{id}', (req: Request, res: Response) => res.send('Profile delete here'));
-
-// app.get('/profile/:id', (req: Request, res: Response) => {
-//   console.log(req.params.id);
-//   res.send('Profile Put here');
-// });
-
-
-
 // Initialize connection once
- (async () => { 
+(async () => { 
   try {
     const client = await MongoClient.connect(dbUri);
     db = client.db(dbName);
@@ -81,7 +57,6 @@ app.get('/search', (req: Request, res: Response) => {
   app.use('/profile', profileRouter.router);
 
   // Start the application after the database connection is ready
-  app.listen(3000);
+  app.listen(process.env.PORT || 3000);
   console.log("Listening on port 3000");
-
- })();
+})();
