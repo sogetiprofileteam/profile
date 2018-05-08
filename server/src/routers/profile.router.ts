@@ -41,12 +41,10 @@ export class ProfileRouter {
     });
 
     router.get('/', async (req: Request, res: Response) => {
+      // is this the best way to convert the query params to numbers (which mongo requires)?
       const page = req.query.page && req.query.page * 1 || 1;
       const size = req.query.size && req.query.size * 1 || 10;
       const skip = (page - 1) * size;
-      console.log(page)
-      console.log(size)
-      console.log(skip)
       try { 
         const result = await this.collection.find();
         const allProfiles = await result.skip(skip).limit(size).toArray();
