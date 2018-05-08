@@ -2,6 +2,7 @@ import * as express from 'express';
 import { Request, Response, Application } from 'express';
 import { MongoClient, Db, MongoError } from 'mongodb';
 import { RequestHandler, NextFunction } from 'express-serve-static-core';
+import { corsMiddleware } from './utils';
 
 const app: Application = express();
 
@@ -26,20 +27,8 @@ MongoClient.connect(dbUri, function(err: MongoError, client: MongoClient) {
   console.log("Listening on port 3000");
 });
 
-const allowCrossDomain = function(req: Request, res: Response, next: NextFunction) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    
-  // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    res.send(204);
-  }
-  else {
-    next();
-  }
-};
-app.use(allowCrossDomain);
+
+app.use(corsMiddleware);
 
 app.get('/search', (req: Request, res: Response) => {
   const practice = req.query.practice;
@@ -63,6 +52,7 @@ app.get('/search', (req: Request, res: Response) => {
     res.send(results);
   });
 });
+
 app.post('/profile', (req: Request, res: Response) => {
   const profile = req.body;
   const collection = db.collection('profiles');
@@ -71,6 +61,14 @@ app.post('/profile', (req: Request, res: Response) => {
     });
 });
 
-app.put('/profile/{id}', (req: Request, res: Response) => res.send('Profile Put here'));
+app.put('/profile/:id', (req: Request, res: Response) => {
+  console.log(req.params.id);
+  res.send('Profile Put here');
+});
+
 app.delete('/profile/{id}', (req: Request, res: Response) => res.send('Profile delete here'));
-app.get('/profile/{id}', (req: Request, res: Response) => res.send('Profile get here'));
+
+app.get('/profile/:id', (req: Request, res: Response) => {
+  console.log(req.params.id);
+  res.send('Profile Put here');
+});
