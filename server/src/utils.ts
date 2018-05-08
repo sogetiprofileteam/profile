@@ -1,5 +1,5 @@
 import { Request, Response, Application } from 'express';
-import { RequestHandler, NextFunction } from 'express-serve-static-core';
+import { NextFunction } from 'express-serve-static-core';
 
 export const corsMiddleware = function(req: Request, res: Response, next: NextFunction) {
   res.header('Access-Control-Allow-Origin', '*');

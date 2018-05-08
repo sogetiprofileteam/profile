@@ -16,6 +16,7 @@ let db: Db;
 
 const app: Application = express();
 app.use(corsMiddleware);
+app.use(express.json());
 
 app.get('/search', (req: Request, res: Response) => {
   const practice = req.query.practice;
