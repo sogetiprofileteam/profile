@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { Request, Response, Application } from 'express';
 import { MongoClient, Db, MongoError } from 'mongodb';
-import { RequestHandler, NextFunction } from 'express-serve-static-core';
 import { corsMiddleware } from './utils';
 import { ProfileRouter } from './routers/profile.router';
 
