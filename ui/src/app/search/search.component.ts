@@ -11,8 +11,8 @@ import { Profile } from '../models/profile';
 })
 export class SearchComponent implements OnInit {
 
-  protected search: Search = new Search();
-  protected results: Profile[] = [];
+  public search: Search = new Search();
+  public results: Profile[] = [];
   constructor(public searchService: SearchService) { }
 
   ngOnInit() {
