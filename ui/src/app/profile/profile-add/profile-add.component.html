@@ -29,14 +29,13 @@
                 [(ngModel)]="profile.title" name="title">
         </div>
         <div class="col-12 col-md-6 col-lg-4 form-group">
-          <label for="profileSkills">Skills</label>
-          <select class="form-control" 
-                  id="profileSkills"
-                  [(ngModel)]="profile.skills" name="skills">
-            <option value="html">HTML</option>
-            <option value="css">CSS</option>
-            <option value="javascript">JavaScript</option>
-          </select>
+          <label for="skills">Skills</label>
+          <input type="text"
+                class="form-control"
+                id="skills"
+                name="skills"
+                placeholder="Enter skills (comma or space seperated)"
+                [(ngModel)]="skillList">
         </div>
         <div class="col-12 col-md-6 col-lg-4 form-group">
           <label for="profilePractice">Practice</label>

@@ -13,6 +13,7 @@ export class ProfileAddComponent implements OnInit {
 
   public practices: string[];
   public profile: Profile = new Profile();
+  public skillList = '';
 
   constructor(private service: ProfileAddService, private practiceService: PracticeService) { }
 
@@ -21,7 +22,7 @@ export class ProfileAddComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.profile);
+    this.profile.skills = this.skillList.split(/[\s,;]+/);
     this.service.postProfile(this.profile).subscribe(res => {
       console.log('successful');
     }, error => {
