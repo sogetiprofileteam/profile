@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import { Profile } from '../models/profile';
+import { Profile } from '../../models/profile';
 
 const postEndpoint = 'http://localhost:3000/profile';
 
@@ -10,7 +10,7 @@ const httpOptions = {
 };
 
 @Injectable()
-export class PortfolioAddService {
+export class ProfileAddService {
 
   constructor(private http: HttpClient) { }
 

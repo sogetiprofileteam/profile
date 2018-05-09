@@ -5,8 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
-import { PortfolioAddModule } from '../portfolio-add/portfolio-add.module';
-import { PortfolioModule } from '../portfolio/portfolio.module';
+import { ProfileAddModule } from '../profile/profile-add/profile-add.module';
+import { ProfileModule } from '../profile/profile.module';
 import { SearchModule } from '../search/search.module';
 import { PageNotFoundComponent } from './not-found.component';
 
@@ -19,9 +19,9 @@ import { PageNotFoundComponent } from './not-found.component';
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    PortfolioAddModule,
+    ProfileAddModule,
     SearchModule,
-    PortfolioModule,
+    ProfileModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

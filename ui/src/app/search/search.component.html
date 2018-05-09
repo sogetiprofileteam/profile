@@ -50,9 +50,9 @@
 <div class="portfolio-items section">
   <div class="container">
     <p *ngIf="results.length === 0">No results found.</p>
-    <app-portfolio-item *ngFor="let profile of results" 
+    <app-profile-item *ngFor="let profile of results" 
       name="{{profile.firstName + ' ' + profile.lastName}}" 
       title="{{profile.title}}" 
-      practice="{{profile.practice}}"></app-portfolio-item>
+      practice="{{profile.practice}}"></app-profile-item>
   </div>
 </div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { PortfolioItemModule } from '../portfolio-item/portfolio-item.module';
+import { ProfileItemModule } from '../profile/profile-item/profile-item.module';
 
 import { SearchComponent } from './search.component';
 import { SearchService } from './search.service';
@@ -11,7 +11,7 @@ import { SearchService } from './search.service';
   imports: [
     CommonModule,
     FormsModule,
-    PortfolioItemModule
+    ProfileItemModule
   ],
   declarations: [SearchComponent],
   exports: [SearchComponent],

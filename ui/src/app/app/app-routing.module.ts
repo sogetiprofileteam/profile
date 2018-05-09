@@ -1,19 +1,18 @@
-import { NgModule }              from '@angular/core';
-import { RouterModule, Routes }  from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent }   from './app.component';
-import { PortfolioAddComponent }   from '../portfolio-add/portfolio-add.component';
+import { AppComponent } from './app.component';
+import { ProfileAddComponent } from '../profile/profile-add/profile-add.component';
 import { SearchComponent } from '../search/search.component';
-import { PortfolioComponent } from '../portfolio/portfolio.component';
+import { ProfileComponent } from '../profile/profile-view/profile.component';
 import { PageNotFoundComponent } from './not-found.component';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
-  { path: 'add', component: PortfolioAddComponent },
+  { path: 'add', component: ProfileAddComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'portfolio' , component: PortfolioComponent },
-  // { path: '**', component: PageNotFoundComponent},  
-  
+  { path: 'profile' , component: ProfileComponent },
+  // { path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Profile } from '../models/profile';
-import { PortfolioAddService } from './portfolio-add.service';
+import { Profile } from '../../models/profile';
+import { ProfileAddService } from './profile-add.service';
 
 @Component({
   selector: 'app-portfolio-add',
-  templateUrl: './portfolio-add.component.html',
-  styleUrls: ['./portfolio-add.component.scss']
+  templateUrl: './profile-add.component.html',
+  styleUrls: ['./profile-add.component.scss']
 })
-export class PortfolioAddComponent implements OnInit {
+export class ProfileAddComponent implements OnInit {
 
   profile: Profile = new Profile();
 
-  constructor(private service: PortfolioAddService) { }
+  constructor(private service: ProfileAddService) { }
 
   ngOnInit() {
   }
