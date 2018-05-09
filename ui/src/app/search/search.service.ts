@@ -21,6 +21,14 @@ export class SearchService {
     if (search.ato) {
       url += `ato=${search.ato}&`;
     }
-    return url;
+    if (search.practice) {
+      url += `practice=${search.practice}&`;
+    }
+    if (search.skills && search.skills.length) {
+      for (const skill of search.skills) {
+        url += `skill=${skill}&`;
+      }
+    }
+    return encodeURI(url);
   }
 }

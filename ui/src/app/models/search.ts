@@ -1,5 +1,5 @@
 export class Search {
-    skill: string;
+    skills: string[];
     practice: string;
     ato: boolean;
   }

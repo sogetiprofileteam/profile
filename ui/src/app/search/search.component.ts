@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
 
   public search: Search = new Search();
   public results: Profile[] = [];
+  public searchSkills = '';
   constructor(public searchService: SearchService) { }
 
   ngOnInit() {
@@ -20,6 +21,7 @@ export class SearchComponent implements OnInit {
 
   async onSubmit() {
     try {
+      this.search.skills = this.searchSkills.split(/[\s,;]+/);
       this.results = await this.searchService
         .getSearchResponse(this.search)
         .toPromise();

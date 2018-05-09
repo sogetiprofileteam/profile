@@ -23,15 +23,12 @@
         </select>
       </div>
       <div class="col-12 col-md-2 form-group">
-        <label for="employeeSkill">Skill</label>
-        <select class="form-control" 
-                id="employeeSkill"
-                [(ngModel)]="search.skill" name="skill">
-          <option value="html">HTML</option>
-          <option value="css">CSS</option>
-          <option value="javascript">JavaScript</option>
-          <option value="dotnet">.NET</option>
-        </select>
+        <label for="skills">Skills</label>
+        <input type="text" 
+                class="form-control" 
+                id="skills"
+                [(ngModel)]="searchSkills" 
+                name="skills"/>
       </div>
       <div class="col-12 col-md-2 form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
