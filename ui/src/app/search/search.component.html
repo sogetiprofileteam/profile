@@ -52,7 +52,7 @@
     <p *ngIf="results.length === 0">No results found.</p>
     <app-portfolio-item *ngFor="let profile of results" 
       name="{{profile.firstName + ' ' + profile.lastName}}" 
-      title="Manager" 
-      practice="Digital Transformation"></app-portfolio-item>
+      title="{{profile.title}}" 
+      practice="{{profile.practice}}"></app-portfolio-item>
   </div>
 </div>
