@@ -53,7 +53,6 @@ export class ProfileRouter {
         console.log(error);
         res.sendStatus(500);
       }
-      res.send('Profile Put here');
-    })
+    });
   }
 }

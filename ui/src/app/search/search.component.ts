@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SearchService } from './search.service';
 import { Search } from '../models/search';
+import { Profile } from '../models/profile';
 
 @Component({
   selector: 'app-search',
@@ -9,43 +10,21 @@ import { Search } from '../models/search';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  search: Search = new Search();
 
+  protected search: Search = new Search();
+  protected results: Profile[] = [];
   constructor(public searchService: SearchService) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    let practice = this.search.practice;
-    let skill = this.search.skill;
-    let ato = this.search.ato;
-    let query;
-
-    // if (this.search.skills) {
-    //   console.log(this.search.skills);
-    //   skills = this.skillsString(this.search.skills);
-    // } else {
-    //   skills = ''
-    // }
-
-    query = '?practice=' + practice + '&skill=' + skill + '&ato=' + ato;
-
-    this.searchService.getSearchResponse(query);
+  async onSubmit() {
+    try {
+      this.results = await this.searchService
+        .getSearchResponse(this.search)
+        .toPromise();
+    } catch (err) {
+      console.log(err);
+    }
   }
-
-  // skillsString(skills) {
-  //   let skillsString;
-
-  //   skills.array.forEach(element => {
-  //     let string;
-
-  //     string = '&skill=' + element;
-
-  //     skillsString.push(String);
-  //   });
-
-  //   return skillsString;
-  // }
-
 }

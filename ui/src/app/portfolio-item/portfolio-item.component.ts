@@ -9,7 +9,7 @@ export class PortfolioItemComponent implements OnInit {
   @Input() name: string;
   @Input() title: string;
   @Input() practice: string;
-  @Input() skills: any;
+  @Input() skills: string[];
 
   constructor() { }
 

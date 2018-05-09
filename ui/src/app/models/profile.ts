@@ -5,8 +5,8 @@ export class Profile {
   picUrl: string;
   portfolioPics: string[];
   practice: string;
-  ato: string
+  ato: string;
+  title: string;
 
   constructor() { }
-
-} 
+}
