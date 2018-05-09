@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Request, Response, Application } from 'express';
-import { Db, Collection } from 'mongodb';
+import { Db, Collection, ObjectId } from 'mongodb';
 
 export class ProfileRouter {
   
@@ -35,9 +35,19 @@ export class ProfileRouter {
     
     router.delete('/:id', (req: Request, res: Response) => res.send('Profile delete here'));
     
-    router.get('/:id', (req: Request, res: Response) => {
-      console.log(req.params.id);
-      res.send('Profile Put here');
+    router.get('/:id', async (req: Request, res: Response) => {
+      const id = req.params.id;
+      if (!id) {
+        res.sendStatus(400);
+      }
+      try { 
+        const result = await this.collection.findOne(new ObjectId(id));
+        console.log(result);
+        res.send(result);
+      } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+      }
     });
 
     router.get('/', async (req: Request, res: Response) => {
