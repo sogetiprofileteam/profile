@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Profile } from '../../models/profile';
 import { ProfileAddService } from './profile-add.service';
+import { PracticeService } from '../../shared/services/practice.service';
 
 @Component({
   selector: 'app-portfolio-add',
@@ -10,11 +11,13 @@ import { ProfileAddService } from './profile-add.service';
 })
 export class ProfileAddComponent implements OnInit {
 
-  profile: Profile = new Profile();
+  public practices: string[];
+  public profile: Profile = new Profile();
 
-  constructor(private service: ProfileAddService) { }
+  constructor(private service: ProfileAddService, private practiceService: PracticeService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.practices = await this.practiceService.get().toPromise();
   }
 
   onSubmit() {
