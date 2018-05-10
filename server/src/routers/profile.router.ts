@@ -38,7 +38,10 @@ export class ProfileRouter {
     router.get('/:id', async (req: Request, res: Response) => {
       const id = req.params.id;
       if (!id) {
-        res.sendStatus(400);
+        res.status(400);
+        res.send({
+          message: 'Parameter id is required.'
+        });
       }
       try { 
         const result = await this.collection.findOne(new ObjectId(id));
