@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProfileViewService } from './profile-view.service';
+import { Profile } from '../../models/profile';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  public profile: Profile;
+  constructor(private route: ActivatedRoute, private profileViewService: ProfileViewService) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(async params => {
+      const id = params.get('id');
+      try {
+        this.profile = await this.profileViewService.get(id);
+      } catch (err) {
+        console.log(err);
+      }
+    });
   }
-
 }

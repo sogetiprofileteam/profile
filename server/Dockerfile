@@ -12,11 +12,11 @@ RUN npm install
 # If you are building your code for production
 # RUN npm install --only=production
 
-# build the app
-RUN npm run build
-
 # Bundle app source
 COPY . .
+
+# build the app
+RUN npm run build
 
 EXPOSE 8080
 
