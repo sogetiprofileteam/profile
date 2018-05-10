@@ -11,7 +11,7 @@ const appRoutes: Routes = [
   { path: '', component: AppComponent },
   { path: 'add', component: ProfileAddComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'profile' , component: ProfileComponent },
+  { path: 'profile/:id' , component: ProfileComponent },
   // { path: '**', component: PageNotFoundComponent},
 ];
 

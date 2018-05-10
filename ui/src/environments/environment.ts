@@ -9,7 +9,7 @@ const api = {
   url: 'http://localhost:3000',
   resources: {
     search: '/search',
-    profile: '/profile'
+    profile: '/profile/'
   },
   httpOptions: {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
