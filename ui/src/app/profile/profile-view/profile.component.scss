@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .profile-photo {
     width: 100%;
     border-radius: 5px;
@@ -7,18 +9,23 @@
     text-decoration: underline;
 }
 
-.container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .card {
     padding: 15px;
+    border: none;
 }
 
 i {
     font-size: 3rem !important;
     padding-right: 10px;
+}
+
+h4.subheader {
+    background-color: $primary-color;
+    color: white;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .skills-icons {

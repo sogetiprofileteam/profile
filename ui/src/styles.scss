@@ -5,3 +5,13 @@
   padding-top: $spacing-reg * 2;
   padding-bottom: $spacing-reg * 2;
 }
+
+body {
+  background-color: $background-color;
+}
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #e6e6e6;
+}
