@@ -14,8 +14,8 @@ export class ProfileAddService {
 
   constructor(private http: HttpClient) { }
 
-  postProfile(profile: Profile) {
-    return this.http.post(postEndpoint, profile);
+  postProfile(profile: Profile): Observable<string> {
+    return this.http.post<string>(postEndpoint, profile);
 }
 
 
