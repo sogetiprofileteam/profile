@@ -10,10 +10,12 @@ export class ProfileItemComponent implements OnInit {
   @Input() title: string;
   @Input() practice: string;
   @Input() skills: string[];
+  @Input() id: string;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.id);
   }
 
 }
