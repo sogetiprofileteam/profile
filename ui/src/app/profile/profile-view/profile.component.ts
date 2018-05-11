@@ -10,7 +10,7 @@ import { Profile } from '../../models/profile';
 })
 export class ProfileComponent implements OnInit {
 
-  public profile: Profile;
+  public profile: Profile = new Profile();
   constructor(private route: ActivatedRoute, private profileViewService: ProfileViewService) { }
 
   ngOnInit() {
@@ -18,10 +18,13 @@ export class ProfileComponent implements OnInit {
       const id = params.get('id');
       try {
         this.profile = await this.profileViewService.get(id);
-        console.log(this.profile);
       } catch (err) {
         console.log(err);
       }
     });
+  }
+
+  public onProfileImgUploaded(event: string) {
+    console.log(event); // should be the object id
   }
 }

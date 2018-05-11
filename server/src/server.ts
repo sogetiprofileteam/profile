@@ -4,6 +4,7 @@ import { MongoClient, Db, MongoError } from 'mongodb';
 import { corsMiddleware } from './utils';
 import { ProfileRouter } from './routers/profile.router';
 import { SearchRouter } from './routers/search.router';
+import { FileRouter } from './routers/file.router';
 
 const user = process.env.DB_USER;
 const pwd = process.env.DB_PWD;
@@ -32,6 +33,8 @@ app.use(express.json());
   app.use('/profile', profileRouter.router);
   const searchRouter = new SearchRouter(db);
   app.use('/search', searchRouter.router);
+  const fileRouter = new FileRouter(db);
+  app.use('/file', fileRouter.router);
 
   // Start the application after the database connection is ready
   app.listen(process.env.PORT || 3000);

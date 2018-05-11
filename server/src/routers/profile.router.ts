@@ -45,7 +45,6 @@ export class ProfileRouter {
       }
       try { 
         const result = await this.collection.findOne(new ObjectId(id));
-        console.log(result);
         res.send(result);
       } catch (error) {
         console.log(error);
