@@ -42,7 +42,7 @@
           <select class="form-control" 
                   id="profilePractice"
                   [(ngModel)]="profile.practice" name="practice">
-            <option *ngFor="let practice of practices" value="practice">{{practice}}</option>
+            <option *ngFor="let practice of practices" value="{{practice}}">{{practice}}</option>
           </select>
         </div>
         <div class="col-12 col-md-6 col-lg-4 form-group">
