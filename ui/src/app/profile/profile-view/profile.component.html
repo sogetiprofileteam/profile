@@ -5,14 +5,15 @@
         <img class="profile-photo" src="https://media.licdn.com/dms/image/C4D03AQFJRqCOuHqJ4A/profile-displayphoto-shrink_800_800/0?e=1531353600&v=beta&t=tfcmkYEdVBSleVRGiatWyBo1_BB3rLjw_zW2QEpW_as" alt="Card image cap">
       </div>
       <div class="col-9">
-        <h3 class="card-title">Joe Slater <span class="badge badge-primary">ATO</span></h3>
-        <h6 class="card-subtitle mb-2 text-muted">Manager | Digital Transformation</h6>
+        <h3 class="card-title">{{profile.firstName}} {{profile.lastName}} <span *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</span></h3>
+        <h6 class="card-subtitle mb-2 text-muted">{{profile.title}} | {{profile.practice}}</h6>
         <h5 class="skills-title">Core Skills</h5>
         <div class="skills-icons">
-          <i class="devicon-angularjs-plain colored"></i>
+          {{profile.skills}}
+          <!-- <i class="devicon-angularjs-plain colored"></i>
           <i class="devicon-react-plain-wordmark colored"></i>
           <i class="devicon-html5-plain-wordmark colored"></i>
-          <i class="devicon-css3-plain-wordmark colored"></i>
+          <i class="devicon-css3-plain-wordmark colored"></i> -->
         </div>
       </div>
     </div>

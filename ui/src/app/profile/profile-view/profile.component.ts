@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
       const id = params.get('id');
       try {
         this.profile = await this.profileViewService.get(id);
+        console.log(this.profile);
       } catch (err) {
         console.log(err);
       }
