@@ -1,7 +1,7 @@
 <div class="container">
   <div class="card">
     <div class="row">
-      <div class="col-3">
+      <div class="col-3 photo-container">
         <!-- <app-file-upload [uploadUri]="'http://localhost:3000/file'" (uploaded)="onProfileImgUploaded($event)"></app-file-upload> -->
         <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
       </div>
@@ -18,19 +18,24 @@
         </div>
       </div>
     </div>
-    <h4 class="subheader">Summary</h4>
-    <div>
+    <h4 class="subheader">Summary<i class="far fa-edit float-right" (click)="toggleSummary()"></i></h4>
+    <div *ngIf="!summaryEdit">
       <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet ultrices est sit amet placerat. Curabitur vehicula condimentum nisl id egestas. Quisque sit amet neque lacus. Pellentesque iaculis, lorem sed egestas malesuada, orci libero lacinia nisl, at consectetur massa justo id sapien. Morbi accumsan urna ante, eget viverra ante tincidunt quis. Aenean sit amet congue enim. Aliquam erat volutpat. Donec quis sagittis nisl.
           Integer commodo elit et nulla aliquet, vel dignissim dui vehicula. Nam ut dictum erat, a auctor justo. Proin a augue blandit augue varius bibendum. Nunc malesuada massa ex, eu finibus orci porttitor eget. Maecenas tincidunt lectus ligula, in lobortis ligula malesuada nec. In id leo efficitur, auctor metus non, semper massa. Mauris nec suscipit eros. Nunc non venenatis nisl. In sollicitudin lacinia lacus, ut bibendum magna cursus ac. Sed vehicula pharetra maximus. Etiam nec accumsan ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mauris dui, auctor nec laoreet in, commodo ac arcu.
       </p>
     </div>
-    <h4 class="subheader">Education</h4>
+    <div *ngIf="summaryEdit" class="form-group">
+      <label for="exampleFormControlTextarea1">Edit Summary</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <button class="btn btn-success float-right">Save</button>
+    </div>
+    <h4 class="subheader">Education<i class="far fa-edit float-right"></i></h4>
     <h4 class="education-title">Florida State University</h4>
     <h6 class="card-subtitle mb-2 text-muted">Bachelor of Fine Arts, Graphic Design</h6>
     <h5>2010</h5>
-    <h4 class="subheader">Software Development Skills</h4>
-    <h4 class="subheader">Professional Experience</h4>
+    <h4 class="subheader">Software Development Skills<i class="far fa-edit float-right"></i></h4>
+    <h4 class="subheader">Professional Experience<i class="far fa-edit float-right"></i></h4>
     
     
   </div>

@@ -1,5 +1,9 @@
 @import '../../../styles/variables.scss';
 
+@media screen and (min-width: 0px) and (max-width: 544px) {
+    div.photo-container { display: none; } 
+  }
+
 .profile-photo {
     width: 100%;
     border-radius: 5px;
@@ -17,8 +21,13 @@
 }
 
 i {
-    font-size: 3rem !important;
     padding-right: 10px;
+    padding-top: 3px;
+    cursor: pointer;
+}
+
+button {
+    margin-top: 15px;
 }
 
 h4.subheader {
