@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 
 const api = {
-  url: 'http://localhost:3000',
+  url: 'https://sogeti-profile-api-dev.herokuapp.com',
   resources: {
     search: '/search',
     profile: '/profile'
