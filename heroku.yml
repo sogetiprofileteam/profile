@@ -1,4 +1,3 @@
 build:
   docker:
     web: ui/Dockerfile
-    api: server/Dockerfile
