@@ -6,7 +6,7 @@ To contribute please contact Larry Foulkrod or Dave Gardner to be added to the r
 ## How to contribute.
 1. Locate a task on the [project board](https://github.com/DavidMGardner/sogeti-portfolio/projects/7) and assign it to yourself.
 2. Create a new branch and complete the task
-3. Submit a pull request to master.
+3. Submit a pull request to master. 
 
 ## Running the API
 1. `cd server`  
