@@ -11,7 +11,7 @@ export class ProfileViewService {
 
   public async get(id: string): Promise<Profile> {
     const result = await this.http.get<Profile>(
-      environment.api.url + environment.api.resources.profile + id,
+      environment.api.url + environment.api.resources.profile + '/' + id,
       environment.api.httpOptions).toPromise();
     return result;
   }
