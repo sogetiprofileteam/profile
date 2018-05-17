@@ -9,7 +9,7 @@ const api = {
   url: 'https://sogeti-profile-api-dev.herokuapp.com',
   resources: {
     search: '/search',
-    profile: '/profile/'
+    profile: '/profile'
   },
   httpOptions: {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

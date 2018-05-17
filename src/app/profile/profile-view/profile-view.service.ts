@@ -15,4 +15,9 @@ export class ProfileViewService {
       environment.api.httpOptions).toPromise();
     return result;
   }
+
+  public updateProfile(id: string, profile: Profile): Observable<null> {
+    return this.http.put<null>(environment.api.url + environment.api.resources.profile + '/' + id, profile);
+    
+  }
 }

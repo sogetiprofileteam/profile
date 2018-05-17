@@ -9,19 +9,26 @@ import { Profile } from '../../models/profile';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  id: string;
   summaryEdit: boolean;
   public profile: Profile = new Profile();
   constructor(private route: ActivatedRoute, private profileViewService: ProfileViewService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(async params => {
-      const id = params.get('id');
+      this.id = params.get('id');
       try {
-        this.profile = await this.profileViewService.get(id);
+        this.profile = await this.profileViewService.get(this.id);
       } catch (err) {
         console.log(err);
       }
     });
+  }
+
+  async editProfile() {
+    await this.profileViewService.updateProfile(this.id, this.profile).toPromise();
+    console.log(this.id);
+    console.log(this.profile);
   }
 
   public onProfileImgUploaded(event: string) {
