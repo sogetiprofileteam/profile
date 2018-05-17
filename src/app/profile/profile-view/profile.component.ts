@@ -9,6 +9,7 @@ import { Profile } from '../../models/profile';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  summaryEdit: boolean;
   public profile: Profile = new Profile();
   constructor(private route: ActivatedRoute, private profileViewService: ProfileViewService) { }
 

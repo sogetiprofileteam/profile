@@ -5,7 +5,7 @@
         <!-- <app-file-upload [uploadUri]="'http://localhost:3000/file'" (uploaded)="onProfileImgUploaded($event)"></app-file-upload> -->
         <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
       </div>
-      <div *ngIf="!profileEdit" class="col-9">
+      <div class="col-9">
         <h3 class="card-title">{{profile.firstName}} {{profile.lastName}} 
           <span *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</span>
           <i class="far fa-edit float-right" data-toggle="modal" data-target="#exampleModal"></i>
