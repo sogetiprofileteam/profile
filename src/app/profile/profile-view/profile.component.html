@@ -26,13 +26,19 @@
               </button>
             </div>
             <div class="modal-body">
-              <label for="exampleInputPassword1">Name</label>
-              <input type="text" class="form-control" value="{{profile.firstName}} {{profile.lastName}}">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{profile.ato}}" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  ATO
-                </label>
+              <div class="name-ato">
+                <div class="name">
+                  <label for="exampleInputPassword1">Name</label>
+                  <input type="text" class="form-control" value="{{profile.firstName}} {{profile.lastName}}">
+                </div>
+                <div class="ato">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{profile.ato}}" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      ATO
+                    </label>
+                  </div>
+                </div>
               </div>
               <label for="exampleInputPassword1">Title</label>
               <input type="text" class="form-control" value="{{profile.title}}">
