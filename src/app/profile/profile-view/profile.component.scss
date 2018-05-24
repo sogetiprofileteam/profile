@@ -39,9 +39,19 @@ p {
     box-shadow: 10px;
 }
 
+.sogeti-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
 .card .row {
     display: flex;
     justify-content: center;
+}
+
+.profile-header {
+    box-shadow: 0 8px 6px -6px #DCDCDC;
 }
 
 i {
@@ -58,11 +68,12 @@ button {
     margin-top: 15px;
 }
 
-h4.subheader {
+h5.subheader {
     color: $primary-color;
     padding-bottom: 4px;
     margin-top: 20px;
     border-bottom: 1px solid #DCDCDC;
+    font-weight: bold;
 }
 
 .skills-icons {

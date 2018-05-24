@@ -1,19 +1,24 @@
 <div class="container">
   <div class="card">
-    <div class="row photo-container">
-      <div class="col-3">
-        <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
-        <div *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</div>
+    <div class="profile-header">
+      <div class="row photo-container">
+        <div class="col-3">
+          <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
+          <div *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</div>
+        </div>
       </div>
-    </div>
-    <div class="row name">
-      <h3>{{profile.firstName}} {{profile.lastName}}</h3>
-    </div>
-    <div class="row title">
-      <p>{{profile.title}} | <b>{{profile.practice}}</b></p>
-    </div>
-    <div class="row email">
-      <p>first.last@us.sogeti.com</p>
+      <div class="row name">
+        <h3>{{profile.firstName}} {{profile.lastName}}</h3>
+      </div>
+      <div class="row title">
+        <p>{{profile.title}} | <b>{{profile.practice}}</b></p>
+      </div>
+      <div class="row email">
+        <p>first.last@us.sogeti.com</p>
+      </div>
+      <div class="row sogeti-info">
+        <p><b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980</p>
+      </div>
     </div>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -63,7 +68,7 @@
           </div>
         </div>
       </div>
-    <h4 class="subheader">Summary<i class="far fa-edit float-right" (click)="summaryEdit = !summaryEdit"></i></h4>
+    <h5 class="subheader">Summary<i class="far fa-edit float-right" (click)="summaryEdit = !summaryEdit"></i></h5>
     <div *ngIf="!summaryEdit">
       <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet ultrices est sit amet placerat. Curabitur vehicula condimentum nisl id egestas. Quisque sit amet neque lacus. Pellentesque iaculis, lorem sed egestas malesuada, orci libero lacinia nisl, at consectetur massa justo id sapien. Morbi accumsan urna ante, eget viverra ante tincidunt quis. Aenean sit amet congue enim. Aliquam erat volutpat. Donec quis sagittis nisl.
@@ -75,12 +80,12 @@
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
       <button class="btn btn-success float-right">Save</button>
     </div>
-    <h4 class="subheader">Education<i class="far fa-edit float-right"></i></h4>
+    <h5 class="subheader">Education<i class="far fa-edit float-right"></i></h5>
     <h4 class="education-title">Florida State University</h4>
     <h6 class="card-subtitle mb-2 text-muted">Bachelor of Fine Arts, Graphic Design</h6>
     <h5>2010</h5>
-    <h4 class="subheader">Software Development Skills<i class="far fa-edit float-right"></i></h4>
-    <h4 class="subheader">Professional Experience<i class="far fa-edit float-right"></i></h4>
+    <h5 class="subheader">Software Development Skills<i class="far fa-edit float-right"></i></h5>
+    <h5 class="subheader">Professional Experience<i class="far fa-edit float-right"></i></h5>
     
     
   </div>
