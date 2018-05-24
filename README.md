@@ -15,4 +15,4 @@ The #portfolio-ato-proj Slack channel has the values for the environment variabl
 
 ## Running the UI
 1. `cd ui`  
-2. `npm run start`
+2. `npm run start-ng`
