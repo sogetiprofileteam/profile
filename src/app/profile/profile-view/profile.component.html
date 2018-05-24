@@ -1,10 +1,11 @@
 <div class="container">
   <div class="card">
-    <div class="row">
-      <div class="col-3 photo-container">
-        <!-- <app-file-upload [uploadUri]="'http://localhost:3000/file'" (uploaded)="onProfileImgUploaded($event)"></app-file-upload> -->
+    <div class="row photo-container">
+      <div class="col-3">
         <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
       </div>
+    </div>
+    <div class="row">
       <div class="col-9">
         <h3 class="card-title">{{profile.firstName}} {{profile.lastName}} 
           <span *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</span>
@@ -16,6 +17,7 @@
           {{profile.skills}}
         </div>
       </div>
+    </div>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -64,7 +66,6 @@
           </div>
         </div>
       </div>
-    </div>
     <h4 class="subheader">Summary<i class="far fa-edit float-right" (click)="summaryEdit = !summaryEdit"></i></h4>
     <div *ngIf="!summaryEdit">
       <p>
