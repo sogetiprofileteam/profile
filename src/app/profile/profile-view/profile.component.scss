@@ -10,9 +10,12 @@
     min-width: 50px;
 }
 
-.row.photo-container {
-    display: flex;
-    justify-content: center;
+.badge-primary {
+    border-radius: 50%;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: $primary-color;
 }
 
 .skills-title {
@@ -25,10 +28,19 @@
     box-shadow: 10px;
 }
 
+.card .row {
+    display: flex;
+    justify-content: center;
+}
+
 i {
     padding-right: 10px;
     padding-top: 3px;
     cursor: pointer;
+}
+
+.photo-container {
+    margin-bottom: 10px;
 }
 
 button {

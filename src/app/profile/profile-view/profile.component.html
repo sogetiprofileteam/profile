@@ -1,22 +1,19 @@
 <div class="container">
   <div class="card">
     <div class="row photo-container">
-      <div class="col-3">
+      <div class="col-4">
         <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
+        <div class="bottom-right" *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-9">
-        <h3 class="card-title">{{profile.firstName}} {{profile.lastName}} 
-          <span *ngIf="profile.ato === 'yes'" class="badge badge-primary">ATO</span>
-          <i class="far fa-edit float-right" data-toggle="modal" data-target="#exampleModal"></i>
-        </h3>
-        <h6 class="card-subtitle mb-2 text-muted">{{profile.title}} | {{profile.practice}}</h6>
-        <h5 class="skills-title">Core Skills</h5>
-        <div class="skills-icons">
-          {{profile.skills}}
-        </div>
-      </div>
+    <div class="row name">
+      <h3 class="card-title">{{profile.firstName}} {{profile.lastName}}</h3>
+    </div>
+    <div class="row title">
+      <p>{{profile.title}} | <b>{{profile.practice}}</b></p>
+    </div>
+    <div class="row email">
+      <p>first.last@us.sogeti.com</p>
     </div>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -88,3 +85,4 @@
     
   </div>
 </div>
+          <!-- <i class="far fa-edit float-right" data-toggle="modal" data-target="#exampleModal"></i> -->
