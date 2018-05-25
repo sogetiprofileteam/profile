@@ -1,7 +1,55 @@
 <div class="container">
   <div class="card">
     <div class="profile-header">
-      <!-- <i class="far fa-edit float-right" data-toggle="modal" data-target="#exampleModal"></i> -->
+      <i class="far fa-edit float-right" data-toggle="modal" data-target="#editProfileModal"></i>
+      <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="name-ato">
+                  <div class="first-name">
+                    <label for="exampleInputPassword1">First Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="profile.firstName">
+                  </div>
+                  <div class="last-name">
+                    <label for="exampleInputPassword1">Last Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="profile.lastName">
+                  </div>
+                  <div class="ato">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="{{profile.ato}}" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        ATO
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="title">
+                  <label for="exampleInputPassword1">Title</label>
+                  <input type="text" class="form-control" [(ngModel)]="profile.title">
+                </div>
+                <div class="practice">
+                  <label for="exampleInputPassword1">Practice</label>
+                  <input type="text" class="form-control" [(ngModel)]="profile.practice">
+                </div>
+                <div class="skills">
+                  <label for="exampleInputPassword1">Core Skills</label>
+                  <input type="text" class="form-control" [(ngModel)]="profile.skills">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" (click)="editProfile()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
       <div class="row photo-container">
         <div class="col-3">
           <img class="profile-photo" src="https://cdn.extension.udel.edu/wp-content/uploads/2017/04/17063214/headshot.png">
@@ -21,46 +69,21 @@
         <p><b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980</p>
       </div>
     </div>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <h5 class="subheader">Summary<i class="far fa-edit float-right" data-toggle="modal" data-target="#editSummaryModal"></i></h5>
+    <div class="modal fade" id="editSummaryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Edit Summary</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <div class="name-ato">
-                <div class="first-name">
-                  <label for="exampleInputPassword1">First Name</label>
-                  <input type="text" class="form-control" [(ngModel)]="profile.firstName">
+                <div class="form-group">
+                  <label for="exampleTextarea">Summary</label>
+                  <textarea class="form-control" id="exampleTextarea" rows="5"></textarea>
                 </div>
-                <div class="last-name">
-                  <label for="exampleInputPassword1">Last Name</label>
-                  <input type="text" class="form-control" [(ngModel)]="profile.lastName">
-                </div>
-                <div class="ato">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="{{profile.ato}}" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                      ATO
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="title">
-                <label for="exampleInputPassword1">Title</label>
-                <input type="text" class="form-control" [(ngModel)]="profile.title">
-              </div>
-              <div class="practice">
-                <label for="exampleInputPassword1">Practice</label>
-                <input type="text" class="form-control" [(ngModel)]="profile.practice">
-              </div>
-              <div class="skills">
-                <label for="exampleInputPassword1">Core Skills</label>
-                <input type="text" class="form-control" [(ngModel)]="profile.skills">
-              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -69,7 +92,6 @@
           </div>
         </div>
       </div>
-    <h5 class="subheader">Summary<i class="far fa-edit float-right" (click)="summaryEdit = !summaryEdit"></i></h5>
     <div *ngIf="!summaryEdit">
       <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet ultrices est sit amet placerat. Curabitur vehicula condimentum nisl id egestas. Quisque sit amet neque lacus. Pellentesque iaculis, lorem sed egestas malesuada, orci libero lacinia nisl, at consectetur massa justo id sapien. Morbi accumsan urna ante, eget viverra ante tincidunt quis. Aenean sit amet congue enim. Aliquam erat volutpat. Donec quis sagittis nisl.
