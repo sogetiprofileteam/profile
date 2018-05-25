@@ -5,12 +5,14 @@ import { ProfileComponent } from './profile-view/profile.component';
 import { ProfileViewService } from './profile-view/profile-view.service';
 import { FileUploadModule } from '../shared/components/file-upload/file-upload.module';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FileUploadModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   declarations: [ProfileComponent],
   exports: [ProfileComponent],
