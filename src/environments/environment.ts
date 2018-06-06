@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 const api = {
-  url: 'https://sogeti-profile-api-dev.herokuapp.com',
+  url: 'http://localhost:3000',
   resources: {
     search: '/search',
     profile: '/profile'

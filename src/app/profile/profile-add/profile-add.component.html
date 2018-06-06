@@ -21,6 +21,15 @@
                 [(ngModel)]="profile.lastName" name="lastName">
         </div>
         <div class="col-12 col-md-6 col-lg-4 form-group">
+          <label for="profileEmail">Email</label>
+          <input type="text" 
+                class="form-control" 
+                id="profileEmail" 
+                aria-describedby="profile email" 
+                placeholder="Sogeti Email"
+                [(ngModel)]="profile.email" name="email">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 form-group">
           <label for="title">Title</label>
           <input type="text" 
                 class="form-control" 
