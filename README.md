@@ -1,18 +1,27 @@
-# Sogeti Portfolio
-The Sogeti Portfolio project is an attempt at using an open source project model to deliver bottom-up value to the organization.
+# SogetiPortfolio
 
-To contribute please contact Larry Foulkrod or Dave Gardner to be added to the repository.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
-## How to contribute.
-1. Locate a task on the [project board](https://github.com/DavidMGardner/sogeti-portfolio/projects/7) and assign it to yourself.
-2. Create a new branch and complete the task
-3. Submit a pull request to master. 
+## Development server
 
-## Running the API
-1. `cd server`  
-2. `DB_USER="{username}" DB_PWD="{pwd}" npm run dev`    
-The #portfolio-ato-proj Slack channel has the values for the environment variables which you can use to connect to the mlab database. You could run mongodb locally in which case you can override the database connection string with the DB_CONN environment variable.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Running the UI
-1. `cd ui`  
-2. `npm run start-ng`
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
