@@ -2,9 +2,5 @@
 
 // Change to Sogeti brand theme later
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-html {
-    // Sogeti brand typeface is Ubunto Mono
-    // Using the official fallback of Verdana for now
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+@import 'variables';
+@import 'fonts';
