@@ -1,3 +1,4 @@
+// Colors
 .text-capgemini-blue {
     color: $capgemini-blue;
 }
@@ -16,4 +17,26 @@
 
 .text-zest-green {
     color: $zest-green;
+}
+
+// Weights
+.text-light {
+    font-weight: 300;
+}
+
+.text-medium {
+    font-weight: 500;
+}
+
+// Links
+a {
+    font-weight: $weight-medium;
+    color: $vibrant-blue;
+    text-decoration: none;
+
+    &:hover {
+        color: $vibrant-blue;
+        text-decoration: underline;
+        text-decoration-style: solid;
+    }
 }
