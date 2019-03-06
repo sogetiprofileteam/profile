@@ -1,39 +1,3 @@
-@import '~@angular/material/theming';
-
-//
-// Fonts
-//
-
-$weight-light: 300;
-$weight-regular: 400;
-$weight-medium: 500;
-
-// Body
-$mat-font-body: 'Ubuntu, Verdana, sans-serif';
-
-// Primary heading
-$mat-font-headline: 'Ubuntu Mono, monospace';
-
-// Material Typography
-$sogeti-typography: mat-typography-config(
-    $font-family: $mat-font-body,
-
-    $display-4:     mat-typography-level(112px, 112px, $weight-regular),
-    $display-3:     mat-typography-level(56px, 56px, $weight-regular),
-    $display-2:     mat-typography-level(45px, 48px, $weight-regular),
-    $display-1:     mat-typography-level(34px, 40px, $weight-regular),
-    $headline:      mat-typography-level(44px, 60px, $weight-regular, $mat-font-headline),
-    $title:         mat-typography-level(32px, 44px, $weight-regular),
-    $subheading-2:  mat-typography-level(20px, 32px, $weight-regular),
-    $subheading-1:  mat-typography-level(16px, 24px, $weight-regular),
-    $body-2:        mat-typography-level(14px, 24px, $weight-regular),
-    $body-1:        mat-typography-level(16px, 24px, $weight-regular),
-    $caption:       mat-typography-level(12px, 20px, $weight-regular),
-    $button:        mat-typography-level(16px, 16px, $weight-regular),
-
-    $input:         mat-typography-level(16px, 1.25, $weight-regular)
-);
-
 //
 // Colors
 //

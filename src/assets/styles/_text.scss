@@ -19,18 +19,9 @@
     color: $zest-green;
 }
 
-// Weights
-.text-light {
-    font-weight: 300;
-}
-
-.text-medium {
-    font-weight: 500;
-}
-
 // Links
 a {
-    font-weight: $weight-medium;
+    font-weight: 700;
     color: $vibrant-blue;
     text-decoration: none;
 
