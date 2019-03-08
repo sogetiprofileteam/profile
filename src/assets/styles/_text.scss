@@ -1,0 +1,33 @@
+// Colors
+.text-capgemini-blue {
+    color: $capgemini-blue;
+}
+
+.text-vibrant-blue {
+    color: $vibrant-blue;
+}
+
+.text-deep-purple {
+    color: $deep-purple; 
+}
+
+.text-tech-red {
+    color: $tech-red;
+}
+
+.text-zest-green {
+    color: $zest-green;
+}
+
+// Links
+a {
+    font-weight: 700;
+    color: $vibrant-blue;
+    text-decoration: none;
+
+    &:hover {
+        color: $vibrant-blue;
+        text-decoration: underline;
+        text-decoration-style: solid;
+    }
+}

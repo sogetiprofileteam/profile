@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Variables
+// Importing this first also means we don't have to import variables into the 
+// below imported partials and stylesheets and they'll still have access to them.
+// We can also override variables from partials and stylesheets we import after this one.
+@import 'variables'; 
+
+// Normalize
+@import 'normalize';
+
+// Bootstrap
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/grid";
+
+// Material
+@import 'sogeti-mat-theme';
+
+// Our styles
+@import 'text';

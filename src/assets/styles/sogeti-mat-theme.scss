@@ -1,0 +1,48 @@
+@import '~@angular/material/theming';
+@import 'sogeti-mat-palette';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+
+// Material Typography
+$typography: mat-typography-config(
+    $font-family: 'Something',
+
+    $display-4:     mat-typography-level(112px, 112px, 500),
+    $display-3:     mat-typography-level(56px, 56px, 500),
+    $display-2:     mat-typography-level(45px, 48px, 500),
+    $display-1:     mat-typography-level(34px, 40px, 500),
+    $headline:      mat-typography-level(44px, 60px, 500),
+    $title:         mat-typography-level(32px, 44px, 500),
+    $subheading-2:  mat-typography-level(20px, 32px, 500),
+    $subheading-1:  mat-typography-level(16px, 24px, 500),
+    $body-2:        mat-typography-level(14px, 24px, 500),
+    $body-1:        mat-typography-level(16px, 24px, 500),
+    $caption:       mat-typography-level(12px, 20px, 500),
+    $button:        mat-typography-level(16px, 16px, 500),
+
+    $input:         mat-typography-level(16px, 1.25, 500)
+);
+
+// Use line 30 instead of 31 to include a custom material typography config.
+// @include mat-core($typography);
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$sogeti-primary: mat-palette($mat-capgemini-blue, 500, 300, 700);
+$sogeti-accent:  mat-palette($mat-vibrant-blue, 500, 300, 700);
+
+// The warn palette is optional (defaults to red).
+$sogeti-warn:    mat-palette($mat-tech-red, 500, 300, 700);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$sogeti-theme: mat-light-theme($sogeti-primary, $sogeti-accent, $sogeti-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($sogeti-theme);
