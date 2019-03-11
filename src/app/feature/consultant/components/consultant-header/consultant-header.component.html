@@ -1,0 +1,14 @@
+<section class="container">
+  <p>
+    Consultant Header
+  </p>
+
+  <ng-container *ngIf="consultant$ | async as consultant">
+    <p>
+        {{ consultant.firstName }}
+        {{ consultant.lastName }}
+        <br>
+        {{ consultant.title.name }} - {{ consultant.practice.name }}
+    </p>
+  </ng-container>
+</section>

@@ -12,6 +12,11 @@
             "element",
             "app",
             "kebab-case"
+        ],
+        "variable-name": [
+            true,
+            "allow-leading-underscore",
+            "ban-keywords"
         ]
     }
 }
