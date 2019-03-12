@@ -1,20 +1,21 @@
 <section class="container">
-  <div class="consultant-header-row">
 
-    <div class="logo">
-      <a href="/consultant"><img src=".\assets\consultant-header-assets\Sogeti-Logo-Small.svg" alt="Sogeti Icon"></a>
-    </div>
+  <ng-container *ngIf="consultant$ | async as consultant">
+      <h1>
+        {{ consultant.firstName }}
+        {{ consultant.lastName }}
+      </h1>
+        <br>
+      <h2>
+        {{ consultant.title.name }} | <b>{{ consultant.practice.longName }}</b>
+      </h2>
+        <br>
+        {{ consultant.email }}
+        <br>
+  </ng-container>
 
-    <ng-container *ngIf="consultant$ | async as consultant">
-      <div class="consultant">
-        <img src=".\assets\consultant-header-assets\Profile-Pic.svg" class="consultant-profile-img" alt="Profile Photo">
-        <div class="mat-h3 text-deep-purple">
-            {{ consultant.firstName }}
-            {{ consultant.lastName }}
-            &#9660;
-        </div>
-      </div>
-    </ng-container>
+        <p><b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759</p>
+        <br>
+        <p>Phone: (512) 949-5980 | Fax: (877) 399-4598</p>
 
-  </div>
 </section>

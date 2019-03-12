@@ -10,7 +10,8 @@ export const mockConsultant: Consultant = {
     },
     practice: {
         id: 1,
-        name: 'ACT'
+        name: 'ACT',
+        longName: 'Applications and Cloud Technology'
     },
     email: 'jane.barnes@us.sogeti.com',
     username: 'jbarnes',
