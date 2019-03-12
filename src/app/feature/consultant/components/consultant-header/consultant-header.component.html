@@ -1,14 +1,20 @@
 <section class="container">
-  <p>
-    Consultant Header
-  </p>
+  <div class="consultant-header-row">
 
-  <ng-container *ngIf="consultant$ | async as consultant">
-    <p>
-        {{ consultant.firstName }}
-        {{ consultant.lastName }}
-        <br>
-        {{ consultant.title.name }} - {{ consultant.practice.name }}
-    </p>
-  </ng-container>
+    <div class="logo">
+      <a href="/consultant"><img src=".\assets\consultant-header-assets\Sogeti-Logo-Small.svg" alt="Sogeti Icon"></a>
+    </div>
+
+    <ng-container *ngIf="consultant$ | async as consultant">
+      <div class="consultant">
+        <img src=".\assets\consultant-header-assets\Profile-Pic.svg" class="consultant-profile-img" alt="Profile Photo">
+        <div class="mat-h3 text-deep-purple">
+            {{ consultant.firstName }}
+            {{ consultant.lastName }}
+            &#9660;
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
 </section>
