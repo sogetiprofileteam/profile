@@ -1,21 +1,42 @@
 <section class="container">
 
+
   <ng-container *ngIf="consultant$ | async as consultant">
-      <h1>
+    <div class="profile-picture">
+      <img src="../../../../../assets/svg/Profile-Pic.svg" >
+      <img src="../../../../../assets/svg/icons/pencil.svg" >
+    </div>
+
+    <h1 class="consultant-name">
         {{ consultant.firstName }}
         {{ consultant.lastName }}
       </h1>
-        <br>
-      <h2>
+        
+      <h2 class="consultant-title">
         {{ consultant.title.name }} | <b>{{ consultant.practice.longName }}</b>
       </h2>
-        <br>
+        
+      <p class="consultant-email">
         {{ consultant.email }}
-        <br>
+      </p>
   </ng-container>
 
-        <p><b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759</p>
-        <br>
-        <p>Phone: (512) 949-5980 | Fax: (877) 399-4598</p>
+  <p class="sogeti-austin-info">
+      <b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980 | Fax: (877) 399-4598
+  </p>
+
+  <ng-container *ngIf="consultant$ | async as consultant">
+      <div>
+          <a href="{{consultant.urlLinkedIn}}" >
+            <img class="icons" src="../../../../../assets/svg/icons/linkedin-brands.svg"> 
+          </a>
+          <a href="{{consultant.urlGitHub}}" >
+            <img class="icons" src="../../../../../assets/svg/icons/github-brands.svg"> 
+          </a>
+          <a href="{{consultant.urlWordPress}" >
+            <img class="icons" src="../../../../../assets/svg/icons/wordpress-brands.svg"> 
+              </a>
+      </div>
+  </ng-container>
 
 </section>
