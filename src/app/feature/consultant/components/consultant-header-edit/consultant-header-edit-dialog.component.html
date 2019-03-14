@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Edit Profile</h1>
+
+<div class="edit-profile" mat-dialog-content>
+    <p>Profile Picture:</p>
+
+    <p>LinkedIn Profile:</p>
+        <input type=text name=linkedin [(ngModel)]="data.urlLinkedIn">
+    <p>Github Account:</p>
+        <input type=text name=github [(ngModel)]="data.urlGitHub">
+    <p>Wordpress:</p>
+        <input type=text name=wordpress [(ngModel)]="data.urlWordpress">
+    <p>Personal Website:</p>
+        <input type=text name=personal [(ngModel)]="data.urlPersonal">
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Confirm</button>
+</div>

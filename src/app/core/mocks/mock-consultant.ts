@@ -31,6 +31,8 @@ export const mockConsultant: Consultant = {
     phone1: 5129999999,
     urlLinkedIn: '#',
     urlGitHub: '#',
+    urlWordpress: '#',
+    urlPersonal: '#',
     coreSkills: [
         {
             id: 1,

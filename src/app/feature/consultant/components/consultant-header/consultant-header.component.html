@@ -1,10 +1,11 @@
 <section class="container">
 
+  <button mat-raised-button (click)="openDialog()">Edit Profile</button>
 
   <ng-container *ngIf="consultant$ | async as consultant">
+
     <div class="profile-picture">
       <img [src]="consultant.urlProfileImage" >
-      <img src="../../../../../assets/svg/icons/pencil.svg" >
     </div>
 
     <h1 class="consultant-name">
