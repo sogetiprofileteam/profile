@@ -28,16 +28,23 @@ export class ConsultantHeaderComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(ConsultantHeaderEditDialog, {
       width: '500px',
-      data: {urlLinkedIn: this.consultant.urlLinkedIn,
-         urlGitHub: this.consultant.urlGitHub, 
-         urlWordpress: this.consultant.urlWordpress, 
-         urlPersonal: this.consultant.urlPersonal}
+      data: {
+        urlLinkedIn: this.consultant.urlLinkedIn,
+        urlGitHub: this.consultant.urlGitHub, 
+        urlWordpress: this.consultant.urlWordpress, 
+        urlPersonal: this.consultant.urlPersonal}
     });
 
     dialogRef.afterClosed().subscribe((result:Consultant) => {
       console.log('The dialog was closed');
+
       if(result){
-        this.consultant = result;
+        
+        this.consultant.urlLinkedIn = result.urlLinkedIn;
+        this.consultant.urlGitHub = result.urlGitHub;
+        this.consultant.urlWordpress = result.urlWordpress;
+        this.consultant.urlPersonal = result.urlPersonal;
+
         console.log(result);
         console.log(this.consultant);
       }
