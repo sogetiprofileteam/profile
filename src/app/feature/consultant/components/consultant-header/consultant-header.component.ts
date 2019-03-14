@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
-import { mockConsultant } from '@core/mocks/mock-consultant';
+
+import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 @Component({
   selector: 'app-consultant-header',
@@ -9,9 +9,11 @@ import { mockConsultant } from '@core/mocks/mock-consultant';
 })
 export class ConsultantHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private consultantStore: ConsultantStore
+  ) { }
 
-  consultant$ = of(mockConsultant);
+  consultant$ = this.consultantStore.consultant$;
 
   ngOnInit() {
 
