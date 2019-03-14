@@ -10,6 +10,7 @@ import {
 
 export interface Consultant {
     id: number;
+    urlProfileImage: string;
     firstName: string;
     lastName: string;
     displayName?: string;

@@ -3,7 +3,7 @@
 
   <ng-container *ngIf="consultant$ | async as consultant">
     <div class="profile-picture">
-      <img src="../../../../../assets/svg/Profile-Pic.svg" >
+      <img [src]="consultant.urlProfileImage" >
       <img src="../../../../../assets/svg/icons/pencil.svg" >
     </div>
 
@@ -17,7 +17,7 @@
       </h2>
         
       <p class="consultant-email">
-        {{ consultant.email }}
+        <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
       </p>
   </ng-container>
 

@@ -2,6 +2,7 @@ import { Consultant } from '@core/models/index';
 
 export const mockConsultant: Consultant = {
     id: 1,
+    urlProfileImage: '../../../../assets/svg/Profile-Pic.svg',
     firstName: 'Jane',
     lastName: 'Barnes',
     title: {
