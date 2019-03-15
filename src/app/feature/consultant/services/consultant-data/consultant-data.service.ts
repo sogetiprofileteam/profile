@@ -5,6 +5,7 @@ import { of, Observable } from 'rxjs';
 
 import { Consultant } from '@core/models';
 import { mockConsultant } from '@core/mocks/mock-consultant';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: ConsultantServiceModule
@@ -18,7 +19,9 @@ export class ConsultantDataService {
     return of(mockConsultant);
   }
 
-  updateConsultant(consultant: Consultant) {
-
+  updateConsultant(id: number, data: Partial<Consultant>): Observable<HttpResponse<any>> {
+    // TODO: change to http call later
+    const mockResponse = new HttpResponse({ status: 204 });
+    return of(mockResponse);
   }
 }
