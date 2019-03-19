@@ -38,10 +38,11 @@ export class ConsultantStore {
   private updatedConsultantFactory(data: Partial<Consultant>): Consultant {
     // Copy current consultant to preserve immutability
     const consultant = {
-      ...this.consultant
+      ...this.consultant,
+      ...data
     };
 
-    return Object.assign(consultant, data);
+    return consultant;
   }
 
   /**
