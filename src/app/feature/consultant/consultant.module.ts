@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ConsultantRoutingModule } from './consultant-routing.module';
 import { MatFormFieldModule, MatDialog } from '@angular/material';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatInputModule } from '@angular/material';
 import { MatButtonModule} from '@angular/material/button';
 
 import { ConsultantViewComponent } from './pages/consultant-view/consultant-view.component';
@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatInputModule,
     FormsModule
   ],
   entryComponents: [ConsultantHeaderEditDialog],

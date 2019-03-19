@@ -27,7 +27,7 @@ export class ConsultantHeaderComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConsultantHeaderEditDialog, {
-      width: '500px',
+      width: '885px',
       data: {
         urlLinkedIn: this.consultant.urlLinkedIn,
         urlGitHub: this.consultant.urlGitHub, 
