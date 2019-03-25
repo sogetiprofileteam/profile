@@ -1,0 +1,59 @@
+.container {
+    text-align: center;
+}
+
+.profile-picture{ 
+    display: inline-block;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 50% !important;
+}
+
+.consultant-name {
+	height: 43px;
+	color: #444444;
+	font-family: Helvetica;
+	font-size: 36px;
+    line-height: 43px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.consultant-title {
+	height: 22px;
+	color: #444444;
+	font-family: Helvetica;
+	font-size: 18px;
+	line-height: 22px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.consultant-email {
+	height: 22px;
+	color: #444444;
+	font-family: Helvetica;
+	font-size: 18px;
+	line-height: 22px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.sogeti-austin-info {
+	height: 17px;
+	color: #666666;
+	font-family: Helvetica;
+	font-size: 14px;
+	line-height: 17px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.icons {	
+    height: 25px;	
+    width: 25px;
+    padding: 20px;
+    margin: auto;
+}
