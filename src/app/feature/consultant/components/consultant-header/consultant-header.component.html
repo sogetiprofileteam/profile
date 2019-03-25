@@ -1,46 +1,47 @@
 <section class="container">
-
-  <button mat-raised-button (click)="openDialog()">Edit Profile</button>
-
   <ng-container *ngIf="consultant$ | async as consultant">
+    <div class="picture-wrapper">
+      <div class="picture-container">
+        <button mat-fab class="edit-button" color="white" (click)="openEditDialog()">
+          <mat-icon>edit</mat-icon>
+        </button>
 
-    <div class="profile-picture">
-      <img [src]="consultant.urlProfileImage" >
+        <img class="picture" [src]="consultant.urlProfileImage">
+      </div>
     </div>
 
     <h1 class="consultant-name">
-        {{ consultant.firstName }}
-        {{ consultant.lastName }}
-      </h1>
-        
-      <h2 class="consultant-title">
-        {{ consultant.title.name }} | <b>{{ consultant.practice.longName }}</b>
-      </h2>
-        
-      <p class="consultant-email">
-        <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
-      </p>
+      {{ consultant.firstName }}
+      {{ consultant.lastName }}
+    </h1>
+
+    <h2 class="consultant-title">
+      {{ consultant.title.name }} | <b>{{ consultant.practice.longName }}</b>
+    </h2>
+
+    <h2 class="consultant-email">
+      <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
+    </h2>
+
+    <p>
+      <b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980 |
+      Fax: (877) 399-4598
+    </p>
+
+    <a href="{{consultant.urlLinkedIn}}">
+      <img class="icon" src="../../../../../assets/svg/icons/linkedin-brands.svg">
+    </a>
+
+    <a href="{{consultant.urlGitHub}}">
+      <img class="icon" src="../../../../../assets/svg/icons/github-brands.svg">
+    </a>
+
+    <a href="{{consultant.urlWordpress}}">
+      <img class="icon" src="../../../../../assets/svg/icons/wordpress-brands.svg">
+    </a>
+
+    <a href="{{consultant.urlPersonal}}">
+      <img class="icon" src="../../../../../assets/svg/icons/desktop-solid.svg">
+    </a>
   </ng-container>
-
-  <p class="sogeti-austin-info">
-      <b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980 | Fax: (877) 399-4598
-  </p>
-
-  <ng-container *ngIf="consultant$ | async as consultant">
-      <div>
-          <a href="{{consultant.urlLinkedIn}}" >
-            <img class="icons" src="../../../../../assets/svg/icons/linkedin-brands.svg"> 
-          </a>
-          <a href="{{consultant.urlGitHub}}" >
-            <img class="icons" src="../../../../../assets/svg/icons/github-brands.svg"> 
-          </a>
-          <a href="{{consultant.urlWordPress}" >
-            <img class="icons" src="../../../../../assets/svg/icons/wordpress-brands.svg"> 
-          </a>
-          <a href="{{consultant.urlPersonal}" >
-              <img class="icons" src="../../../../../assets/svg/icons/desktop-solid.svg"> 
-            </a>
-      </div>
-  </ng-container>
-
 </section>
