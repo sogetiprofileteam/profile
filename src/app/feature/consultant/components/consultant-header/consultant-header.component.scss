@@ -1,59 +1,81 @@
-.container {
-    text-align: center;
+@import "breakpoints";
+
+@include media-breakpoint-down(sm) {
+    .picture-container, .picture {
+        width: 250px;
+        height: 250px;
+
+        .edit-button {
+            bottom: 12px;
+            right: 12px;
+        }
+    }
+
+    .picture-wrapper {
+        margin-bottom: 1.5em;
+    }
+
+    .consultant-title, .consultant-email {
+        font-size: 1.25em;
+        margin-bottom: .5em;
+    }
+
+    .icon {	
+        margin: 15px;
+    }
 }
 
-.profile-picture{ 
-    display: inline-block;
+@include media-breakpoint-up(sm) {
+    .picture-container, .picture {
+        width: 375px;
+        height: 375px;
+    }
+
+    .edit-button {
+        bottom: 32px;
+        right: 32px;
+    }
+
+    .picture-wrapper {
+        margin-bottom: 2em;
+    }
+
+    .icon {	
+        margin: 20px;
+    }
+}
+
+.container {
+    text-align: center;
+    padding-top: 3.5em;
+}
+
+.picture-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.picture-container {
     position: relative;
-    width: 400px;
-    height: 400px;
+}
+
+.picture { 
     overflow: hidden;
-    border-radius: 50% !important;
+    border-radius: 50%;
+}
+
+.edit-button {
+    position: absolute;
+    z-index: 999;
 }
 
 .consultant-name {
-	height: 43px;
-	color: #444444;
-	font-family: Helvetica;
-	font-size: 36px;
-    line-height: 43px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    line-height: 1.25em;
+    font-size: 3em;
+    margin-bottom: .5em;
 }
 
-.consultant-title {
-	height: 22px;
-	color: #444444;
-	font-family: Helvetica;
-	font-size: 18px;
-	line-height: 22px;
-    text-align: center;
-    padding-bottom: 10px;
-}
-
-.consultant-email {
-	height: 22px;
-	color: #444444;
-	font-family: Helvetica;
-	font-size: 18px;
-	line-height: 22px;
-    text-align: center;
-    padding-bottom: 10px;
-}
-
-.sogeti-austin-info {
-	height: 17px;
-	color: #666666;
-	font-family: Helvetica;
-	font-size: 14px;
-	line-height: 17px;
-    text-align: center;
-    padding-bottom: 10px;
-}
-
-.icons {	
+.icon {	
     height: 25px;	
     width: 25px;
-    padding: 20px;
-    margin: auto;
 }

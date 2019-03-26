@@ -1,6 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { MatDialog } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+
+import { ConsultantHeaderEditComponent } from '../consultant-header-edit/consultant-header-edit.component';
 
 @Component({
   selector: 'app-consultant-header',
@@ -8,16 +12,16 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
   styleUrls: ['./consultant-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantHeaderComponent implements OnInit {
+export class ConsultantHeaderComponent {
 
   constructor(
-    private consultantStore: ConsultantStore
+    private consultantStore: ConsultantStore,
+    private dialog: MatDialog
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
 
-  ngOnInit() {
-
+  openEditDialog(): void {
+    this.dialog.open(ConsultantHeaderEditComponent, { width: '400px' });
   }
-
 }

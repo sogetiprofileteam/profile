@@ -21,7 +21,7 @@
 
 // Links
 a {
-    font-weight: 700;
+    // font-weight: 700;
     color: $vibrant-blue;
     text-decoration: none;
 
@@ -30,4 +30,8 @@ a {
         text-decoration: underline;
         text-decoration-style: solid;
     }
+}
+
+body {
+    color: #444444;
 }

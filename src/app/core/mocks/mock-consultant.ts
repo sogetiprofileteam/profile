@@ -2,6 +2,7 @@ import { Consultant } from '@core/models/index';
 
 export const mockConsultant: Consultant = {
     id: 1,
+    urlProfileImage: '../../../../../assets/mock-profile-picture.jpg',
     firstName: 'Jane',
     lastName: 'Barnes',
     title: {
@@ -28,8 +29,10 @@ export const mockConsultant: Consultant = {
         zipcode: 78732
     },
     phone1: 5129999999,
-    urlLinkedIn: '#',
-    urlGitHub: '#',
+    urlLinkedIn: 'https://linkedin.com',
+    urlGitHub: 'https://github.com',
+    urlWordpress: 'https://wordpress.com',
+    urlPersonal: 'https://google.com',
     coreSkills: [
         {
             id: 1,

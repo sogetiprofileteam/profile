@@ -1,3 +1,14 @@
+@import "variables";
+
 .content {
     flex: 1 0 auto; 
 }
+
+.top-bar {
+    height: 20px;
+    background-color: $vibrant-blue;
+}
+
+.top-bar, app-header {
+    flex-shrink: 0;
+  }

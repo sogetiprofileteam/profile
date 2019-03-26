@@ -1,23 +1,42 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ConsultantRoutingModule } from './consultant-routing.module';
-import { ConsultantServiceModule } from './consultant-service.module';
+import {
+  MatDialogModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  MatIconModule
+} from '@angular/material';
 
-import { ConsultantViewComponent } from './pages/consultant-view/consultant-view.component';
-import { ConsultantHeaderComponent } from './components/consultant-header/consultant-header.component';
-import { ConsultantBodyComponent } from './components/consultant-body/consultant-body.component';
+import { ConsultantRoutingModule,
+  ConsultantServiceModule,
+  ConsultantViewComponent,
+  ConsultantHeaderComponent,
+  ConsultantBodyComponent,
+  ConsultantHeaderEditComponent
+} from './index';
 
 @NgModule({
   declarations: [
     ConsultantViewComponent,
     ConsultantHeaderComponent,
-    ConsultantBodyComponent
+    ConsultantBodyComponent,
+    ConsultantHeaderEditComponent
   ],
   imports: [
     CommonModule,
+    ConsultantServiceModule,
     ConsultantRoutingModule,
-    ConsultantServiceModule
-  ]
+    MatButtonModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  entryComponents: [ConsultantHeaderEditComponent],
 })
 export class ConsultantModule { }
