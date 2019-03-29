@@ -5,18 +5,19 @@ import { of, Observable } from 'rxjs';
 
 import { Consultant } from '@core/models';
 import { mockConsultant } from '@core/mocks/mock-consultant';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: ConsultantServiceModule
 })
 export class ConsultantDataService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getConsultant(id: number): Observable<Consultant> {
-    // TODO: change to http call later
-    return of(mockConsultant);
+  private url = 'http://localhost:5000/consultant';
+
+  getConsultant(id: number): Observable<any> {
+    return this.http.get(this.url);
   }
 
   updateConsultant(id: number, data: Partial<Consultant>): Observable<HttpResponse<any>> {

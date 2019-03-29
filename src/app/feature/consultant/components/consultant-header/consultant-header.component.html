@@ -6,26 +6,26 @@
           <mat-icon>edit</mat-icon>
         </button>
 
-        <img class="picture" [src]="consultant.urlProfileImage">
+        <img class="picture" src="../../../../../assets/mock-profile-picture.jpg">
       </div>
     </div>
 
     <h1 class="consultant-name">
-      {{ consultant.firstName }}
-      {{ consultant.lastName }}
+      {{ consultantapi.firstName }}
+      {{ consultantapi.lastName }}
     </h1>
 
     <h2 class="consultant-title">
-      {{ consultant.title.name }} | <b>{{ consultant.practice.longName }}</b>
+      {{ consultantapi.title }} | <b>{{ consultantapi.practice }}</b>
     </h2>
 
     <h2 class="consultant-email">
-      <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
+      <a href="mailto:{{ consultantapi.email }}">{{ consultantapi.email }}</a>
     </h2>
 
     <p>
-      <b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980 |
-      Fax: (877) 399-4598
+      <b>Sogeti Austin</b> | {{address.lineOne}}, {{address.lineTwo}} | Quarry Oaks | {{address.city}}, {{address.state}} {{address.zipCode}} | Phone: {{consultant.phone}} |
+      Fax: {{consultant.fax}}
     </p>
 
     <a href="{{consultant.urlLinkedIn}}">
