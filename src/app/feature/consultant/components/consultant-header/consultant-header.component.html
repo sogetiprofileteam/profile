@@ -23,12 +23,13 @@
       <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
     </h2>
 
-    <ng-content *ngIf="consultant.address as address"></ng-content>
-    <p>
-      <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
-      address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
-      Fax: {{ consultant.fax }}
-    </p>
+    <ng-container *ngIf="consultant.address as address">
+      <p>
+        <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
+        Fax: {{ consultant.fax }}
+      </p>
+    </ng-container>
 
     <a href="{{consultant.urlLinkedIn}}">
       <img class="icon" src="../../../../../assets/svg/icons/linkedin-brands.svg">
