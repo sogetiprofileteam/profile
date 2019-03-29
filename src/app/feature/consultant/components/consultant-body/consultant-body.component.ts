@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ConsultantDataService } from '@feature/consultant/services/consultant-data/consultant-data.service';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 @Component({
   selector: 'app-consultant-body',
@@ -8,17 +7,12 @@ import { ConsultantDataService } from '@feature/consultant/services/consultant-d
   styleUrls: ['./consultant-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantBodyComponent implements OnInit {
+export class ConsultantBodyComponent {
 
-  constructor(public consultantService: ConsultantDataService) { }
+  constructor(
+    private consultantStore: ConsultantStore,
+  ) { }
 
-  subscription: Subscription;
-  consultant;
-  ngOnInit() {
-    this.subscription = this.consultantService.getConsultant(1).subscribe(data => {
-      this.consultant = data;
-      console.log(data);
-    });
-  }
+  consultant$ = this.consultantStore.consultant$;
 
 }

@@ -11,21 +11,23 @@
     </div>
 
     <h1 class="consultant-name">
-      {{ consultantapi.firstName }}
-      {{ consultantapi.lastName }}
+      {{ consultant.firstName }}
+      {{ consultant.lastName }}
     </h1>
 
     <h2 class="consultant-title">
-      {{ consultantapi.title }} | <b>{{ consultantapi.practice }}</b>
+      {{ consultant.title }} | <b>{{ consultant.practice }}</b>
     </h2>
 
     <h2 class="consultant-email">
-      <a href="mailto:{{ consultantapi.email }}">{{ consultantapi.email }}</a>
+      <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
     </h2>
 
+    <ng-content *ngIf="consultant.address as address"></ng-content>
     <p>
-      <b>Sogeti Austin</b> | {{address.lineOne}}, {{address.lineTwo}} | Quarry Oaks | {{address.city}}, {{address.state}} {{address.zipCode}} | Phone: {{consultant.phone}} |
-      Fax: {{consultant.fax}}
+      <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
+      address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
+      Fax: {{ consultant.fax }}
     </p>
 
     <a href="{{consultant.urlLinkedIn}}">
