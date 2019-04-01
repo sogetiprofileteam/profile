@@ -16,7 +16,8 @@ import { ConsultantRoutingModule,
   ConsultantHeaderComponent,
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
-  ConsultantSectionComponent
+  ConsultantSectionComponent,
+  ConsultantSkillsComponent
 } from './index';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ConsultantRoutingModule,
     ConsultantHeaderComponent,
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
-    ConsultantSectionComponent
+    ConsultantSectionComponent,
+    ConsultantSkillsComponent
   ],
   imports: [
     CommonModule,

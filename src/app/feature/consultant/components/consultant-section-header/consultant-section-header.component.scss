@@ -1,13 +1,10 @@
 @import "variables";
 
-.section {
-    margin-bottom: 2em;
-}
-
 .header {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 2em;
 }
 
 .title-container {
@@ -27,7 +24,6 @@
     justify-content: center;
 }
 
-.content {
-    padding-top: 1em;
-    padding-bottom: 1em;
+.icon {
+    color: $capgemini-blue;
 }
