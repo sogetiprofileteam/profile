@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-consultant-body',
@@ -6,11 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./consultant-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantBodyComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class ConsultantBodyComponent {
 
 }
