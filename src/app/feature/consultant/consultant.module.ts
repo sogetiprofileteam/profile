@@ -16,7 +16,7 @@ import { ConsultantRoutingModule,
   ConsultantHeaderComponent,
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
-  ConsultantSectionComponent,
+  ConsultantSectionHeaderComponent,
   ConsultantSkillsComponent
 } from './index';
 
@@ -26,7 +26,7 @@ import { ConsultantRoutingModule,
     ConsultantHeaderComponent,
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
-    ConsultantSectionComponent,
+    ConsultantSectionHeaderComponent,
     ConsultantSkillsComponent
   ],
   imports: [

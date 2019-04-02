@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConsultantSectionComponent } from './consultant-section-header.component';
+import { ConsultantSectionHeaderComponent } from './consultant-section-header.component';
 
 describe('ConsultantSectionComponent', () => {
-  let component: ConsultantSectionComponent;
-  let fixture: ComponentFixture<ConsultantSectionComponent>;
+  let component: ConsultantSectionHeaderComponent;
+  let fixture: ComponentFixture<ConsultantSectionHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConsultantSectionComponent ]
+      declarations: [ ConsultantSectionHeaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsultantSectionComponent);
+    fixture = TestBed.createComponent(ConsultantSectionHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

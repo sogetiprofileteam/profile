@@ -5,7 +5,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
   templateUrl: './consultant-section-header.component.html',
   styleUrls: ['./consultant-section-header.component.scss']
 })
-export class ConsultantSectionComponent {
+export class ConsultantSectionHeaderComponent {
   @Input() title: string;
   @Input() icon: string;
   @Output() actionClicked = new EventEmitter();
