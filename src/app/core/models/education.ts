@@ -1,14 +1,8 @@
-import {
-    City,
-    State
-} from './index';
-
 export interface Education {
-    name: string;
-    degree?: string;
+    id: string;
+    school: string;
+    levelOfDegree?: string;
+    subject: string;
     startDate: Date;
     endDate?: Date;
-    details: string;
-    city: City;
-    state: State;
 }

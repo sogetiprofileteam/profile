@@ -1,14 +1,12 @@
 import {
-    City,
-    State
+    Description
 } from './index';
 
 export interface Experience {
-    company: string;
-    position: string;
+    id: string;
+    companyName: string;
+    descriptions: Description[];
     startDate: Date;
     endDate?: Date;
-    details: string;
-    city: City;
-    state: State;
+    title: string;
 }

@@ -1,44 +1,6 @@
 <section class="container">
-  <ng-container *ngIf="consultant$ | async as consultant">
-    <h2>Core Skills</h2>
-    <hr>
-    <div *ngFor="let skill of consultant.coreSkills">
-      {{skill.name}}
-    </div>
-    <br>
-    <h2>Technical Skills</h2>
-    <hr>
-    <div *ngFor="let skill of consultant.technicalSkills">
-      {{skill.name}}
-    </div>
-    <br>
-    <h2>Education & Certifications</h2>
-    <hr>
-    <div *ngFor="let education of consultant.education">
-      <b>{{education.school}}</b><br>
-      {{education.levelOfDegree}}, {{education.subect}}<br>
-      {{education.startDate}} - {{education.endDate}}
-      <br>
-      <br>
-    </div>
-
-    <div *ngFor="let certification of consultant.certifications">
-      <b>{{certification.name}}</b>
-      <br>
-    </div>
-
-    <br>
-    <h2>Experience</h2>
-    <hr>
-    <div *ngFor="let experience of consultant.experience">
-      <h3><b>{{experience.companyName}}</b></h3>
-      {{experience.title}}<br>
-      {{experience.startDate}} - {{experience.endDate}}
-      <div *ngFor="let description of experience.descriptions">
-        - {{description.summary}}
-      </div>
-      <br>
-      <br>
-    </div>
-  </ng-container>
+  <app-consultant-skills></app-consultant-skills>
+  <app-consultant-technical-skills></app-consultant-technical-skills>
+  <app-consultant-education-certifications></app-consultant-education-certifications>
+  <app-consultant-experience></app-consultant-experience>
 </section>

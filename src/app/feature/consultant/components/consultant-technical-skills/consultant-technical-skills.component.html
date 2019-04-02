@@ -1,0 +1,11 @@
+<app-consultant-section-header 
+  title="Technical Skills" 
+  icon="edit" 
+  (actionClicked)="doSomething()">
+</app-consultant-section-header>
+
+<section *ngIf="consultant$ | async as consultant">
+  <ng-container *ngFor="let skill of consultant.technicalSkills">
+    <p>{{skill.name}}</p>
+  </ng-container>
+</section>

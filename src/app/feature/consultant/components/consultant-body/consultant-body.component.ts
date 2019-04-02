@@ -8,11 +8,4 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantBodyComponent {
-
-  constructor(
-    private consultantStore: ConsultantStore,
-  ) { }
-
-  consultant$ = this.consultantStore.consultant$;
-
 }

@@ -17,12 +17,12 @@ export class ConsultantDataService {
 
   private baseUrl = `${environment.apiUrl}/consultant`;
 
-  getConsultant(id: number): Observable<Consultant> {
+  getConsultant(id: string): Observable<Consultant> {
     // ID parameter?
     return this.http.get<Consultant>(this.baseUrl);
   }
 
-  updateConsultant(id: number, data: Partial<Consultant>): Observable<HttpResponse<any>> {
+  updateConsultant(id: string, data: Partial<Consultant>): Observable<HttpResponse<any>> {
     // TODO: change to http call later
     const mockResponse = new HttpResponse({ status: 204 });
     return of(mockResponse);
