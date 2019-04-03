@@ -4,22 +4,25 @@ import { ConsultantServiceModule } from '@feature/consultant/consultant-service.
 import { of, Observable } from 'rxjs';
 
 import { Consultant } from '@core/models';
-import { mockConsultant } from '@core/mocks/mock-consultant';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpClient } from '@angular/common/http';
+
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: ConsultantServiceModule
 })
 export class ConsultantDataService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getConsultant(id: number): Observable<Consultant> {
-    // TODO: change to http call later
-    return of(mockConsultant);
+  private baseUrl = `${environment.apiUrl}/consultant`;
+
+  getConsultant(id: string): Observable<Consultant> {
+    // ID parameter?
+    return this.http.get<Consultant>(this.baseUrl);
   }
 
-  updateConsultant(id: number, data: Partial<Consultant>): Observable<HttpResponse<any>> {
+  updateConsultant(id: string, data: Partial<Consultant>): Observable<HttpResponse<any>> {
     // TODO: change to http call later
     const mockResponse = new HttpResponse({ status: 204 });
     return of(mockResponse);

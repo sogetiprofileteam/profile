@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 @Component({
-  selector: 'app-consultant-skills',
-  templateUrl: './consultant-skills.component.html',
-  styleUrls: ['./consultant-skills.component.scss']
+  selector: 'app-consultant-education-certifications',
+  templateUrl: './consultant-education-certifications.component.html',
+  styleUrls: ['./consultant-education-certifications.component.scss']
 })
-export class ConsultantSkillsComponent implements OnInit {
+export class ConsultantEducationCertificationsComponent implements OnInit {
 
   constructor(
     private consultantStore: ConsultantStore
@@ -17,8 +17,8 @@ export class ConsultantSkillsComponent implements OnInit {
   ngOnInit() {
   }
 
-  openEditSkillsDialog() {
-    // Open dialog containing edit skills component
+  doSomething() {
+    // replace/rename me
   }
 
 }

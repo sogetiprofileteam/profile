@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 @Component({
   selector: 'app-consultant-body',
@@ -7,5 +8,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantBodyComponent {
-
 }

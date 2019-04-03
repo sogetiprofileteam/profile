@@ -6,7 +6,7 @@
           <mat-icon>edit</mat-icon>
         </button>
 
-        <img class="picture" [src]="consultant.urlProfileImage">
+        <img class="picture" src="../../../../../assets/mock-profile-picture.jpg">
       </div>
     </div>
 
@@ -16,17 +16,20 @@
     </h1>
 
     <h2 class="consultant-title">
-      {{ consultant.title.name }} | <b>{{ consultant.practice.longName }}</b>
+      {{ consultant.title }} | <b>{{ consultant.practice }}</b>
     </h2>
 
     <h2 class="consultant-email">
       <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
     </h2>
 
-    <p>
-      <b>Sogeti Austin</b> | 10900 Stonelake Blvd, Suite 195 | Quarry Oaks | Austin, TX 78759 | Phone: (512) 949-5980 |
-      Fax: (877) 399-4598
-    </p>
+    <ng-container *ngIf="consultant.address as address">
+      <p>
+        <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
+        Fax: {{ consultant.fax }}
+      </p>
+    </ng-container>
 
     <a href="{{consultant.urlLinkedIn}}">
       <img class="icon" src="../../../../../assets/svg/icons/linkedin-brands.svg">
@@ -45,3 +48,5 @@
     </a>
   </ng-container>
 </section>
+
+<div class="shadow"></div>

@@ -3,19 +3,18 @@ import {
     CoreSkill,
     Education,
     Experience,
-    Practice,
     TechnicalSkill,
-    Title
+    Certification
 } from './index';
 
 export interface Consultant {
-    id: number;
+    id: string;
     urlProfileImage: string;
     firstName: string;
     lastName: string;
-    displayName?: string;
-    title: Title;
-    practice: Practice;
+    secondName?: string;
+    title: string;
+    practice: string;
     email: string;
     username: string;
     address: Address;
@@ -26,6 +25,7 @@ export interface Consultant {
     urlGitHub?: string;
     urlWordpress?: string;
     urlPersonal?: string;
+    certifications: Certification[];
     coreSkills: CoreSkill[];
     technicalSkills: TechnicalSkill[];
     education: Education[];

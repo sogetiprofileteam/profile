@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 
@@ -16,7 +16,7 @@ export class ConsultantHeaderComponent {
 
   constructor(
     private consultantStore: ConsultantStore,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
@@ -24,4 +24,5 @@ export class ConsultantHeaderComponent {
   openEditDialog(): void {
     this.dialog.open(ConsultantHeaderEditComponent, { width: '400px' });
   }
+
 }

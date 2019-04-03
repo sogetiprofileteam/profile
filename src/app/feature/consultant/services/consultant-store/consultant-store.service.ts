@@ -61,15 +61,15 @@ export class ConsultantStore {
   /**
    * Grabs a the consultant's ID from the route snapshot query params.
    */
-  private getConsultantIdFromRoute(): number {
-    return this.route.snapshot.queryParams.id as number;
+  private getConsultantIdFromRoute(): string {
+    return this.route.snapshot.queryParams.id as string;
   }
 
   /**
    * Calls the data service to fetch consultant object.
    * @param id Id of the desired consultant.
    */
-  private getConsultant(id: number): Observable<Consultant> {
+  private getConsultant(id: string): Observable<Consultant> {
     return this.consultantDataService.getConsultant(id);
   }
 
