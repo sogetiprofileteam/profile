@@ -18,6 +18,7 @@ import { ConsultantRoutingModule,
   ConsultantHeaderEditComponent,
   ConsultantSectionHeaderComponent,
   ConsultantSkillsComponent,
+  ConsultantSkillsEditComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent
@@ -31,6 +32,7 @@ import { ConsultantRoutingModule,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
     ConsultantSkillsComponent,
+    ConsultantSkillsEditComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent
@@ -47,6 +49,6 @@ import { ConsultantRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent],
+  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent], 
 })
 export class ConsultantModule { }
