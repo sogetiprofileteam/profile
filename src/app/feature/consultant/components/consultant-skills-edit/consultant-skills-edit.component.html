@@ -2,11 +2,11 @@
 
 <form *ngIf="consultant$ | async" [formGroup]="skillsForm" (ngSubmit)="updateConsultant()">
     <mat-dialog-content>
-        <!-- <mat-form-field>
-            <mat-select placeholder="Select">
-              <mat-option value="option">Option</mat-option>
-            </mat-select>
-          </mat-form-field> -->
+      <mat-form-field>
+        <mat-select placeholder="Select">
+          <mat-option value="option">Search for skills (ex: HTML)</mat-option>
+        </mat-select>
+      </mat-form-field>
     </mat-dialog-content>
 
   <!-- <mat-dialog-actions align="end">
