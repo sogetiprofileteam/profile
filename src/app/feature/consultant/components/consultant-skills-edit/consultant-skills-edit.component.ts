@@ -15,12 +15,6 @@ export interface Skill {
   name: string;
 }
 
-@Component({
-  selector: 'app-consultant-skills-edit',
-  templateUrl: './consultant-skills-edit.component.html',
-  styleUrls: ['./consultant-skills-edit.component.scss']
-})
-
 export class ChipsInput {
   visible = true;
   selectable = true;
@@ -28,16 +22,16 @@ export class ChipsInput {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   skill: Skill[] = [
-    {name: 'Lemon'},
-    {name: 'Lime'},
-    {name: 'Apple'},
+    {name: 'UX Designer'},
+    {name: 'UI Designer'},
+    {name: 'Teamwork'},
   ];
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    // Add our skill
+    // Add our 
     if ((value || '').trim()) {
       this.skill.push({name: value.trim()});
     }
@@ -57,6 +51,11 @@ export class ChipsInput {
   }
 }
 
+@Component({
+  selector: 'app-consultant-skills-edit',
+  templateUrl: './consultant-skills-edit.component.html',
+  styleUrls: ['./consultant-skills-edit.component.scss']
+})
 export class ConsultantSkillsEditComponent implements OnDestroy {
 
   constructor(

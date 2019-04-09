@@ -34,6 +34,7 @@ import { ConsultantRoutingModule,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
     ConsultantSkillsComponent,
+    ConsultantSkillsEditComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent
