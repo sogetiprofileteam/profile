@@ -10,6 +10,8 @@ import {
   MatIconModule,
   MatSelectModule,
   MatChipsModule,
+  MatAutocompleteModule,
+  MatChipInput,
 } from '@angular/material';
 
 import { ConsultantRoutingModule,
@@ -49,6 +51,7 @@ import { ConsultantRoutingModule,
     MatDialogModule,
     MatInputModule,
     MatChipsModule,
+    MatAutocompleteModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule

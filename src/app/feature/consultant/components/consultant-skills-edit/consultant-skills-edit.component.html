@@ -1,17 +1,6 @@
 <h1 mat-dialog-title>Edit Core Skills</h1>
 
 <form *ngIf="consultant$ | async" [formGroup]="skillsForm" (ngSubmit)="updateConsultant()">
-  <!-- <mat-form-field appearance="outline">
-    <mat-select placeholder="Search for skills (ex: HTML)">
-      <mat-option value="option">Teamwork</mat-option>
-      <mat-option value="option">Leadership</mat-option>
-      <mat-option value="option">Communications</mat-option>
-      <mat-option value="option">UI Designer</mat-option>
-      <mat-option value="option">UI Designer</mat-option>
-    </mat-select>
-    <mat-label><mat-icon>search</mat-icon> <b> Search for skills (ex: HTML)</b></mat-label>
-  </mat-form-field> -->
-
   <!-- <mat-form-field class="chip-list" appearance="outline">
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let skill of skills" [selectable]="selectable"
@@ -28,16 +17,17 @@
       </mat-chip-list>
     </mat-form-field> -->
 
-    <mat-form-field class="chip-list">
+    <mat-form-field class="chip-list" appearance="outline">
         <mat-chip-list #chipList>
           <mat-chip
-            *ngFor="let skill of skillss"
+            *ngFor="let skill of skills"
             [selectable]="selectable"
             [removable]="removable"
             (removed)="remove(skill)">
             {{skill}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
+          <mat-icon>search</mat-icon>
           <input
             placeholder="Search for skills (ex: HTML)"
             #skillInput
