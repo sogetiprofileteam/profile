@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -8,21 +8,65 @@ import { Consultant } from '@core/models';
 
 import { MatDialogRef } from '@angular/material';
 
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material';
+
+export interface Skill {
+  name: string;
+}
+
 @Component({
   selector: 'app-consultant-skills-edit',
   templateUrl: './consultant-skills-edit.component.html',
   styleUrls: ['./consultant-skills-edit.component.scss']
 })
-export class ConsultantSkillsEditComponent implements OnInit {
+
+export class ChipsInput {
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  skill: Skill[] = [
+    {name: 'Lemon'},
+    {name: 'Lime'},
+    {name: 'Apple'},
+  ];
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our skill
+    if ((value || '').trim()) {
+      this.skill.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: Skill): void {
+    const index = this.skill.indexOf(fruit);
+
+    if (index >= 0) {
+      this.skill.splice(index, 1);
+    }
+  }
+}
+
+export class ConsultantSkillsEditComponent implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) { }
 
   skillsForm = this.formBuilder.group({
-    search: ['Search for skills (ex: HTML)', Validators.required],
+    search: ['', ],
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.skillsForm.patchValue(consultant)));
@@ -46,7 +90,7 @@ export class ConsultantSkillsEditComponent implements OnInit {
     return this.skillsForm.value as Partial<Consultant>;
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
   }
 
 }

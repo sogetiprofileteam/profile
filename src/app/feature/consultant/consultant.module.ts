@@ -7,7 +7,9 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatSelectModule,
+  MatChipsModule,
 } from '@angular/material';
 
 import { ConsultantRoutingModule,
@@ -32,7 +34,6 @@ import { ConsultantRoutingModule,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
     ConsultantSkillsComponent,
-    ConsultantSkillsEditComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent
@@ -42,9 +43,11 @@ import { ConsultantRoutingModule,
     ConsultantServiceModule,
     ConsultantRoutingModule,
     MatButtonModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatDialogModule,
     MatInputModule,
+    MatChipsModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule

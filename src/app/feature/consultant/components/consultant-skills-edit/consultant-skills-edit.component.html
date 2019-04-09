@@ -1,16 +1,34 @@
 <h1 mat-dialog-title>Edit Core Skills</h1>
 
 <form *ngIf="consultant$ | async" [formGroup]="skillsForm" (ngSubmit)="updateConsultant()">
-    <mat-dialog-content>
-      <mat-form-field>
-        <mat-select placeholder="Select">
-          <mat-option value="option">Search for skills (ex: HTML)</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-select placeholder="Search for skills (ex: HTML)">
+      <mat-option value="option">Teamwork</mat-option>
+      <mat-option value="option">Leadership</mat-option>
+      <mat-option value="option">Communications</mat-option>
+      <mat-option value="option">UI Designer</mat-option>
+      <mat-option value="option">UI Designer</mat-option>
+    </mat-select>
+    <mat-label><mat-icon>search</mat-icon> <b> Search for skills (ex: HTML)</b></mat-label>
+  </mat-form-field>
 
-  <!-- <mat-dialog-actions align="end">
+  <mat-form-field class="chip-list" appearance="outline">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                 [removable]="removable" (removed)="remove(skill)">
+          {{skill.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Search for skills (ex: HTML)"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
+
+  <mat-dialog-actions align="end">
       <button mat-button type="button" (click)="close()">CANCEL</button>
       <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE</button>
-  </mat-dialog-actions> -->
+  </mat-dialog-actions>
 </form>
