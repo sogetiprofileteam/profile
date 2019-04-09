@@ -12,7 +12,7 @@
     <mat-label><mat-icon>search</mat-icon> <b> Search for skills (ex: HTML)</b></mat-label>
   </mat-form-field> -->
 
-  <mat-form-field class="chip-list" appearance="outline">
+  <!-- <mat-form-field class="chip-list" appearance="outline">
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let skill of skills" [selectable]="selectable"
                  [removable]="removable" (removed)="remove(skill)">
@@ -26,7 +26,34 @@
                [matChipInputAddOnBlur]="addOnBlur"
                (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
-    </mat-form-field>
+    </mat-form-field> -->
+
+    <mat-form-field class="chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let skill of skillss"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(skill)">
+            {{skill}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Search for skills (ex: HTML)"
+            #skillInput
+            [formControl]="skillCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+            {{skill}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
   <mat-dialog-actions align="end">
       <button mat-button type="button" (click)="close()">CANCEL</button>
