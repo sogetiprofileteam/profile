@@ -1,125 +1,173 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { tap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { tap, switchMap, map, startWith, takeUntil } from 'rxjs/operators';
+import { Subject, forkJoin } from 'rxjs';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Consultant } from '@core/models';
+import { Skill } from '@core/models';
 
 import { MatDialogRef } from '@angular/material';
 
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 
-export interface Skill {
-  name: string;
-}
+import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
-export class ChipsAutocompleteExample {
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  skillCtrl = new FormControl();
-  filteredSkills: Observable<string[]>;
-  skills: string[] = ['Teamwork'];
-  allSkills: string[] = ['Communication', 'SDLC', 'Teamwork', 'UI Designer', 'UI Designer'];
 
+
+@Component({
+  selector: 'app-consultant-skills-edit',
+  templateUrl: './consultant-skills-edit.component.html',
+  styleUrls: ['./consultant-skills-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ConsultantSkillsEditComponent implements OnDestroy {
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor() {
-    this.filteredSkills = this.skillCtrl.valueChanges.pipe(
-        startWith(null),
-        map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  skillCtrl = new FormControl();
+
+  selectedSkills: Skill[];
+  filteredAvailableSkills = this.skillCtrl.valueChanges.pipe(
+    startWith(null),
+    map((value: string | Skill) => {
+      if (value) {
+        let name: string;
+
+        if (typeof value !== 'string' ) {
+          name = value.name;
+        } else {
+          name = value;
+        }
+  
+        return this.filterSkills(name);
+      } else {
+        return this.availableSkills;
+      }
+    })
+  );
+  availableSkills: Skill[] = [
+    {
+      id: '1',
+      name: 'Software development'
+    },
+    {
+      id: '2',
+      name: 'Time management'
+    },
+    {
+      id: '3',
+      name: 'Prioritizing'
+    },
+    {
+      id: '4',
+      name: 'Communication',
+    },
+    {
+      id: '5',
+      name: 'SDLC',
+    },
+    {
+      id: '7',
+      name: 'Teamwork',
+    },
+    {
+      id: '8',
+      name: 'UI Designer',
+    },
+    {
+      id: '9',
+      name: 'UX Designer'
+    },
+  ];
+
+  constructor(
+    private consultantStore: ConsultantStore,
+    private consultantSkillService: ConsultantSkillDataService,
+    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
+  ) { }
+
+  ngOnDestroy() {
+    this.destroy$.next();
   }
 
-  add(event: MatChipInputEvent): void {
+  // TODO: dynamically choose coreSkills or technicalSkills
+  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant.coreSkills));
+  destroy$ = new Subject();
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  addNewSkill(event: MatChipInputEvent): void {
     // Add skill only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const value = event.value;
+      const name = event.value.trim();
 
-      // Add our skill
-      if ((value || '').trim()) {
-        this.skills.push(value.trim());
+      // Add new skill
+      if (name) {
+        const skill: Skill = {
+          name: name,
+          id: null
+        }
+        this.selectedSkills.push(skill);
       }
 
       // Reset the input value
       if (input) {
         input.value = '';
       }
-
-      this.skillCtrl.setValue(null);
     }
   }
 
-  remove(skill: string): void {
-    const index = this.skills.indexOf(skill);
+  remove(skill: Skill): void {
+    const index = this.selectedSkills.indexOf(skill);
 
     if (index >= 0) {
-      this.skills.splice(index, 1);
+      this.selectedSkills.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.skills.push(event.option.viewValue);
-    this.skillInput.nativeElement.value = '';
+    this.selectedSkills.push(event.option.value);
     this.skillCtrl.setValue(null);
+    this.skillInput.nativeElement.value = '';
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allSkills.filter(skill => skill.toLowerCase().indexOf(filterValue) === 0);
-  }
-}
-
-@Component({
-  selector: 'app-consultant-skills-edit',
-  templateUrl: './consultant-skills-edit.component.html',
-  styleUrls: ['./consultant-skills-edit.component.scss']
-})
-export class ConsultantSkillsEditComponent implements OnDestroy {
-
-  constructor(
-    private consultantStore: ConsultantStore,
-    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
-    private formBuilder: FormBuilder,
-  ) { }
-
-  skillsForm = this.formBuilder.group({
-    search: ['', ],
-  });
-
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.skillsForm.patchValue(consultant)));
-  destroy$ = new Subject();
-
-  close(): void {
-    this.dialogRef.close();
+  private filterSkills(name: string): Skill[] {
+    const filterName = name.toLowerCase();
+    return this.availableSkills.filter(skill => skill.name.toLowerCase().indexOf(filterName) === 0);
   }
 
-  updateConsultant(): void {
-    if (this.skillsForm.valid) {
-      const updatedData = this.getFormData();
+  updateConsultant() {
+    const newSkills = this.selectedSkills.filter(skill => skill.id === null);
 
-      this.consultantStore.updateConsultant(updatedData)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.close());
+    if (newSkills) {
+      this.updateWithNewSkills(newSkills);
+    } else {
+      this.updateSkills(this.selectedSkills)
+        .subscribe(() => this.close())
     }
   }
 
-  getFormData(): Partial<Consultant> {
-    return this.skillsForm.value as Partial<Consultant>;
+  private updateWithNewSkills(newSkills: Skill[]) {
+    const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name));
+    forkJoin(...newSkillRequests)
+      .pipe(switchMap(responseSkills => {
+        // For concept purposes only, this should be responseSkills when the 
+        // addNewSkill call actually returns the new skill
+        return this.updateSkills(this.selectedSkills);
+      }))
+      .subscribe(() => this.close());
   }
 
-  ngOnDestroy() {
+  private updateSkills(skills: Skill[]) {
+    return this.consultantStore
+      .updateConsultant({ coreSkills: skills })
+      .pipe(takeUntil(this.destroy$))
   }
 
 }

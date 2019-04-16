@@ -1,52 +1,45 @@
 <h1 mat-dialog-title>Edit Core Skills</h1>
 
-<form *ngIf="consultant$ | async" [formGroup]="skillsForm" (ngSubmit)="updateConsultant()">
-  <!-- <mat-form-field class="chip-list" appearance="outline">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let skill of skills" [selectable]="selectable"
-                 [removable]="removable" (removed)="remove(skill)">
-          {{skill.name}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <mat-icon>search</mat-icon>
-        <input placeholder="Search for skills (ex: HTML)"
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="addOnBlur"
-               (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-    </mat-form-field> -->
+<form *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()">
+  <mat-form-field class="chip-list" appearance="outline">
 
-    <mat-form-field class="chip-list" appearance="outline">
-        <mat-chip-list #chipList>
-          <mat-chip
-            *ngFor="let skill of skills"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="remove(skill)">
-            {{skill}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <mat-icon>search</mat-icon>
-          <input
-            placeholder="Search for skills (ex: HTML)"
-            #skillInput
-            [formControl]="skillCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
-            {{skill}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+    <mat-chip-list #chipList>
+      <mat-chip 
+        *ngFor="let skill of selectedSkills" 
+        removable="true" 
+        color="primary"
+        (removed)="remove(skill)">
+        {{ skill.name }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+
+    <div class="input-container">
+      <mat-icon>search</mat-icon>
+      <input
+        #skillInput
+        placeholder="Search for skills"
+        matChipInputAddOnBlur="true" 
+        [formControl]="skillCtrl" 
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="addNewSkill($event)">
+    </div>
+
+    <mat-autocomplete 
+      autoActiveFirstOption
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)">
+      <mat-option *ngFor="let skill of filteredAvailableSkills | async" [value]="skill">
+        {{ skill.name }}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>
 
   <mat-dialog-actions align="end">
-      <button mat-button type="button" (click)="close()">CANCEL</button>
-      <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE</button>
+    <button mat-button type="button" (click)="close()">CANCEL</button>
+    <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE</button>
   </mat-dialog-actions>
 </form>

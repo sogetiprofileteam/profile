@@ -1,18 +1,11 @@
 @import 'variables';
 
-mat-form-field {
-    width: 100%;
-}
-
-mat-icon {
-    height: 20px;
-    width: 20px;
+.input-container {
+    padding-top: .5rem;
+    display: flex;
+    align-items: center;
 }
 
 .chip-list {
     width: 100%;
-  }
-
-mat-chip {
-    color: $vibrant-blue
 }
