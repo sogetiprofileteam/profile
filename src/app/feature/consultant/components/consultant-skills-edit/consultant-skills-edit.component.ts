@@ -1,20 +1,15 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+
 import { tap, switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { Subject, forkJoin } from 'rxjs';
 
-import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef } from '@angular/material';
+
 import { Skill } from '@core/models';
-
-import { MatDialogRef } from '@angular/material';
-
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { ElementRef, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
-
+import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
-
-
 
 @Component({
   selector: 'app-consultant-skills-edit',
@@ -143,24 +138,46 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   }
 
   updateConsultant() {
-    const newSkills = this.selectedSkills.filter(skill => skill.id === null);
+    // New skills here means skills that don't exist in availableSkills;
+    // skills that are entered via the free text input.
+    const newSkillsExist = this.selectedSkills.find(skill => skill.id === null);
 
-    if (newSkills) {
-      this.updateWithNewSkills(newSkills);
+    if (newSkillsExist) {
+      this.updateWithNewSkills();
     } else {
-      this.updateSkills(this.selectedSkills)
-        .subscribe(() => this.close())
+      // Existing skills here means skills that are in availableSkills, 
+      // not necessarily skills that were already in the consutlant object
+      this.updateWithExistingSkills();
     }
   }
 
-  private updateWithNewSkills(newSkills: Skill[]) {
+  private updateWithNewSkills() {
+    // Existing skills here means skills that are in availableSkills, 
+    // not necessarily skills that were already in the consutlant object
+    const existingSkills = this.selectedSkills.filter(skill => skill.id !== null);
+    const newSkills = this.selectedSkills.filter(skill => skill.id === null);
     const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name));
+    
     forkJoin(...newSkillRequests)
       .pipe(switchMap(responseSkills => {
-        // For concept purposes only, this should be responseSkills when the 
-        // addNewSkill call actually returns the new skill
-        return this.updateSkills(this.selectedSkills);
+        // For concept purposes only, mockResponseSkills should be responseSkills when the 
+        // addNewSkill call actually returns the new skill. Making random ID's to mock response.
+        const mockResponseSkills = newSkills.map(skill => {
+          skill.id = Math.floor((Math.random() * 100)).toString()
+          return skill;
+        })
+        const skills = [
+          ...mockResponseSkills,
+          ...existingSkills
+        ]
+
+        return this.updateSkills(skills);
       }))
+      .subscribe(() => this.close());
+  }
+
+  private updateWithExistingSkills() {
+    this.updateSkills(this.selectedSkills)
       .subscribe(() => this.close());
   }
 
