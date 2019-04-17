@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { MatDialog } from '@angular/material';
+
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+
+import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
 
 @Component({
   selector: 'app-consultant-technical-skills',
@@ -9,7 +14,8 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 export class ConsultantTechnicalSkillsComponent implements OnInit {
 
   constructor(
-    private consultantStore: ConsultantStore
+    private consultantStore: ConsultantStore,
+    private dialog: MatDialog
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
@@ -17,8 +23,8 @@ export class ConsultantTechnicalSkillsComponent implements OnInit {
   ngOnInit() {
   }
 
-  doSomething() {
-    // replace/rename me
+  openEditSkillsDialog() {
+    this.dialog.open(ConsultantSkillsEditComponent, { data: { type: 'technicalSkills' } });
   }
 
 }

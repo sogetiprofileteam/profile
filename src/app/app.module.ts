@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { CoreModule } from '@core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     CoreModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '850px' }}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,15 +1,21 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { tap, switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { Subject, forkJoin } from 'rxjs';
 
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Skill } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
+
+export interface SkillsEditDialogData {
+  type: SkillsType
+}
+
+export type SkillsType = 'coreSkills' | 'technicalSkills';
 
 @Component({
   selector: 'app-consultant-skills-edit',
@@ -21,6 +27,16 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: SkillsEditDialogData,
+    private consultantStore: ConsultantStore,
+    private consultantSkillService: ConsultantSkillDataService,
+    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
+  ) {
+    this.skillType = this.data.type;
+  }
+
+  skillType: SkillsType
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillCtrl = new FormControl();
 
@@ -43,6 +59,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       }
     })
   );
+  // TODO: Dynamically load available core or technical skills
   availableSkills: Skill[] = [
     {
       id: '1',
@@ -78,19 +95,13 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     },
   ];
 
-  constructor(
-    private consultantStore: ConsultantStore,
-    private consultantSkillService: ConsultantSkillDataService,
-    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
-  ) { }
+  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant[this.skillType]));
+  destroy$ = new Subject();
 
   ngOnDestroy() {
     this.destroy$.next();
   }
-
-  // TODO: dynamically choose coreSkills or technicalSkills
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant.coreSkills));
-  destroy$ = new Subject();
+  
   close(): void {
     this.dialogRef.close();
   }
@@ -183,7 +194,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
   private updateSkills(skills: Skill[]) {
     return this.consultantStore
-      .updateConsultant({ coreSkills: skills })
+      .updateConsultant({ [this.skillType]: skills })
       .pipe(takeUntil(this.destroy$))
   }
 

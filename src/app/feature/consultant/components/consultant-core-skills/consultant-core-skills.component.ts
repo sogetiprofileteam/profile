@@ -4,14 +4,14 @@ import { MatDialog } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
-import { ConsultantSkillsEditComponent } from '../consultant-skills-edit/consultant-skills-edit.component';
+import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
 
 @Component({
-  selector: 'app-consultant-skills',
-  templateUrl: './consultant-skills.component.html',
-  styleUrls: ['./consultant-skills.component.scss']
+  selector: 'app-consultant-core-skills',
+  templateUrl: './consultant-core-skills.component.html',
+  styleUrls: ['./consultant-core-skills.component.scss']
 })
-export class ConsultantSkillsComponent implements OnInit {
+export class ConsultantCoreSkillsComponent implements OnInit {
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -24,7 +24,7 @@ export class ConsultantSkillsComponent implements OnInit {
   }
 
   openEditSkillsDialog() {
-    this.dialog.open(ConsultantSkillsEditComponent, { width: '400px' });
+    this.dialog.open(ConsultantSkillsEditComponent, { data: { type: 'coreSkills' } });
   }
 
 }
