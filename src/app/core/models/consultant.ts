@@ -1,9 +1,8 @@
 import {
     Address,
-    CoreSkill,
+    Skill,
     Education,
     Experience,
-    TechnicalSkill,
     Certification
 } from './index';
 
@@ -26,8 +25,8 @@ export interface Consultant {
     urlWordpress?: string;
     urlPersonal?: string;
     certifications: Certification[];
-    coreSkills: CoreSkill[];
-    technicalSkills: TechnicalSkill[];
+    coreSkills: Skill[];
+    technicalSkills: Skill[];
     education: Education[];
     experience: Experience[];
 }

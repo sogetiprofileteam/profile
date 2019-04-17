@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
-import { tap, switchMap, map, startWith, takeUntil } from 'rxjs/operators';
-import { Subject, forkJoin } from 'rxjs';
+import { tap, switchMap, map, startWith, takeUntil, mergeMap, filter } from 'rxjs/operators';
+import { Subject, forkJoin, Observable, of } from 'rxjs';
 
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -15,6 +15,10 @@ export interface SkillsEditDialogData {
   type: SkillsType
 }
 
+export interface SkillsOption extends Skill {
+  selected: boolean;
+}
+
 export type SkillsType = 'coreSkills' | 'technicalSkills';
 
 @Component({
@@ -23,7 +27,7 @@ export type SkillsType = 'coreSkills' | 'technicalSkills';
   styleUrls: ['./consultant-skills-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantSkillsEditComponent implements OnDestroy {
+export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -34,6 +38,10 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
   ) {
     this.skillType = this.data.type;
+    this.availableSkills$ = 
+      this.skillType === 'coreSkills' 
+      ?  this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
+      : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$))
   }
 
   skillType: SkillsType
@@ -43,7 +51,10 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   selectedSkills: Skill[];
   filteredAvailableSkills = this.skillCtrl.valueChanges.pipe(
     startWith(null),
-    map((value: string | Skill) => {
+    // This could be a string or Skill because the mat-chip value is the Skill object itself,
+    // so when one selects or enters a skill the inputbox valueChanges could emit a string or 
+    // Skill object. This isn't as clean as I'd like it to be.
+    mergeMap((value: string | Skill) => {
       if (value) {
         let name: string;
 
@@ -55,48 +66,18 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   
         return this.filterSkills(name);
       } else {
-        return this.availableSkills;
+        return this.availableSkills$;
       }
     })
   );
-  // TODO: Dynamically load available core or technical skills
-  availableSkills: Skill[] = [
-    {
-      id: '1',
-      name: 'Software development'
-    },
-    {
-      id: '2',
-      name: 'Time management'
-    },
-    {
-      id: '3',
-      name: 'Prioritizing'
-    },
-    {
-      id: '4',
-      name: 'Communication',
-    },
-    {
-      id: '5',
-      name: 'SDLC',
-    },
-    {
-      id: '7',
-      name: 'Teamwork',
-    },
-    {
-      id: '8',
-      name: 'UI Designer',
-    },
-    {
-      id: '9',
-      name: 'UX Designer'
-    },
-  ];
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant[this.skillType]));
+  availableSkills$: Observable<Skill[]>;
   destroy$ = new Subject();
+
+  ngOnInit() {
+    this.availableSkills$.subscribe();
+  }
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -143,9 +124,12 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     this.skillInput.nativeElement.value = '';
   }
 
-  private filterSkills(name: string): Skill[] {
+  private filterSkills(name: string): Observable<Skill[]> {
     const filterName = name.toLowerCase();
-    return this.availableSkills.filter(skill => skill.name.toLowerCase().indexOf(filterName) === 0);
+    return this.availableSkills$
+      .pipe(
+        map(skills => skills.filter(skill => skill.name.toLowerCase().indexOf(filterName) === 0))
+      );
   }
 
   updateConsultant() {
@@ -157,28 +141,22 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       this.updateWithNewSkills();
     } else {
       // Existing skills here means skills that are in availableSkills, 
-      // not necessarily skills that were already in the consutlant object
+      // not necessarily skills that were already in the consultant object
       this.updateWithExistingSkills();
     }
   }
 
   private updateWithNewSkills() {
     // Existing skills here means skills that are in availableSkills, 
-    // not necessarily skills that were already in the consutlant object
+    // not necessarily skills that were already in the consultant object
     const existingSkills = this.selectedSkills.filter(skill => skill.id !== null);
     const newSkills = this.selectedSkills.filter(skill => skill.id === null);
     const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name));
     
     forkJoin(...newSkillRequests)
-      .pipe(switchMap(responseSkills => {
-        // For concept purposes only, mockResponseSkills should be responseSkills when the 
-        // addNewSkill call actually returns the new skill. Making random ID's to mock response.
-        const mockResponseSkills = newSkills.map(skill => {
-          skill.id = Math.floor((Math.random() * 100)).toString()
-          return skill;
-        })
+      .pipe(switchMap((responseSkills: Skill[]) => {
         const skills = [
-          ...mockResponseSkills,
+          ...responseSkills,
           ...existingSkills
         ]
 
