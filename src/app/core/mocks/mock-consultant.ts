@@ -43,27 +43,27 @@ export const mockConsultant: Consultant = {
     ],
     technicalSkills: [
         {
-            id: '1',
+            id: '10',
             name: 'Angular'
         },
         {
-            id: '2',
+            id: '60',
             name: 'Microsoft Office Suite'
         },
         {
-            id: '3',
+            id: '40',
             name: 'HTML'
         },
         {
-            id: '4',
+            id: '30',
             name: 'CSS'
         },
         {
-            id: '5',
+            id: '50',
             name: 'JavaScript'
         },
         {
-            id: '6',
+            id: '20',
             name: 'TypeScript'
         }
     ],
@@ -82,7 +82,7 @@ export const mockConsultant: Consultant = {
             id: '1',
             companyName: 'Sogeti USA',
             title: 'Consultant',
-            startDate: new Date(''),
+            startDate: new Date(),
             descriptions: [
                 {
                     id: '1',

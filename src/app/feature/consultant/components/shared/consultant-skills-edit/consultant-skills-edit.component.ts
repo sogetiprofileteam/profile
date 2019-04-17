@@ -15,10 +15,6 @@ export interface SkillsEditDialogData {
   type: SkillsType
 }
 
-export interface SkillsOption extends Skill {
-  selected: boolean;
-}
-
 export type SkillsType = 'coreSkills' | 'technicalSkills';
 
 @Component({
@@ -36,15 +32,9 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
     private consultantStore: ConsultantStore,
     private consultantSkillService: ConsultantSkillDataService,
     private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
-  ) {
-    this.skillType = this.data.type;
-    this.availableSkills$ = 
-      this.skillType === 'coreSkills' 
-      ?  this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
-      : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$))
-  }
+  ) { }
 
-  skillType: SkillsType
+  skillType: SkillsType = this.data.type;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillCtrl = new FormControl();
 
@@ -71,9 +61,11 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
     })
   );
 
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant[this.skillType]));
-  availableSkills$: Observable<Skill[]>;
   destroy$ = new Subject();
+  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant[this.skillType]));
+  availableSkills$ = this.skillType === 'coreSkills' 
+      ?  this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
+      : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$))
 
   ngOnInit() {
     this.availableSkills$.subscribe();
