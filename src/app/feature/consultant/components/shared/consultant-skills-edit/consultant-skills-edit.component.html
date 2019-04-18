@@ -5,7 +5,7 @@
 
     <mat-chip-list #chipList>
       <mat-chip 
-        *ngFor="let skill of selectedSkills" 
+        *ngFor="let skill of selectedSkills$ | async" 
         removable="true" 
         color="primary"
         (removed)="remove(skill)">
@@ -31,7 +31,7 @@
       autoActiveFirstOption
       #auto="matAutocomplete"
       (optionSelected)="selected($event)">
-      <mat-option *ngFor="let skill of filteredAvailableSkills | async" [value]="skill">
+      <mat-option *ngFor="let skill of filteredAvailableSkills$ | async" [value]="skill" [disabled]="skill.selected">
         {{ skill.name }}
       </mat-option>
     </mat-autocomplete>

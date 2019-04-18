@@ -2,17 +2,23 @@ import { Component, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, I
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
-import { tap, switchMap, map, startWith, takeUntil, mergeMap, filter } from 'rxjs/operators';
-import { Subject, forkJoin, Observable, of } from 'rxjs';
+import { tap, switchMap, map, startWith, takeUntil, mergeMap } from 'rxjs/operators';
+import { Subject, forkJoin, Observable, BehaviorSubject, merge, combineLatest } from 'rxjs';
 
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { Skill } from '@core/models';
+import { Skill, Consultant } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
+import { cloneDeep, isEqual, differenceWith } from 'lodash';
+
 export interface SkillsEditDialogData {
   type: SkillsType
+}
+
+export interface SkillOption extends Skill {
+  selected: boolean;
 }
 
 export type SkillsType = 'coreSkills' | 'technicalSkills';
@@ -38,8 +44,7 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillCtrl = new FormControl();
 
-  selectedSkills: Skill[];
-  filteredAvailableSkills = this.skillCtrl.valueChanges.pipe(
+  filteredAvailableSkills$ = this.skillCtrl.valueChanges.pipe(
     startWith(null),
     // This could be a string or Skill because the mat-chip value is the Skill object itself,
     // so when one selects or enters a skill the inputbox valueChanges could emit a string or 
@@ -48,12 +53,12 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
       if (value) {
         let name: string;
 
-        if (typeof value !== 'string' ) {
+        if (typeof value !== 'string') {
           name = value.name;
         } else {
           name = value;
         }
-  
+
         return this.filterSkills(name);
       } else {
         return this.availableSkills$;
@@ -62,19 +67,66 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
   );
 
   destroy$ = new Subject();
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.selectedSkills = consultant[this.skillType]));
-  availableSkills$ = this.skillType === 'coreSkills' 
-      ?  this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
+  consultant$ =
+    this.consultantStore.consultant$
+      .pipe(
+        tap(c => this._selectedSkills$.next(c[this.skillType]))
+      );
+
+  getSkills$ =
+    this.skillType === 'coreSkills'
+      ? this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
       : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$))
 
+  private _selectedSkills$: BehaviorSubject<Skill[]> = new BehaviorSubject(null);
+  selectedSkills$ = this._selectedSkills$.asObservable();
+  get selectedSkills(): Skill[] {
+    return this._selectedSkills$.value;
+  }
+
+  availableSkills$: Observable<SkillOption[]> =
+    combineLatest(this.selectedSkills$, this.getSkills$)
+      .pipe(
+        map(([selectedSkills, availableSkills]) => {
+          return this.buildAvailableSkillsOptions(selectedSkills, availableSkills);
+        }),
+        tap(s => console.log(s)),
+      )
+
+  private buildAvailableSkillsOptions(selectedSkills: Skill[], availableSkills: Skill[]) {
+    const selectedSkillsOptions = selectedSkills.map(skill => {
+      const selectedSkill: SkillOption = {
+        ...cloneDeep(skill),
+        selected: true
+      };
+      return selectedSkill;
+    });
+
+    const unselectedSkills: Skill[] = differenceWith(availableSkills, selectedSkills, isEqual);
+    const unselectedSkillsOptions = unselectedSkills.map(skill => {
+      const selectedSkill: SkillOption = {
+        ...cloneDeep(skill),
+        selected: false
+      };
+      return selectedSkill;
+    });
+
+    const availableSkillsOptions: SkillOption[] = [
+      ...selectedSkillsOptions,
+      ...unselectedSkillsOptions
+    ];
+
+    return availableSkillsOptions;
+  }
+
   ngOnInit() {
-    this.availableSkills$.subscribe();
+    
   }
 
   ngOnDestroy() {
     this.destroy$.next();
   }
-  
+
   close(): void {
     this.dialogRef.close();
   }
@@ -92,7 +144,7 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
           name: name,
           id: null
         }
-        this.selectedSkills.push(skill);
+        this._selectedSkills$.next([...cloneDeep(this.selectedSkills), skill]);
       }
 
       // Reset the input value
@@ -106,12 +158,14 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
     const index = this.selectedSkills.indexOf(skill);
 
     if (index >= 0) {
-      this.selectedSkills.splice(index, 1);
+      const skillsCopy = cloneDeep(this.selectedSkills);
+      const skillsWithoutRemoved =  skillsCopy.splice(index, 1);
+      this._selectedSkills$.next([...skillsWithoutRemoved]);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedSkills.push(event.option.value);
+    this._selectedSkills$.next([...this.selectedSkills, event.option.value])
     this.skillCtrl.setValue(null);
     this.skillInput.nativeElement.value = '';
   }
@@ -144,7 +198,7 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
     const existingSkills = this.selectedSkills.filter(skill => skill.id !== null);
     const newSkills = this.selectedSkills.filter(skill => skill.id === null);
     const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name));
-    
+
     forkJoin(...newSkillRequests)
       .pipe(switchMap((responseSkills: Skill[]) => {
         const skills = [
