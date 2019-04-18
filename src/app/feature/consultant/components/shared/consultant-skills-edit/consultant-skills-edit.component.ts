@@ -13,6 +13,8 @@ import { ConsultantSkillDataService } from '@feature/consultant/services/consult
 
 import { isEqual, differenceWith } from 'lodash';
 
+import { dynamicSort } from '@shared/functions/dynamic-sort'
+
 export interface SkillsEditDialogData {
   type: SkillsType
 }
@@ -66,7 +68,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   selectedSkills$ = 
     this._selectedSkills$.asObservable()
       .pipe(
-        map(skills => skills.sort(this.dynamicSort('name')))
+        map(skills => skills.sort(dynamicSort('name')))
       );
   
   // We need to access the currently selectedSkills when using .next() on the _selectedSkills$
@@ -139,28 +141,11 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       ...unselectedSkillsOptions
     ];
 
-    return availableSkillsOptions.sort(this.dynamicSort('name'))  ;
+    return availableSkillsOptions.sort(dynamicSort('name'))  ;
   }
 
   ngOnDestroy() {
     this.destroy$.next();
-  }
-
-  // Sort any array of objects by a property name.
-  // At time of writing this is from the second response here: 
-  // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
-  private dynamicSort(property: string) {
-    let sortOrder = 1;
-
-    if(property[0] === "-") {
-        sortOrder = -1;
-        property = property.substr(1);
-    }
-
-    return (a: any, b: any) => {
-        let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        return result * sortOrder;
-    }
   }
 
   close(): void {
