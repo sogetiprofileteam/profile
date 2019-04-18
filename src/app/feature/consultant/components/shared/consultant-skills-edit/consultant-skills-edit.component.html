@@ -32,7 +32,7 @@
       #auto="matAutocomplete"
       (optionSelected)="selected($event)">
       <mat-option *ngFor="let skill of filteredAvailableSkills$ | async" [value]="skill" [disabled]="skill.selected">
-        {{ skill.name }}
+        {{ skill.name }} <ng-container *ngIf="skill.selected">(Selected)</ng-container>
       </mat-option>
     </mat-autocomplete>
 

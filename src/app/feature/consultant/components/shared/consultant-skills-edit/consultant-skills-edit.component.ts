@@ -3,11 +3,11 @@ import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { tap, switchMap, map, startWith, takeUntil, mergeMap } from 'rxjs/operators';
-import { Subject, forkJoin, Observable, BehaviorSubject, merge, combineLatest } from 'rxjs';
+import { Subject, forkJoin, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { Skill, Consultant } from '@core/models';
+import { Skill } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
@@ -79,7 +79,7 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
       : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$))
 
   private _selectedSkills$: BehaviorSubject<Skill[]> = new BehaviorSubject(null);
-  selectedSkills$ = this._selectedSkills$.asObservable();
+  selectedSkills$ = this._selectedSkills$.asObservable().pipe(map(skills => skills.sort(this.dynamicSort('name'))));
   get selectedSkills(): Skill[] {
     return this._selectedSkills$.value;
   }
@@ -89,23 +89,24 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
       .pipe(
         map(([selectedSkills, availableSkills]) => {
           return this.buildAvailableSkillsOptions(selectedSkills, availableSkills);
-        }),
-        tap(s => console.log(s)),
+        })
       )
 
   private buildAvailableSkillsOptions(selectedSkills: Skill[], availableSkills: Skill[]) {
     const selectedSkillsOptions = selectedSkills.map(skill => {
       const selectedSkill: SkillOption = {
-        ...cloneDeep(skill),
+        ...skill,
         selected: true
       };
       return selectedSkill;
-    });
+      // Filter out skills with null ID because those were entered via freetext and 
+      // shouldn't be added to the avialableSkills until added to the DB
+    }).filter(skill => skill.id !== null);
 
     const unselectedSkills: Skill[] = differenceWith(availableSkills, selectedSkills, isEqual);
     const unselectedSkillsOptions = unselectedSkills.map(skill => {
       const selectedSkill: SkillOption = {
-        ...cloneDeep(skill),
+        ...skill,
         selected: false
       };
       return selectedSkill;
@@ -116,7 +117,21 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
       ...unselectedSkillsOptions
     ];
 
-    return availableSkillsOptions;
+    return availableSkillsOptions.sort(this.dynamicSort('name'))  ;
+  }
+
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+
+    return (a: any, b: any) => {
+        let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
   }
 
   ngOnInit() {
@@ -144,7 +159,7 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
           name: name,
           id: null
         }
-        this._selectedSkills$.next([...cloneDeep(this.selectedSkills), skill]);
+        this._selectedSkills$.next([...this.selectedSkills, skill]);
       }
 
       // Reset the input value
@@ -158,14 +173,18 @@ export class ConsultantSkillsEditComponent implements OnInit, OnDestroy {
     const index = this.selectedSkills.indexOf(skill);
 
     if (index >= 0) {
-      const skillsCopy = cloneDeep(this.selectedSkills);
-      const skillsWithoutRemoved =  skillsCopy.splice(index, 1);
-      this._selectedSkills$.next([...skillsWithoutRemoved]);
+      const skillsCopy = [...this.selectedSkills];
+      skillsCopy.splice(index, 1)
+      this._selectedSkills$.next([...skillsCopy]);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this._selectedSkills$.next([...this.selectedSkills, event.option.value])
+    const newSkill = {
+      id: event.option.value.id,
+      name: event.option.value.name
+    }
+    this._selectedSkills$.next([...this.selectedSkills, newSkill])
     this.skillCtrl.setValue(null);
     this.skillInput.nativeElement.value = '';
   }
