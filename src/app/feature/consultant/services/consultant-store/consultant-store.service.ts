@@ -10,8 +10,6 @@ import { tap } from 'rxjs/operators';
 
 import { Consultant } from '@core/models';
 
-import { cloneDeep, merge } from 'lodash';
-
 @Injectable({
   providedIn: ConsultantServiceModule
 })
@@ -39,10 +37,13 @@ export class ConsultantStore {
    */
   private updatedConsultantFactory(data: Partial<Consultant>): Consultant {
     // Copy current consultant to preserve immutability
-    const consultantCopy = cloneDeep(this.consultant)
-    const consultant = merge(consultantCopy, data)
+    // WARNING: This approach may be flawed and needs to be looked at/reconsidered
+    const consultantCopy = {
+      ...this.consultant,
+      ...data
+    }
 
-    return consultant;
+    return consultantCopy;
   }
 
   /**
