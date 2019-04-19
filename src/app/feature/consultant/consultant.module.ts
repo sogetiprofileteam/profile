@@ -11,7 +11,6 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
-  MatChipInput,
 } from '@angular/material';
 
 import { ConsultantRoutingModule,
@@ -28,6 +27,8 @@ import { ConsultantRoutingModule,
   ConsultantExperienceComponent
 } from './index';
 
+import {DynamicSortPipe} from '@shared/pipes/dynamic-sort.pipe'
+
 @NgModule({
   declarations: [
     ConsultantViewComponent,
@@ -39,7 +40,8 @@ import { ConsultantRoutingModule,
     ConsultantSkillsEditComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantExperienceComponent
+    ConsultantExperienceComponent,
+    DynamicSortPipe
   ],
   imports: [
     CommonModule,
