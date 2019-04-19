@@ -27,8 +27,6 @@ import { ConsultantRoutingModule,
   ConsultantExperienceComponent
 } from './index';
 
-import {DynamicSortPipe} from '@shared/pipes/dynamic-sort.pipe'
-
 @NgModule({
   declarations: [
     ConsultantViewComponent,
@@ -41,7 +39,6 @@ import {DynamicSortPipe} from '@shared/pipes/dynamic-sort.pipe'
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
-    DynamicSortPipe
   ],
   imports: [
     CommonModule,

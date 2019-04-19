@@ -5,7 +5,7 @@
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
-  <ng-container *ngFor="let skill of (consultant.coreSkills | dynamicSort: 'name')">
+  <ng-container *ngFor="let skill of consultant.coreSkills">
     <p>{{skill.name}}</p>
   </ng-container>
 </section>
