@@ -22,7 +22,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
     HttpClientModule
   ],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '850px' }}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '850px', hasBackdrop: true }}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,22 +1,12 @@
 <h1 mat-dialog-title>Edit Core Skills</h1>
 
 <form *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()">
-  <mat-form-field class="chip-list" appearance="outline">
-
-    <mat-chip-list #chipList>
-      <mat-chip 
-        *ngFor="let skill of selectedSkills$ | async" 
-        removable="true" 
-        color="primary"
-        (removed)="remove(skill)">
-        {{ skill.name }}
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>
+  <mat-form-field class="skill-search" appearance="outline">
 
     <div class="input-container">
       <mat-icon>search</mat-icon>
       <input
+        matInput
         #skillInput
         placeholder="Search for skills"
         matChipInputAddOnBlur="true" 
@@ -37,6 +27,17 @@
     </mat-autocomplete>
 
   </mat-form-field>
+
+  <mat-chip-list #chipList>
+      <mat-chip 
+        *ngFor="let skill of selectedSkills$ | async" 
+        removable="true" 
+        color="primary"
+        (removed)="remove(skill)">
+        {{ skill.name }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
 
   <mat-dialog-actions align="end">
     <button mat-button type="button" (click)="close()">CANCEL</button>
