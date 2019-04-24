@@ -11,7 +11,7 @@ import { Skill, SelectedSkill } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
-import { isEqual, differenceWith, merge } from 'lodash';
+import { isEqual, differenceWith, merge, pick } from 'lodash';
 
 import { dynamicSort } from '@shared/functions/dynamic-sort'
 
@@ -194,11 +194,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   selected(event: MatAutocompleteSelectedEvent): void {
     // Need to strip the selected property from a selected option so that
     // we don't accidentally duplicate the option in the availableSkills$ observable
-    const newSkill = {
-      id: event.option.value.id,
-      name: event.option.value.name,
-      display: false
-    }
+    const newSkill: SelectedSkill = pick(event.option.value, ['id', 'name', 'display'])
+
     this._selectedSkills$.next([...this.selectedSkills, newSkill])
     this.skillCtrl.setValue(null);
     this.skillInput.nativeElement.value = '';
