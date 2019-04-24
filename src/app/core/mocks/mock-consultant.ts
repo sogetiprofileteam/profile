@@ -23,15 +23,18 @@ export const mockConsultant: Consultant = {
     coreSkills: [
         {
             id: '1',
-            name: 'Software development'
+            name: 'Software development',
+            display: true
         },
         {
             id: '2',
-            name: 'Time management'
+            name: 'Time management',
+            display: true
         },
         {
             id: '3',
-            name: 'Prioritizing'
+            name: 'Prioritizing',
+            display: true
         }
     ],
     certifications: [
@@ -44,27 +47,33 @@ export const mockConsultant: Consultant = {
     technicalSkills: [
         {
             id: '10',
-            name: 'Angular'
+            name: 'Angular',
+            display: true
         },
         {
             id: '60',
-            name: 'Microsoft Office Suite'
+            name: 'Microsoft Office Suite',
+            display: false
         },
         {
             id: '40',
-            name: 'HTML'
+            name: 'HTML',
+            display: true
         },
         {
             id: '30',
-            name: 'CSS'
+            name: 'CSS',
+            display: true
         },
         {
             id: '50',
-            name: 'JavaScript'
+            name: 'JavaScript',
+            display: false
         },
         {
             id: '20',
-            name: 'TypeScript'
+            name: 'TypeScript',
+            display: true
         }
     ],
     education: [

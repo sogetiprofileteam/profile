@@ -1,6 +1,7 @@
 <h1 mat-dialog-title>Edit Core Skills</h1>
 
 <form *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()">
+  <span *ngFor="let displaySkill of displaySkills$ | async">{{ displaySkill.name }} <br></span>
   <mat-form-field class="skill-search" appearance="outline">
 
     <div class="input-container">
@@ -28,12 +29,16 @@
 
   </mat-form-field>
 
-  <mat-chip-list #chipList>
+  <mat-chip-list #chipList multiple="true">
       <mat-chip 
         *ngFor="let skill of selectedSkills$ | async" 
         removable="true" 
         color="primary"
-        (removed)="remove(skill)">
+        (removed)="remove(skill)"
+        (click)="toggleChipSelection(chip)"
+        [value]="skill"
+        [selected]="skill.display"
+        #chip="matChip">
         {{ skill.name }}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>

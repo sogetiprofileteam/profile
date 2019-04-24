@@ -5,13 +5,13 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { tap, switchMap, map, startWith, takeUntil, mergeMap } from 'rxjs/operators';
 import { Subject, forkJoin, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatChip } from '@angular/material';
 
-import { Skill } from '@core/models';
+import { Skill, SelectedSkill } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
-import { isEqual, differenceWith } from 'lodash';
+import { isEqual, differenceWith, merge } from 'lodash';
 
 import { dynamicSort } from '@shared/functions/dynamic-sort'
 
@@ -19,7 +19,7 @@ export interface SkillsEditDialogData {
   type: SkillsType
 }
 
-export interface SkillOption extends Skill {
+export interface SkillOption extends SelectedSkill {
   selected: boolean;
 }
 
@@ -49,9 +49,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   destroy$ = new Subject();
   consultant$ =
     this.consultantStore.consultant$
-      .pipe(
-        tap(consultant => this._selectedSkills$.next(consultant[this.skillType]))
-      );
+      .pipe(tap(consultant => this._selectedSkills$.next(consultant[this.skillType])));
 
   getSkills$ =
     this.skillType === 'coreSkills'
@@ -61,7 +59,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   // _selectedSkills$ is BehaviorSubject because we want to be able to manipulate
   // skills as the user interacts with the application. If it were a basic Observable 
   // then we couldn't manipulate the skills over time. 
-  private _selectedSkills$: BehaviorSubject<Skill[]> = new BehaviorSubject(null);
+  private _selectedSkills$: BehaviorSubject<SelectedSkill[]> = new BehaviorSubject(null);
   
   // We want to watch for changes in the _selectedSkills$ BehaviorSubject hence turning
   // it into an Observable stream.
@@ -75,9 +73,16 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   // BehaviorSubject because we can't just push new values into an array, we have to .next() and
   // entire array. This will often be used in conjunction with the spread operator `...` to copy 
   // the values.
-  private get selectedSkills(): Skill[] {
+  private get selectedSkills(): SelectedSkill[] {
     return this._selectedSkills$.value;
   }
+
+  displaySkills$ = 
+    this.selectedSkills$
+      .pipe(
+        map(skills => skills.filter(skill => skill.display === true)),
+        map(skills => skills.sort(dynamicSort('name')))
+      )
 
   availableSkills$: Observable<SkillOption[]> =
     combineLatest(this.selectedSkills$, this.getSkills$)
@@ -96,7 +101,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
         // This could be a string or Skill because the mat-chip value is the Skill object itself,
         // so when one selects or enters a skill the inputbox valueChanges could emit a string or 
         // Skill object. This isn't as clean as I'd like it to be.
-        mergeMap((value: string | Skill) => {
+        mergeMap((value: string | SelectedSkill) => {
           if (value) {
             let name: string;
 
@@ -113,7 +118,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
         })
       );  
 
-  private buildAvailableSkillsOptions(selectedSkills: Skill[], availableSkills: Skill[]) {
+  private buildAvailableSkillsOptions(selectedSkills: SelectedSkill[], availableSkills: Skill[]) {
     // Add the selected boolean to selectedSkills, ignore skills with null ID because those
     // were entered via freetext and shouldn't be added to the avialableSkills until added to DB
     const selectedSkillsOptions = selectedSkills.map(skill => {
@@ -126,7 +131,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
     // Similar to above but we get the items that aren't inside the selectedSkills array
     // Lodash's differenceWith() and isEqual() are a godsend here
-    const unselectedSkills: Skill[] = differenceWith(availableSkills, selectedSkills, isEqual);
+    const unselectedSkills: SelectedSkill[] = differenceWith(availableSkills, selectedSkills, isEqual);
     const unselectedSkillsOptions = unselectedSkills.map(skill => {
       const selectedSkill: SkillOption = {
         ...skill,
@@ -161,9 +166,10 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
       // Add new skill
       if (name) {
-        const skill: Skill = {
+        const skill: SelectedSkill = {
           name: name,
-          id: null
+          id: null,
+          display: false
         }
         this._selectedSkills$.next([...this.selectedSkills, skill]);
       }
@@ -175,7 +181,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     }
   }
 
-  remove(skill: Skill): void {
+  remove(skill: SelectedSkill): void {
     const index = this.selectedSkills.indexOf(skill);
 
     if (index >= 0) {
@@ -190,7 +196,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     // we don't accidentally duplicate the option in the availableSkills$ observable
     const newSkill = {
       id: event.option.value.id,
-      name: event.option.value.name
+      name: event.option.value.name,
+      display: false
     }
     this._selectedSkills$.next([...this.selectedSkills, newSkill])
     this.skillCtrl.setValue(null);
@@ -200,7 +207,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   updateConsultant() {
     // New skills here means skills that don't exist in availableSkills;
     // skills that are entered via the free text input.
-    const newSkillsExist = this.selectedSkills.find(skill => skill.id === null);
+    const newSkillsExist = this.selectedSkills.some(skill => skill.id === null);
 
     if (newSkillsExist) {
       this.updateWithNewSkills();
@@ -209,7 +216,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     }
   }
 
-  private filterSkills(name: string): Observable<Skill[]> {
+  private filterSkills(name: string): Observable<SelectedSkill[]> {
     const filterName = name.toLowerCase();
     return this.availableSkills$
       .pipe(
@@ -225,9 +232,12 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     forkJoin(...newSkillRequests)
       .pipe(
         switchMap((responseSkills: Skill[]) => {
-          const skills = [
-            ...responseSkills,
-            ...existingSkills
+          // NEED TO MAP THE DISPLAY PROPERTY TO WHAT'S I(N THE NEWSKILLS ARRAY SOMEHOW
+          const mergedResponseNewSkills: SelectedSkill[] = merge(newSkills, responseSkills);
+
+          const skills: SelectedSkill[] = [
+            ...mergedResponseNewSkills,
+            ...existingSkills 
           ]
 
           return this.updateSkills(skills);
@@ -242,10 +252,43 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       .subscribe(() => this.close());
   }
 
-  private updateSkills(skills: Skill[]) {
+  private updateSkills(skills: SelectedSkill[]) {
     return this.consultantStore
       .updateConsultant({ [this.skillType]: skills })
       .pipe(takeUntil(this.destroy$))
   }
 
+  toggleChipSelection(chip: MatChip) {
+    const previouslySelected = chip.selected;
+    chip.toggleSelected();
+
+    const selectedSkill = chip.value;
+     
+    if (previouslySelected) {
+      this.removeOneFromDisplaySkills(selectedSkill);
+    } else {
+      this.addOneToDisplaySkills(selectedSkill);
+    }
+  }
+
+  private addOneToDisplaySkills(skill: SelectedSkill) {
+    this.updateDisplayOfSelectedSkill(skill, true);
+  }
+
+  private removeOneFromDisplaySkills(skill: SelectedSkill) {
+    this.updateDisplayOfSelectedSkill(skill, false);
+  }
+
+  private updateDisplayOfSelectedSkill(skill: SelectedSkill, display: boolean) {
+    const selectedSkillsClone = this.selectedSkills.filter(existingSKill => !isEqual(existingSKill, skill));
+    const displayedSkill: SelectedSkill = {
+      ...skill,
+      display: display
+    };
+    const updatedSelectedSkills: SelectedSkill[] = [
+      ...selectedSkillsClone,
+      displayedSkill
+    ];
+    this._selectedSkills$.next(updatedSelectedSkills);
+  }
 }
