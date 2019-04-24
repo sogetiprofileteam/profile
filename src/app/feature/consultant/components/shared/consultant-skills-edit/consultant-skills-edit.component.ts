@@ -232,7 +232,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     forkJoin(...newSkillRequests)
       .pipe(
         switchMap((responseSkills: Skill[]) => {
-          // NEED TO MAP THE DISPLAY PROPERTY TO WHAT'S I(N THE NEWSKILLS ARRAY SOMEHOW
+          // Merge so that we get the display property and proper ID from the server
           const mergedResponseNewSkills: SelectedSkill[] = merge(newSkills, responseSkills);
 
           const skills: SelectedSkill[] = [
