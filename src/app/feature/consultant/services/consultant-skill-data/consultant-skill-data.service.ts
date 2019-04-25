@@ -81,4 +81,71 @@ export const mockTechnicalSkills: Skill[] = [
     id: '30',
     name: 'CSS'
   },
+  {
+    id: '40',
+    name: 'AWS'
+  }
+]
+
+export const mockSkills = [
+  {
+    id: '10',
+    name: 'Angular',
+    type: 1
+  },
+  {
+    id: '20',
+    name: 'TypeScript',
+    type: 1
+  },
+  {
+    id: '30',
+    name: 'CSS',
+    type: 1
+  },
+  {
+    id: '40',
+    name: 'AWS',
+    type: 1
+  },
+  {
+    id: '1',
+    name: 'Software development',
+    type: 2
+  },
+  {
+    id: '2',
+    name: 'Time management',
+    type: 2
+  },
+  {
+    id: '3',
+    name: 'Prioritizing',
+    type: 2
+  },
+  {
+    id: '4',
+    name: 'Communication',
+    type: 2
+  },
+  {
+    id: '5',
+    name: 'SDLC',
+    type: 2
+  },
+  {
+    id: '7',
+    name: 'Teamwork',
+    type: 2
+  },
+  {
+    id: '8',
+    name: 'UI Designer',
+    type: 2
+  },
+  {
+    id: '9',
+    name: 'UX Designer',
+    type: 2
+  }
 ]
