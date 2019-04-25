@@ -40,11 +40,11 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
   ) { }
 
-  skillType: SkillType = this.data.type;
+  readonly skillType: SkillType = this.data.type;
   // Could probably figure out a way to do this without the magic string but this works
-  skillProperty = this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  skillCtrl = new FormControl();
+  readonly skillProperty = this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly skillCtrl = new FormControl();
 
   destroy$ = new Subject();
   consultant$ =
@@ -79,7 +79,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   displaySkills$ = 
     this.selectedSkills$
       .pipe(
-        map(skills => skills.filter(skill => skill.display === true))
+        map(skills => skills.filter(skill => skill.display === true).sort((a, b) => a.displayOrder - b.displayOrder))
       );
 
   availableSkills$ =
@@ -115,6 +115,11 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
           }
         })
       );  
+
+  readonly maxDisplaySkills = 10;
+  get currentDisplaySkills() {
+    return this.selectedSkills.filter(skill => skill.display === true).length;
+  }
   
   private filterSkills(name: string): Observable<SkillOption[]> {
     const filterName = name.toLowerCase();
@@ -191,7 +196,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
           name: name,
           id: null,
           display: false,
-          type: this.skillType
+          displayOrder: null,
+          type: this.skillType,
         }
         this._selectedSkills$.next([...this.selectedSkills, skill]);
       }
@@ -216,7 +222,10 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   selected(event: MatAutocompleteSelectedEvent): void {
     // Need to strip the selected property from a selected option so that
     // we don't accidentally duplicate the option in the availableSkills$ observable
-    const newSkill: SelectedSkill = pick(event.option.value, ['id', 'name', 'display', 'type'])
+    const newSkill: SelectedSkill = {
+      ...pick(event.option.value, ['id', 'name', 'display', 'type']),
+      displayOrder: null
+    };
 
     this._selectedSkills$.next([...this.selectedSkills, newSkill])
     this.skillCtrl.setValue(null);
@@ -269,39 +278,69 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
   }
 
-  toggleChipSelection(chip: MatChip): void {
+  chipClicked(chip: MatChip): void {
     const previouslySelected = chip.selected;
-    chip.toggleSelected();
-
     const selectedSkill: SelectedSkill = chip.value;
      
     if (previouslySelected) {
-      this.removeOneFromDisplaySkills(selectedSkill);
+      this.removeOneFromDisplaySkills(chip, selectedSkill);
     } else {
-      this.addOneToDisplaySkills(selectedSkill);
+      this.addOneToDisplaySkills(chip, selectedSkill);
     }
   }
 
-  private addOneToDisplaySkills(skill: SelectedSkill): void {
-    this.updateDisplayOfSelectedSkill(skill, true);
+  private addOneToDisplaySkills(chip: MatChip,skill: SelectedSkill): void {
+    this.updateDisplayOfSelectedSkill(chip, skill, true);
   }
 
-  private removeOneFromDisplaySkills(skill: SelectedSkill): void {
-    this.updateDisplayOfSelectedSkill(skill, false);
+  private removeOneFromDisplaySkills(chip: MatChip,skill: SelectedSkill): void {
+    this.updateDisplayOfSelectedSkill(chip, skill, false);
   }
 
-  private updateDisplayOfSelectedSkill(skill: SelectedSkill, display: boolean): void {
-    const selectedSkillsClone = this.selectedSkills.filter(existingSkill => !isEqual(existingSkill, skill));
+  private updateDisplayOfSelectedSkill(chip: MatChip, skill: SelectedSkill, display: boolean): void {
+    const updateIndex = this.selectedSkills.indexOf(skill);
+    const selectedSkillsWithoutUpdated = this.selectedSkills.filter((existingSkill, currIndex) => currIndex !== updateIndex);
+
     const updatedSkill: SelectedSkill = {
       ...skill,
       display: display
     };
 
+    if (display) {
+      if (this.currentDisplaySkills < this.maxDisplaySkills) {
+        chip.toggleSelected();
+        updatedSkill.displayOrder = this.currentDisplaySkills + 1; 
+        this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdated, updatedSkill);
+      } else {
+        console.warn('You are trying to add too many display skills');
+      }
+    } else {
+      chip.toggleSelected();
+      // Need to recalculate display order of all items that aren't the deselected item,
+      // or ordered before the deselected item
+      const selectedSkillsDisplayOrderUpdated = selectedSkillsWithoutUpdated.map(skill => {
+        if (skill.displayOrder > updatedSkill.displayOrder) {
+          const reOrderedSkill: SelectedSkill = {
+            ...skill,
+            displayOrder: skill.displayOrder - 1
+          }
+          return reOrderedSkill;
+        } else {
+          return skill;
+        }
+      })
+      console.log(selectedSkillsDisplayOrderUpdated);
+
+      updatedSkill.displayOrder = null;
+      this.updateSelectedDisplaySkills(selectedSkillsDisplayOrderUpdated, updatedSkill);
+    }
+  }
+
+  private updateSelectedDisplaySkills(selectedSkillsClone: SelectedSkill[], updatedSkill: SelectedSkill) {
     const updatedSelectedSkills: SelectedSkill[] = [
       ...selectedSkillsClone,
       updatedSkill
     ];
-
     this._selectedSkills$.next(updatedSelectedSkills);
   }
 }

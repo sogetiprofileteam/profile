@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Edit Core Skills</h1>
+<h1 mat-dialog-title>Edit [NEED TO INSERT SKILL TYPE] Skills</h1>
 
 <form *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()">
-  <span *ngFor="let displaySkill of displaySkills$ | async">{{ displaySkill.name }} <br></span>
+  <span *ngFor="let displaySkill of displaySkills$ | async">{{ displaySkill.name }} - Display order: {{ displaySkill.displayOrder}}<br></span>
   <mat-form-field class="skill-search" appearance="outline">
 
     <div class="input-container">
@@ -35,7 +35,7 @@
         removable="true" 
         color="primary"
         (removed)="remove(skill)"
-        (click)="toggleChipSelection(chip)"
+        (click)="chipClicked(chip)"
         [value]="skill"
         [selected]="skill.display"
         #chip="matChip">

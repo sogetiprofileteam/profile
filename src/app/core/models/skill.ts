@@ -1,8 +1,7 @@
-/** Type: 1 = technical, 2 = core */
 export interface Skill {
     id: string;
     name: string;
-    type: SkillType
+    type: SkillType;
 }
 
 export const SKILL_TECHNICAL = 1;

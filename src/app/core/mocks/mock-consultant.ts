@@ -25,19 +25,66 @@ export const mockConsultant: Consultant = {
             id: '1',
             name: 'Software development',
             display: true,
-            type: 2
+            type: 2,
+            displayOrder: 1
         },
         {
             id: '2',
             name: 'Time management',
             display: true,
-            type: 2
+            type: 2,
+            displayOrder: 3
         },
         {
             id: '3',
             name: 'Prioritizing',
             display: true,
-            type: 2
+            type: 2,
+            displayOrder: 2
+        },
+    ],
+    technicalSkills: [
+        {
+            id: '10',
+            name: 'Angular',
+            display: true,
+            type: 1,
+            displayOrder: 1
+        },
+        {
+            id: '60',
+            name: 'Microsoft Office Suite',
+            display: false,
+            type: 1,
+            displayOrder: null
+        },
+        {
+            id: '40',
+            name: 'HTML',
+            display: true,
+            type: 1,
+            displayOrder: 4
+        },
+        {
+            id: '30',
+            name: 'CSS',
+            display: true,
+            type: 1,
+            displayOrder: 3
+        },
+        {
+            id: '50',
+            name: 'JavaScript',
+            display: false,
+            type: 1,
+            displayOrder: null
+        },
+        {
+            id: '20',
+            name: 'TypeScript',
+            display: true,
+            type: 1,
+            displayOrder: 2
         }
     ],
     certifications: [
@@ -45,44 +92,6 @@ export const mockConsultant: Consultant = {
             id: '1',
             dateRecieved: new Date(),
             name: 'Amazon AWS Engineer',
-        }
-    ],
-    technicalSkills: [
-        {
-            id: '10',
-            name: 'Angular',
-            display: true,
-            type: 1
-        },
-        {
-            id: '60',
-            name: 'Microsoft Office Suite',
-            display: false,
-            type: 1
-        },
-        {
-            id: '40',
-            name: 'HTML',
-            display: true,
-            type: 1
-        },
-        {
-            id: '30',
-            name: 'CSS',
-            display: true,
-            type: 1
-        },
-        {
-            id: '50',
-            name: 'JavaScript',
-            display: false,
-            type: 1
-        },
-        {
-            id: '20',
-            name: 'TypeScript',
-            display: true,
-            type: 1
         }
     ],
     education: [
