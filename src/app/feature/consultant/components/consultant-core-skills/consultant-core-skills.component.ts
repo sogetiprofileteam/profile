@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
+import { SKILL_CORE } from '@core/models';
 
 @Component({
   selector: 'app-consultant-core-skills',
@@ -24,7 +25,7 @@ export class ConsultantCoreSkillsComponent implements OnInit {
   }
 
   openEditSkillsDialog() {
-    this.dialog.open(ConsultantSkillsEditComponent, { data: { type: 'coreSkills' } });
+    this.dialog.open(ConsultantSkillsEditComponent, { data: { type: SKILL_CORE } });
   }
 
 }

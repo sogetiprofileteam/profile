@@ -7,7 +7,7 @@ import { Subject, forkJoin, Observable, BehaviorSubject, combineLatest } from 'r
 
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatChip } from '@angular/material';
 
-import { Skill, SelectedSkill } from '@core/models';
+import { Skill, SelectedSkill, SkillType, SKILL_CORE } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
@@ -16,14 +16,12 @@ import { isEqual, differenceWith, merge, pick } from 'lodash';
 import { dynamicSort } from '@shared/functions/dynamic-sort'
 
 export interface SkillsEditDialogData {
-  type: SkillsType
+  type: SkillType
 }
 
 export interface SkillOption extends Skill {
   selected: boolean;
 }
-
-export type SkillsType = 'coreSkills' | 'technicalSkills';
 
 @Component({
   selector: 'app-consultant-skills-edit',
@@ -42,17 +40,19 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
   ) { }
 
-  skillType: SkillsType = this.data.type;
+  skillType: SkillType = this.data.type;
+  // Could probably figure out a way to do this without the magic string but this works
+  skillProperty = this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillCtrl = new FormControl();
 
   destroy$ = new Subject();
   consultant$ =
     this.consultantStore.consultant$
-      .pipe(tap(consultant => this._selectedSkills$.next(consultant[this.skillType])));
+      .pipe(tap(consultant => this._selectedSkills$.next(consultant[this.skillProperty])));
 
   getSkills$ =
-    this.skillType === 'coreSkills'
+    this.skillType === SKILL_CORE
       ? this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
       : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$));
 
@@ -65,9 +65,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   // it into an Observable stream.
   selectedSkills$ = 
     this._selectedSkills$.asObservable()
-      .pipe(
-        map(skills => skills.sort(dynamicSort('name')))
-      );
+      .pipe(map(skills => skills.sort(dynamicSort('name'))));
   
   // We need to access the currently selectedSkills when using .next() on the _selectedSkills$
   // BehaviorSubject because we can't just push new values into an array, we have to .next() and
@@ -131,7 +129,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
     // Similar to above but we get the items that aren't inside the selectedSkills array
     // Lodash's differenceWith() and isEqual() are a godsend here
-    const pickedSelectedSkills = selectedSkills.map(skill => this.pickIdNameFromSkill(skill));
+    const pickedSelectedSkills = selectedSkills.map(skill => this.pickSkillFromSelectedSkill(skill));
     const unselectedSkills: SelectedSkill[] = differenceWith(availableSkills, pickedSelectedSkills, isEqual);
     const unselectedSkillsOptions = this.createUnselectedOptions(unselectedSkills);
 
@@ -149,7 +147,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     // were entered via freetext and shouldn't be added to the avialableSkills until added to DB
     // which happens on save.
     return selectedSkills.map(skill => {
-      const pickedSkill = this.pickIdNameFromSkill(skill)
+      const pickedSkill = this.pickSkillFromSelectedSkill(skill)
       const selectedSkill: SkillOption = {
         ...pickedSkill,
         selected: true
@@ -168,8 +166,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     });
   }
 
-  private pickIdNameFromSkill(skill: SelectedSkill): Skill {
-    return pick(skill, ['id', 'name']) as Skill;
+  private pickSkillFromSelectedSkill(skill: SelectedSkill): Skill {
+    return pick(skill, ['id', 'name', 'type']) as Skill;
   }
 
   ngOnDestroy() {
@@ -192,7 +190,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
         const skill: SelectedSkill = {
           name: name,
           id: null,
-          display: false
+          display: false,
+          type: this.skillType
         }
         this._selectedSkills$.next([...this.selectedSkills, skill]);
       }
@@ -217,7 +216,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   selected(event: MatAutocompleteSelectedEvent): void {
     // Need to strip the selected property from a selected option so that
     // we don't accidentally duplicate the option in the availableSkills$ observable
-    const newSkill: SelectedSkill = pick(event.option.value, ['id', 'name', 'display'])
+    const newSkill: SelectedSkill = pick(event.option.value, ['id', 'name', 'display', 'type'])
 
     this._selectedSkills$.next([...this.selectedSkills, newSkill])
     this.skillCtrl.setValue(null);
@@ -239,7 +238,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   private updateWithNewSkills(): void {
     const existingSkills = this.selectedSkills.filter(skill => skill.id !== null);
     const newSkills = this.selectedSkills.filter(skill => skill.id === null);
-    const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name));
+    const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name, this.skillType));
 
     forkJoin(...newSkillRequests)
       .pipe(
@@ -266,7 +265,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
   private updateSkills(skills: SelectedSkill[]) {
     return this.consultantStore
-      .updateConsultant({ [this.skillType]: skills })
+      .updateConsultant({ [this.skillProperty]: skills })
       .pipe(takeUntil(this.destroy$))
   }
 

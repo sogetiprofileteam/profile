@@ -24,17 +24,20 @@ export const mockConsultant: Consultant = {
         {
             id: '1',
             name: 'Software development',
-            display: true
+            display: true,
+            type: 2
         },
         {
             id: '2',
             name: 'Time management',
-            display: true
+            display: true,
+            type: 2
         },
         {
             id: '3',
             name: 'Prioritizing',
-            display: true
+            display: true,
+            type: 2
         }
     ],
     certifications: [
@@ -48,32 +51,38 @@ export const mockConsultant: Consultant = {
         {
             id: '10',
             name: 'Angular',
-            display: true
+            display: true,
+            type: 1
         },
         {
             id: '60',
             name: 'Microsoft Office Suite',
-            display: false
+            display: false,
+            type: 1
         },
         {
             id: '40',
             name: 'HTML',
-            display: true
+            display: true,
+            type: 1
         },
         {
             id: '30',
             name: 'CSS',
-            display: true
+            display: true,
+            type: 1
         },
         {
             id: '50',
             name: 'JavaScript',
-            display: false
+            display: false,
+            type: 1
         },
         {
             id: '20',
             name: 'TypeScript',
-            display: true
+            display: true,
+            type: 1
         }
     ],
     education: [
