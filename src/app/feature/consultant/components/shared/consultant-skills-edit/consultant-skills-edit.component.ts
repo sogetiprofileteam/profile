@@ -14,6 +14,7 @@ import { ConsultantSkillDataService } from '@feature/consultant/services/consult
 import { isEqual, differenceWith, merge, pick } from 'lodash';
 
 import { dynamicSort } from '@shared/functions/dynamic-sort'
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 export interface SkillsEditDialogData {
   type: SkillType
@@ -43,6 +44,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   readonly skillType: SkillType = this.data.type;
   // Could probably figure out a way to do this without the magic string but this works
   readonly skillProperty = this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
+  readonly title = this.skillType === SKILL_CORE ? 'Core' : 'Techncial';
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly skillCtrl = new FormControl();
 
@@ -81,6 +83,10 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       .pipe(
         map(skills => skills.filter(skill => skill.display === true).sort((a, b) => a.displayOrder - b.displayOrder))
       );
+
+  get displaySkills() {
+    return this._selectedSkills$.value.filter(skill => skill.display)
+  }
 
   availableSkills$ =
     combineLatest(this.selectedSkills$, this.getSkills$)
@@ -312,6 +318,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
         updatedSkill.displayOrder = this.currentDisplaySkills + 1; 
         this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdated, updatedSkill);
       } else {
+        // Need to replace with UI alert, probably a snackbar
         console.warn('You are trying to add too many display skills');
       }
     } else {
@@ -342,5 +349,9 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       updatedSkill
     ];
     this._selectedSkills$.next(updatedSelectedSkills);
+  }
+
+  displaySkillReordered(event: CdkDragDrop<SelectedSkill[]>) {
+    // WORK ON THIS LOGIC
   }
 }

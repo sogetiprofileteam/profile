@@ -1,9 +1,9 @@
-<h1 mat-dialog-title>Edit [NEED TO INSERT SKILL TYPE] Skills</h1>
+<h1 mat-dialog-title>Edit {{ title }} Skills</h1>
 
-<form *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()">
-  <span *ngFor="let displaySkill of displaySkills$ | async">{{ displaySkill.name }} - Display order: {{ displaySkill.displayOrder}}<br></span>
+<form mat-dialog-content *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()">
+  <h2>Add New Skills</h2>
+  
   <mat-form-field class="skill-search" appearance="outline">
-
     <div class="input-container">
       <mat-icon>search</mat-icon>
       <input
@@ -29,7 +29,11 @@
 
   </mat-form-field>
 
-  <mat-chip-list #chipList multiple="true">
+  <section class="selected-skills">
+    <h2>Selected Skills</h2>
+    <div class="subtitle">Select which skills to display by clicking on it (10 max)</div>
+    
+    <mat-chip-list #chipList multiple="true" >
       <mat-chip 
         *ngFor="let skill of selectedSkills$ | async" 
         removable="true" 
@@ -42,9 +46,27 @@
         {{ skill.name }}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
-    </mat-chip-list>
+    </mat-chip-list>    
+  </section>
 
-  <mat-dialog-actions align="end">
+  <h2>Displayed Skills</h2>
+  <div class="subtitle">Reorder by dragging and dropping</div>
+
+  <div cdkDropList (cdkDropListDropped)="displaySkillReordered($event)" class="display-skills">
+    <div 
+      cdkDrag 
+      class="display-skill" 
+      cdkDragBoundary=".display-skills"
+      cdkDragLockAxis="y"
+      *ngFor="let displaySkill of displaySkills$ | async">
+      <button title="Remove skill from displayed skills" mat-button mat-icon-button class="display-skill-remove">
+        <mat-icon>clear</mat-icon>
+      </button>
+      {{ displaySkill.name }} ({{ displaySkill.displayOrder}})
+    </div>
+  </div>
+
+  <mat-dialog-actions mat-dialog-actions align="end">
     <button mat-button type="button" (click)="close()">CANCEL</button>
     <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE</button>
   </mat-dialog-actions>
