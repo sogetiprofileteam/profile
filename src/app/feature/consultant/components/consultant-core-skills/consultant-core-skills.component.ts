@@ -6,6 +6,8 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 
 import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
 import { SKILL_CORE } from '@core/models';
+import { map } from 'rxjs/operators';
+import { filterAndSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 @Component({
   selector: 'app-consultant-core-skills',
@@ -19,8 +21,12 @@ export class ConsultantCoreSkillsComponent implements OnInit {
     private dialog: MatDialog,
   ) { }
 
-  consultant$ = this.consultantStore.consultant$;
-
+  coreSkills$ = 
+    this.consultantStore.consultant$
+      .pipe(
+        map(c => filterAndSortDisplaySkills(c.coreSkills))
+      );
+      
   ngOnInit() {
   }
 

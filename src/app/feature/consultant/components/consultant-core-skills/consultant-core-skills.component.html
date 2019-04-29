@@ -4,10 +4,8 @@
   (actionClicked)="openEditSkillsDialog()">
 </app-consultant-section-header>
 
-<section *ngIf="consultant$ | async as consultant">
-  <ng-container *ngFor="let skill of consultant.coreSkills">
-    <ng-container *ngIf="skill.display">
-        <p>{{skill.name}}</p>
-    </ng-container>
+<section *ngIf="coreSkills$ | async as coreSkills">
+  <ng-container *ngFor="let skill of coreSkills">
+    <p>{{skill.name}}</p>
   </ng-container>
 </section>

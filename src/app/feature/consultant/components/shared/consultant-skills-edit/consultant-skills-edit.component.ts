@@ -14,7 +14,8 @@ import { ConsultantSkillDataService } from '@feature/consultant/services/consult
 import { isEqual, differenceWith, merge, pick } from 'lodash';
 
 import { dynamicSort } from '@shared/functions/dynamic-sort'
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { filterAndSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 export interface SkillsEditDialogData {
   type: SkillType
@@ -81,12 +82,11 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   displaySkills$ = 
     this.selectedSkills$
       .pipe(
-        map(skills => skills.filter(skill => skill.display === true).sort((a, b) => a.displayOrder - b.displayOrder))
+        map(skills => filterAndSortDisplaySkills(skills)),
+        tap(skills => this.displaySkills = skills)
       );
 
-  get displaySkills() {
-    return this._selectedSkills$.value.filter(skill => skill.display)
-  }
+  displaySkills: SelectedSkill[];
 
   availableSkills$ =
     combineLatest(this.selectedSkills$, this.getSkills$)
@@ -123,6 +123,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       );  
 
   readonly maxDisplaySkills = 10;
+
+
   get currentDisplaySkills() {
     return this.selectedSkills.filter(skill => skill.display === true).length;
   }
@@ -229,7 +231,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     // Need to strip the selected property from a selected option so that
     // we don't accidentally duplicate the option in the availableSkills$ observable
     const newSkill: SelectedSkill = {
-      ...pick(event.option.value, ['id', 'name', 'display', 'type']),
+      ...pick(event.option.value, ['id', 'name', 'type']),
+      display: false,
       displayOrder: null
     };
 
@@ -336,7 +339,6 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
           return skill;
         }
       })
-      console.log(selectedSkillsDisplayOrderUpdated);
 
       updatedSkill.displayOrder = null;
       this.updateSelectedDisplaySkills(selectedSkillsDisplayOrderUpdated, updatedSkill);
@@ -352,6 +354,21 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   }
 
   displaySkillReordered(event: CdkDragDrop<SelectedSkill[]>) {
-    // WORK ON THIS LOGIC
+    const displaySkillsClone = [
+      ...this.displaySkills
+    ];
+    moveItemInArray(displaySkillsClone, event.previousIndex, event.currentIndex);
+    
+    for (let index = 0; index < displaySkillsClone.length; index++) {
+      displaySkillsClone[index].displayOrder = index + 1;
+    }
+
+    const selectedSkillsNoDisplay = this.selectedSkills.filter(skill => skill.display === false);
+    const reorderedSelectedSkills = [
+      ...selectedSkillsNoDisplay,
+      ...displaySkillsClone
+    ];
+
+    this._selectedSkills$.next(reorderedSelectedSkills);
   }
 }
