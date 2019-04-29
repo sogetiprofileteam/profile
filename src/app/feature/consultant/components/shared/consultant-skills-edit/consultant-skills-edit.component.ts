@@ -5,7 +5,14 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { tap, switchMap, map, startWith, takeUntil, mergeMap } from 'rxjs/operators';
 import { Subject, forkJoin, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatChip } from '@angular/material';
+import {
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
+  MatAutocomplete,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatChip
+} from '@angular/material';
 
 import { Skill, SelectedSkill, SkillType, SKILL_CORE } from '@core/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
@@ -13,12 +20,12 @@ import { ConsultantSkillDataService } from '@feature/consultant/services/consult
 
 import { isEqual, differenceWith, merge, pick } from 'lodash';
 
-import { dynamicSort } from '@shared/functions/dynamic-sort'
+import { dynamicSort } from '@shared/functions/dynamic-sort';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { filterAndSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 export interface SkillsEditDialogData {
-  type: SkillType
+  type: SkillType;
 }
 
 export interface SkillOption extends Skill {
@@ -60,26 +67,26 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$));
 
   // _selectedSkills$ is BehaviorSubject because we want to be able to manipulate
-  // skills as the user interacts with the application. If it were a basic Observable 
-  // then we couldn't manipulate the skills over time. 
+  // skills as the user interacts with the application. If it were a basic Observable
+  // then we couldn't manipulate the skills over time.
   private _selectedSkills$: BehaviorSubject<SelectedSkill[]> = new BehaviorSubject(null);
-  
+
   // We want to watch for changes in the _selectedSkills$ BehaviorSubject hence turning
   // it into an Observable stream.
-  selectedSkills$ = 
+  selectedSkills$ =
     this._selectedSkills$.asObservable()
       .pipe(map(skills => skills.sort(dynamicSort('name'))));
-  
+
   // We need to access the currently selectedSkills when using .next() on the _selectedSkills$
   // BehaviorSubject because we can't just push new values into an array, we have to .next() and
-  // entire array. This will often be used in conjunction with the spread operator `...` to copy 
+  // entire array. This will often be used in conjunction with the spread operator `...` to copy
   // the values.
   private get selectedSkills(): SelectedSkill[] {
     return this._selectedSkills$.value;
   }
 
   // Skills that the user selects to be displayed on their profile.
-  displaySkills$ = 
+  displaySkills$ =
     this.selectedSkills$
       .pipe(
         map(skills => filterAndSortDisplaySkills(skills)),
@@ -98,29 +105,29 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
         })
       );
 
-  filteredAvailableSkills$ = 
+  filteredAvailableSkills$ =
     this.skillCtrl.valueChanges
       .pipe(
         startWith(null),
         // This could be a string or Skill because the mat-chip value is the Skill object itself,
-        // so when one selects or enters a skill the inputbox valueChanges could emit a string or 
+        // so when one selects or enters a skill the inputbox valueChanges could emit a string or
         // Skill object. This isn't as clean as I'd like it to be.
         mergeMap((value: string | SkillOption) => {
           if (value) {
             let name: string;
-    
+
             if (typeof value !== 'string') {
               name = value.name;
             } else {
               name = value;
             }
-    
+
             return this.filterSkills(name);
           } else {
             return this.availableSkills$;
           }
         })
-      );  
+      );
 
   readonly maxDisplaySkills = 10;
 
@@ -128,7 +135,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   get currentDisplaySkills() {
     return this.selectedSkills.filter(skill => skill.display === true).length;
   }
-  
+
   private filterSkills(name: string): Observable<SkillOption[]> {
     const filterName = name.toLowerCase();
     return this.availableSkills$
@@ -160,7 +167,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     // were entered via freetext and shouldn't be added to the avialableSkills until added to DB
     // which happens on save.
     return selectedSkills.map(skill => {
-      const pickedSkill = this.pickSkillFromSelectedSkill(skill)
+      const pickedSkill = this.pickSkillFromSelectedSkill(skill);
       const selectedSkill: SkillOption = {
         ...pickedSkill,
         selected: true
@@ -168,7 +175,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       return selectedSkill;
     }).filter(skill => skill.id !== null);
   }
-  
+
   private createUnselectedOptions(unselectedSkills: SelectedSkill[]): SkillOption[] {
     return unselectedSkills.map(skill => {
       const selectedSkill: SkillOption = {
@@ -196,17 +203,17 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const name = event.value.trim();
+      const skillName = event.value.trim();
 
       // Add new skill
-      if (name) {
+      if (skillName) {
         const skill: SelectedSkill = {
-          name: name,
+          name: skillName,
           id: null,
           display: false,
           displayOrder: null,
           type: this.skillType,
-        }
+        };
         this._selectedSkills$.next([...this.selectedSkills, skill]);
       }
 
@@ -222,7 +229,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
     if (index >= 0) {
       const skillsCopy = [...this.selectedSkills];
-      skillsCopy.splice(index, 1)
+      skillsCopy.splice(index, 1);
       this._selectedSkills$.next([...skillsCopy]);
     }
   }
@@ -236,7 +243,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       displayOrder: null
     };
 
-    this._selectedSkills$.next([...this.selectedSkills, newSkill])
+    this._selectedSkills$.next([...this.selectedSkills, newSkill]);
     this.skillCtrl.setValue(null);
     this.skillInput.nativeElement.value = '';
   }
@@ -258,7 +265,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     const newSkills = this.selectedSkills.filter(skill => skill.id === null);
     const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name, this.skillType));
 
-    forkJoin(...newSkillRequests)
+    forkJoin(newSkillRequests)
       .pipe(
         switchMap((responseSkills: Skill[]) => {
           // Merge so that we get the display property and proper ID from the server
@@ -266,8 +273,8 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
 
           const skills: SelectedSkill[] = [
             ...mergedResponseNewSkills,
-            ...existingSkills 
-          ]
+            ...existingSkills
+          ];
 
           return this.updateSkills(skills);
         }),
@@ -284,13 +291,13 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   private updateSkills(skills: SelectedSkill[]) {
     return this.consultantStore
       .updateConsultant({ [this.skillProperty]: skills })
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$));
   }
 
   chipClicked(chip: MatChip): void {
     const previouslySelected = chip.selected;
     const selectedSkill: SelectedSkill = chip.value;
-     
+
     if (previouslySelected) {
       this.removeOneFromDisplaySkills(chip, selectedSkill);
     } else {
@@ -298,27 +305,27 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
     }
   }
 
-  private addOneToDisplaySkills(chip: MatChip,skill: SelectedSkill): void {
+  private addOneToDisplaySkills(chip: MatChip, skill: SelectedSkill): void {
     this.updateDisplayOfSelectedSkill(chip, skill, true);
   }
 
-  private removeOneFromDisplaySkills(chip: MatChip,skill: SelectedSkill): void {
+  private removeOneFromDisplaySkills(chip: MatChip, skill: SelectedSkill): void {
     this.updateDisplayOfSelectedSkill(chip, skill, false);
   }
 
-  private updateDisplayOfSelectedSkill(chip: MatChip, skill: SelectedSkill, display: boolean): void {
+  private updateDisplayOfSelectedSkill(chip: MatChip, skill: SelectedSkill, displayVal: boolean): void {
     const updateIndex = this.selectedSkills.indexOf(skill);
     const selectedSkillsWithoutUpdated = this.selectedSkills.filter((existingSkill, currIndex) => currIndex !== updateIndex);
 
     const updatedSkill: SelectedSkill = {
       ...skill,
-      display: display
+      display: displayVal
     };
 
-    if (display) {
+    if (displayVal) {
       if (this.currentDisplaySkills < this.maxDisplaySkills) {
         chip.toggleSelected();
-        updatedSkill.displayOrder = this.currentDisplaySkills + 1; 
+        updatedSkill.displayOrder = this.currentDisplaySkills + 1;
         this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdated, updatedSkill);
       } else {
         // Need to replace with UI alert, probably a snackbar
@@ -328,17 +335,17 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       chip.toggleSelected();
       // Need to recalculate display order of all items that aren't the deselected item,
       // or ordered before the deselected item
-      const selectedSkillsDisplayOrderUpdated = selectedSkillsWithoutUpdated.map(skill => {
-        if (skill.displayOrder > updatedSkill.displayOrder) {
+      const selectedSkillsDisplayOrderUpdated = selectedSkillsWithoutUpdated.map(selectedSkill => {
+        if (selectedSkill.displayOrder > updatedSkill.displayOrder) {
           const reOrderedSkill: SelectedSkill = {
-            ...skill,
-            displayOrder: skill.displayOrder - 1
-          }
+            ...selectedSkill,
+            displayOrder: selectedSkill.displayOrder - 1
+          };
           return reOrderedSkill;
         } else {
-          return skill;
+          return selectedSkill;
         }
-      })
+      });
 
       updatedSkill.displayOrder = null;
       this.updateSelectedDisplaySkills(selectedSkillsDisplayOrderUpdated, updatedSkill);
@@ -358,7 +365,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
       ...this.displaySkills
     ];
     moveItemInArray(displaySkillsClone, event.previousIndex, event.currentIndex);
-    
+
     for (let index = 0; index < displaySkillsClone.length; index++) {
       displaySkillsClone[index].displayOrder = index + 1;
     }
