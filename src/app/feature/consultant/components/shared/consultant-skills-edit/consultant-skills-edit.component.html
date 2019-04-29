@@ -2,7 +2,8 @@
 
 <form mat-dialog-content *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()" id="skill-form">
   <h2>Add New Skills</h2>
-  
+  <div class="subtitle">Search for a skill or add your own</div>
+
   <mat-form-field class="skill-search" appearance="outline">
     <div class="input-container">
       <mat-icon>search</mat-icon>
