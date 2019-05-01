@@ -8,7 +8,7 @@ import { ConsultantDataService } from '../consultant-data/consultant-data.servic
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { Consultant } from '@core/models';
+import { Consultant } from '@feature/consultant/models';
 
 @Injectable({
   providedIn: ConsultantServiceModule

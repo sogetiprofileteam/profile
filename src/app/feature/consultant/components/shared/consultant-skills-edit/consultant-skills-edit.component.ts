@@ -14,7 +14,7 @@ import {
   MatChip
 } from '@angular/material';
 
-import { Skill, SelectedSkill, SkillType, SKILL_CORE } from '@core/models';
+import { Skill, SelectedSkill, SkillType, SKILL_CORE } from '@feature/consultant/models';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 
@@ -52,7 +52,7 @@ export class ConsultantSkillsEditComponent implements OnDestroy {
   readonly skillType: SkillType = this.data.type;
   // Could probably figure out a way to do this without the magic string but this works
   readonly skillProperty = this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
-  readonly title = this.skillType === SKILL_CORE ? 'Core' : 'Techncial';
+  readonly title = this.skillType === SKILL_CORE ? 'Core' : 'Technical';
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly skillCtrl = new FormControl();
 

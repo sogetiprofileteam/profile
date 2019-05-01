@@ -3,11 +3,11 @@ import { ConsultantServiceModule } from '@feature/consultant/consultant-service.
 
 import { of, Observable } from 'rxjs';
 
-import { Consultant } from '@core/models';
+import { Consultant } from '@feature/consultant/models';
 import { HttpResponse, HttpClient } from '@angular/common/http';
 
 import { environment } from '@env/environment';
-import { mockConsultant } from '@core/mocks/mock-consultant';
+import { mockConsultant } from '@feature/consultant/mocks/mock-consultant';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
