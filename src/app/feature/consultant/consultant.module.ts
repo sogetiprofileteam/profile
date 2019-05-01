@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import {
   MatDialogModule,
   MatInputModule,
   MatFormFieldModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatSelectModule,
+  MatChipsModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 
 import { ConsultantRoutingModule,
@@ -17,7 +22,8 @@ import { ConsultantRoutingModule,
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
   ConsultantSectionHeaderComponent,
-  ConsultantSkillsComponent,
+  ConsultantCoreSkillsComponent,
+  ConsultantSkillsEditComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent
@@ -30,23 +36,28 @@ import { ConsultantRoutingModule,
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
-    ConsultantSkillsComponent,
+    ConsultantCoreSkillsComponent,
+    ConsultantSkillsEditComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantExperienceComponent
+    ConsultantExperienceComponent,
   ],
   imports: [
     CommonModule,
     ConsultantServiceModule,
     ConsultantRoutingModule,
+    DragDropModule,
     MatButtonModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatDialogModule,
     MatInputModule,
+    MatChipsModule,
+    MatAutocompleteModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent],
+  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent], 
 })
 export class ConsultantModule { }

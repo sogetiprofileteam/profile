@@ -22,7 +22,7 @@ export class ConsultantHeaderComponent {
   consultant$ = this.consultantStore.consultant$;
 
   openEditDialog(): void {
-    this.dialog.open(ConsultantHeaderEditComponent, { width: '400px' });
+    this.dialog.open(ConsultantHeaderEditComponent);
   }
 
 }
