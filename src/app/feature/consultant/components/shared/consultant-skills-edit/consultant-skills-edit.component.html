@@ -1,13 +1,10 @@
 <h1 mat-dialog-title>Edit {{ title }} Skills</h1>
 
 <form mat-dialog-content *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()" id="skill-form">
-  <app-consultant-skills-edit-add-remove
-    [skillOptions$]="???"
-    [selectedSkills$]="???">
+  <app-consultant-skills-edit-add-remove>
   </app-consultant-skills-edit-add-remove>
 
-  <app-consultant-skills-edit-reorder-display
-    [displaySkills$]="???">
+  <app-consultant-skills-edit-reorder-display>
   </app-consultant-skills-edit-reorder-display>
 </form>
 

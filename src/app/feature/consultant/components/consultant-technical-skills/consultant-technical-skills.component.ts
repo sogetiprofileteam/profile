@@ -7,7 +7,7 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
 import { SKILL_TECHNICAL } from '@feature/consultant/models';
 import { map } from 'rxjs/operators';
-import { filterAndSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
+import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 @Component({
   selector: 'app-consultant-technical-skills',
@@ -24,7 +24,7 @@ export class ConsultantTechnicalSkillsComponent implements OnInit {
   technicalSkills$ = 
     this.consultantStore.consultant$
       .pipe(
-        map(c => filterAndSortDisplaySkills(c.technicalSkills))
+        map(c => filterSortDisplaySkills(c.technicalSkills))
       );
 
   ngOnInit() {

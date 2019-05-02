@@ -7,7 +7,7 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
 import { SKILL_CORE } from '@feature/consultant/models';
 import { map } from 'rxjs/operators';
-import { filterAndSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
+import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 @Component({
   selector: 'app-consultant-core-skills',
@@ -24,7 +24,7 @@ export class ConsultantCoreSkillsComponent {
   coreSkills$ =
     this.consultantStore.consultant$
       .pipe(
-        map(c => filterAndSortDisplaySkills(c.coreSkills))
+        map(c => filterSortDisplaySkills(c.coreSkills))
       );
 
   openEditSkillsDialog() {

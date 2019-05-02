@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component,  ChangeDetectionStrategy } from '@angular/core';
 import { SelectedSkill } from '@feature/consultant/models';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/consultant-skills-edit.service';
 
 @Component({
   selector: 'app-consultant-skills-edit-reorder-display',
@@ -10,12 +10,14 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantSkillsEditReorderDisplayComponent {
-  @Input() displaySkills$: Observable<SelectedSkill[]>;
+  displaySkills$ = this.skillEditService.displaySkills$;
 
-  constructor() { }
+  constructor(
+    private skillEditService: ConsultantSkillsEditService
+  ) { }
 
   reorderDisplaySkill(event: CdkDragDrop<SelectedSkill[]>) {
-
+    this.skillEditService.displaySkillReordered(event);
   }
 
 }

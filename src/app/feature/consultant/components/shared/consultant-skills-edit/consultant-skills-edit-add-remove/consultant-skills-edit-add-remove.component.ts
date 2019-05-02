@@ -1,7 +1,25 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  EventEmitter,
+  Output,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+
+import { startWith, mergeMap } from 'rxjs/operators';
+
+import {
+  MatChip,
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
+  MatAutocomplete
+} from '@angular/material';
+
 import { SelectedSkill, Skill, SkillType } from '@feature/consultant/models';
-import { MatChip, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/consultant-skills-edit.service';
 
 export interface SkillsEditDialogData {
   type: SkillType;
@@ -18,25 +36,52 @@ export interface SkillOption extends Skill {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantSkillsEditAddRemoveComponent {
-  @Input() skillOptions$: Observable<SkillOption[]>;
-  @Input() selectedSkills$: Observable<SelectedSkill[]>;
+  @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor() { }
+  @Output() chipSelectionToggled = new EventEmitter<MatChip>();
+  @Output() skillRemoved = new EventEmitter<SelectedSkill>();
+  @Output() skillAdded = new EventEmitter<MatAutocompleteSelectedEvent>();
+  @Output() newSkillAdded = new EventEmitter<MatChipInputEvent>();
 
-  toggleChipSelection(chip: MatChip) {
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly skillCtrl = new FormControl();
 
-  }
+  selectedSkills$ = this.skillEditService.selectedSkills$;
+  filteredAvailableSkills$ =
+    this.skillCtrl.valueChanges
+      .pipe(
+        startWith(null),
+        mergeMap((value: string | SkillOption) => {
+          if (value) {
+            const name = typeof value !== 'string' ? value.name : value;
 
-  removeSkill(removedSkill: SelectedSkill) {
+            return this.skillEditService.filterSkills(name);
+          } else {
+            return this.skillEditService.availableSkills$;
+          }
+        })
+      );
 
-  }
+  constructor(
+    private skillEditService: ConsultantSkillsEditService
+  ) { }
 
   addSkill(event: MatAutocompleteSelectedEvent) {
-
+    this.skillEditService.addSkill(event, this.skillCtrl, this.skillInput);
   }
 
   addNewSkill(event: MatChipInputEvent) {
-
+    this.skillEditService.addNewSkill(event, this.matAutocomplete);
   }
+
+  removeSkill(skill: SelectedSkill) {
+    this.skillEditService.removeSkill(skill);
+  }
+
+  toggleChipSelection(chip: MatChip) {
+    this.skillEditService.chipClicked(chip);
+  }
+
 
 }

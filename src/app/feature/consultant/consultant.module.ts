@@ -28,6 +28,12 @@ import { ConsultantRoutingModule,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent
 } from './index';
+import {
+  ConsultantSkillsEditAddRemoveComponent
+} from './components/shared/consultant-skills-edit/consultant-skills-edit-add-remove/consultant-skills-edit-add-remove.component';
+import {
+  ConsultantSkillsEditReorderDisplayComponent
+} from './components/shared/consultant-skills-edit/consultant-skills-edit-reorder-display/consultant-skills-edit-reorder-display.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +44,8 @@ import { ConsultantRoutingModule,
     ConsultantSectionHeaderComponent,
     ConsultantCoreSkillsComponent,
     ConsultantSkillsEditComponent,
+    ConsultantSkillsEditAddRemoveComponent,
+    ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
@@ -58,6 +66,6 @@ import { ConsultantRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent], 
+  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent],
 })
 export class ConsultantModule { }
