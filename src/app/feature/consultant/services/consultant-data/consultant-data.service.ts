@@ -17,7 +17,7 @@ export class ConsultantDataService {
 
   constructor(private http: HttpClient) { }
 
-  private baseUrl = `${environment.apiUrl}/consultant`;
+  private baseUrl = `${environment.api}/consultant`;
 
   getConsultant(id: string): Observable<Consultant> {
     // ID parameter?
