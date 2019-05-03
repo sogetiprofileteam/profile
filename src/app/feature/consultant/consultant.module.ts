@@ -26,14 +26,10 @@ import { ConsultantRoutingModule,
   ConsultantSkillsEditComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
-  ConsultantExperienceComponent
-} from './index';
-import {
-  ConsultantSkillsEditAddRemoveComponent
-} from './components/shared/consultant-skills-edit/consultant-skills-edit-add-remove/consultant-skills-edit-add-remove.component';
-import {
+  ConsultantExperienceComponent,
+  ConsultantSkillsEditAddRemoveComponent,
   ConsultantSkillsEditReorderDisplayComponent
-} from './components/shared/consultant-skills-edit/consultant-skills-edit-reorder-display/consultant-skills-edit-reorder-display.component';
+} from './index';
 
 @NgModule({
   declarations: [

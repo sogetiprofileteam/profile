@@ -7,13 +7,10 @@ import {
 
 import { Skill, SkillType, SKILL_CORE } from '@feature/consultant/models';
 import { ConsultantSkillsEditService } from './consultant-skills-edit-service/consultant-skills-edit.service';
+import { take } from 'rxjs/operators';
 
 export interface SkillsEditDialogData {
   type: SkillType;
-}
-
-export interface SkillOption extends Skill {
-  selected: boolean;
 }
 
 @Component({
@@ -40,8 +37,8 @@ export class ConsultantSkillsEditComponent implements OnInit {
   consultant$ = this.skillEditService.consultant$;
 
   ngOnInit() {
-    this.skillEditService.initSkillType(this.skillType, this.skillProperty);
-    this.skillEditService.closeDialog$.subscribe(() => this.close());
+    this.skillEditService.init(this.skillType, this.skillProperty);
+    this.skillEditService.closeDialog$.pipe(take(1)).subscribe(() => this.close());
   }
 
   updateConsultant() {

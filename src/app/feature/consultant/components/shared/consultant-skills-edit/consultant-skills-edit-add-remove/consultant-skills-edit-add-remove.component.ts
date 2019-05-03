@@ -18,16 +18,8 @@ import {
   MatAutocomplete
 } from '@angular/material';
 
-import { SelectedSkill, Skill, SkillType } from '@feature/consultant/models';
+import { SelectedSkill, SkillOption } from '@feature/consultant/models';
 import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/consultant-skills-edit.service';
-
-export interface SkillsEditDialogData {
-  type: SkillType;
-}
-
-export interface SkillOption extends Skill {
-  selected: boolean;
-}
 
 @Component({
   selector: 'app-consultant-skills-edit-add-remove',

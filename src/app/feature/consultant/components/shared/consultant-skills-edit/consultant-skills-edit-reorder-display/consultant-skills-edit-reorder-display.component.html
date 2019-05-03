@@ -8,6 +8,6 @@
     *ngFor="let displaySkill of displaySkills$ | async" 
     cdkDragBoundary=".display-skills" 
     cdkDragLockAxis="y">
-      {{ displaySkill.name }} ({{ displaySkill.displayOrder}})
+      {{ displaySkill.displayOrder}} - {{ displaySkill.name }}
   </div>
 </div>

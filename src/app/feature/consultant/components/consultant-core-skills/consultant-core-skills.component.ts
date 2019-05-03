@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 
@@ -12,7 +12,8 @@ import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filt
 @Component({
   selector: 'app-consultant-core-skills',
   templateUrl: './consultant-core-skills.component.html',
-  styleUrls: ['./consultant-core-skills.component.scss']
+  styleUrls: ['./consultant-core-skills.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantCoreSkillsComponent {
 

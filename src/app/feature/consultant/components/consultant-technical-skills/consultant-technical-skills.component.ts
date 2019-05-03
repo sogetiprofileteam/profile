@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 
@@ -12,23 +12,21 @@ import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filt
 @Component({
   selector: 'app-consultant-technical-skills',
   templateUrl: './consultant-technical-skills.component.html',
-  styleUrls: ['./consultant-technical-skills.component.scss']
+  styleUrls: ['./consultant-technical-skills.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantTechnicalSkillsComponent implements OnInit {
+export class ConsultantTechnicalSkillsComponent {
 
   constructor(
     private consultantStore: ConsultantStore,
     private dialog: MatDialog
   ) { }
 
-  technicalSkills$ = 
+  technicalSkills$ =
     this.consultantStore.consultant$
       .pipe(
         map(c => filterSortDisplaySkills(c.technicalSkills))
       );
-
-  ngOnInit() {
-  }
 
   openEditSkillsDialog() {
     this.dialog.open(ConsultantSkillsEditComponent, { data: { type: SKILL_TECHNICAL } });
