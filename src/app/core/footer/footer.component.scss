@@ -1,0 +1,22 @@
+@import 'variables';
+
+.logo {
+    margin-top: 35px;
+    margin-bottom: 45px;
+    width: 200px;
+}
+
+.logo-container {
+  justify-content: center;
+  display: flex;
+}
+
+.bar {
+  height: 10px;
+  background-color: $vibrant-blue;
+}
+
+:host {
+  flex-shrink: 0;
+}
+  

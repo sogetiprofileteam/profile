@@ -1,0 +1,47 @@
+<h2>Add New Skills</h2>
+<div class="subtitle">Search for a skill or add your own</div>
+
+<mat-form-field class="skill-search" appearance="outline">
+  <div class="input-container">
+    <mat-icon>search</mat-icon>
+    <input 
+      #skillInput 
+      matInput   
+      placeholder="Search for skills" 
+      matChipInputAddOnBlur="true" 
+      [formControl]="skillCtrl"
+      [matAutocomplete]="auto" 
+      [matChipInputFor]="chipList" 
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+      (matChipInputTokenEnd)="addNewSkill($event)">
+  </div>
+
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="addSkill($event)">
+    <mat-option 
+      *ngFor="let skill of filteredAvailableSkills$ | async" 
+      [value]="skill" 
+      [disabled]="skill.selected">
+        {{ skill.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<section class="selected-skills">
+  <h2>Selected Skills</h2>
+  <div class="subtitle">Select which skills to display by clicking on it (10 max)</div>
+
+  <mat-chip-list #chipList multiple="true">
+    <mat-chip 
+      #chip="matChip"
+      *ngFor="let skill of selectedSkills$ | async" 
+      removable="true" 
+      color="primary" 
+      [value]="skill"
+      [selected]="skill.display"
+      (removed)="removeSkill(skill)"
+      (click)="toggleChipSelection(chip)">
+        {{ skill.name }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</section>

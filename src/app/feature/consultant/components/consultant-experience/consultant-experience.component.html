@@ -1,0 +1,16 @@
+<app-consultant-section-header 
+  title="Experience" 
+  icon="edit" 
+  (actionClicked)="doSomething()">
+</app-consultant-section-header>
+
+<section *ngIf="consultant$ | async as consultant">
+  <ng-container *ngFor="let experience of consultant.experience">
+    <h3><b>{{experience.companyName}}</b></h3>
+    <p>{{experience.title}}</p>
+    <p>{{experience.startDate | date: 'shortDate'}} - {{experience.endDate | date: 'shortDate'}}</p>
+    <p *ngFor="let description of experience.descriptions">
+       - {{description.summary}}
+    </p>
+  </ng-container>
+</section>

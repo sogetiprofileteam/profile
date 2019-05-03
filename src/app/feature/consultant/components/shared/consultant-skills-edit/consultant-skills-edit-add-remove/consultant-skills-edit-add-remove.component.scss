@@ -1,0 +1,22 @@
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.skill-search {
+    width: 100%;
+}
+
+mat-chip {
+    cursor: pointer;
+}
+
+.subtitle {
+    color: rgba(0,0,0,.54);
+    margin-bottom: 1.5rem;
+    margin-top: -1rem;
+}
+
+.selected-skills {
+    margin-bottom: 2rem;
+}

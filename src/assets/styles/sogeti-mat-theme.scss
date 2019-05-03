@@ -6,7 +6,8 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 
-// Material Typography
+// Use lines 11 through 30 to include a custom material typography config.
+/*
 $typography: mat-typography-config(
     $font-family: 'Something',
 
@@ -24,9 +25,9 @@ $typography: mat-typography-config(
     $button:        mat-typography-level(16px, 16px, 500),
 
     $input:         mat-typography-level(16px, 1.25, 500)
-);
+); 
+*/
 
-// Use line 30 instead of 31 to include a custom material typography config.
 // @include mat-core($typography);
 @include mat-core();
 

@@ -1,0 +1,52 @@
+<section class="container">
+  <ng-container *ngIf="consultant$ | async as consultant">
+    <div class="picture-wrapper">
+      <div class="picture-container">
+        <button mat-fab class="edit-button" color="white" (click)="openEditDialog()">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <img class="picture" src="../../../../../assets/mock-profile-picture.jpg">
+      </div>
+    </div>
+
+    <h1 class="consultant-name">
+      {{ consultant.firstName }}
+      {{ consultant.lastName }}
+    </h1>
+
+    <h2 class="consultant-title">
+      {{ consultant.title }} | <b>{{ consultant.practice }}</b>
+    </h2>
+
+    <h2 class="consultant-email">
+      <a href="mailto:{{ consultant.email }}">{{ consultant.email }}</a>
+    </h2>
+
+    <ng-container *ngIf="consultant.address as address">
+      <p>
+        <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
+        Fax: {{ consultant.fax }}
+      </p>
+    </ng-container>
+
+    <a href="{{consultant.urlLinkedIn}}">
+      <img class="icon" src="../../../../../assets/svg/icons/linkedin-brands.svg">
+    </a>
+
+    <a href="{{consultant.urlGitHub}}">
+      <img class="icon" src="../../../../../assets/svg/icons/github-brands.svg">
+    </a>
+
+    <a href="{{consultant.urlWordpress}}">
+      <img class="icon" src="../../../../../assets/svg/icons/wordpress-brands.svg">
+    </a>
+
+    <a href="{{consultant.urlPersonal}}">
+      <img class="icon" src="../../../../../assets/svg/icons/desktop-solid.svg">
+    </a>
+  </ng-container>
+</section>
+
+<div class="shadow"></div>

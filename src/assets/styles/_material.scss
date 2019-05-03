@@ -1,0 +1,16 @@
+// Styles to apply to Angular Material components
+
+.mat-form-field {
+    margin-bottom: .5rem;
+}
+
+.cdk-global-scrollblock {
+    position: initial !important;
+    overflow: hidden !important;
+ }
+// Colors
+// These can be used when assigning the color="..." property in an Angular Material component
+// E.g. <button mat-raised-button color="white">Button</button>
+.mat-white {
+    background: #fff;
+}

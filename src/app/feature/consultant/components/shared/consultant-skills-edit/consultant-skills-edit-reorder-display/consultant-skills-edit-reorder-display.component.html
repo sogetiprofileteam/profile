@@ -1,0 +1,13 @@
+<h2>Displayed Skills</h2>
+<div class="subtitle">Reorder by dragging and dropping</div>
+
+<div cdkDropList (cdkDropListDropped)="reorderDisplaySkill($event)" class="display-skills">
+  <div 
+    cdkDrag 
+    class="display-skill" 
+    *ngFor="let displaySkill of displaySkills$ | async" 
+    cdkDragBoundary=".display-skills" 
+    cdkDragLockAxis="y">
+      {{ displaySkill.displayOrder}} - {{ displaySkill.name }}
+  </div>
+</div>

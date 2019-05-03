@@ -21,13 +21,15 @@
 
 // Links
 a {
-    font-weight: 700;
     color: $vibrant-blue;
     text-decoration: none;
 
     &:hover {
-        color: $vibrant-blue;
         text-decoration: underline;
         text-decoration-style: solid;
     }
+}
+
+body {
+    color: #444444;
 }

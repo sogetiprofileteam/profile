@@ -1,0 +1,8 @@
+html, body, app-root {
+    height: 100vh;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+}

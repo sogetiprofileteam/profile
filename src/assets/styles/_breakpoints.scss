@@ -1,0 +1,6 @@
+// Import this partial in any file that will need to make use of Bootstrap's responsive breakpoints
+// Details for the mixins are found here: https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints
+
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/breakpoints";
