@@ -1,4 +1,4 @@
-import { Consultant } from '@core/models/index';
+import { Consultant } from '@feature/consultant/models/index';
 
 export const mockConsultant: Consultant = {
     id: '1',

@@ -1,68 +1,11 @@
 <h1 mat-dialog-title>Edit {{ title }} Skills</h1>
 
 <form mat-dialog-content *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()" id="skill-form">
-  <h2>Add New Skills</h2>
-  <div class="subtitle">Search for a skill or add your own</div>
+  <app-consultant-skills-edit-add-remove>
+  </app-consultant-skills-edit-add-remove>
 
-  <mat-form-field class="skill-search" appearance="outline">
-    <div class="input-container">
-      <mat-icon>search</mat-icon>
-      <input
-        matInput
-        #skillInput
-        placeholder="Search for skills"
-        matChipInputAddOnBlur="true" 
-        [formControl]="skillCtrl" 
-        [matAutocomplete]="auto"
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="addNewSkill($event)">
-    </div>
-
-    <mat-autocomplete 
-      autoActiveFirstOption
-      #auto="matAutocomplete"
-      (optionSelected)="selected($event)">
-      <mat-option *ngFor="let skill of filteredAvailableSkills$ | async" [value]="skill" [disabled]="skill.selected">
-        {{ skill.name }} <ng-container *ngIf="skill.selected">(Selected)</ng-container>
-      </mat-option>
-    </mat-autocomplete>
-
-  </mat-form-field>
-
-  <section class="selected-skills">
-    <h2>Selected Skills</h2>
-    <div class="subtitle">Select which skills to display by clicking on it (10 max)</div>
-    
-    <mat-chip-list #chipList multiple="true" >
-      <mat-chip 
-        *ngFor="let skill of selectedSkills$ | async" 
-        removable="true" 
-        color="primary"
-        (removed)="remove(skill)"
-        (click)="chipClicked(chip)"
-        [value]="skill"
-        [selected]="skill.display"
-        #chip="matChip">
-        {{ skill.name }}
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>    
-  </section>
-
-  <h2>Displayed Skills</h2>
-  <div class="subtitle">Reorder by dragging and dropping</div>
-
-  <div cdkDropList (cdkDropListDropped)="displaySkillReordered($event)" class="display-skills">
-    <div 
-      cdkDrag 
-      class="display-skill" 
-      cdkDragBoundary=".display-skills"
-      cdkDragLockAxis="y"
-      *ngFor="let displaySkill of displaySkills$ | async">
-      {{ displaySkill.name }} ({{ displaySkill.displayOrder}})
-    </div>
-  </div>
+  <app-consultant-skills-edit-reorder-display>
+  </app-consultant-skills-edit-reorder-display>
 </form>
 
 <mat-dialog-actions mat-dialog-actions align="end">

@@ -1,5 +1,5 @@
-import { SelectedSkill } from '@core/models';
+import { SelectedSkill } from '@feature/consultant/models';
 
-export function filterAndSortDisplaySkills(skills: SelectedSkill[]): SelectedSkill[] {
+export function filterSortDisplaySkills(skills: SelectedSkill[]): SelectedSkill[] {
     return skills.filter(skill => skill.display === true).sort((a, b) => a.displayOrder - b.displayOrder);
 }

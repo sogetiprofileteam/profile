@@ -1,7 +1,4 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-consultant-view',
@@ -9,19 +6,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./consultant-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantViewComponent implements OnDestroy {
+export class ConsultantViewComponent {
 
-private _destroy$ = new Subject();
-
-  constructor(
-    private consultantStore: ConsultantStore
-  ) {
-    this.consultantStore.initConsultant()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe();
-  }
-
-  ngOnDestroy() {
-    this._destroy$.next();
-  }
+  constructor(  ) {  }
 }
