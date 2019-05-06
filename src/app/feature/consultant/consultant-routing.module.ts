@@ -5,6 +5,7 @@ import { ConsultantViewComponent } from './pages/consultant-view/consultant-view
 
 
 const routes: Routes = [
+  {path: ':id', component: ConsultantViewComponent},
   {
     path: '',
     component: ConsultantViewComponent

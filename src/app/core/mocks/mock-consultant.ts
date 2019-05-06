@@ -9,6 +9,7 @@ export const mockConsultant: Consultant = {
     practice: 'Applications and Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
     username: 'jbarnes',
+    status: '',
     address: {
         lineOne: '1234 Fake Street',
         city: 'Austin',

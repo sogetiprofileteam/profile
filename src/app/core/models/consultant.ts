@@ -14,6 +14,7 @@ export interface Consultant {
     secondName?: string;
     title: string;
     practice: string;
+    status: string;
     email: string;
     username: string;
     address: Address;

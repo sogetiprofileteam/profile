@@ -1,35 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 
 import { ConsultantServiceModule } from '../../consultant-service.module';
 import { ConsultantDataService } from '../consultant-data/consultant-data.service';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { tap, takeUntil, take } from 'rxjs/operators';
 
-import { Consultant } from '@core/models';
+import { Consultant } from 'models/index';
+import { ConsultantService } from 'services/index';
 
 @Injectable({
   providedIn: ConsultantServiceModule
 })
-export class ConsultantStore {
+export class ConsultantStore implements OnDestroy {
 
   constructor(
     private consultantDataService: ConsultantDataService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private consultantService: ConsultantService
+  ) {
+    this.initConsultant();
+  }
 
-  /** Consultant BehaviorSubject, allows late subscribers to get most recent data */
-  private readonly _consultant = new BehaviorSubject<Consultant>(null);
+  private _destroy$ = new Subject();
+
+  /** Consultant ReplaySubject allows late subscribers to get most recent data */
+  private readonly _consultant = new ReplaySubject<Consultant>(1);
 
   /** Consultant Observable to subscribe to for most recent state. */
-  readonly consultant$ = this._consultant.asObservable();
+  readonly consultant$ = this._consultant.asObservable().pipe(tap(c => this.consultant = c));
 
-  /** Getter of most recent BehaviorSubject content */
-  private get consultant(): Consultant {
-    return this._consultant.getValue();
-  }
+  private consultant: Consultant;
 
   /**
    * Build a new consultant object from existing object with updated properties.
@@ -41,22 +44,22 @@ export class ConsultantStore {
     const consultantCopy = {
       ...this.consultant,
       ...data
-    }
+    };
 
     return consultantCopy;
   }
 
   /**
    * Sets the consultant observable to be used in the consultant feature.
-   * Called once from the consultant-view page.
    */
-  initConsultant(): Observable<Consultant> {
+  initConsultant(): void {
     const consultantId = this.getConsultantIdFromRoute();
 
-    return this.getConsultant(consultantId)
+    this.getConsultant(consultantId)
       .pipe(
-        tap(consultant => this._consultant.next(consultant))
-      );
+        take(1),
+        takeUntil(this._destroy$)
+      ).subscribe(consultant => this._consultant.next(consultant));
   }
 
   /**
@@ -71,7 +74,7 @@ export class ConsultantStore {
    * @param id Id of the desired consultant.
    */
   private getConsultant(id: string): Observable<Consultant> {
-    return this.consultantDataService.getConsultant(id);
+    return this.consultantService.getConsultant(id);
   }
 
   /**
@@ -89,5 +92,9 @@ export class ConsultantStore {
           this._consultant.next(updatedConsultant);
         })
       );
+  }
+
+  ngOnDestroy() {
+    this._destroy$.next();
   }
 }
