@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ConsultantServiceModule } from '../../consultant-service.module';
 
-import { Skill, SkillType } from '@core/models';
+import { Skill, SkillType } from '@feature/consultant/models';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: ConsultantServiceModule
@@ -14,23 +15,23 @@ export class ConsultantSkillDataService {
     private http: HttpClient
   ) { }
 
-  addNewSkill(name: string, type: SkillType): Observable<Skill> {
+  addNewSkill(newName: string, newType: SkillType): Observable<Skill> {
     // TODO: change to http call later
     const mockNewSkill: Skill = {
       id: Math.floor((Math.random() * 100)).toString(),
-      name: name,
-      type: type
+      name: newName,
+      type: newType
     }
     this.mockSkills.push(mockNewSkill);
-    return of(mockNewSkill);
+    return of(mockNewSkill).pipe(delay(1000));
   }
 
   getCoreSkills(): Observable<Skill[]> {
-    return of(this.mockSkills.filter(skill => skill.type === 2))
+    return of(this.mockSkills.filter(skill => skill.type === 2)).pipe(delay(1000));
   }
 
   getTechnicalSkills(): Observable<Skill[]> {
-    return of(this.mockSkills.filter(skill => skill.type === 1))
+    return of(this.mockSkills.filter(skill => skill.type === 1)).pipe(delay(1000));
   }
 
   mockSkills: Skill[] = [

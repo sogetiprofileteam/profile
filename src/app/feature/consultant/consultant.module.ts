@@ -26,7 +26,9 @@ import { ConsultantRoutingModule,
   ConsultantSkillsEditComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
-  ConsultantExperienceComponent
+  ConsultantExperienceComponent,
+  ConsultantSkillsEditAddRemoveComponent,
+  ConsultantSkillsEditReorderDisplayComponent
 } from './index';
 
 @NgModule({
@@ -38,6 +40,8 @@ import { ConsultantRoutingModule,
     ConsultantSectionHeaderComponent,
     ConsultantCoreSkillsComponent,
     ConsultantSkillsEditComponent,
+    ConsultantSkillsEditAddRemoveComponent,
+    ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
@@ -58,6 +62,6 @@ import { ConsultantRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent], 
+  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent],
 })
 export class ConsultantModule { }

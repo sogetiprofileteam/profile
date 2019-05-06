@@ -8,8 +8,8 @@ import { ConsultantDataService } from '../consultant-data/consultant-data.servic
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { tap, takeUntil, take } from 'rxjs/operators';
 
-import { Consultant } from 'models/index';
 import { ConsultantService } from 'services/index';
+import { Consultant } from '@feature/consultant/models';
 
 @Injectable({
   providedIn: ConsultantServiceModule
@@ -18,8 +18,8 @@ export class ConsultantStore implements OnDestroy {
 
   constructor(
     private consultantDataService: ConsultantDataService,
-    private route: ActivatedRoute,
-    private consultantService: ConsultantService
+    private consultantService: ConsultantService,
+    private route: ActivatedRoute
   ) {
     this.initConsultant();
   }

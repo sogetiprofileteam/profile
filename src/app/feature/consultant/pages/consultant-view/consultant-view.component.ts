@@ -1,8 +1,4 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-consultant-view',
@@ -10,22 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./consultant-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantViewComponent implements OnDestroy {
+export class ConsultantViewComponent {
 
-private _destroy$ = new Subject();
-
-  constructor(
-    private consultantStore: ConsultantStore,
-    private _route: ActivatedRoute) {
-    let id: string;
-    this._route.params.subscribe(param => {
-      id = param.id;
-    });
-    this.consultantStore.initConsultant();
-    console.log(this.consultantStore.consultant$);
-  }
-
-  ngOnDestroy() {
-    this._destroy$.next();
-  }
+  constructor(  ) {  }
 }
