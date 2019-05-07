@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let consultant of consultants">
+          <tr *ngFor="let consultant of consultants$ | async">
               <td><a [routerLink]="['/consultant', consultant.id]">{{consultant.lastName}}, {{consultant.firstName}}</a></td>
               <td>{{consultant.title}}</td>
               <td>{{consultant.practice}}</td>

@@ -1,15 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
 
 import { ConsultantServiceModule } from '../../consultant-service.module';
-import { ConsultantDataService } from '../consultant-data/consultant-data.service';
+import { ConsultantDataService } from '@core/services/consultant-data/consultant-data.service';
 
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { tap, takeUntil, take } from 'rxjs/operators';
 
-import { ConsultantService } from 'services/index';
-import { Consultant } from '@feature/consultant/models';
+import { Consultant } from '@core/models';
 
 @Injectable({
   providedIn: ConsultantServiceModule
@@ -18,7 +16,6 @@ export class ConsultantStore implements OnDestroy {
 
   constructor(
     private consultantDataService: ConsultantDataService,
-    private consultantService: ConsultantService,
     private route: ActivatedRoute
   ) {
     this.initConsultant();
@@ -74,7 +71,7 @@ export class ConsultantStore implements OnDestroy {
    * @param id Id of the desired consultant.
    */
   private getConsultant(id: string): Observable<Consultant> {
-    return this.consultantService.getConsultant(id);
+    return this.consultantDataService.getConsultant(id);
   }
 
   /**
@@ -83,13 +80,14 @@ export class ConsultantStore implements OnDestroy {
    * @param id ID of the consultant to be updated.
    * @param data A partial Consultant object containing the data to update.
    */
-  updateConsultant(data: Partial<Consultant>): Observable<HttpResponse<any>> {
+  updateConsultant(data: Partial<Consultant>): Observable<Consultant> {
     // TODO: error handling? Leave error handling implementation up to consumer?
-    return this.consultantDataService.updateConsultant(this.consultant.id, data)
+    const updatedConsultant = this.updatedConsultantFactory(data);
+
+    return this.consultantDataService.updateConsultant(updatedConsultant)
       .pipe(
-        tap(() => {
-          const updatedConsultant = this.updatedConsultantFactory(data);
-          this._consultant.next(updatedConsultant);
+        tap(consultantRes => {
+          this._consultant.next(consultantRes);
         })
       );
   }

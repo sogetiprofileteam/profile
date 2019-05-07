@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TechnicalSkillsService } from './technical-skills.service';
+import { TechnicalSkillsService } from './technical-skills-data.service';
 
 describe('TechnicalSkillsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

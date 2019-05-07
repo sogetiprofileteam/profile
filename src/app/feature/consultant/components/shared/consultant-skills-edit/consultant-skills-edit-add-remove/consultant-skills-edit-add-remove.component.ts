@@ -18,7 +18,7 @@ import {
   MatAutocomplete
 } from '@angular/material';
 
-import { SelectedSkill, SkillOption } from '@feature/consultant/models';
+import { SelectedSkill, SkillOption } from '@core/models';
 import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/consultant-skills-edit.service';
 
 @Component({

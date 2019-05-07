@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Consultant } from 'models/consultant';
+import { Consultant } from '@core/models/consultant';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConsultantService {
+export class ConsultantDataService {
 
   constructor(private http: HttpClient) { }
 
