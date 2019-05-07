@@ -3,7 +3,7 @@ import { CoreSkillsService } from '../core-skills-data/core-skills-data.service'
 import { TechnicalSkillsService } from '../technical-skills-data/technical-skills-data.service';
 import { SkillType, Skill, SKILL_CORE } from '@core/models';
 import { Observable } from 'rxjs';
-import { ConsultantServiceModule } from '@feature/consultant';
+import { ConsultantServiceModule } from '@feature/consultant/consultant-service.module';
 
 @Injectable({
   providedIn: ConsultantServiceModule

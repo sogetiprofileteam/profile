@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { Skill } from 'models/skill';
-import { ConsultantServiceModule } from '@feature/consultant';
+import { ConsultantServiceModule } from '@feature/consultant/consultant-service.module';
 
 @Injectable({
   providedIn: ConsultantServiceModule

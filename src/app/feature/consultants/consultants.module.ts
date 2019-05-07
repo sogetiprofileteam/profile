@@ -18,4 +18,4 @@ import {
     ConsultantsRoutingModule
   ],
 })
-export class ConsultantModule { }
+export class ConsultantsModule { }
