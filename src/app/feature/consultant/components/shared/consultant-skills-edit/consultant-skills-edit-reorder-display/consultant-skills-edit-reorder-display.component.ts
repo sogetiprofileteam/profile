@@ -1,5 +1,5 @@
 import { Component,  ChangeDetectionStrategy } from '@angular/core';
-import { SelectedSkill } from '@feature/consultant/models';
+import { SelectedSkill } from '@core/models';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/consultant-skills-edit.service';
 

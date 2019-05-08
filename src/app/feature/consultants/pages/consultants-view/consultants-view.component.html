@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="table-responsive-md">
+    <table class="table table-dark table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Title</th>
+          <th>Practice</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consultant of consultants$ | async">
+          <td><a [routerLink]="['/consultant']" [queryParams]="{ id: consultant.id }">{{consultant.lastName}}, {{consultant.firstName}}</a></td>
+          <td>{{consultant.title}}</td>
+          <td>{{consultant.practice}}</td>
+          <td>{{consultant.status}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

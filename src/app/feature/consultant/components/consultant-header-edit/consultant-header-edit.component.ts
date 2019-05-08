@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Consultant } from '@feature/consultant/models';
+import { Consultant } from '@core/models';
 
 @Component({
   templateUrl: 'consultant-header-edit.component.html',

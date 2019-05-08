@@ -1,4 +1,4 @@
-import { Consultant } from '@feature/consultant/models/index';
+import { Consultant } from '@core/models/index';
 
 export const mockConsultant: Consultant = {
     id: '1',
@@ -9,6 +9,7 @@ export const mockConsultant: Consultant = {
     practice: 'Applications and Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
     username: 'jbarnes',
+    status: '',
     address: {
         lineOne: '1234 Fake Street',
         city: 'Austin',
