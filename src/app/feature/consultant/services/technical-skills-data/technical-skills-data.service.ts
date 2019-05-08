@@ -12,7 +12,7 @@ export class TechnicalSkillsService {
 
   constructor(private http: HttpClient) { }
 
-  private baseurl = environment.api + '/techinicalskills';
+  private baseurl = environment.api + '/technicalskills';
 
   public getTechnicalSkills(): Observable<Skill[]> {
     return this.http.get<Skill[]>(this.baseurl);

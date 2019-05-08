@@ -52,11 +52,11 @@ export class ConsultantStore implements OnDestroy {
   initConsultant(): void {
     const consultantId = this.getConsultantIdFromRoute();
 
-    this.getConsultant(consultantId)
+    this.consultantDataService.getConsultant(consultantId)
       .pipe(
         take(1),
         takeUntil(this._destroy$)
-      ).subscribe(consultant => this._consultant.next(consultant));
+      ).subscribe(consultant => this._consultant.next(consultant[0]));
   }
 
   /**
@@ -64,14 +64,6 @@ export class ConsultantStore implements OnDestroy {
    */
   private getConsultantIdFromRoute(): string {
     return this.route.snapshot.queryParams.id as string;
-  }
-
-  /**
-   * Calls the data service to fetch consultant object.
-   * @param id Id of the desired consultant.
-   */
-  private getConsultant(id: string): Observable<Consultant> {
-    return this.consultantDataService.getConsultant(id);
   }
 
   /**

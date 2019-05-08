@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConsultantViewComponent } from './pages/consultant-view/consultant-view.component';
 
 const routes: Routes = [
-  { path: ':id', component: ConsultantViewComponent },
+  { path: '', component: ConsultantViewComponent },
 ];
 
 @NgModule({
