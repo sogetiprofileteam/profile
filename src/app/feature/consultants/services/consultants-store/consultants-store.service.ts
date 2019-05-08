@@ -11,7 +11,9 @@ import { ConsultantsServiceModule } from '@feature/consultants/consultants-servi
 })
 export class ConsultantsStoreService implements OnDestroy {
 
-  constructor(private consultantDataService: ConsultantDataService) { }
+  constructor(private consultantDataService: ConsultantDataService) {
+    this.initConsultants();
+  }
 
   private _destroy$ = new Subject();
 
@@ -24,7 +26,7 @@ export class ConsultantsStoreService implements OnDestroy {
   /**
    * Sets the consultants observable to be used in the consultant feature.
    */
-  initConsultant(): void {
+  initConsultants(): void {
     this.getConsultants()
       .pipe(
         take(1),
