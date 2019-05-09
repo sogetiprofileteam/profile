@@ -2,34 +2,34 @@
 
 <form *ngIf="consultant$ | async" [formGroup]="headerForm" (ngSubmit)="updateConsultant()">
     <mat-dialog-content>
-        <mat-form-field appearance="outline">
+        <mat-form-field>
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName" type="text">
             <mat-error>First Name is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
             <mat-label>Last Name</mat-label>
             <input matInput formControlName="lastName" type="text">
             <mat-error>Last Name is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
             <mat-label>LinkedIn</mat-label>
             <input matInput formControlName="urlLinkedIn" type="text">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
             <mat-label>GitHub</mat-label>
             <input matInput formControlName="urlGitHub" type="text">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
             <mat-label>Wordpress</mat-label>
             <input matInput formControlName="urlWordpress" type="text">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
             <mat-label>Personal</mat-label>
             <input matInput formControlName="urlPersonal" type="text">
         </mat-form-field>
