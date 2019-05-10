@@ -28,7 +28,8 @@ import { ConsultantRoutingModule,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent,
   ConsultantSkillsEditAddRemoveComponent,
-  ConsultantSkillsEditReorderDisplayComponent
+  ConsultantSkillsEditReorderDisplayComponent,
+  SaveNewButtonComponent
 } from './index';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ConsultantRoutingModule,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
+    SaveNewButtonComponent
   ],
   imports: [
     CommonModule,

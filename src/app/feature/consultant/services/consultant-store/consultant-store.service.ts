@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConsultantServiceModule } from '../../consultant-service.module';
 import { ConsultantDataService } from '@core/services/consultant-data/consultant-data.service';
@@ -44,7 +44,8 @@ export class ConsultantStore implements OnDestroy {
 
   constructor(
     private consultantDataService: ConsultantDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.initConsultant();
   }
@@ -71,7 +72,6 @@ export class ConsultantStore implements OnDestroy {
    */
   private updatedConsultantFactory(data: Partial<Consultant>): Consultant {
     // Copy current consultant to preserve immutability
-    // WARNING: This approach may be flawed and needs to be looked at/reconsidered
     const consultantCopy = {
       ...this.consultant,
       ...data
@@ -108,9 +108,10 @@ export class ConsultantStore implements OnDestroy {
   }
 
   /**
-   * Updates the consultant by making an HTTP call to the api
-   * and then the consultant Observable emits the updated value.
-   * @param id ID of the consultant to be updated.
+   * Updates the consultant.
+   * If it's a new consultant it doesn't save it to the DB (we want
+   * explicitly add when the user chooses to), if it's an existing
+   * consultant it will be saved to DB.
    * @param data A partial Consultant object containing the data to update.
    */
   updateConsultant(data: Partial<Consultant>): Observable<Consultant | null> {
@@ -118,17 +119,35 @@ export class ConsultantStore implements OnDestroy {
     const updatedConsultant = this.updatedConsultantFactory(data);
 
     if (!this.newConsultant) {
-      return this.consultantDataService.updateConsultant(updatedConsultant)
-      .pipe(
-        tap(consultantRes => {
-          this._consultant.next(consultantRes);
-        })
-      );
+      return this.saveToDatabase(updatedConsultant);
     } else {
       this._consultant.next(updatedConsultant);
       return of(null);
     }
+  }
 
+  /**
+   * Call to send current Consultant object to DB.
+   * Only call this when the edit component is configured to add a new consultant.
+   */
+  addNewConsultant() {
+    if (this.newConsultant) {
+      this.saveToDatabase(this.consultant)
+        .subscribe(consultant => {
+          this.router.navigate([ '/consultant', { queryParams: { id: consultant.id } } ]);
+        });
+    }
+  }
+
+  /**
+   * Saves consultant to DB.
+   * @param consultant object to save to DB.
+   */
+  private saveToDatabase(consultant: Consultant): Observable<Consultant> {
+    return this.consultantDataService.updateConsultant(consultant)
+      .pipe(tap(consultantRes => {
+        this._consultant.next(consultantRes);
+      }));
   }
 
   ngOnDestroy() {
