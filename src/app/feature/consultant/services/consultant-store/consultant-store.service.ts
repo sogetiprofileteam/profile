@@ -134,7 +134,7 @@ export class ConsultantStore implements OnDestroy {
     if (this.newConsultant) {
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
-          this.router.navigate([ '/consultant', { queryParams: { id: consultant.id } } ]);
+          this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
         });
     }
   }
