@@ -19,7 +19,6 @@ import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filt
 import { SkillsDataService } from '@feature/consultant/services/skills-data/skills-data.service';
 
 import {
-  SKILL_CORE,
   SelectedSkill,
   Skill,
   SkillType,
@@ -39,8 +38,8 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   private _closeDialog$ = new Subject();
   private _selectedSkills$ = new ReplaySubject<SelectedSkill[]>(1);
-  private destroy$ = new Subject();
-  private getSkills$: Observable<Skill[]>;
+  private _destroy$ = new Subject();
+  private _getSkills$: Observable<Skill[]>;
 
   availableSkills$: Observable<SkillOption[]>;
 
@@ -75,21 +74,16 @@ export class ConsultantSkillsEditService implements OnDestroy {
   ) { }
 
   ngOnDestroy() {
-    this.destroy$.next();
+    this._destroy$.next();
   }
 
   init(skillType: SkillType, propertyName: string) {
     this.skillType = skillType;
-
-    this.getSkills$ =
-      skillType === SKILL_CORE
-        ? this.skillService.coreSkills$.pipe(takeUntil(this.destroy$))
-        : this.skillService.technicalSkills$.pipe(takeUntil(this.destroy$));
-
+    this._getSkills$ = this.skillService.getSkills(skillType).pipe(takeUntil(this._destroy$));
     this.skillProperty = propertyName;
 
     this.availableSkills$ =
-      combineLatest(this.selectedSkills$, this.getSkills$)
+      combineLatest(this.selectedSkills$, this._getSkills$)
         .pipe(
           // We need to know which skills are in the selectedSkills Observable so we can
           // disable them in the dropdown options to prevent duplicates.
@@ -232,7 +226,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
           return this.updateSkills(skills);
         }),
-        takeUntil(this.destroy$)
+        takeUntil(this._destroy$)
       )
       .subscribe(() => this._closeDialog$.next());
   }
@@ -245,7 +239,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
   private updateSkills(skills: SelectedSkill[]) {
     return this.consultantStore
       .updateConsultant({ [this.skillProperty]: skills })
-      .pipe(takeUntil(this.destroy$));
+      .pipe(takeUntil(this._destroy$));
   }
 
   chipClicked(chip: MatChip): void {

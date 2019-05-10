@@ -4,10 +4,38 @@ import { ActivatedRoute } from '@angular/router';
 import { ConsultantServiceModule } from '../../consultant-service.module';
 import { ConsultantDataService } from '@core/services/consultant-data/consultant-data.service';
 
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { Observable, Subject, ReplaySubject, of } from 'rxjs';
 import { tap, takeUntil, take } from 'rxjs/operators';
 
 import { Consultant } from '@core/models';
+
+export const blankConsultant: Consultant = {
+  id: null,
+  urlProfileImage: null,
+  firstName: 'First',
+  lastName: 'Last',
+  title: 'Title',
+  practice: 'Practice',
+  email: 'Email',
+  username: null,
+  status: null,
+  address: {
+      lineOne: 'Address',
+      city: 'City',
+      state: 'State',
+      zipCode: 12345
+  },
+  phone1: 1234567890,
+  urlLinkedIn: null,
+  urlGitHub: null,
+  urlWordpress: null,
+  urlPersonal: null,
+  coreSkills: [],
+  technicalSkills: [],
+  certifications: [],
+  education: [],
+  experience: []
+};
 
 @Injectable({
   providedIn: ConsultantServiceModule
@@ -31,6 +59,12 @@ export class ConsultantStore implements OnDestroy {
 
   private consultant: Consultant;
 
+  private _newConsultant: boolean;
+
+  get newConsultant() {
+    return this._newConsultant;
+  }
+
   /**
    * Build a new consultant object from existing object with updated properties.
    * @param data A partial Consultant object containing the data to update
@@ -49,14 +83,21 @@ export class ConsultantStore implements OnDestroy {
   /**
    * Sets the consultant observable to be used in the consultant feature.
    */
-  initConsultant(): void {
+  private initConsultant(): void {
     const consultantId = this.getConsultantIdFromRoute();
 
-    this.consultantDataService.getConsultant(consultantId)
-      .pipe(
-        take(1),
-        takeUntil(this._destroy$)
-      ).subscribe(consultant => this._consultant.next(consultant[0]));
+    if (consultantId) {
+      this._newConsultant = false;
+      this.consultantDataService.getConsultant(consultantId)
+        .pipe(
+          take(1),
+          takeUntil(this._destroy$)
+        ).subscribe(consultant => this._consultant.next(consultant));
+    } else {
+      this._newConsultant = true;
+      this._consultant.next(blankConsultant);
+    }
+
   }
 
   /**
@@ -72,16 +113,22 @@ export class ConsultantStore implements OnDestroy {
    * @param id ID of the consultant to be updated.
    * @param data A partial Consultant object containing the data to update.
    */
-  updateConsultant(data: Partial<Consultant>): Observable<Consultant> {
+  updateConsultant(data: Partial<Consultant>): Observable<Consultant | null> {
     // TODO: error handling? Leave error handling implementation up to consumer?
     const updatedConsultant = this.updatedConsultantFactory(data);
 
-    return this.consultantDataService.updateConsultant(updatedConsultant)
+    if (!this.newConsultant) {
+      return this.consultantDataService.updateConsultant(updatedConsultant)
       .pipe(
         tap(consultantRes => {
           this._consultant.next(consultantRes);
         })
       );
+    } else {
+      this._consultant.next(updatedConsultant);
+      return of(null);
+    }
+
   }
 
   ngOnDestroy() {
