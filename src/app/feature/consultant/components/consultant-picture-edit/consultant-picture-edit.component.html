@@ -2,21 +2,22 @@
 
 <form *ngIf="consultant$ | async as consultant" (ngSubmit)="updateConsultant(consultant)">
   <mat-dialog-content class="content">
-      <input type="file" (change)="fileChangeEvent($event)" />
+    <button mat-raised-button color="primary" (click)="upload.click()">CHOOSE FILE</button>
+    <input type="file" class="file-input" (change)="fileChangeEvent($event)" #upload />
 
-      <image-cropper
-        class="crop"
-        [imageChangedEvent]="imageChangedEvent"
-        [aspectRatio]="1 / 1"
-        [resizeToWidth]="375"
-        format="png"
-        outputType="base64"
-        cropperMinWidth="375"
-        onlyScaleDown="true"
-        maintainAspectRatio="true"
-        roundCropper="true"
-        (imageCropped)="imageCropped($event)">
-      </image-cropper>
+    <image-cropper
+      class="crop"
+      [imageChangedEvent]="imageChangedEvent"
+      [aspectRatio]="1 / 1"
+      [resizeToWidth]="375"
+      format="png"
+      outputType="base64"
+      cropperMinWidth="375"
+      onlyScaleDown="true"
+      maintainAspectRatio="true"
+      roundCropper="true"
+      (imageCropped)="imageCropped($event)">
+    </image-cropper>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
