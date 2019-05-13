@@ -8,6 +8,7 @@ export * from './components/consultant-core-skills/consultant-core-skills.compon
 export * from './components/consultant-technical-skills/consultant-technical-skills.component';
 export * from './components/consultant-experience/consultant-experience.component';
 export * from './components/consultant-education-certifications/consultant-education-certifications.component';
+export * from './components/consultant-picture-edit/consultant-picture-edit.component';
 
 export * from './components/shared/consultant-skills-edit/consultant-skills-edit-add-remove/consultant-skills-edit-add-remove.component';
 export * from './components/shared/consultant-skills-edit/consultant-skills-edit-reorder-display/consultant-skills-edit-reorder-display.component';

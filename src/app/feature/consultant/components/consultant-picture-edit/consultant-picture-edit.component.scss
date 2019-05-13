@@ -1,0 +1,22 @@
+
+@import "breakpoints";
+
+@include media-breakpoint-down(sm) {
+    .picture {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .picture {
+        width: 375px;
+        height: 375px;
+    }
+
+}
+
+.picture { 
+    overflow: hidden;
+    border-radius: 50%;
+}

@@ -53,10 +53,41 @@
 .picture-wrapper {
     display: flex;
     justify-content: center;
+    display: relative;
 }
 
-.picture-container {
+.picture-container, .button-container {
     position: relative;
+    border-radius: 50%;
+}
+
+.picture-container:hover {
+    .edit-overlay {
+        opacity: 1;
+    }
+}
+
+.edit-overlay {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .2s ease;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+
+    .edit-text {
+        color: white;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 }
 
 .picture { 

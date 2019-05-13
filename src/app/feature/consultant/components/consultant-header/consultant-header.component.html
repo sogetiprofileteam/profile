@@ -1,12 +1,24 @@
 <section class="container">
   <ng-container *ngIf="consultant$ | async as consultant">
     <div class="picture-wrapper">
-      <div class="picture-container">
-        <button mat-fab class="edit-button" color="white" (click)="openEditDialog()">
-          <mat-icon>edit</mat-icon>
-        </button>
+      <div class="button-container">
+          <button mat-fab class="edit-button" color="white" (click)="openEditHeaderDialog()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        <div class="picture-container">
+          <img *ngIf="consultant.urlProfileImage; else blankImg" class="picture" [src]="consultant.urlProfileImage">
+          
+          <ng-template #blankImg>
+            <img class="picture" src="../../../../../assets/img/blank-profile.png">
+          </ng-template>
 
-        <img class="picture" src="../../../../../assets/mock-profile-picture.jpg">
+          <div class="edit-overlay" (click)="openEditPictureDialog()">
+            <span class="edit-text">
+              <mat-icon>photo_camera</mat-icon>
+              <h2>Change profile picture</h2>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 

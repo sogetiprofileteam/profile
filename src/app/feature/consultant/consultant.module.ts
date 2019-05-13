@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 import {
   MatDialogModule,
   MatInputModule,
@@ -29,7 +31,8 @@ import { ConsultantRoutingModule,
   ConsultantExperienceComponent,
   ConsultantSkillsEditAddRemoveComponent,
   ConsultantSkillsEditReorderDisplayComponent,
-  SaveNewButtonComponent
+  SaveNewButtonComponent,
+  ConsultantPictureEditComponent
 } from './index';
 
 @NgModule({
@@ -46,7 +49,8 @@ import { ConsultantRoutingModule,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
-    SaveNewButtonComponent
+    SaveNewButtonComponent,
+    ConsultantPictureEditComponent
   ],
   imports: [
     CommonModule,
@@ -62,8 +66,9 @@ import { ConsultantRoutingModule,
     MatAutocompleteModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageCropperModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent],
+  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent],
 })
 export class ConsultantModule { }
