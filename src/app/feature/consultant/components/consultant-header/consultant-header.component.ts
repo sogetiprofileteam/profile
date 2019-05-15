@@ -27,7 +27,7 @@ export class ConsultantHeaderComponent {
   }
 
   openEditPictureDialog() {
-    this.dialog.open(ConsultantPictureEditComponent);
+    this.dialog.open(ConsultantPictureEditComponent, { width: '500px' });
   }
 
 }

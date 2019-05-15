@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
@@ -9,7 +9,8 @@ import { Consultant } from '@core/models';
 @Component({
   selector: 'app-consultant-picture-edit',
   templateUrl: './consultant-picture-edit.component.html',
-  styleUrls: ['./consultant-picture-edit.component.scss']
+  styleUrls: ['./consultant-picture-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantPictureEditComponent implements OnDestroy {
 
@@ -25,11 +26,11 @@ export class ConsultantPictureEditComponent implements OnDestroy {
   croppedImage: any = '';
 
   fileChangeEvent(event: any): void {
-      this.imageChangedEvent = event;
+    this.imageChangedEvent = event;
   }
 
   imageCropped(event: ImageCroppedEvent) {
-      this.croppedImage = event.base64;
+    this.croppedImage = event.base64;
   }
 
   ngOnDestroy() {

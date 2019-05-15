@@ -1,11 +1,12 @@
 <h1 mat-dialog-title>Change Profile Picture</h1>
 
-<form *ngIf="consultant$ | async as consultant" (ngSubmit)="updateConsultant(consultant)">
-  <mat-dialog-content class="content">
-    <button mat-raised-button color="primary" (click)="upload.click()">CHOOSE FILE</button>
+<form *ngIf="consultant$ | async as consultant" (ngSubmit)="updateConsultant(consultant)" id="picture-form">
+  <mat-dialog-content>
+    <button mat-raised-button color="primary" class="upload-button" (click)="upload.click()">CHOOSE FILE</button>
     <input type="file" class="file-input" (change)="fileChangeEvent($event)" #upload />
 
     <image-cropper
+      *ngIf="imageChangedEvent"
       class="crop"
       [imageChangedEvent]="imageChangedEvent"
       [aspectRatio]="1 / 1"
@@ -19,9 +20,9 @@
       (imageCropped)="imageCropped($event)">
     </image-cropper>
   </mat-dialog-content>
-
-  <mat-dialog-actions align="end">
-      <button mat-button type="button" (click)="close()">CANCEL</button>
-      <button mat-raised-button color="primary" type="submit" cdkFocusInitial>CROP & SAVE</button>
-  </mat-dialog-actions>
 </form>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">CANCEL</button>
+  <button mat-raised-button color="primary" type="submit" form="picture-form" cdkFocusInitial>CROP & SAVE</button>
+</mat-dialog-actions>
