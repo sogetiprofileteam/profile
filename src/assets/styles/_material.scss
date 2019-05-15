@@ -14,24 +14,3 @@
 .mat-white {
     background: #fff;
 }
-
-// Maximize dialog's when on mobile
-// A dependency injection factory that uses the BreakpointObserver to provide a different
-// global config to dialog's may be an alternative to this
-@import "breakpoints";
-
-@include media-breakpoint-down(sm) {
-    .mat-dialog-container {
-        border-radius: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-    }
-    /*
-    .mat-dialog-actions {
-        margin-bottom: 0px !important;
-        position: absolute;
-        bottom: 0;
-        right: 24px;
-    }
-    */
-}
