@@ -20,10 +20,10 @@ export const blankConsultant: Consultant = {
   username: null,
   status: null,
   address: {
-      lineOne: 'Address',
-      city: 'City',
-      state: 'State',
-      zipCode: 12345
+      lineOne: '10900 Stonelake Blvd. Suite 195',
+      city: 'Austin',
+      state: 'TX',
+      zipCode: 78759
   },
   phone1: 1234567890,
   urlLinkedIn: null,

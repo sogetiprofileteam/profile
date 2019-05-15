@@ -36,24 +36,24 @@
     <ng-container *ngIf="consultant.address as address">
       <p>
         <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
-        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone1 }} |
         Fax: {{ consultant.fax }}
       </p>
     </ng-container>
 
-    <a href="{{consultant.urlLinkedIn}}">
+    <a href="{{consultant.urlLinkedIn}}" *ngIf="consultant.urlLinkedIn" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/linkedin-brands.svg">
     </a>
 
-    <a href="{{consultant.urlGitHub}}">
+    <a href="{{consultant.urlGitHub}}" *ngIf="consultant.urlGitHub" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/github-brands.svg">
     </a>
 
-    <a href="{{consultant.urlWordpress}}">
+    <a href="{{consultant.urlWordpress}}" *ngIf="consultant.urlWordpress" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/wordpress-brands.svg">
     </a>
 
-    <a href="{{consultant.urlPersonal}}">
+    <a href="{{consultant.urlPersonal}}" *ngIf="consultant.urlPersonal" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/desktop-solid.svg">
     </a>
   </ng-container>

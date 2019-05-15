@@ -7,6 +7,7 @@ import {
   ConsultantsRoutingModule
 } from './index';
 
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {
   imports: [
     CommonModule,
     ConsultantsServiceModule,
-    ConsultantsRoutingModule
+    ConsultantsRoutingModule,
+    MatButtonModule
   ],
 })
 export class ConsultantsModule { }
