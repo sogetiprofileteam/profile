@@ -15,8 +15,8 @@ import {
 import { differenceWith, isEqual, pick, merge } from 'lodash';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { ConsultantSkillDataService } from '@feature/consultant/services/consultant-skill-data/consultant-skill-data.service';
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
+import { SkillsDataService } from '@feature/consultant/services/skills-data/skills-data.service';
 
 import {
   SKILL_CORE,
@@ -24,7 +24,7 @@ import {
   Skill,
   SkillType,
   SkillOption
-} from '@feature/consultant/models';
+} from '@core/models';
 
 import { dynamicSort } from '@shared/helpers/dynamic-sort';
 
@@ -71,7 +71,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
-    private consultantSkillService: ConsultantSkillDataService,
+    private skillService: SkillsDataService,
   ) { }
 
   ngOnDestroy() {
@@ -83,8 +83,8 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
     this.getSkills$ =
       skillType === SKILL_CORE
-        ? this.consultantSkillService.getCoreSkills().pipe(takeUntil(this.destroy$))
-        : this.consultantSkillService.getTechnicalSkills().pipe(takeUntil(this.destroy$));
+        ? this.skillService.coreSkills$.pipe(takeUntil(this.destroy$))
+        : this.skillService.technicalSkills$.pipe(takeUntil(this.destroy$));
 
     this.skillProperty = propertyName;
 
@@ -217,7 +217,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
   private updateWithNewSkills(): void {
     const existingSkills = this.selectedSkills.filter(skill => skill.id !== null);
     const newSkills = this.selectedSkills.filter(skill => skill.id === null);
-    const newSkillRequests = newSkills.map(skill => this.consultantSkillService.addNewSkill(skill.name, this.skillType));
+    const newSkillRequests = newSkills.map(skill => this.skillService.addNewSkill(skill.name, this.skillType));
 
     forkJoin(newSkillRequests)
       .pipe(

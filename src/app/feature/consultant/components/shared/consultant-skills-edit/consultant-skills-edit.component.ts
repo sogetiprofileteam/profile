@@ -5,7 +5,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material';
 
-import { Skill, SkillType, SKILL_CORE } from '@feature/consultant/models';
+import { Skill, SkillType, SKILL_CORE } from '@core/models';
 import { ConsultantSkillsEditService } from './consultant-skills-edit-service/consultant-skills-edit.service';
 import { take } from 'rxjs/operators';
 
