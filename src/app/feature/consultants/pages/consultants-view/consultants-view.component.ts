@@ -8,11 +8,12 @@ import { ConsultantsStoreService } from '../../services/consultants-store/consul
   templateUrl: './consultants-view.component.html',
   styleUrls: ['./consultants-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ ConsultantsStoreService ]
 })
 export class ConsultantsViewComponent {
 
-  constructor(private consultantsService: ConsultantsStoreService) { }
+  constructor(private consultantsService: ConsultantsStoreService) {
+    this.consultantsService.initConsultants();
+  }
 
   consultants$: Observable<Consultant[]> = this.consultantsService.consultants$;
 

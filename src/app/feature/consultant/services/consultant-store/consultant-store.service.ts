@@ -43,9 +43,7 @@ export class ConsultantStore implements OnDestroy {
     private consultantDataService: ConsultantDataService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-    this.initConsultant();
-  }
+  ) { }
 
   private _destroy$ = new Subject();
 
@@ -80,7 +78,7 @@ export class ConsultantStore implements OnDestroy {
   /**
    * Sets the consultant observable to be used in the consultant feature.
    */
-  private initConsultant(): void {
+  initConsultant(): void {
     const consultantId = this.getConsultantIdFromRoute();
 
     if (consultantId) {
@@ -116,6 +114,7 @@ export class ConsultantStore implements OnDestroy {
     const updatedConsultant = this.updatedConsultantFactory(data);
 
     if (!this.newConsultant) {
+      console.log(updatedConsultant);
       return this.saveToDatabase(updatedConsultant);
     } else {
       this._consultant.next(updatedConsultant);
@@ -142,8 +141,9 @@ export class ConsultantStore implements OnDestroy {
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
     return this.consultantDataService.updateConsultant(consultant)
-      .pipe(tap(consultantRes => {
-        this._consultant.next(consultantRes);
+      .pipe(tap(res => {
+        console.log(res);
+        this._consultant.next(consultant)
       }));
   }
 

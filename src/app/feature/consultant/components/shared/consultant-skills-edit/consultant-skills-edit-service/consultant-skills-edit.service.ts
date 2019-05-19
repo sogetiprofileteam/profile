@@ -283,7 +283,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
       chip.toggleSelected();
       const selectedSkillsUpdated = this.reorderSkillsAfterRemovedSkill(selectedSkillsWithoutUpdatedSkill, updatedSkill.displayOrder);
 
-      updatedSkill.displayOrder = null;
+      updatedSkill.displayOrder = 0;
       this.updateSelectedDisplaySkills(selectedSkillsUpdated, updatedSkill);
     }
   }

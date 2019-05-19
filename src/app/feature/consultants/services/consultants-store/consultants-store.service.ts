@@ -8,9 +8,7 @@ import { take, takeUntil } from 'rxjs/operators';
 @Injectable()
 export class ConsultantsStoreService implements OnDestroy {
 
-  constructor(private consultantDataService: ConsultantDataService) {
-    this.initConsultants();
-  }
+  constructor(private consultantDataService: ConsultantDataService) { }
 
   private _destroy$ = new Subject();
 
