@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Consultant } from '@core/models/consultant';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ConsultantDataService {
 
   public getConsultant(id: string): Observable<Consultant> {
     const consultant = this.baseurl + '/' + id;
-    return this.http.get<Consultant>(consultant);
+    return this.http.get<Consultant>(consultant).pipe(map(c => c[0]));
   }
 
   public createConsultant(consultant: Consultant): Observable<Consultant> {

@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { CoreSkillsService } from '../core-skills-data/core-skills-data.service';
 import { TechnicalSkillsService } from '../technical-skills-data/technical-skills-data.service';
 import { SkillType, Skill, SKILL_CORE } from '@core/models';
-import { Observable, of } from 'rxjs';
-import { ConsultantServiceModule } from '@feature/consultant/consultant-service.module';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: ConsultantServiceModule
-})
+@Injectable()
 export class SkillsDataService {
 
   constructor(

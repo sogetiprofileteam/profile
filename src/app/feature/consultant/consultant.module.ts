@@ -17,8 +17,7 @@ import {
   MatAutocompleteModule,
 } from '@angular/material';
 
-import { ConsultantRoutingModule,
-  ConsultantServiceModule,
+import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
   ConsultantBodyComponent,
@@ -26,13 +25,19 @@ import { ConsultantRoutingModule,
   ConsultantSectionHeaderComponent,
   ConsultantCoreSkillsComponent,
   ConsultantSkillsEditComponent,
+  ConsultantSkillsEditAddRemoveComponent,
+  ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent,
-  ConsultantSkillsEditAddRemoveComponent,
-  ConsultantSkillsEditReorderDisplayComponent,
   SaveNewButtonComponent,
-  ConsultantPictureEditComponent
+  ConsultantPictureEditComponent,
+  ConsultantRoutingModule,
+  ConsultantStore,
+  TechnicalSkillsService,
+  CoreSkillsService,
+  SkillsDataService,
+  ConsultantSkillsEditService 
 } from './index';
 
 @NgModule({
@@ -54,7 +59,6 @@ import { ConsultantRoutingModule,
   ],
   imports: [
     CommonModule,
-    ConsultantServiceModule,
     ConsultantRoutingModule,
     DragDropModule,
     MatButtonModule,
@@ -69,6 +73,7 @@ import { ConsultantRoutingModule,
     ReactiveFormsModule,
     ImageCropperModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent],
+  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent ],
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 })
 export class ConsultantModule { }

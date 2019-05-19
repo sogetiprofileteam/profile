@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ConsultantServiceModule } from '../../consultant-service.module';
 import { ConsultantDataService } from '@core/services/consultant-data/consultant-data.service';
 
 import { Observable, Subject, ReplaySubject, of } from 'rxjs';
@@ -37,9 +36,7 @@ export const blankConsultant: Consultant = {
   experience: []
 };
 
-@Injectable({
-  providedIn: ConsultantServiceModule
-})
+@Injectable()
 export class ConsultantStore implements OnDestroy {
 
   constructor(
