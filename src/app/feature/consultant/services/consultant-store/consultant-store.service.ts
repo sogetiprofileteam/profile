@@ -142,7 +142,9 @@ export class ConsultantStore implements OnDestroy {
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
     return this.consultantDataService.updateConsultant(consultant)
-      .pipe(tap(() => this._consultant.next(consultant)));
+      .pipe(tap(consultantRes => {
+        this._consultant.next(consultantRes);
+      }));
   }
 
   ngOnDestroy() {
