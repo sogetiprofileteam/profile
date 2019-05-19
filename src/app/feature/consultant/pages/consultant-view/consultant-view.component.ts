@@ -6,7 +6,6 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
   templateUrl: './consultant-view.component.html',
   styleUrls: ['./consultant-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ ConsultantStore ]
 })
 export class ConsultantViewComponent {
 
