@@ -6,8 +6,13 @@
     margin-bottom: 1rem;
 }
 
-.crop {
-    width: auto;
+// Override ngx-cropper styles and make cropper span whole width of dialog
+.crop { 
+    // 24px is the Material dialog padding value 
+    padding: 0;
+    margin-left: -24px;
+    width: calc(100% + 48px);
     height: auto;
-    max-height: 375px;
-}
+    max-width: inherit;
+    max-height: 350px;
+} 
