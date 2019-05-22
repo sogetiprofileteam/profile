@@ -1,7 +1,7 @@
 @import "breakpoints";
 
 @include media-breakpoint-down(sm) {
-    .picture-container, .picture {
+    .picture-container, .button-container, .picture {
         width: 250px;
         height: 250px;
 
@@ -23,10 +23,18 @@
     .icon {	
         margin: 15px;
     }
+
+    .edit-overlay {
+        opacity: 1;
+    }
+
+    .container {
+        padding-top: 2em;
+    }
 }
 
 @include media-breakpoint-up(sm) {
-    .picture-container, .picture {
+    .picture-container, .button-container,  .picture {
         width: 375px;
         height: 375px;
     }
@@ -43,20 +51,63 @@
     .icon {	
         margin: 20px;
     }
+
+    .picture-container:hover {
+        .edit-overlay {
+            opacity: 1;
+        }
+    }
+
+    .edit-overlay {
+        opacity: 0;
+    }
+
+    .container {
+        padding-top: 3.5em;
+    }
 }
 
 .container {
     text-align: center;
-    padding-top: 3.5em;
 }
 
 .picture-wrapper {
     display: flex;
     justify-content: center;
+    display: relative;
 }
 
-.picture-container {
+.picture-container, .button-container {
     position: relative;
+    border-radius: 50%;
+}
+
+.picture-container:hover {
+    .edit-overlay {
+        opacity: 1;
+    }
+}
+
+.edit-overlay {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    transition: .2s ease;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+
+    .edit-text {
+        color: white;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 }
 
 .picture { 

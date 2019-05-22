@@ -20,13 +20,18 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
     private formBuilder: FormBuilder
   ) { }
 
+  readonly urlPattern = new RegExp('^(http|https)://');
+  readonly phonePattern = new RegExp('^\\d+$');
+
   headerForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    urlLinkedIn: [''],
-    urlGitHub: [''],
-    urlWordpress: [''],
-    urlPersonal: [''],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
+    urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
+    urlGitHub: ['', Validators.pattern(this.urlPattern)],
+    urlWordpress: ['', Validators.pattern(this.urlPattern)],
+    urlPersonal: ['', Validators.pattern(this.urlPattern)],
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.headerForm.patchValue(consultant)));
@@ -52,5 +57,29 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  get email() {
+    return this.headerForm.get('email');
+  }
+
+  get phone() {
+    return this.headerForm.get('phone');
+  }
+
+  get linkedIn() {
+    return this.headerForm.get('urlLinkedIn');
+  }
+
+  get gitHub() {
+    return this.headerForm.get('urlGitHub');
+  }
+
+  get wordpress() {
+    return this.headerForm.get('urlWordpress');
+  }
+
+  get personal() {
+    return this.headerForm.get('urlPersonal');
   }
 }

@@ -3,11 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { Skill } from 'models/index';
-import { ConsultantServiceModule } from '@feature/consultant/consultant-service.module';
 
-@Injectable({
-  providedIn: ConsultantServiceModule
-})
+@Injectable()
 export class TechnicalSkillsService {
 
   constructor(private http: HttpClient) { }

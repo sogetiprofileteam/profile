@@ -3,17 +3,12 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ConsultantDataService } from '@core/services/consultant-data/consultant-data.service';
 import { Subject, ReplaySubject, Observable } from 'rxjs';
 import { Consultant } from '@core/models';
-import { tap, take, takeUntil } from 'rxjs/operators';
-import { ConsultantsServiceModule } from '@feature/consultants/consultants-service.module';
+import { take, takeUntil } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: ConsultantsServiceModule
-})
+@Injectable()
 export class ConsultantsStoreService implements OnDestroy {
 
-  constructor(private consultantDataService: ConsultantDataService) {
-    this.initConsultants();
-  }
+  constructor(private consultantDataService: ConsultantDataService) { }
 
   private _destroy$ = new Subject();
 

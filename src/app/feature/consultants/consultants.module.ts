@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import {
   ConsultantsViewComponent,
-  ConsultantsServiceModule,
   ConsultantsRoutingModule
 } from './index';
 
+import { MatButtonModule } from '@angular/material';
+import { ConsultantsStoreService } from './services/consultants-store/consultants-store.service';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,9 @@ import {
   ],
   imports: [
     CommonModule,
-    ConsultantsServiceModule,
-    ConsultantsRoutingModule
+    ConsultantsRoutingModule,
+    MatButtonModule
   ],
+  providers: [ConsultantsStoreService]
 })
 export class ConsultantsModule { }

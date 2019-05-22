@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 import { ConsultantHeaderEditComponent } from '../consultant-header-edit/consultant-header-edit.component';
+import { ConsultantPictureEditComponent } from '../consultant-picture-edit/consultant-picture-edit.component';
 
 @Component({
   selector: 'app-consultant-header',
@@ -21,8 +22,12 @@ export class ConsultantHeaderComponent {
 
   consultant$ = this.consultantStore.consultant$;
 
-  openEditDialog(): void {
+  openEditHeaderDialog(): void {
     this.dialog.open(ConsultantHeaderEditComponent);
+  }
+
+  openEditPictureDialog() {
+    this.dialog.open(ConsultantPictureEditComponent, { width: '500px' });
   }
 
 }

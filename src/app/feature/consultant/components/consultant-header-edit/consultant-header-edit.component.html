@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Edit Header Information</h1>
+<h1 mat-dialog-title>Edit Personal Information</h1>
 
-<form *ngIf="consultant$ | async" [formGroup]="headerForm" (ngSubmit)="updateConsultant()">
+<form *ngIf="consultant$ | async" [formGroup]="headerForm" (ngSubmit)="updateConsultant()" id="header-form">
     <mat-dialog-content>
         <mat-form-field>
             <mat-label>First Name</mat-label>
@@ -15,28 +15,46 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>LinkedIn</mat-label>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email">
+            <mat-error *ngIf="email?.errors?.email">Email is not in valid email format, e.g. name@address.com</mat-error>
+            <mat-error *ngIf="email?.errors?.required">Email is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" type="tel">
+            <mat-error *ngIf="phone?.errors?.required">Phone number is required</mat-error>
+            <mat-error *ngIf="phone?.errors?.pattern">Phone number must only contain numbers</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>LinkedIn - Optional</mat-label>
             <input matInput formControlName="urlLinkedIn" type="text">
+            <mat-error *ngIf="linkedIn?.errors?.pattern">URL must begin with http:// or https://</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>GitHub</mat-label>
+            <mat-label>GitHub - Optional</mat-label>
             <input matInput formControlName="urlGitHub" type="text">
+            <mat-error *ngIf="gitHub?.errors?.pattern">URL must begin with http:// or https://</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Wordpress</mat-label>
+            <mat-label>Wordpress - Optional</mat-label>
             <input matInput formControlName="urlWordpress" type="text">
+            <mat-error *ngIf="wordpress?.errors?.pattern">URL must begin with http:// or https://</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Personal</mat-label>
+            <mat-label>Personal Link - Optional</mat-label>
             <input matInput formControlName="urlPersonal" type="text">
+            <mat-error *ngIf="personal?.errors?.pattern">URL must begin with http:// or https://</mat-error>
         </mat-form-field>
     </mat-dialog-content>
-
-    <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="close()">CANCEL</button>
-        <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE HEADER</button>
-    </mat-dialog-actions>
 </form>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="close()">CANCEL</button>
+    <button mat-raised-button color="primary" type="submit" form="header-form" cdkFocusInitial>SAVE HEADER</button>
+</mat-dialog-actions>

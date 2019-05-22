@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 import {
   MatDialogModule,
   MatInputModule,
@@ -15,8 +17,7 @@ import {
   MatAutocompleteModule,
 } from '@angular/material';
 
-import { ConsultantRoutingModule,
-  ConsultantServiceModule,
+import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
   ConsultantBodyComponent,
@@ -24,11 +25,19 @@ import { ConsultantRoutingModule,
   ConsultantSectionHeaderComponent,
   ConsultantCoreSkillsComponent,
   ConsultantSkillsEditComponent,
+  ConsultantSkillsEditAddRemoveComponent,
+  ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent,
-  ConsultantSkillsEditAddRemoveComponent,
-  ConsultantSkillsEditReorderDisplayComponent
+  SaveNewButtonComponent,
+  ConsultantPictureEditComponent,
+  ConsultantRoutingModule,
+  ConsultantStore,
+  TechnicalSkillsService,
+  CoreSkillsService,
+  SkillsDataService,
+  ConsultantSkillsEditService 
 } from './index';
 
 @NgModule({
@@ -45,10 +54,11 @@ import { ConsultantRoutingModule,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
+    SaveNewButtonComponent,
+    ConsultantPictureEditComponent
   ],
   imports: [
     CommonModule,
-    ConsultantServiceModule,
     ConsultantRoutingModule,
     DragDropModule,
     MatButtonModule,
@@ -60,8 +70,10 @@ import { ConsultantRoutingModule,
     MatAutocompleteModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageCropperModule
   ],
-  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent],
+  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent ],
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 })
 export class ConsultantModule { }
