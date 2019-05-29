@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Edit Education and Certifcation</h1>
+
+<form *ngIf="consultant$ | async" [formGroup]="educationCertificationForm" (ngSubmit)="updateConsultant()">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Institute Name</mat-label>
+            <input matInput formControlName="school" type="text">
+            <mat-error>Institute Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Degree or Certification Title</mat-label>
+            <input matInput formControlName="levelOfDegree" type="text">
+            <mat-error>Title is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Year</mat-label>
+            <input matInput formControlName="shortDate" type="text">
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="close()">CANCEL</button>
+        <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE</button>
+    </mat-dialog-actions>
+</form>
