@@ -8,12 +8,11 @@ import { CoreModule } from '@core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MAT_DIALOG_DEFAULT_OPTIONS, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
-import { ConsultantEducationCertificationEditComponent } from './consultant-education-certification-edit/consultant-education-certification-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConsultantEducationCertificationEditComponent,
+    
   ],
   imports: [
     BrowserModule,
