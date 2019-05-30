@@ -114,7 +114,6 @@ export class ConsultantStore implements OnDestroy {
     const updatedConsultant = this.updatedConsultantFactory(data);
 
     if (!this.newConsultant) {
-      console.log(updatedConsultant);
       return this.saveToDatabase(updatedConsultant);
     } else {
       this._consultant.next(updatedConsultant);
@@ -141,10 +140,7 @@ export class ConsultantStore implements OnDestroy {
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
     return this.consultantDataService.updateConsultant(consultant)
-      .pipe(tap(res => {
-        console.log(res);
-        this._consultant.next(consultant)
-      }));
+      .pipe(tap(() => this._consultant.next(consultant)));
   }
 
   ngOnDestroy() {

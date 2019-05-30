@@ -11,7 +11,7 @@ import { Consultant } from '@core/models';
 @Component({
   selector: 'app-consultant-education-certifications-edit',
   templateUrl: './consultant-education-certifications-edit.component.html',
-  styleUrls: ['./consultant-education-certifications-edit.component.sass']
+  styleUrls: ['./consultant-education-certifications-edit.component.scss']
 })
 export class ConsultantEducationCertificationsEditComponent implements OnDestroy {
 

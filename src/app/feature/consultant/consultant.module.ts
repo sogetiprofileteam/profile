@@ -38,7 +38,7 @@ import {
   TechnicalSkillsService,
   CoreSkillsService,
   SkillsDataService,
-  ConsultantSkillsEditService 
+  ConsultantSkillsEditService
 } from './index';
 
 @NgModule({
@@ -75,7 +75,18 @@ import {
     ReactiveFormsModule,
     ImageCropperModule
   ],
-  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
+  entryComponents: [
+    ConsultantHeaderEditComponent,
+    ConsultantSkillsEditComponent,
+    ConsultantPictureEditComponent,
+    ConsultantEducationCertificationsEditComponent
+  ],
+  providers: [
+    ConsultantStore,
+    TechnicalSkillsService,
+    CoreSkillsService,
+    SkillsDataService,
+    ConsultantSkillsEditService
+  ]
 })
 export class ConsultantModule { }

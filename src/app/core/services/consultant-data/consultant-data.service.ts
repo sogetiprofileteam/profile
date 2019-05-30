@@ -20,7 +20,7 @@ export class ConsultantDataService {
 
   public getConsultant(id: string): Observable<Consultant> {
     const consultant = this.baseurl + '/' + id;
-    return this.http.get<Consultant>(consultant).pipe(map(c => c[0]));
+    return this.http.get<Consultant>(consultant);
   }
 
   public createConsultant(consultant: Consultant): Observable<Consultant> {
