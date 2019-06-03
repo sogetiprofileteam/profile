@@ -15,6 +15,7 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
+  MatRadioModule,
 } from '@angular/material';
 
 import {
@@ -73,7 +74,8 @@ import {
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatRadioModule,
   ],
   entryComponents: [
     ConsultantHeaderEditComponent,

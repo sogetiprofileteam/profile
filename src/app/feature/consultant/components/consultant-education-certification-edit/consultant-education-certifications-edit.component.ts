@@ -22,6 +22,7 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
+    selector: [''],
     school: ['', Validators.required],
     levelOfDegree: ['', Validators.required],
     shortDate: [''],

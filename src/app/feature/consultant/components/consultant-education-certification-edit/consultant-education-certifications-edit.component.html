@@ -2,6 +2,11 @@
 
 <form *ngIf="consultant$ | async" [formGroup]="educationCertificationForm" (ngSubmit)="updateConsultant()">
     <mat-dialog-content>
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button formControlName="selector" value="1">Education</mat-radio-button>
+            <mat-radio-button formControlName="selector" value="2">Certifcation</mat-radio-button>
+        </mat-radio-group>
+
         <mat-form-field>
             <mat-label>Institute Name</mat-label>
             <input matInput formControlName="school" type="text">
