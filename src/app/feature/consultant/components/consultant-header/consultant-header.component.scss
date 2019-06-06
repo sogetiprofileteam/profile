@@ -1,13 +1,19 @@
 @import "breakpoints";
 
+$picture-size-lg: 250px;
+$picture-size-sm: 200px;
+
+$edit-button-position-lg: 12px;
+$edit-button-position-sm: 6px;
+
 @include media-breakpoint-down(sm) {
     .picture-container, .button-container, .picture {
-        width: 250px;
-        height: 250px;
+        width: $picture-size-sm;
+        height: $picture-size-sm;
 
         .edit-button {
-            bottom: 12px;
-            right: 12px;
+            bottom: $edit-button-position-sm;
+            right: $edit-button-position-sm;
         }
     }
 
@@ -35,13 +41,13 @@
 
 @include media-breakpoint-up(sm) {
     .picture-container, .button-container,  .picture {
-        width: 375px;
-        height: 375px;
+        width: $picture-size-lg;
+        height: $picture-size-lg;
     }
 
     .edit-button {
-        bottom: 32px;
-        right: 32px;
+        bottom: $edit-button-position-lg;
+        right: $edit-button-position-lg;
     }
 
     .picture-wrapper {
@@ -107,6 +113,7 @@
         color: white;
         margin-top: auto;
         margin-bottom: auto;
+        padding: 1rem;
     }
 }
 

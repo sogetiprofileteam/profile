@@ -190,9 +190,11 @@ export class ConsultantSkillsEditService implements OnDestroy {
     const index = this.selectedSkills.indexOf(skill);
 
     if (index >= 0) {
-      const skillsCopy = [...this.selectedSkills];
-      skillsCopy.splice(index, 1);
-      this._selectedSkills$.next([...skillsCopy]);
+      const updatedSkills = [
+        ...this.selectedSkills.map((s, i) => i > index ? {...s, displayOrder: s.displayOrder - 1 } : s)
+      ];
+      updatedSkills.splice(index, 1);
+      this._selectedSkills$.next(updatedSkills);
     }
   }
 
