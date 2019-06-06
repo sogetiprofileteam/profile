@@ -188,14 +188,15 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   removeSkill(skill: SelectedSkill): void {
     const index = this.selectedSkills.indexOf(skill);
+    let updatedSkills = [ ...this.selectedSkills ];
+    updatedSkills.splice(index, 1);
 
-    if (index >= 0) {
-      const updatedSkills = [
-        ...this.selectedSkills.map((s, i) => i > index ? {...s, displayOrder: s.displayOrder - 1 } : s)
-      ];
-      updatedSkills.splice(index, 1);
-      this._selectedSkills$.next(updatedSkills);
+    if (skill.display) {
+      updatedSkills =
+        updatedSkills.map(s => (s.display && (s.displayOrder > skill.displayOrder) ? {...s, displayOrder: s.displayOrder - 1 } : s));
     }
+
+    this._selectedSkills$.next(updatedSkills);
   }
 
   updateConsultant(): void {
