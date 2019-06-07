@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Edit Personal Information</h1>
+
+<form *ngIf="consultant$ | async" [formGroup]="experienceForm" (ngSubmit)="updateConsultant()" id="experience-form">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input matInput formControlName="companyName" type="text">
+            <mat-error>A Company Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="jobTitle" type="text">
+            <mat-error>Job Title is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input matInput formControlName="startDate" type="date">
+            <mat-error *ngIf="date?.errors?.date">Date must be in correct format</mat-error>
+            <mat-error *ngIf="date?.errors?.required">Start date is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>End Date</mat-label>
+            <input matInput formControlName="endDate" type="date">
+            <mat-error *ngIf="date?.errors?.date">Date must be in correct format</mat-error>
+            <mat-error *ngIf="date?.errors?.required">End date is required unless current is checked</mat-error>
+        </mat-form-field>
+
+    <button 
+        (click)="addDescriptionToggle()"
+        mat-button
+        type="button"
+        color="primary" 
+        style="float: right"> 
+        + Add Job Description 
+    </button>
+
+    <mat-form-field>
+        <mat-label>Job description</mat-label>
+        <input matInput formControlName="descriptions" type="text-box" >
+        <!-- <mat-error *ngIf="description?.errors?.required">A description is required</mat-error> -->
+    </mat-form-field>
+    </mat-dialog-content>
+</form>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="close()">CANCEL</button>
+    <button mat-raised-button color="primary" type="submit" form="experience-form">SAVE Experience</button>
+</mat-dialog-actions>

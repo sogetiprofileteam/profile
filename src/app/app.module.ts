@@ -11,7 +11,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@ang
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

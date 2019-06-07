@@ -15,6 +15,8 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
+  MatDatepickerModule,        // <----- import(must)
+  MatNativeDateModule        // <----- import for date formating(optional) 
 } from '@angular/material';
 
 import {
@@ -37,7 +39,8 @@ import {
   TechnicalSkillsService,
   CoreSkillsService,
   SkillsDataService,
-  ConsultantSkillsEditService 
+  ConsultantSkillsEditService,
+  ConsultantExperienceEditComponent,
 } from './index';
 
 @NgModule({
@@ -55,7 +58,8 @@ import {
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
-    ConsultantPictureEditComponent
+    ConsultantPictureEditComponent,
+    ConsultantExperienceEditComponent
   ],
   imports: [
     CommonModule,
@@ -71,9 +75,11 @@ import {
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule        // <----- import for date formating(optional) 
   ],
-  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent ],
+  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent, ConsultantExperienceEditComponent ],
   providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 })
 export class ConsultantModule { }
