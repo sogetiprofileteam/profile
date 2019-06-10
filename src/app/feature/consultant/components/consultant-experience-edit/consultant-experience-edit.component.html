@@ -40,7 +40,7 @@
             </button>
         </div>
 
-        <div formArrayName="descriptions" #descEl>
+        <div formArrayName="descriptions">
             <div class="description" *ngFor="let description of descriptions.controls; let i = index">
                 <mat-form-field [formGroup]="description">
                     <mat-label>Description</mat-label>
