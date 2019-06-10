@@ -3,8 +3,8 @@
 <form *ngIf="consultant$ | async" [formGroup]="educationCertificationForm" (ngSubmit)="updateConsultant()">
     <mat-dialog-content>
         <mat-radio-group aria-label="Select an option">
-            <mat-radio-button formControlName="selector" value="1">Education</mat-radio-button>
-            <mat-radio-button formControlName="selector" value="2">Certifcation</mat-radio-button>
+            <mat-radio-button formControlName="education" value="1">Education</mat-radio-button>
+            <mat-radio-button formControlName="certification" value="2">Certifcation</mat-radio-button>
         </mat-radio-group>
 
         <mat-form-field>
@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Degree or Certification Title</mat-label>
+            <mat-label>Achievement Title</mat-label>
             <input matInput formControlName="levelOfDegree" type="text">
             <mat-error>Title is required</mat-error>
         </mat-form-field>
@@ -26,6 +26,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
+        <button mat-button-type="button" (click)="addNew()">+ EDUCATION/CERTIFICATION</button>
         <button mat-button type="button" (click)="close()">CANCEL</button>
         <button mat-raised-button color="primary" type="submit" cdkFocusInitial>SAVE</button>
     </mat-dialog-actions>

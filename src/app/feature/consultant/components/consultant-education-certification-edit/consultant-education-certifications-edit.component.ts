@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -22,10 +22,12 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
-    selector: [''],
+    // selector: [''],
     school: ['', Validators.required],
     levelOfDegree: ['', Validators.required],
     shortDate: [''],
+    education: [''],
+    certification: [''],
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.educationCertificationForm.patchValue(consultant)));
