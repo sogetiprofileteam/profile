@@ -15,8 +15,9 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
-  MatDatepickerModule,        // <----- import(must)
-  MatNativeDateModule        // <----- import for date formating(optional) 
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import {
@@ -76,10 +77,16 @@ import {
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    MatDatepickerModule,        // <----- import(must)
-    MatNativeDateModule        // <----- import for date formating(optional) 
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
   ],
-  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent, ConsultantExperienceEditComponent ],
+  entryComponents: [
+    ConsultantHeaderEditComponent,
+    ConsultantSkillsEditComponent,
+    ConsultantPictureEditComponent,
+    ConsultantExperienceEditComponent
+  ],
   providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 })
 export class ConsultantModule { }

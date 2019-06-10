@@ -8,9 +8,8 @@
   <ng-container *ngFor="let experience of consultant.experience">
     <h3><b>{{experience.companyName}}</b></h3>
     <p>{{experience.jobTitle}}</p>
-    <p>{{experience.startDate | date: 'shortDate'}} - {{experience.endDate | date: 'shortDate'}}</p>
+    <p>{{experience.startDate | date: 'shortDate'}} - {{experience.endDate ? (experience.endDate | date: 'shortDate') : 'Present'}}</p>
     <p *ngFor="let description of experience.descriptions">
-      - {{description}}
       - {{description.summary}}
     </p>
   </ng-container>

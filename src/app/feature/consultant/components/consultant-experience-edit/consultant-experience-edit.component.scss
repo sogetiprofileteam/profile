@@ -1,3 +1,21 @@
 mat-form-field {
     width: 100%;
 }
+
+.description-header {
+    padding: 1.5rem 0 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.description {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

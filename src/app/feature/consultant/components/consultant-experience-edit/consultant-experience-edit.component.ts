@@ -1,20 +1,38 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { tap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 import { MatDialogRef } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Consultant } from '@core/models';
+import { Experience } from '@core/models';
+import { growShrink } from '@shared/animations/grow-shrink';
 
 @Component({
   selector: 'app-consultant-experience-edit',
   templateUrl: './consultant-experience-edit.component.html',
   styleUrls: ['./consultant-experience-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    growShrink
+  ]
 })
-export class ConsultantExperienceEditComponent implements OnDestroy {
+export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
+  experienceForm = this.formBuilder.group({
+    id: [null],
+    companyName: [null, Validators.required],
+    jobTitle: [null, Validators.required],
+    startDate: [null, [Validators.required]],
+    endDate: [null],
+    descriptions: this.formBuilder.array([])
+  });
+
+  currentPositionControl = this.formBuilder.control(null);
+
+  private _destroy$ = new Subject();
+
+  currentPositionValue$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -22,32 +40,14 @@ export class ConsultantExperienceEditComponent implements OnDestroy {
     private formBuilder: FormBuilder
   ) { }
 
-  readonly urlPattern = new RegExp('^(http|https)://');
-  readonly phonePattern = new RegExp('^\\d+$');
-
-  // experienceForm = this.formBuilder.group({
-  //   companyName: ['', Validators.required],
-  //   lastName: ['', Validators.required],
-  //   email: ['', [Validators.required, Validators.email]],
-  //   phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
-  //   urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
-  //   urlGitHub: ['', Validators.pattern(this.urlPattern)],
-  //   urlWordpress: ['', Validators.pattern(this.urlPattern)],
-  //   urlPersonal: ['', Validators.pattern(this.urlPattern)],
-  // });
-
-  experienceForm = this.formBuilder.group({
-    companyName: ['', Validators.required],
-    jobTitle: ['', Validators.required],
-    startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]],
-    descriptions: ['', [Validators.required]]
-  })
-
-
-
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.experienceForm.patchValue(consultant)));
-  destroy$ = new Subject();
+  ngOnInit() {
+    this.currentPositionControl.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this.endDate.setValue(null);
+        this.currentPositionValue$.next(!this.currentPositionValue$.value);
+      });
+  }
 
   close(): void {
     this.dialogRef.close();
@@ -55,40 +55,58 @@ export class ConsultantExperienceEditComponent implements OnDestroy {
 
   updateConsultant(): void {
     if (this.experienceForm.valid) {
-      const updatedData = this.getFormData();
+      const newExperience = this.getFormData();
+      const consultant = this.consultantStore.consultant;
+      consultant.experience.push(newExperience);
 
-      this.consultantStore.updateConsultant(updatedData)
-        .pipe(takeUntil(this.destroy$))
+      this.consultantStore
+        .updateConsultant(consultant)
+        .pipe(takeUntil(this._destroy$))
         .subscribe(() => this.close());
     }
   }
 
-  getFormData(): Partial<Consultant> {
-    return this.experienceForm.value as Partial<Consultant>;
+  getFormData(): Experience {
+    return this.experienceForm.value as Experience;
+  }
+
+  addDescription() {
+    this.descriptions.push(
+      this.formBuilder.group({
+        id: null,
+        summary: [null, Validators.required]
+      })
+    );
+    // TODO: scroll to bottom of last element added
+    // to make sure user knows the input box appeared
+  }
+
+  removeDescription(index: number) {
+    this.descriptions.removeAt(index);
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this._destroy$.next();
   }
 
-  get companyName(){
+  get companyName() {
     return this.experienceForm.get('companyName');
   }
 
-  get title(){
-    return this.experienceForm.get('title');
+  get title() {
+    return this.experienceForm.get('jobTitle');
   }
 
-  get startDate(){
+  get startDate() {
     return this.experienceForm.get('startDate');
   }
 
-  get endDate(){
-    return this.experienceForm.get('endtDate');
+  get endDate() {
+    return this.experienceForm.get('endDate');
   }
 
-  get descriptions(){
-    return this.experienceForm.get('descriptions');
+  get descriptions() {
+    return this.experienceForm.get('descriptions') as FormArray;
   }
 }
 
