@@ -29,7 +29,10 @@ export class ConsultantCoreSkillsComponent {
       );
 
   openEditSkillsDialog() {
-    this.dialog.open(ConsultantSkillsEditComponent, { data: { type: SKILL_CORE } });
+    this.dialog.open(ConsultantSkillsEditComponent, { 
+			data: { 
+				type: SKILL_CORE 
+			} 
+		});
   }
-
 }
