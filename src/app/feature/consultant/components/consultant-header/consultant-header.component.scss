@@ -1,13 +1,19 @@
 @import "breakpoints";
 
+$picture-size-lg: 250px;
+$picture-size-sm: 200px;
+
+$edit-button-position-lg: 12px;
+$edit-button-position-sm: 6px;
+
 @include media-breakpoint-down(sm) {
     .picture-container, .button-container, .picture {
-        width: 250px;
-        height: 250px;
+        width: $picture-size-sm;
+        height: $picture-size-sm;
 
         .edit-button {
-            bottom: 12px;
-            right: 12px;
+            bottom: $edit-button-position-sm;
+            right: $edit-button-position-sm;
         }
     }
 
@@ -24,10 +30,6 @@
         margin: 15px;
     }
 
-    .edit-overlay {
-        opacity: 1;
-    }
-
     .container {
         padding-top: 2em;
     }
@@ -35,13 +37,13 @@
 
 @include media-breakpoint-up(sm) {
     .picture-container, .button-container,  .picture {
-        width: 375px;
-        height: 375px;
+        width: $picture-size-lg;
+        height: $picture-size-lg;
     }
 
     .edit-button {
-        bottom: 32px;
-        right: 32px;
+        bottom: $edit-button-position-lg;
+        right: $edit-button-position-lg;
     }
 
     .picture-wrapper {
@@ -50,16 +52,6 @@
 
     .icon {	
         margin: 20px;
-    }
-
-    .picture-container:hover {
-        .edit-overlay {
-            opacity: 1;
-        }
-    }
-
-    .edit-overlay {
-        opacity: 0;
     }
 
     .container {
@@ -82,12 +74,6 @@
     border-radius: 50%;
 }
 
-.picture-container:hover {
-    .edit-overlay {
-        opacity: 1;
-    }
-}
-
 .edit-overlay {
     cursor: pointer;
     position: absolute;
@@ -97,16 +83,17 @@
     right: 0;
     height: 100%;
     width: 100%;
-    transition: .2s ease;
     background-color: rgba(0, 0, 0, .5);
     border-radius: 50%;
     display: flex;
     justify-content: center;
+    opacity: 1;
 
     .edit-text {
         color: white;
         margin-top: auto;
         margin-bottom: auto;
+        padding: 1rem;
     }
 }
 

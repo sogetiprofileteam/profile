@@ -47,7 +47,9 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   consultant$ =
     this.consultantStore.consultant$
-      .pipe(tap(consultant => this._selectedSkills$.next(consultant[this.skillProperty])));
+      .pipe(
+        tap(consultant => this._selectedSkills$.next(consultant[this.skillProperty]))
+      );
 
   selectedSkills$ =
     this._selectedSkills$.asObservable()
@@ -188,12 +190,14 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   removeSkill(skill: SelectedSkill): void {
     const index = this.selectedSkills.indexOf(skill);
+    let updatedSkills = [ ...this.selectedSkills ];
+    updatedSkills.splice(index, 1);
 
-    if (index >= 0) {
-      const skillsCopy = [...this.selectedSkills];
-      skillsCopy.splice(index, 1);
-      this._selectedSkills$.next([...skillsCopy]);
+    if (skill.display) {
+      updatedSkills = this.reorderSkillsAfterRemovedSkill(updatedSkills, skill.displayOrder);
     }
+
+    this._selectedSkills$.next(updatedSkills);
   }
 
   updateConsultant(): void {
@@ -289,17 +293,8 @@ export class ConsultantSkillsEditService implements OnDestroy {
   }
 
   private reorderSkillsAfterRemovedSkill(selectedSkillsWithoutUpdated: SelectedSkill[], updatedSkillDisplayOrder: number) {
-    return selectedSkillsWithoutUpdated.map(selectedSkill => {
-      if (selectedSkill.displayOrder > updatedSkillDisplayOrder) {
-        const reOrderedSkill: SelectedSkill = {
-          ...selectedSkill,
-          displayOrder: selectedSkill.displayOrder - 1
-        };
-        return reOrderedSkill;
-      } else {
-        return selectedSkill;
-      }
-    });
+    return selectedSkillsWithoutUpdated
+      .map(s => (s.display && (s.displayOrder > updatedSkillDisplayOrder) ? {...s, displayOrder: s.displayOrder - 1 } : s));
   }
 
   private updateSelectedDisplaySkills(selectedSkillsClone: SelectedSkill[], updatedSkill: SelectedSkill) {
