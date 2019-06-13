@@ -18,7 +18,9 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
   constructor(
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponent>,
-    private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private certificationArray = [],
+		private educationArray = []
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
@@ -40,24 +42,22 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
 			const updatedData = this.getFormData();
 			
 			if(updatedData.eduOrCert === '1'){
-				//need to get education
-				var education: Education = {
+				var education = {
 					levelOfDegree: updatedData.levelOfDegree,
 					school: updatedData.school,
 					endDate: updatedData.endDate
 				}
-				updatedData.education = [];
-				updatedData.education.push(education);
+				this.educationArray.push(education);
+				updatedData.education = [...this.educationArray];
 			} else {
-				//need to get cert
-				var certification: Certification = {
+				var certification = {
 					dateRecieved: updatedData.endDate,
 					name: updatedData.school,
 					//database doesnt support this yet so keep it out for now
 					// title: updatedData.title
 				}
-				updatedData.certifications = [];
-				updatedData.certifications.push();
+				this.certificationArray.push(certification);
+				updatedData.certifications = [this.certificationArray];
 			}
 			console.log("updateddata", updatedData)
       this.consultantStore.updateConsultant(updatedData)
