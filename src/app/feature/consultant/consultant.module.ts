@@ -15,6 +15,7 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
+  MatRadioModule,
 } from '@angular/material';
 
 import {
@@ -29,6 +30,7 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
+  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -37,7 +39,7 @@ import {
   TechnicalSkillsService,
   CoreSkillsService,
   SkillsDataService,
-  ConsultantSkillsEditService 
+  ConsultantSkillsEditService
 } from './index';
 
 @NgModule({
@@ -53,6 +55,7 @@ import {
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
+    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent
@@ -71,9 +74,21 @@ import {
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatRadioModule,
   ],
-  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
+  entryComponents: [
+    ConsultantHeaderEditComponent,
+    ConsultantSkillsEditComponent,
+    ConsultantPictureEditComponent,
+    ConsultantEducationCertificationsEditComponent
+  ],
+  providers: [
+    ConsultantStore,
+    TechnicalSkillsService,
+    CoreSkillsService,
+    SkillsDataService,
+    ConsultantSkillsEditService
+  ]
 })
 export class ConsultantModule { }
