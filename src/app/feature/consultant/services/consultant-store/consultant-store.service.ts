@@ -112,7 +112,6 @@ export class ConsultantStore implements OnDestroy {
   updateConsultant(data: Partial<Consultant>): Observable<Consultant | null> {
     // TODO: error handling? Leave error handling implementation up to consumer?
     const updatedConsultant = this.updatedConsultantFactory(data);
-
     if (!this.newConsultant) {
       return this.saveToDatabase(updatedConsultant);
     } else {

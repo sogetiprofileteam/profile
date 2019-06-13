@@ -2,9 +2,9 @@
 
 <form *ngIf="consultant$ | async" [formGroup]="educationCertificationForm" (ngSubmit)="updateConsultant()">
     <mat-dialog-content>
-        <mat-radio-group aria-label="Select an option">
-            <mat-radio-button formControlName="education" value="1">Education</mat-radio-button>
-            <mat-radio-button formControlName="certification" value="2">Certifcation</mat-radio-button>
+        <mat-radio-group aria-label="Select an option" formControlName="eduOrCert">
+            <mat-radio-button value="1">Education</mat-radio-button>
+            <mat-radio-button value="2">Certifcation</mat-radio-button>
         </mat-radio-group>
 
         <mat-form-field>
@@ -21,7 +21,7 @@
 
         <mat-form-field>
             <mat-label>Year</mat-label>
-            <input matInput formControlName="shortDate" type="text">
+            <input matInput formControlName="endDate" type="text">
         </mat-form-field>
     </mat-dialog-content>
 
