@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Edit Summary</h1>
+
+<form *ngIf="consultant$ | async" [formGroup]="summaryForm" (ngSubmit)="updateConsultant()" id="summary-form">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Summary</mat-label>
+            <input matInput formControlName="summary" type="tests">
+            <mat-error>Summary is required</mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+</form>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="close()">CANCEL</button>
+    <button mat-raised-button color="primary" type="submit" form="summary-form" cdkFocusInitial>SAVE</button>
+</mat-dialog-actions>

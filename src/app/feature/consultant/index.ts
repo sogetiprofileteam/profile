@@ -4,6 +4,8 @@ export * from './components/consultant-header/consultant-header.component';
 export * from './components/consultant-body/consultant-body.component';
 export * from './components/consultant-header-edit/consultant-header-edit.component';
 export * from './components/shared/consultant-section-header/consultant-section-header.component';
+export * from './components/consultant-summary/consultant-summary.component';
+export * from './components/consultant-summary-edit/consultant-summary-edit.component';
 export * from './components/consultant-core-skills/consultant-core-skills.component';
 export * from './components/shared/consultant-skills-edit/consultant-skills-edit.component';
 export * from './components/shared/consultant-skills-edit/consultant-skills-edit-add-remove/consultant-skills-edit-add-remove.component';
