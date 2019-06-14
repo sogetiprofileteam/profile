@@ -15,12 +15,13 @@ import { Certification, Education } from '@core/models';
 })
 export class ConsultantEducationCertificationsEditComponent implements OnDestroy {
 
+	private certificationArray = [];
+	private educationArray = [];
+
   constructor(
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponent>,
-		private formBuilder: FormBuilder,
-		private certificationArray = [],
-		private educationArray = []
+		private formBuilder: FormBuilder
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
