@@ -17,7 +17,8 @@ import {
   MatAutocompleteModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatRadioModule
 } from '@angular/material';
 
 import {
@@ -42,7 +43,10 @@ import {
   SkillsDataService,
   ConsultantSkillsEditService,
   ConsultantExperienceEditComponent,
+  ConsultantExperienceCreateComponent,
+  ConsultantSectionExperienceHeaderComponent,
 } from './index';
+import { ConsultantEducationCertificationsEditComponent } from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,10 +61,13 @@ import {
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
+    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
-    ConsultantExperienceEditComponent
+    ConsultantExperienceEditComponent,
+    ConsultantExperienceCreateComponent,
+    ConsultantSectionExperienceHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -80,12 +87,15 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatRadioModule,
   ],
   entryComponents: [
     ConsultantHeaderEditComponent,
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
-    ConsultantExperienceEditComponent
+    ConsultantExperienceEditComponent,
+    ConsultantExperienceCreateComponent,
+    ConsultantEducationCertificationsEditComponent
   ],
   providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 })

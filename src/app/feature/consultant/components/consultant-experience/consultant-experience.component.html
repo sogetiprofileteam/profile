@@ -1,20 +1,26 @@
 <app-consultant-section-header 
   title="Experience" 
   icon="add" 
-  (actionClicked)="openEditExperienceDialog()">
+  (actionClicked)="openCreateExperienceDialog()">
 </app-consultant-section-header>
 
+
  <section *ngIf="consultant$ | async as consultant">
-  <ng-container *ngFor="let experience of consultant.experience">
-    <h3><b>{{experience.companyName}}</b></h3>
-    <p>{{experience.jobTitle}}</p>
-    <p>{{experience.startDate | date: 'shortDate'}} - {{experience.endDate ? (experience.endDate | date: 'shortDate') : 'Present'}}</p>
+  <ng-container *ngFor="let experience of consultant.experience; let i = index" >
+   <app-consultant-section-experience-header
+      title={{experience.companyName}}
+      icon="edit"
+      (actionClicked)="openEditExperienceDialog()">
+    </app-consultant-section-experience-header> 
+    <!-- <p> This is length: {{consultant.experience[1].companyName}}</p> -->
+
+
+    <p class="jobTitleSpace"> <b> {{experience.title}} </b> </p>
+    <p class="dateSpace">{{experience.startDate | date: 'shortDate'}} - {{experience.endDate ? (experience.endDate | date: 'shortDate') : 'Present'}}</p>
     <p *ngFor="let description of experience.descriptions">
       - {{description.summary}}
     </p>
   </ng-container>
-
-<!-- <h2> {{consultant.companyName}}</h2> -->
 </section>
 
 

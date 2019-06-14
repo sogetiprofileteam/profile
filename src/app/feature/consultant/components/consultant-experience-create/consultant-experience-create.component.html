@@ -1,16 +1,14 @@
-<h1 mat-dialog-title>Edit Experience</h1>
+<h1 mat-dialog-title>Add Experience</h1>
 
 <form [formGroup]="experienceForm" (ngSubmit)="updateConsultant()" id="experience-form">
     <mat-dialog-content>
-        <mat-form-field
-             >
+        <mat-form-field>
             <mat-label>Company Name</mat-label>
             <input matInput formControlName="companyName" type="text">
             <mat-error>A Company Name is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field 
-            >
+        <mat-form-field>
             <mat-label>Job Title</mat-label>
             <input matInput formControlName="title" type="text">
             <mat-error>Job Title is required</mat-error>
@@ -19,9 +17,7 @@
         <div class="dateRow">
 
             <div class="dateColumn">
-                <mat-form-field 
-                    class="display: inline-block;"
-                   >
+                <mat-form-field class="display: inline-block;">
                     <mat-label>Start Date</mat-label>
                     <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
                     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
@@ -31,11 +27,8 @@
             </div>
 
             <div class="dateColumn">
-                <mat-form-field 
-                    class="display: inline-block;" 
-                    *ngIf="!(currentPositionValue$ | async)"
-                    @growShrinkOnEnterLeave class="end-date"
-                  >
+                <mat-form-field class="display: inline-block;" *ngIf="!(currentPositionValue$ | async)"
+                    @growShrinkOnEnterLeave class="end-date">
                     <mat-label>End Date</mat-label>
                     <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
                     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
@@ -74,6 +67,5 @@
 
 <mat-dialog-actions align="end">
     <button mat-button type="button" (click)="close()">CANCEL</button>
-   <!-- <button mat-button type="button" (click)="updateExperience()">test</button> -->
     <button mat-raised-button color="primary" type="submit" form="experience-form">SAVE EXPERIENCE</button>
 </mat-dialog-actions>

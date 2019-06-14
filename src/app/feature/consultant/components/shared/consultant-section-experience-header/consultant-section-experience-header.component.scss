@@ -1,27 +1,9 @@
 @import "variables";
 
-
-.jobTitleSpace{
-    margin-top: -15px;
-}
-
-.dateSpace {
-    margin-top: -8px;
-}
-
-.companyName{
-color: $vibrant-blue;
-//font-weight: bold;
-//margin-bottom: .25em;
-//margin-top: .25em;
-
-}
-
 .header {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #CCCCCC;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 .title-container {
@@ -29,10 +11,11 @@ color: $vibrant-blue;
 }
 
 .title {
-    color: $capgemini-blue;
+    color: $vibrant-blue;
     font-weight: bold;
     margin-bottom: .25em;
     margin-top: .25em;
+    font-size: 20px;
 }
 
 .action-link {
@@ -43,4 +26,5 @@ color: $vibrant-blue;
 
 .icon {
     color: $capgemini-blue;
+
 }

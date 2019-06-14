@@ -3,8 +3,10 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 import { Experience } from '@core/models';
 import { MatDialog } from '@angular/material';
 import { map } from 'rxjs/operators';
+import { tap, takeUntil } from 'rxjs/operators';
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 import { ConsultantExperienceEditComponent } from '../consultant-experience-edit/consultant-experience-edit.component';
+import { ConsultantExperienceCreateComponent } from '../consultant-experience-create/consultant-experience-create.component';
 
 @Component({
   selector: 'app-consultant-experience',
@@ -20,12 +22,24 @@ export class ConsultantExperienceComponent implements OnInit {
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
-
+  comp: ConsultantExperienceEditComponent;
   ngOnInit() {
   }
 
-  openEditExperienceDialog() {
-    this.dialog.open(ConsultantExperienceEditComponent);
+  openCreateExperienceDialog() {
+    this.dialog.open(ConsultantExperienceCreateComponent);
   }
+
+ // openEditExperienceDialog(expert: string) {
+  openEditExperienceDialog() {
+    //console.log("this is Cons-experience: " + expert);
+    //console.log("This Consultant: " + this.consultantStore.consultant.experience[1].id);
+   // console.log("This Consultant: " + this.consultant$.pipe((tap(consultant => this.comp.experienceForm.patchValue(consultant.experience[1].id)))));
+    this.dialog.open(ConsultantExperienceEditComponent
+   
+    //  , {   experience: }
+    );
+  }
+
 
 }

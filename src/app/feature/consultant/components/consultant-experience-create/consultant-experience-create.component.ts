@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
-import { tap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 import { MatDialogRef } from '@angular/material';
@@ -10,38 +10,25 @@ import { Experience } from '@core/models';
 import { growShrink } from '@shared/animations/grow-shrink';
 
 @Component({
-  selector: 'app-consultant-experience-edit',
-  templateUrl: './consultant-experience-edit.component.html',
-  styleUrls: ['./consultant-experience-edit.component.scss'],
+  selector: 'app-consultant-experience-create',
+  templateUrl: './consultant-experience-create.component.html',
+  styleUrls: ['./consultant-experience-create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     growShrink
   ]
 })
-export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
+export class ConsultantExperienceCreateComponent implements OnInit, OnDestroy {
   experienceForm = this.formBuilder.group({
-    id: [''],
-    companyName: ['', Validators.required],
-    title: ['', Validators.required],
-    startDate: ['', [Validators.required]],
-    endDate: [''],
+    id: [null],
+    companyName: [null, Validators.required],
+    title: [null, Validators.required],
+    startDate: [null, [Validators.required]],
+    endDate: [null],
     descriptions: this.formBuilder.array([])
   });
 
- person = {
-  companyName: 'Bell',
-  title: 'Cashier',
-  startDate: '02/05/2002',
-  endDate: '01/10/2005',
-  descriptions: [{
-    summary: 'this is what I did'
-  }]
-}
-
-
   currentPositionControl = this.formBuilder.control(null);
-
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.experienceForm.patchValue(consultant)));
 
   private _destroy$ = new Subject();
 
@@ -49,7 +36,7 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
-    private dialogRef: MatDialogRef<ConsultantExperienceEditComponent>,
+    private dialogRef: MatDialogRef<ConsultantExperienceCreateComponent>,
     private formBuilder: FormBuilder
   ) { }
 
@@ -69,23 +56,15 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
 
   updateConsultant(): void {
     if (this.experienceForm.valid) {
-     // const newExperience = this.getFormData();
-      const updatedData = this.getFormData();
-      // const consultant = this.consultantStore.consultant;
-      // consultant.experience.push(updatedData);
+      const newExperience = this.getFormData();
+      const consultant = this.consultantStore.consultant;
+      consultant.experience.push(newExperience);
 
       this.consultantStore
-        .updateConsultant(updatedData)
+        .updateConsultant(consultant)
         .pipe(takeUntil(this._destroy$))
         .subscribe(() => this.close());
     }
-  
-  }
-
-  updateExperience(): void{
-
-    console.log("This is experience-edit Consultant: " + this.consultantStore.consultant.experience[0].companyName);
-
   }
 
   getFormData(): Experience {
@@ -117,7 +96,7 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
   }
 
   get title() {
-    return this.experienceForm.get('title');
+    return this.experienceForm.get('jobTitle');
   }
 
   get startDate() {
