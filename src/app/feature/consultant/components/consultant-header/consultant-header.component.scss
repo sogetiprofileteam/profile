@@ -6,6 +6,10 @@ $picture-size-sm: 200px;
 $edit-button-position-lg: 12px;
 $edit-button-position-sm: 6px;
 
+$export-button-position-lg: 12px;
+$export-button-position-sm: 6px;
+
+
 @include media-breakpoint-down(sm) {
     .picture-container, .button-container, .picture {
         width: $picture-size-sm;
@@ -14,6 +18,11 @@ $edit-button-position-sm: 6px;
         .edit-button {
             bottom: $edit-button-position-sm;
             right: $edit-button-position-sm;
+        }
+
+        .export-button {
+            bottom: $export-button-position-sm;
+            left: $export-button-position-sm;
         }
     }
 
@@ -44,6 +53,10 @@ $edit-button-position-sm: 6px;
     .edit-button {
         bottom: $edit-button-position-lg;
         right: $edit-button-position-lg;
+    }
+    .export-button {
+        bottom: $export-button-position-lg;
+        left: $export-button-position-lg;
     }
 
     .picture-wrapper {
@@ -103,6 +116,11 @@ $edit-button-position-sm: 6px;
 }
 
 .edit-button {
+    position: absolute;
+    z-index: 998;
+}
+
+.export-button {
     position: absolute;
     z-index: 999;
 }

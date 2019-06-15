@@ -37,7 +37,7 @@ import {
   TechnicalSkillsService,
   CoreSkillsService,
   SkillsDataService,
-  ConsultantSkillsEditService 
+  ConsultantSkillsEditService
 } from './index';
 
 @NgModule({
