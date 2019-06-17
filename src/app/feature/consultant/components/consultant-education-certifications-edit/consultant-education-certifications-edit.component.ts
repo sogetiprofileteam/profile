@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatExpansionPanel } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { Certification, Education } from '@core/models';
@@ -11,12 +11,14 @@ import { Certification, Education } from '@core/models';
 @Component({
   selector: 'app-consultant-education-certifications-edit',
   templateUrl: './consultant-education-certifications-edit.component.html',
-  styleUrls: ['./consultant-education-certifications-edit.component.scss']
+  styleUrls: ['./consultant-education-certifications-edit.component.scss'],
+  viewProviders: [MatExpansionPanel] 
 })
 export class ConsultantEducationCertificationsEditComponents implements OnDestroy {
 
   private certificationArray = [];
   private educationArray = [];
+  private items = ["test"];
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -41,7 +43,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   updateConsultant(): void {
     if (this.educationCertificationForm.valid) {
       const updatedData = this.getFormData();
-
+      // console.log("updateConsultant.updatedData: ", updatedData)
       if (updatedData.eduOrCert === '1') {
         var education = {
           levelOfDegree: updatedData.levelOfDegree,
@@ -61,7 +63,6 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
         this.certificationArray.push(certification);
         updatedData.certifications = [...this.certificationArray];
       }
-      console.log("updateddata", updatedData)
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
@@ -69,10 +70,11 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   }
 
   addEduCert(): void {
-
+    this.items.push("test")
   }
 
   getFormData() {
+    console.log("educationCertificationForm: ",this.educationCertificationForm)
     return this.educationCertificationForm.value;
   }
 

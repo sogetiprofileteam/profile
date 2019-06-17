@@ -15,7 +15,8 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
-  MatRadioModule,
+	MatRadioModule,
+	MatExpansionModule
 } from '@angular/material';
 
 import {
@@ -41,6 +42,7 @@ import {
   SkillsDataService,
   ConsultantSkillsEditService
 } from './index';
+import { ConsultantEducationCertificationsEditItemComponent } from './components/consultant-education-certifications-edit-item/consultant-education-certifications-edit-item.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import {
     ConsultantEducationCertificationsEditComponents,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
-    ConsultantPictureEditComponent
+    ConsultantPictureEditComponent,
+    ConsultantEducationCertificationsEditItemComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +78,8 @@ import {
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    MatRadioModule,
+		MatRadioModule,
+		MatExpansionModule
   ],
   entryComponents: [
     ConsultantHeaderEditComponent,
