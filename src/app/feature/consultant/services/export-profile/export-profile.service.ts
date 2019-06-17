@@ -1,4 +1,4 @@
-import { Document, Paragraph, Packer, TextRun } from 'docx';
+import { Document, Paragraph, Packer, TextRun, Table } from 'docx';
 
 const PROFILE_URL = 'https://www.linkedin.com/in/tylerjon93';
 
@@ -6,104 +6,135 @@ const PROFILE_URL = 'https://www.linkedin.com/in/tylerjon93';
 export class ExportProfile {
 
   create(personal, experiences, educations, coreSkills, technicalSkills, certifications) {
-    
+
     console.log('INSIDE EXPORT PROFILE:\n' +
-       'personal:' + JSON.stringify(personal[0])
-      // +
-      // '\nexp: ' + JSON.stringify(experiences) +
+      // 'personal:' + JSON.stringify(personal[0]) +
+       '\nexp: ' + JSON.stringify(experiences) +
       // '\nedu:' + JSON.stringify(educations) +
-      // '\ncs: ' + JSON.stringify(coreSkills) +
-      // '\ncs: ' + JSON.stringify(technicalSkills) +
-      // '\ncert' + JSON.stringify(certifications)
+      // '\ncs: ' + JSON.stringify(coreSkills)  +
+      // '\nts: ' + JSON.stringify(technicalSkills) +
+       '\ncert' + JSON.stringify(certifications)
       );
 
     const document = new Document();
 
-    document.addParagraph(new Paragraph(personal[0].firstName + ' ' + personal[0].lastName).title());
+    // Add the header with the name
+    document.addParagraph(this.createName(personal[0].firstName , personal[0].lastName));
 
-    document.addParagraph(this.createContactInfo(personal[0].phone, PROFILE_URL, personal[0].email, personal[0].address));
-    document.addParagraph(this.createHeading('Education'));
+    // Add the contact info section
+    document.addParagraph(this.createContactInfo(personal[0].phone,
+                                                  'placehold for links',
+                                                  personal[0].email,
+                                                  personal[0].address,
+                                                  personal[0].title,
+                                                  personal[0].practice));
 
-    // TODO: Format for education
-    // if (educations.length) {
-    //   for (const education of educations) {
-    //     document.addParagraph(
-    //       this.createInstitutionHeader(education.schoolName, `${education.startDate.year} - ${education.endDate.year}`),
-    //     );
-    //     document.addParagraph(this.createRoleText(`${education.fieldOfStudy} - ${education.degree}`));
-
-    //     const bulletPoints = this.splitParagraphIntoBullets(education.notes);
-    //     bulletPoints.forEach((bulletPoint) => {
-    //       document.addParagraph(this.createBullet(bulletPoint));
-    //     });
-    //   }
-    // }
-
-    document.addParagraph(this.createHeading('Experience'));
-
-    for (const position of experiences) {
-      document.addParagraph(
-        this.createInstitutionHeader(
-          position.companyName,
-          this.createPositionDateText(position.startDate, position.endDate, position.title),
-        ),
-      );
-      document.addParagraph(this.createRoleText(position.title));
-
-      // const bulletPoints = this.splitParagraphIntoBullets(position.descriptions);
-
-      // bulletPoints.forEach((bulletPoint) => {
-      //   document.addParagraph(this.createBullet(position.description.summary));
-      // });
+    // Add the Core SKills section
+    if (coreSkills.length) {
+      document.addParagraph(this.createHeading('Core Skills'));
+      document.addParagraph(this.createSkillList(coreSkills));
     }
 
-    // document.addParagraph(this.createHeading('Core Skills, Technical Skills and Certifications'));
+    // Add the technical skills section
+    if (technicalSkills.length) {
+      document.addParagraph(this.createHeading('Technical Skills'));
+      document.addParagraph(this.createSkillList(technicalSkills));
+    }
 
-    // document.addParagraph(this.createSubHeading('Core Skills'));
-    // document.addParagraph(this.createSkillList(coreSkills));
+    // TODO: Format for education and certification
+    if (educations.length) {
+      document.addParagraph(this.createHeading('Education'));
+      for (const education of educations) {
+        document.addParagraph(
+          this.createInstitutionHeader(education.schoolName, `${education.startDate.year} - ${education.endDate.year}`),
+        );
+        document.addParagraph(this.createRoleText(`${education.fieldOfStudy} - ${education.degree}`));
 
-    // document.addParagraph(this.createSubHeading('Technical Skills'));
+        const bulletPoints = this.splitParagraphIntoBullets(education.notes);
+        bulletPoints.forEach((bulletPoint) => {
+          document.addParagraph(this.createBullet(bulletPoint));
+        });
+      }
+
+      if (certifications.length) {
+        document.addParagraph(this.createHeading('Certifications'));
+      }
+    }
+
+    // Add the experiences section
+    if (experiences.length) {
+      document.addParagraph(this.createHeading('Experience'));
+
+      for (const position of experiences) {
+        document.addParagraph(
+          this.createInstitutionHeader(
+            position.companyName,
+            this.createPositionDateText(position.startDate, position.endDate, position.title),
+          ),
+        );
+        document.addParagraph(this.createRoleText(position.title));
+
+        const bulletPoints = this.splitParagraphIntoBullets(position.descriptions);
+        console.log(JSON.stringify(bulletPoints));
+        bulletPoints.forEach((bulletPoint) => {
+          console.log('bulletpoint: ' + JSON.stringify(bulletPoint));
+          document.addParagraph(this.createBullet(bulletPoint.summary));
+        });
+      }
+    }
 
     // for (const achievementParagraph of this.createAchivementsList(technicalSkills)) {
     //   document.addParagraph(achievementParagraph);
     // }
 
-    // document.addParagraph(this.createSubHeading('Interests'));
-
-    // document.addParagraph(this.createInterests('Programming, Technology, Music Production, Web Design, 3D Modelling, Dancing.'));
-
-    // document.addParagraph(this.createHeading('References'));
-
-    // document.addParagraph(
-    //   new Paragraph(
-    //     'Dr. Dean Mohamedally Director of Postgraduate Studies Department of Computer Science, ' +
-    //     'University College London Malet Place, Bloomsbury, London WC1E d.mohamedally@ucl.ac.uk',
-    //   ),
-    // );
-    // document.addParagraph(new Paragraph('More references upon request'));
-    // document.addParagraph(
-    //   new Paragraph(
-    //     'This CV was generated in real-time based on my Linked-In profile from my personal website www.dolan.bio.',
-    //   ).center(),
-    // );
     return document;
   }
 
+  createName(firstName, lastName) {
+    const paragraph = new Paragraph().title().center();
+    const fullname = new TextRun(firstName + ' ' + lastName).font('Calibri (Body)');
+
+    paragraph.addRun(fullname);
+    return paragraph;
+  }
+
   // TODO: FIX ADDRESS FORMATTING
-  createContactInfo(phoneNumber, profileUrl, email, addressIn) {
+  createContactInfo(phoneNumber, profileUrl, email, addressIn, title, practice) {
     const paragraph = new Paragraph().center();
-    const contactInfo = new TextRun(`Mobile: ${phoneNumber} | LinkedIn: ${profileUrl} | Email: ${email}`);
-    // const address = new TextRun(addressIn).break();
+    const titlePracticeRun = new TextRun(`${title} | ${practice} `).font('Calibri (Body)').break();
+    const emailRun = new TextRun(`${email}`).font('Calibri (Body)').break();
+    const links = new TextRun(`Links: ${profileUrl}`).font('Calibri (Body)').break();
+    // const contactInfo = new TextRun(`Mobile: ${phoneNumber} | LinkedIn: ${profileUrl} | Email: ${email}`);
+    console.log('addressIn: ' + JSON.stringify(addressIn));
 
-    paragraph.addRun(contactInfo);
-    // paragraph.addRun(address);
+    // the address needs to be broken out into its own class so that we can determine things like if line 2 exist
+    let lineTwo = '';
+    if (addressIn.lineTwo !== 'null' && addressIn.lineTwo != null) {
+      lineTwo = ', ' + addressIn.lineTwo;
+    }
+    const address = new TextRun(addressIn.lineOne +
+                                lineTwo + ', ' +
+                                addressIn.city +  ', ' +
+                                addressIn.state +  ', ' +
+                                addressIn.zipCode +  ' ' +
+                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break();
 
-    console.log(paragraph);
+    paragraph.addRun(titlePracticeRun);
+    paragraph.addRun(emailRun);
+    if (profileUrl.length) {
+      paragraph.addRun(links);
+    }
+    paragraph.addRun(address);
+
     return paragraph;
   }
 
   createHeading(text) {
-    return new Paragraph(text).heading1().thematicBreak();
+    const para =  new Paragraph().heading1().thematicBreak();
+    const tr = new TextRun(text).font('Calibri (Body)');
+
+    para.addRun(tr);
+    return para;
   }
 
   createSubHeading(text) {
@@ -112,8 +143,8 @@ export class ExportProfile {
 
   createInstitutionHeader(institutionName, dateText) {
     const paragraph = new Paragraph().maxRightTabStop();
-    const institution = new TextRun(institutionName).bold();
-    const date = new TextRun(dateText).tab().bold();
+    const institution = new TextRun(institutionName).font('Calibri (Body)').bold();
+    const date = new TextRun(dateText).font('Calibri (Body)').tab().bold();
 
     paragraph.addRun(institution);
     paragraph.addRun(date);
@@ -123,7 +154,7 @@ export class ExportProfile {
 
   createRoleText(roleText) {
     const paragraph = new Paragraph();
-    const role = new TextRun(roleText).italics();
+    const role = new TextRun(roleText).font('Calibri (Body)').italics();
 
     paragraph.addRun(role);
 
@@ -131,15 +162,29 @@ export class ExportProfile {
   }
 
   createBullet(text) {
-    return new Paragraph(text).bullet();
+    const para = new Paragraph();
+    const tr = new TextRun(text).font('Calibri (Body)');
+
+    para.addRun(tr).bullet();
+    return para;
   }
 
   createSkillList(skills) {
-    const paragraph = new Paragraph();
-    const skillConcat = skills.map((skill) => skill.name).join(', ') + '.';
-
-    paragraph.addRun(new TextRun(skillConcat));
-
+    const paragraph = new Paragraph().maxRightTabStop();
+    // const skillConcat = skills.map((skill) => skill.name).join(', ') + '.';
+    let numberOfSkills = skills.length;
+    for (const skill of skills) {
+      console.log(JSON.stringify(skill.name));
+      let skillRun;
+      if (numberOfSkills % 2 !== 0) {
+        skillRun = new TextRun(skill.name).font('Calibri (Body)').break();
+      } else {
+        skillRun = new TextRun(skill.name).font('Calibri (Body)').tab();
+      }
+      numberOfSkills--;
+      paragraph.addRun(skillRun);
+    }
+    paragraph.addRun(new TextRun('').break());
     return paragraph;
   }
 
@@ -153,24 +198,22 @@ export class ExportProfile {
     return arr;
   }
 
-  createInterests(interests) {
-    const paragraph = new Paragraph();
+  splitParagraphIntoBullets(descriptions) {
+    const arr = [];
 
-    paragraph.addRun(new TextRun(interests));
-    return paragraph;
-  }
-
-  splitParagraphIntoBullets(text) {
-    return text.split('\n\n');
+    for (const desc of descriptions) {
+      arr.push(desc);
+    }
+    return arr;
   }
 
   createPositionDateText(startDate, endDate, isCurrent) {
     // const startDateText = this.getMonthFromInt(startDate.month) + '. ' + startDate.year;
-    let startdateString = startDate; 
+    const startdateString = startDate;
     const startDateText = new Date(startdateString).toLocaleDateString();
 
     // const endDateText = isCurrent ? 'Present' : `${this.getMonthFromInt(endDate.month)}. ${endDate.year}`;
-    let enddateString = startDate; 
+    const enddateString = startDate;
     const endDateText = new Date(enddateString).toLocaleDateString();
 
     // console.log(`${startDateText} - ${endDateText}`);
