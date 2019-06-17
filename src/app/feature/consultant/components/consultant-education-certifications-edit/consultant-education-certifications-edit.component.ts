@@ -59,7 +59,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
 					//title: updatedData.title
 				}
 				this.certificationArray.push(certification);
-				updatedData.certifications = [this.certificationArray];
+				updatedData.certifications = [...this.certificationArray];
 			}
 			console.log("updateddata", updatedData)
       this.consultantStore.updateConsultant(updatedData)

@@ -6,16 +6,14 @@
 
 <section *ngIf="consultant$ | async as consultant">
   <ng-container *ngFor="let education of consultant.education">
-		{{ consultant | json}}
     <p><b>{{education.school}}</b></p>
-    <p>{{education.levelOfDegree}}, {{consultant.subject}}</p>
+    <p>{{education.levelOfDegree}}</p>
     <p>{{education.endDate | date: 'shortDate'}}</p>
   </ng-container>
 
-  <ng-container *ngFor="let certification of consultant.certification">
-    <p><b>{{consultant.school}}</b></p>
-    <p>{{consultant.levelOfDegree}}, {{consultant.subject}}</p>
-    <p>{{consultant.startDate | date: 'shortDate'}} - {{consultant.endDate | date: 'shortDate'}}</p>
+  <ng-container *ngFor="let certification of consultant.certifications">
+    <p><b>{{certification.name}}</b></p>
+    <!-- <p>certification.levelOfDegree{{certification.levelOfDegree}}</p> not part of database model yet-->
+    <p>{{certification.dateRecieved | date: 'shortDate'}} </p>
   </ng-container>
-  <!-- <p>{{consultant.school}}</p> -->
 </section>
