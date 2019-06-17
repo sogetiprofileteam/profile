@@ -19,10 +19,10 @@ export const blankConsultant: Consultant = {
   username: null,
   status: null,
   address: {
-      lineOne: '10900 Stonelake Blvd. Suite 195',
-      city: 'Austin',
-      state: 'TX',
-      zipCode: 78759
+    lineOne: '10900 Stonelake Blvd. Suite 195',
+    city: 'Austin',
+    state: 'TX',
+    zipCode: 78759
   },
   phone1: 1234567890,
   urlLinkedIn: null,
@@ -65,13 +65,31 @@ export class ConsultantStore implements OnDestroy {
    * Build a new consultant object from existing object with updated properties.
    * @param data A partial Consultant object containing the data to update
    */
-  private updatedConsultantFactory(data: Partial<Consultant>): Consultant {
+  private updatedConsultantFactory(data): Consultant {
     // Copy current consultant to preserve immutability
-    const consultantCopy = {
-      ...this.consultant,
-      ...data
-    };
+    var consultantCopy: Consultant;
+    if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
+      if (data.eduOrCert === "1") {
+        consultantCopy = {
+          ...this.consultant,
+          ...data,
+          education: this.consultant.education.concat(data.education)
+        };
+      } else {
+        consultantCopy = {
+          ...this.consultant,
+          ...data,
+          certifications: this.consultant.certifications.concat(data.certifications)
+        };
+      }
 
+    } else {
+      consultantCopy = {
+        ...this.consultant,
+        ...data
+      }
+    }
+    console.log("updatedConsultantFactory.consultantCopy: ", consultantCopy)
     return consultantCopy;
   }
 
@@ -112,6 +130,7 @@ export class ConsultantStore implements OnDestroy {
   updateConsultant(data: Partial<Consultant>): Observable<Consultant | null> {
     // TODO: error handling? Leave error handling implementation up to consumer?
     const updatedConsultant = this.updatedConsultantFactory(data);
+    console.log("updatedConsultant: ", updatedConsultant)
     if (!this.newConsultant) {
       return this.saveToDatabase(updatedConsultant);
     } else {
@@ -128,7 +147,7 @@ export class ConsultantStore implements OnDestroy {
     if (this.newConsultant) {
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
-          this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
+          this.router.navigate(['/consultant'], { queryParams: { id: consultant.id } });
         });
     }
   }

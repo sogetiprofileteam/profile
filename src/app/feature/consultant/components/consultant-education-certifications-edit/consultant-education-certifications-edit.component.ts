@@ -13,14 +13,14 @@ import { Certification, Education } from '@core/models';
   templateUrl: './consultant-education-certifications-edit.component.html',
   styleUrls: ['./consultant-education-certifications-edit.component.scss']
 })
-export class ConsultantEducationCertificationsEditComponent implements OnDestroy {
+export class ConsultantEducationCertificationsEditComponents implements OnDestroy {
 
 	private certificationArray = [];
 	private educationArray = [];
 
   constructor(
     private consultantStore: ConsultantStore,
-    private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponent>,
+    private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponents>,
 		private formBuilder: FormBuilder
   ) { }
 
@@ -45,7 +45,8 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
 			if(updatedData.eduOrCert === '1'){
 				var education = {
 					levelOfDegree: updatedData.levelOfDegree,
-					school: updatedData.school,
+					school: updatedData.school, 
+					//database doesnt like school being a string for the moment.
 					endDate: updatedData.endDate
 				}
 				this.educationArray.push(education);
@@ -55,7 +56,7 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
 					dateRecieved: updatedData.endDate,
 					name: updatedData.school,
 					//database doesnt support this yet so keep it out for now
-					// title: updatedData.title
+					//title: updatedData.title
 				}
 				this.certificationArray.push(certification);
 				updatedData.certifications = [this.certificationArray];
@@ -65,7 +66,11 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
     }
-  }
+	}
+	
+	addEduCert(): void {
+
+	}
 
   getFormData(){
     return this.educationCertificationForm.value;

@@ -30,7 +30,7 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
-  ConsultantEducationCertificationsEditComponent,
+  ConsultantEducationCertificationsEditComponents,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -55,7 +55,7 @@ import {
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantEducationCertificationsEditComponent,
+    ConsultantEducationCertificationsEditComponents,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent
@@ -81,7 +81,7 @@ import {
     ConsultantHeaderEditComponent,
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
-    ConsultantEducationCertificationsEditComponent
+    ConsultantEducationCertificationsEditComponents
   ],
   providers: [
     ConsultantStore,
