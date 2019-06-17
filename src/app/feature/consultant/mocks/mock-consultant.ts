@@ -92,7 +92,9 @@ export const mockConsultant: Consultant = {
         {
             id: '1',
             dateRecieved: new Date(),
-            name: 'Amazon AWS Engineer',
+						name: 'Amazon AWS Engineer',
+						//title not supported in database yet keep out for now
+						// title: 'AWS Solution Architect'
         }
     ],
     education: [

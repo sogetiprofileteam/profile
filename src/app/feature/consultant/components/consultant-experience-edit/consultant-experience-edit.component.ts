@@ -1,9 +1,10 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
-import { MatDialogRef } from '@angular/material';
+
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { Experience } from '@core/models';
@@ -28,30 +29,42 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
     descriptions: this.formBuilder.array([])
   });
 
- person = {
-  companyName: 'Bell',
-  title: 'Cashier',
-  startDate: '02/05/2002',
-  endDate: '01/10/2005',
-  descriptions: [{
-    summary: 'this is what I did'
-  }]
+ editExperience(): void {
+   //Cycles through each element in experience array: Will only show last element for PatchValue 
+   for(var i in this.consultantStore.consultant.experience){
+
+   this.experienceForm.patchValue({
+  companyName: this.consultantStore.consultant.experience[i].companyName,
+  title: this.consultantStore.consultant.experience[i].title,
+  startDate: this.consultantStore.consultant.experience[i].startDate,
+  endDate: this.consultantStore.consultant.experience[i].endDate,
+  descriptions: this.consultantStore.consultant.experience[i].descriptions
+    });
+   }
 }
 
 
+
   currentPositionControl = this.formBuilder.control(null);
+  
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.experienceForm.patchValue(consultant)));
+
 
   private _destroy$ = new Subject();
 
   currentPositionValue$ = new BehaviorSubject<boolean>(false);
 
   constructor(
+    //@Inject(MAT_DIALOG_DATA) public data,
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantExperienceEditComponent>,
     private formBuilder: FormBuilder
   ) { }
+
+  // experience$ = 
+  //   this.consultantStore.consultant$
+  //   .pipe(tap(consultant => consultant.experience[this.data.index]));
 
   ngOnInit() {
     this.addDescription();
@@ -59,32 +72,49 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
         this.endDate.setValue(null);
-        this.currentPositionValue$.next(!this.currentPositionValue$.value);
+        this.currentPositionValue$.next(!this.currentPositionValue$.value);    
       });
-  }
+}
+
+  
 
   close(): void {
     this.dialogRef.close();
   }
 
   updateConsultant(): void {
-    if (this.experienceForm.valid) {
+    if (this.experienceForm.valid ) {
+      // this.consultantStore.consultant.experience[0].id = "randomId";
+      // this.experienceForm.value.id = this.consultantStore.consultant.experience[0].id;
      // const newExperience = this.getFormData();
       const updatedData = this.getFormData();
-      // const consultant = this.consultantStore.consultant;
-      // consultant.experience.push(updatedData);
+       const consultant = this.consultantStore.consultant;
+       consultant.experience.push(updatedData);
 
       this.consultantStore
-        .updateConsultant(updatedData)
+        .updateConsultant(consultant)
         .pipe(takeUntil(this._destroy$))
         .subscribe(() => this.close());
+        console.log("Updating consultant: cons-exper-edit!");
+          console.log(" VALUE OF CURRENT ID: " + this.experienceForm.value.id);
+          console.log(" Value of 1st element in array: " + this.consultantStore.consultant.experience[0].id)
     }
   
   }
 
-  updateExperience(): void{
 
-    console.log("This is experience-edit Consultant: " + this.consultantStore.consultant.experience[0].companyName);
+  updateExperience(): void{
+    i: Number;
+    for(var i in this.consultantStore.consultant.experience){
+      if(this.consultantStore.consultant.experience[i].companyName === "Justright"){
+        console.log("Match!: " + this.consultantStore.consultant.experience[i].companyName);
+      }
+      else{
+        console.log("No Match: " + this.consultantStore.consultant.experience[i].companyName + " isn't Justright");
+      }
+    }
+
+    //console.log("This is experience-edit Consultant: " + this.consultantStore.consultant.experience[i].companyName);
 
   }
 

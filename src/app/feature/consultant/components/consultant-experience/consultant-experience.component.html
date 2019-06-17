@@ -10,10 +10,8 @@
    <app-consultant-section-experience-header
       title={{experience.companyName}}
       icon="edit"
-      (actionClicked)="openEditExperienceDialog()">
+      (actionClicked)="openEditExperienceDialog(i)">
     </app-consultant-section-experience-header> 
-    <!-- <p> This is length: {{consultant.experience[1].companyName}}</p> -->
-
 
     <p class="jobTitleSpace"> <b> {{experience.title}} </b> </p>
     <p class="dateSpace">{{experience.startDate | date: 'shortDate'}} - {{experience.endDate ? (experience.endDate | date: 'shortDate') : 'Present'}}</p>

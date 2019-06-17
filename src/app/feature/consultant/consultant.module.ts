@@ -19,6 +19,7 @@ import {
   MatNativeDateModule,
   MatCheckboxModule,
   MatRadioModule
+
 } from '@angular/material';
 
 import {
@@ -33,6 +34,7 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
+  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -45,8 +47,8 @@ import {
   ConsultantExperienceEditComponent,
   ConsultantExperienceCreateComponent,
   ConsultantSectionExperienceHeaderComponent,
+
 } from './index';
-import { ConsultantEducationCertificationsEditComponent } from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 
 @NgModule({
   declarations: [
@@ -98,5 +100,6 @@ import { ConsultantEducationCertificationsEditComponent } from './components/con
     ConsultantEducationCertificationsEditComponent
   ],
   providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
+
 })
 export class ConsultantModule { }

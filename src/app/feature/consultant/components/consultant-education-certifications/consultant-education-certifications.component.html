@@ -5,11 +5,12 @@
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
-  <!-- <ng-container *ngFor="let education of consultant.education"> -->
-    <p><b>{{consultant.school}}</b></p>
-    <p>{{consultant.levelOfDegree}}, {{consultant.subject}}</p>
-    <p>{{consultant.startDate | date: 'shortDate'}} - {{consultant.endDate | date: 'shortDate'}}</p>
-  <!-- </ng-container> -->
+  <ng-container *ngFor="let education of consultant.education">
+		{{ consultant | json}}
+    <p><b>{{education.school}}</b></p>
+    <p>{{education.levelOfDegree}}, {{consultant.subject}}</p>
+    <p>{{education.endDate | date: 'shortDate'}}</p>
+  </ng-container>
 
   <ng-container *ngFor="let certification of consultant.certification">
     <p><b>{{consultant.school}}</b></p>

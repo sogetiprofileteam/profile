@@ -35,7 +35,7 @@ export class ConsultantExperienceComponent implements OnInit {
     //console.log("this is Cons-experience: " + expert);
     //console.log("This Consultant: " + this.consultantStore.consultant.experience[1].id);
    // console.log("This Consultant: " + this.consultant$.pipe((tap(consultant => this.comp.experienceForm.patchValue(consultant.experience[1].id)))));
-    this.dialog.open(ConsultantExperienceEditComponent
+    this.dialog.open(ConsultantExperienceEditComponent, 
    
     //  , {   experience: }
     );

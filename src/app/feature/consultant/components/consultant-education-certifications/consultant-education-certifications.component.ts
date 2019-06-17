@@ -24,4 +24,5 @@ export class ConsultantEducationCertificationsComponent implements OnInit {
     this.dialog.open(ConsultantEducationCertificationsEditComponent);
   }
 
+
 }

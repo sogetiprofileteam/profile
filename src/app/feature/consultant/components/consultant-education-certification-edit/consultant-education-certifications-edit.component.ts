@@ -1,12 +1,16 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+
+import { FormBuilder, Validators } from '@angular/forms';
+
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { MatDialogRef } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Consultant } from '@core/models';
+
+import { Certification, Education } from '@core/models';
+
 
 @Component({
   selector: 'app-consultant-education-certifications-edit',
@@ -15,19 +19,22 @@ import { Consultant } from '@core/models';
 })
 export class ConsultantEducationCertificationsEditComponent implements OnDestroy {
 
+
+	private certificationArray = [];
+	private educationArray = [];
+
   constructor(
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponent>,
-    private formBuilder: FormBuilder
+		private formBuilder: FormBuilder
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
-    // selector: [''],
     school: ['', Validators.required],
     levelOfDegree: ['', Validators.required],
-    shortDate: [''],
-    education: [''],
-    certification: [''],
+    endDate: [''],
+    eduOrCert: ['1']
+
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.educationCertificationForm.patchValue(consultant)));
@@ -39,16 +46,37 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
 
   updateConsultant(): void {
     if (this.educationCertificationForm.valid) {
-      const updatedData = this.getFormData();
 
+			const updatedData = this.getFormData();
+			
+			if(updatedData.eduOrCert === '1'){
+				var education = {
+					levelOfDegree: updatedData.levelOfDegree,
+					school: updatedData.school,
+					endDate: updatedData.endDate
+				}
+				this.educationArray.push(education);
+				updatedData.education = [...this.educationArray];
+			} else {
+				var certification = {
+					dateRecieved: updatedData.endDate,
+					name: updatedData.school,
+					//database doesnt support this yet so keep it out for now
+					// title: updatedData.title
+				}
+				this.certificationArray.push(certification);
+				updatedData.certifications = [this.certificationArray];
+			}
+			console.log("updateddata", updatedData)
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
     }
   }
 
-  getFormData(): Partial<Consultant> {
-    return this.educationCertificationForm.value as Partial<Consultant>;
+
+  getFormData(){
+    return this.educationCertificationForm.value;
   }
 
   ngOnDestroy(): void {
