@@ -15,13 +15,13 @@ import { Certification, Education } from '@core/models';
 })
 export class ConsultantEducationCertificationsEditComponents implements OnDestroy {
 
-	private certificationArray = [];
-	private educationArray = [];
+  private certificationArray = [];
+  private educationArray = [];
 
   constructor(
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponents>,
-		private formBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
@@ -40,39 +40,39 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
 
   updateConsultant(): void {
     if (this.educationCertificationForm.valid) {
-			const updatedData = this.getFormData();
-			
-			if(updatedData.eduOrCert === '1'){
-				var education = {
-					levelOfDegree: updatedData.levelOfDegree,
-					school: updatedData.school, 
-					//database doesnt like school being a string for the moment.
-					endDate: updatedData.endDate
-				}
-				this.educationArray.push(education);
-				updatedData.education = [...this.educationArray];
-			} else {
-				var certification = {
-					dateRecieved: updatedData.endDate,
-					name: updatedData.school,
-					//database doesnt support this yet so keep it out for now
-					//title: updatedData.title
-				}
-				this.certificationArray.push(certification);
-				updatedData.certifications = [...this.certificationArray];
-			}
-			console.log("updateddata", updatedData)
+      const updatedData = this.getFormData();
+
+      if (updatedData.eduOrCert === '1') {
+        var education = {
+          levelOfDegree: updatedData.levelOfDegree,
+          school: updatedData.school,
+          //database doesnt like school being a string for the moment.
+          endDate: updatedData.endDate
+        }
+        this.educationArray.push(education);
+        updatedData.education = [...this.educationArray];
+      } else {
+        var certification = {
+          dateRecieved: updatedData.endDate,
+          name: updatedData.school,
+          //database doesnt support this yet so keep it out for now
+          //title: updatedData.title
+        }
+        this.certificationArray.push(certification);
+        updatedData.certifications = [...this.certificationArray];
+      }
+      console.log("updateddata", updatedData)
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
     }
-	}
-	
-	addEduCert(): void {
+  }
 
-	}
+  addEduCert(): void {
 
-  getFormData(){
+  }
+
+  getFormData() {
     return this.educationCertificationForm.value;
   }
 
