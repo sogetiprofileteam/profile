@@ -1,6 +1,3 @@
-import { Education } from './../../../../core/models/education';
-import { Experience } from './../../../../core/models/experience';
-import { Consultant } from './../../../../core/models/consultant';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
@@ -14,10 +11,8 @@ import { ExportProfile } from '@feature/consultant/services/export-profile/expor
 import { Packer } from 'docx';
 import { saveAs } from 'file-saver';
 
-import { SKILL_CORE, SKILL_TECHNICAL } from '@core/models';
 import { map, tap } from 'rxjs/operators';
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
-import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-consultant-header',
@@ -34,8 +29,6 @@ export class ConsultantHeaderComponent {
 
   consultant$ = this.consultantStore.consultant$;
 
-  private consultant: Consultant;
-
   coreSkills$ =
       this.consultantStore.consultant$
         .pipe(
@@ -50,129 +43,7 @@ export class ConsultantHeaderComponent {
     this.dialog.open(ConsultantPictureEditComponent, { width: '500px' });
   }
 
-  exportProfile(consultant) {
-
-    const experience = consultant.Experience;
-
-    const edu = consultant.Education;
-
-
-    const experiences = [
-      {
-        isCurrent: true,
-        summary: 'Full-stack developer working with Angular and Java. Working for the iShares platform',
-        title: 'Associate Software Developer',
-        startDate: {
-          month: 11,
-          year: 2017,
-        },
-        company: {
-          name: 'BlackRock',
-        },
-      },
-      {
-        isCurrent: false,
-        summary:
-          'Summary 2',
-        title: 'Software Developer',
-        endDate: {
-          month: 11,
-          year: 2017,
-        },
-        startDate: {
-          month: 10,
-          year: 2016,
-        },
-        company: {
-          name: 'Torch Markets',
-        },
-      },
-      {
-        isCurrent: false,
-        summary:
-          'Summary 3',
-        title: 'Software Developer',
-        endDate: {
-          month: 10,
-          year: 2016,
-        },
-        startDate: {
-          month: 3,
-          year: 2015,
-        },
-        company: {
-          name: 'Soundmouse',
-        },
-      },
-      {
-        isCurrent: false,
-        summary:
-          'Summary 4',
-        title: 'Java Developer',
-        endDate: {
-          month: 10,
-          year: 2014,
-        },
-        startDate: {
-          month: 3,
-          year: 2013,
-        },
-        company: {
-          name: 'Soundmouse',
-        },
-      }
-    ];
-
-    const education = [
-      {
-        degree: 'Master of Science (MSc)',
-        fieldOfStudy: 'Computer Science',
-        notes:
-          'Notes 1',
-        schoolName: 'University College London',
-        startDate: {
-          year: 2012,
-        },
-        endDate: {
-          year: 2013,
-        },
-      },
-      {
-        degree: 'Bachelor of Engineering (BEng)',
-        fieldOfStudy: 'Material Science and Engineering',
-        notes:
-          'Notes 2',
-        schoolName: 'Imperial College London',
-        startDate: {
-          year: 2009,
-        },
-        endDate: {
-          year: 2012,
-        },
-      }
-    ];
-
-    const skills = [
-      {
-        name: 'Angular',
-      },
-      {
-        name: 'TypeScript',
-      },
-      {
-        name: 'JavaScript',
-      },
-      {
-        name: 'NodeJS',
-      }
-    ];
-
-    const achievements = [
-      {
-        issuer: 'Oracle',
-        name: 'Oracle Certified Expert',
-      }
-    ];
+  exportProfile(consultant: any) {
 
     const personal = [
       {
@@ -188,14 +59,15 @@ export class ConsultantHeaderComponent {
       }
     ];
 
-    // console.log('personal:' + JSON.stringify(personal) +
-    //   '\nexp: ' + JSON.stringify(consultant.experience) +
-    //   '\nedu:' + JSON.stringify(consultant.education) +
-    //   '\ncs: ' + JSON.stringify(consultant.coreSkills) +
-    //   '\ncs: ' + JSON.stringify(consultant.technicalSkills) +
-    //   '\ncert' + JSON.stringify(consultant.certifications)
-    //   );
-
+    /* TODO: Used for debugging...
+      console.log('personal:' + JSON.stringify(personal) +
+      '\nexp: ' + JSON.stringify(consultant.experience) +
+      '\nedu:' + JSON.stringify(consultant.education) +
+      '\ncs: ' + JSON.stringify(consultant.coreSkills) +
+      '\ncs: ' + JSON.stringify(consultant.technicalSkills) +
+      '\ncert' + JSON.stringify(consultant.certifications)
+      );
+    */
     const documentCreator = new ExportProfile();
     const doc = documentCreator.create(
           personal,

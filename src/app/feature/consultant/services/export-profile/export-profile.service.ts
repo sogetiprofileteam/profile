@@ -1,12 +1,10 @@
 import { Document, Paragraph, Packer, TextRun, Table } from 'docx';
 
-const PROFILE_URL = 'https://www.linkedin.com/in/tylerjon93';
-
-
 export class ExportProfile {
 
   create(personal, experiences, educations, coreSkills, technicalSkills, certifications) {
 
+    // TODO: Remove this later
     console.log('INSIDE EXPORT PROFILE:\n' +
       // 'personal:' + JSON.stringify(personal[0]) +
        '\nexp: ' + JSON.stringify(experiences) +
@@ -18,78 +16,77 @@ export class ExportProfile {
 
     const document = new Document();
 
-    // Add the header with the name
+    // Creates the header with the name
     document.addParagraph(this.createName(personal[0].firstName , personal[0].lastName));
 
-    // Add the contact info section
+    // Creates the contact info section
     document.addParagraph(this.createContactInfo(personal[0].phone,
                                                   'placehold for links',
                                                   personal[0].email,
                                                   personal[0].address,
                                                   personal[0].title,
-                                                  personal[0].practice));
+                                                  personal[0].practice).spacing({ before: 0, after: 0, line: 360}));
+                                                  // line is measured in 240ths of a line, so 360 = 1.5 lines
 
-    // Add the Core SKills section
+    // Creates the Core SKills section
     if (coreSkills.length) {
       document.addParagraph(this.createHeading('Core Skills'));
       document.addParagraph(this.createSkillList(coreSkills));
     }
 
-    // Add the technical skills section
+    // Creates the technical skills section
     if (technicalSkills.length) {
       document.addParagraph(this.createHeading('Technical Skills'));
       document.addParagraph(this.createSkillList(technicalSkills));
     }
 
     // TODO: Format for education and certification
-    if (educations.length) {
+    /* if (educations.length) {
       document.addParagraph(this.createHeading('Education'));
       for (const education of educations) {
         document.addParagraph(
-          this.createInstitutionHeader(education.schoolName, `${education.startDate.year} - ${education.endDate.year}`),
+          this.createInstitutionHeader(education.school, `${education.startDate} - ${education.endDate}`),
         );
-        document.addParagraph(this.createRoleText(`${education.fieldOfStudy} - ${education.degree}`));
+        document.addParagraph(this.createRoleText(`${education.subject} - ${education.levelOfDegree}`));
 
-        const bulletPoints = this.splitParagraphIntoBullets(education.notes);
+        /* const bulletPoints = this.splitParagraphIntoBullets(education.notes);
         bulletPoints.forEach((bulletPoint) => {
           document.addParagraph(this.createBullet(bulletPoint));
         });
       }
 
+      // TODO: Add code for certifications once we have data for it
       if (certifications.length) {
         document.addParagraph(this.createHeading('Certifications'));
       }
-    }
+    } */
 
-    // Add the experiences section
+    // Creates the Experiences section
     if (experiences.length) {
       document.addParagraph(this.createHeading('Experience'));
 
       for (const position of experiences) {
         document.addParagraph(
-          this.createInstitutionHeader(
-            position.companyName,
-            this.createPositionDateText(position.startDate, position.endDate, position.title),
-          ),
+          this.createInstitutionHeader(position.companyName)
         );
-        document.addParagraph(this.createRoleText(position.title));
+        if (position.title !== 'null' && position.title != null) {
+          document.addParagraph(this.createRoleText(position.title));
+        }
+        document.addParagraph(this.createPositionDateText(position.startDate, position.endDate));
 
         const bulletPoints = this.splitParagraphIntoBullets(position.descriptions);
-        console.log(JSON.stringify(bulletPoints));
+        // console.log(JSON.stringify(bulletPoints));
         bulletPoints.forEach((bulletPoint) => {
-          console.log('bulletpoint: ' + JSON.stringify(bulletPoint));
-          document.addParagraph(this.createBullet(bulletPoint.summary));
+          // console.log('bulletpoint: ' + JSON.stringify(bulletPoint));
+          document.addParagraph(this.createBullet(bulletPoint.summary).spacing({ before: 0, after: 120, line: 240}));
         });
       }
     }
 
-    // for (const achievementParagraph of this.createAchivementsList(technicalSkills)) {
-    //   document.addParagraph(achievementParagraph);
-    // }
-
     return document;
   }
 
+  // Start of methods that do things
   createName(firstName, lastName) {
     const paragraph = new Paragraph().title().center();
     const fullname = new TextRun(firstName + ' ' + lastName).font('Calibri (Body)');
@@ -131,7 +128,7 @@ export class ExportProfile {
 
   createHeading(text) {
     const para =  new Paragraph().heading1().thematicBreak();
-    const tr = new TextRun(text).font('Calibri (Body)');
+    const tr = new TextRun(text).font('Calibri (Body)').bold();
 
     para.addRun(tr);
     return para;
@@ -141,20 +138,18 @@ export class ExportProfile {
     return new Paragraph(text).heading2();
   }
 
-  createInstitutionHeader(institutionName, dateText) {
-    const paragraph = new Paragraph().maxRightTabStop();
+  createInstitutionHeader(institutionName) {
+    const paragraph = new Paragraph();
     const institution = new TextRun(institutionName).font('Calibri (Body)').bold();
-    const date = new TextRun(dateText).font('Calibri (Body)').tab().bold();
 
-    paragraph.addRun(institution);
-    paragraph.addRun(date);
+    paragraph.addRun(institution).heading2();
 
     return paragraph;
   }
 
   createRoleText(roleText) {
     const paragraph = new Paragraph();
-    const role = new TextRun(roleText).font('Calibri (Body)').italics();
+    const role = new TextRun(roleText).font('Calibri (Body)');
 
     paragraph.addRun(role);
 
@@ -172,22 +167,23 @@ export class ExportProfile {
   createSkillList(skills) {
     const paragraph = new Paragraph().maxRightTabStop();
     // const skillConcat = skills.map((skill) => skill.name).join(', ') + '.';
-    let numberOfSkills = skills.length;
+    let count = 0;
     for (const skill of skills) {
       console.log(JSON.stringify(skill.name));
       let skillRun;
-      if (numberOfSkills % 2 !== 0) {
+      if (count % 2 === 0) {
         skillRun = new TextRun(skill.name).font('Calibri (Body)').break();
       } else {
         skillRun = new TextRun(skill.name).font('Calibri (Body)').tab();
       }
-      numberOfSkills--;
+      count++;
       paragraph.addRun(skillRun);
     }
     paragraph.addRun(new TextRun('').break());
     return paragraph;
   }
 
+  // TODO: I don't think this is needed anymore. Possibly remove later
   createAchivementsList(achivements) {
     const arr = [];
 
@@ -207,7 +203,8 @@ export class ExportProfile {
     return arr;
   }
 
-  createPositionDateText(startDate, endDate, isCurrent) {
+  createPositionDateText(startDate, endDate) {
+    const paragraph = new Paragraph();
     // const startDateText = this.getMonthFromInt(startDate.month) + '. ' + startDate.year;
     const startdateString = startDate;
     const startDateText = new Date(startdateString).toLocaleDateString();
@@ -217,7 +214,10 @@ export class ExportProfile {
     const endDateText = new Date(enddateString).toLocaleDateString();
 
     // console.log(`${startDateText} - ${endDateText}`);
-    return `${startDateText} - ${endDateText}`;
+    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)');
+    paragraph.addRun(date);
+
+    return paragraph;
   }
 
   getMonthFromInt(value) {
