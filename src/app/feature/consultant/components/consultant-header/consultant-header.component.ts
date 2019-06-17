@@ -11,9 +11,6 @@ import { ExportProfile } from '@feature/consultant/services/export-profile/expor
 import { Packer } from 'docx';
 import { saveAs } from 'file-saver';
 
-import { map, tap } from 'rxjs/operators';
-import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
-
 @Component({
   selector: 'app-consultant-header',
   templateUrl: './consultant-header.component.html',
@@ -29,11 +26,6 @@ export class ConsultantHeaderComponent {
 
   consultant$ = this.consultantStore.consultant$;
 
-  coreSkills$ =
-      this.consultantStore.consultant$
-        .pipe(
-          map(c => filterSortDisplaySkills(c.coreSkills))
-        );
 
   openEditHeaderDialog(): void {
     this.dialog.open(ConsultantHeaderEditComponent);
