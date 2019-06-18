@@ -12,13 +12,13 @@ import { Certification, Education } from '@core/models';
   selector: 'app-consultant-education-certifications-edit',
   templateUrl: './consultant-education-certifications-edit.component.html',
   styleUrls: ['./consultant-education-certifications-edit.component.scss'],
-  viewProviders: [MatExpansionPanel] 
+  viewProviders: [MatExpansionPanel]
 })
 export class ConsultantEducationCertificationsEditComponents implements OnDestroy {
 
   private certificationArray = [];
   private educationArray = [];
-  private items = ["test"];
+  private items = ["item"];
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -27,10 +27,10 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   ) { }
 
   educationCertificationForm = this.formBuilder.group({
-    school: ['', Validators.required],
-    levelOfDegree: ['', Validators.required],
-    endDate: [''],
-    eduOrCert: ['1']
+    school0: ['', Validators.required],
+    levelOfDegree0: ['', Validators.required],
+    endDate0: [''],
+    eduOrCert0: ['1']
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.educationCertificationForm.patchValue(consultant)));
@@ -43,26 +43,29 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   updateConsultant(): void {
     if (this.educationCertificationForm.valid) {
       const updatedData = this.getFormData();
-      // console.log("updateConsultant.updatedData: ", updatedData)
-      if (updatedData.eduOrCert === '1') {
-        var education = {
-          levelOfDegree: updatedData.levelOfDegree,
-          school: updatedData.school,
-          //database doesnt like school being a string for the moment.
-          endDate: updatedData.endDate
+      for (let i = 0; i < this.items.length; i++) {
+        if (updatedData[`eduOrCert${i}`] === '1') {
+          var education = {
+            levelOfDegree: updatedData[`levelOfDegree${i}`],
+            school: updatedData[`school${i}`],
+            //database doesnt like school being a string for the moment.
+            endDate: updatedData[`endDate${i}`]
+          }
+          this.educationArray.push(education);
+          updatedData.education = [...this.educationArray];
+        } else {
+          console.log("here updatedata: ", updatedData)
+          var certification = {
+            dateRecieved: updatedData[`endDate${i}`],
+            name: updatedData[`school${i}`],
+            //database doesnt support this yet so keep it out for now
+            //title: updatedData.title
+          }
+          this.certificationArray.push(certification);
+          updatedData.certifications = [...this.certificationArray];
         }
-        this.educationArray.push(education);
-        updatedData.education = [...this.educationArray];
-      } else {
-        var certification = {
-          dateRecieved: updatedData.endDate,
-          name: updatedData.school,
-          //database doesnt support this yet so keep it out for now
-          //title: updatedData.title
-        }
-        this.certificationArray.push(certification);
-        updatedData.certifications = [...this.certificationArray];
       }
+      console.log("updateConsultant.updatedData: ", updatedData)
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
@@ -70,11 +73,24 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   }
 
   addEduCert(): void {
-    this.items.push("test")
+    this.items.push("item")
+    var outputObj = {};
+    for (let i = 0; i < this.items.length; i++) {
+      var outputObjTemp = {
+        [`school${i}`]: ['', Validators.required],
+        [`levelOfDegree${i}`]: ['', Validators.required],
+        [`endDate${i}`]: [''],
+        [`eduOrCert${i}`]: ['1']
+      }
+      outputObj = { ...outputObj, ...outputObjTemp }
+    }
+    // console.log("addEduCert.outputObj: ", outputObj)
+    this.educationCertificationForm = this.formBuilder.group(outputObj)
+    // console.log("addEduCert.educationCertificationForm: ", this.educationCertificationForm)
   }
 
   getFormData() {
-    console.log("educationCertificationForm: ",this.educationCertificationForm)
+    // console.log("getFormData.educationCertificationForm: ",this.educationCertificationForm)
     return this.educationCertificationForm.value;
   }
 

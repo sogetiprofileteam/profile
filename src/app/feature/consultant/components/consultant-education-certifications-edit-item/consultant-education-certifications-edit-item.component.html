@@ -1,34 +1,34 @@
 <mat-expansion-panel>
-	<mat-expansion-panel-header>
-		<mat-panel-title>
-			Edit Education & Certification
-		</mat-panel-title>
-		<mat-panel-description>
-			click to expand
-		</mat-panel-description>
-	</mat-expansion-panel-header>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Edit Education & Certification
+    </mat-panel-title>
+    <mat-panel-description>
+      click to expand
+    </mat-panel-description>
+  </mat-expansion-panel-header>
 
-	<mat-dialog-content [formGroup]="parentForm">
-		<mat-radio-group aria-label="Select an option" formControlName="eduOrCert">
-			<mat-radio-button value="1">Education</mat-radio-button>
-			<mat-radio-button value="2">Certifcation</mat-radio-button>
-		</mat-radio-group>
+  <mat-dialog-content [formGroup]="parentForm">
+    <mat-radio-group aria-label="Select an option" [formControlName]="eduOrCertName">
+      <mat-radio-button value="1">Education</mat-radio-button>
+      <mat-radio-button value="2">Certifcation</mat-radio-button>
+    </mat-radio-group>
 
-		<mat-form-field>
-			<mat-label>Institute Name</mat-label>
-			<input matInput formControlName="school" type="text">
-			<mat-error>Institute Name is required</mat-error>
-		</mat-form-field>
+    <mat-form-field>
+      <mat-label>Institute Name</mat-label>
+      <input matInput [formControlName]="schoolName" type="text">
+      <mat-error>Institute Name is required</mat-error>
+    </mat-form-field>
 
-		<mat-form-field>
-			<mat-label>Achievement Title</mat-label>
-			<input matInput formControlName="levelOfDegree" type="text">
-			<mat-error>Title is required</mat-error>
-		</mat-form-field>
+    <mat-form-field>
+      <mat-label>Achievement Title</mat-label>
+      <input matInput [formControlName]="levelOfDegreeName" type="text">
+      <mat-error>Title is required</mat-error>
+    </mat-form-field>
 
-		<mat-form-field>
-			<mat-label>Year</mat-label>
-			<input matInput formControlName="endDate" type="text">
-		</mat-form-field>
-	</mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Year</mat-label>
+      <input matInput [formControlName]="endDateName" type="text">
+    </mat-form-field>
+  </mat-dialog-content>
 </mat-expansion-panel>

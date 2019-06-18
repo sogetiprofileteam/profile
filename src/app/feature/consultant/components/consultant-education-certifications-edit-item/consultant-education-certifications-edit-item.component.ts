@@ -8,10 +8,22 @@ import { FormGroup } from '@angular/forms';
 })
 export class ConsultantEducationCertificationsEditItemComponent implements OnInit {
 
-	@Input() parentForm: FormGroup;
-  constructor() { }
+  @Input() parentForm: FormGroup;
+  @Input() index;
+
+  eduOrCertName: string;
+  schoolName: string;
+  levelOfDegreeName: string;
+  endDateName: string;
+
+  constructor() {
+  }
 
   ngOnInit() {
+    this.eduOrCertName = `eduOrCert${this.index}`;
+    this.schoolName = `school${this.index}`;
+    this.levelOfDegreeName = `levelOfDegree${this.index}`;
+    this.endDateName = `endDate${this.index}`;
   }
 
 }

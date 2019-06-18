@@ -3,11 +3,11 @@
 <form *ngIf="consultant$ | async" [formGroup]="educationCertificationForm" (ngSubmit)="updateConsultant()">
   <mat-accordion>
     <app-consultant-education-certifications-edit-item
-      *ngFor="let item of items"
-      [parentForm]="educationCertificationForm">
+      *ngFor="let item of items; let index = index"
+      [parentForm]="educationCertificationForm"
+      [index]="index">
     </app-consultant-education-certifications-edit-item>
   </mat-accordion>
-
 
   <mat-dialog-actions align="end">
     <button mat-button-type="button" (click)="addEduCert()">+ EDUCATION/CERTIFICATION</button>
