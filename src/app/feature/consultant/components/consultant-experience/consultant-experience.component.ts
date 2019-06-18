@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { Experience } from '@core/models';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogConfig, DialogPosition, MatDialogRef } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { tap, takeUntil } from 'rxjs/operators';
-import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 import { ConsultantExperienceEditComponent } from '../consultant-experience-edit/consultant-experience-edit.component';
 import { ConsultantExperienceCreateComponent } from '../consultant-experience-create/consultant-experience-create.component';
 
@@ -17,12 +16,11 @@ export class ConsultantExperienceComponent implements OnInit {
 
   constructor(
     private consultantStore: ConsultantStore,
-    // private experience: Experience,
     private dialog: MatDialog
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
-  comp: ConsultantExperienceEditComponent;
+ 
   ngOnInit() {
   }
 
@@ -30,15 +28,17 @@ export class ConsultantExperienceComponent implements OnInit {
     this.dialog.open(ConsultantExperienceCreateComponent);
   }
 
- // openEditExperienceDialog(expert: string) {
-  openEditExperienceDialog() {
-    //console.log("this is Cons-experience: " + expert);
-    //console.log("This Consultant: " + this.consultantStore.consultant.experience[1].id);
-   // console.log("This Consultant: " + this.consultant$.pipe((tap(consultant => this.comp.experienceForm.patchValue(consultant.experience[1].id)))));
-    this.dialog.open(ConsultantExperienceEditComponent, 
-   
-    //  , {   experience: }
-    );
+  openEditExperienceDialog(selectedIndex) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = {
+        index: selectedIndex
+    };
+
+   let dialogRef =  this.dialog.open(ConsultantExperienceEditComponent, dialogConfig)
+    console.log("Selectd Index: " + selectedIndex);
+    console.log("Dialoag ref: " + dialogRef.id);
   }
 
 

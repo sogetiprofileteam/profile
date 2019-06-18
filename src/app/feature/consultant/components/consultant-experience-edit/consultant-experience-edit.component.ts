@@ -28,46 +28,18 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
     endDate: [''],
     descriptions: this.formBuilder.array([])
   });
-
- editExperience(): void {
-   //Cycles through each element in experience array: Will only show last element for PatchValue 
-   for(var i in this.consultantStore.consultant.experience){
-
-   this.experienceForm.patchValue({
-  companyName: this.consultantStore.consultant.experience[i].companyName,
-  title: this.consultantStore.consultant.experience[i].title,
-  startDate: this.consultantStore.consultant.experience[i].startDate,
-  endDate: this.consultantStore.consultant.experience[i].endDate,
-  descriptions: this.consultantStore.consultant.experience[i].descriptions
-    });
-   }
-}
-
-
-
-  currentPositionControl = this.formBuilder.control(null);
-  
-
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.experienceForm.patchValue(consultant)));
-
-
-  private _destroy$ = new Subject();
-
-  currentPositionValue$ = new BehaviorSubject<boolean>(false);
+  dialog: any;
 
   constructor(
-    //@Inject(MAT_DIALOG_DATA) public data,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantExperienceEditComponent>,
     private formBuilder: FormBuilder
   ) { }
 
-  // experience$ = 
-  //   this.consultantStore.consultant$
-  //   .pipe(tap(consultant => consultant.experience[this.data.index]));
-
   ngOnInit() {
     this.addDescription();
+    this.editExperience();
     this.currentPositionControl.valueChanges
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
@@ -76,7 +48,27 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
       });
 }
 
-  
+ editExperience(): void {
+
+  this.experienceForm.patchValue({
+    companyName: this.consultantStore.consultant.experience[this.data.index].companyName,
+    title: this.consultantStore.consultant.experience[this.data.index].title,
+    startDate: this.consultantStore.consultant.experience[this.data.index].startDate,
+    endDate: this.consultantStore.consultant.experience[this.data.index].endDate,
+    descriptions: this.consultantStore.consultant.experience[this.data.index].descriptions
+    });
+}
+
+  currentPositionControl = this.formBuilder.control(null);
+  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.experienceForm.patchValue(consultant)));
+
+  experience$ = 
+    this.consultantStore.consultant$
+    .pipe(tap(consultant => consultant.experience[this.data.index]));
+  private _destroy$ = new Subject();
+
+  currentPositionValue$ = new BehaviorSubject<boolean>(false);
+
 
   close(): void {
     this.dialogRef.close();
@@ -84,9 +76,6 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
 
   updateConsultant(): void {
     if (this.experienceForm.valid ) {
-      // this.consultantStore.consultant.experience[0].id = "randomId";
-      // this.experienceForm.value.id = this.consultantStore.consultant.experience[0].id;
-     // const newExperience = this.getFormData();
       const updatedData = this.getFormData();
        const consultant = this.consultantStore.consultant;
        consultant.experience.push(updatedData);
@@ -102,21 +91,6 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
   
   }
 
-
-  updateExperience(): void{
-    i: Number;
-    for(var i in this.consultantStore.consultant.experience){
-      if(this.consultantStore.consultant.experience[i].companyName === "Justright"){
-        console.log("Match!: " + this.consultantStore.consultant.experience[i].companyName);
-      }
-      else{
-        console.log("No Match: " + this.consultantStore.consultant.experience[i].companyName + " isn't Justright");
-      }
-    }
-
-    //console.log("This is experience-edit Consultant: " + this.consultantStore.consultant.experience[i].companyName);
-
-  }
 
   getFormData(): Experience {
     console.log("Form Data Value: " + this.experienceForm.value);
