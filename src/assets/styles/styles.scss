@@ -19,3 +19,23 @@
 // Our styles
 @import 'text';
 @import 'footer';
+
+// temporary fix for expansion panels until Angular Material Issue is fixed
+// each time you open the edit page the expansino panels flash open for a sec without this fix
+// see https://github.com/angular/material2/issues/13870
+mat-accordion mat-expansion-panel {
+  mat-expansion-panel-header {
+    height: 48px; 
+  }
+  .mat-expansion-panel-content {
+    height: 0;
+  }
+  &.mat-expanded {
+    mat-expansion-panel-header {
+      height: 64px;
+    }
+    .mat-expansion-panel-content {
+      height: auto;
+    }
+  }
+}

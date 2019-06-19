@@ -5,7 +5,6 @@
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
-  {{consultant | json}}
   <ng-container *ngFor="let education of consultant.education">
     <p><b>{{education.school}}</b></p>
     <p>{{education.levelOfDegree}}</p>

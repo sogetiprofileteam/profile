@@ -3,7 +3,16 @@ mat-form-field {
 }
 
 .mat-radio-button ~ .mat-radio-button {
-    margin-left: 16px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
+  margin-left: 16px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+	
+.add-edu-cert{
+  position: absolute;
+  left: 100px;
+}
+
+.save{
+  margin-left: 15px;
+}
