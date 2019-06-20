@@ -10,7 +10,7 @@ export class ConsultantSectionExperienceHeaderComponent {
   @Input() icon: string;
   @Output() actionClicked = new EventEmitter();
 
-  count: number; 
+  count: number;
   icons: [];
 
   actionDispatch() {

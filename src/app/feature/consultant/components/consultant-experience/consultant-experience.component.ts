@@ -20,7 +20,7 @@ export class ConsultantExperienceComponent implements OnInit {
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
- 
+
   ngOnInit() {
   }
 
@@ -36,10 +36,8 @@ export class ConsultantExperienceComponent implements OnInit {
         index: selectedIndex
     };
 
-   let dialogRef =  this.dialog.open(ConsultantExperienceEditComponent, dialogConfig)
-    console.log("Selectd Index: " + selectedIndex);
-    console.log("Dialoag ref: " + dialogRef.id);
+    const dialogRef =  this.dialog.open(ConsultantExperienceEditComponent, dialogConfig);
+    console.log('Selectd Index: ' + selectedIndex);
+    console.log('Dialoag ref: ' + dialogRef.id);
   }
-
-
 }
