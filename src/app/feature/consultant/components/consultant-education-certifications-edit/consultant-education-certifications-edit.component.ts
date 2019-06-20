@@ -3,16 +3,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { MatDialogRef, MatExpansionPanel } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Certification, Education } from '@core/models';
 
 @Component({
   selector: 'app-consultant-education-certifications-edit',
   templateUrl: './consultant-education-certifications-edit.component.html',
   styleUrls: ['./consultant-education-certifications-edit.component.scss'],
-  viewProviders: [MatExpansionPanel]
 })
 export class ConsultantEducationCertificationsEditComponents implements OnDestroy {
 
@@ -48,7 +46,6 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
           var education = {
             levelOfDegree: updatedData[`levelOfDegree${i}`],
             school: updatedData[`school${i}`],
-            //database doesnt like school being a string for the moment.
             endDate: updatedData[`endDate${i}`]
           }
           this.educationArray.push(education);
@@ -84,14 +81,19 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
       }
       outputObj = { ...outputObj, ...outputObjTemp }
     }
-    // console.log("addEduCert.outputObj: ", outputObj)
     this.educationCertificationForm = this.formBuilder.group(outputObj)
-    // console.log("addEduCert.educationCertificationForm: ", this.educationCertificationForm)
   }
 
   getFormData() {
-    // console.log("getFormData.educationCertificationForm: ",this.educationCertificationForm)
     return this.educationCertificationForm.value;
+  }
+
+  isLastPanel(index): boolean {
+    if(this.items.length === index + 1){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ngOnDestroy(): void {

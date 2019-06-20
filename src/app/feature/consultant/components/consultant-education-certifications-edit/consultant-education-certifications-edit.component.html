@@ -5,14 +5,18 @@
     <app-consultant-education-certifications-edit-item
       *ngFor="let item of items; let index = index"
       [parentForm]="educationCertificationForm"
-      [index]="index">
+      [index]="index"
+      [panelOpen]="isLastPanel(index)">
     </app-consultant-education-certifications-edit-item>
   </mat-accordion>
 
-  <mat-dialog-actions align="end">
-    <button mat-stroked-button color="accent" class="add-edu-cert" (click)="addEduCert()">
-      <i class="material-icons"> add </i> EDUCATION/CERTIFICATION</button>
-    <button mat-stroked-button color="accent" type="button" (click)="close()">CANCEL</button>
-    <button mat-raised-button class="save" color="accent" type="submit" cdkFocusInitial>SAVE</button>
+  <mat-dialog-actions >
+    <button mat-stroked-button color="accent" (click)="addEduCert()">
+      <i class="material-icons"> add </i> EDUCATION/CERTIFICATION
+    </button>
+    <span class="right-button">
+      <button mat-stroked-button color="accent" type="button" (click)="close()">CANCEL</button>
+      <button mat-raised-button class="save" color="accent" type="submit" cdkFocusInitial>SAVE</button>
+    </span>
   </mat-dialog-actions>
 </form>

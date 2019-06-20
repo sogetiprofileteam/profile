@@ -1,7 +1,10 @@
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="panelOpen">
   <mat-expansion-panel-header>
     <mat-panel-title>
-        <b> <span class="circle">{{index + 1}}</span> {{"&nbsp;&nbsp;"}}<span class="title">Edit Education & Certification </span></b>
+      <b> 
+        <span class="circle">{{index + 1}}</span> {{"&nbsp;&nbsp;"}}
+        <span class="title">Edit Education & Certification</span>
+      </b>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-dialog-content [formGroup]="parentForm">

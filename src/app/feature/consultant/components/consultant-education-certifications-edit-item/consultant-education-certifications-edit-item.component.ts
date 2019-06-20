@@ -10,6 +10,7 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
 
   @Input() parentForm: FormGroup;
   @Input() index;
+  @Input() panelOpen: boolean;
 
   eduOrCertName: string;
   schoolName: string;
