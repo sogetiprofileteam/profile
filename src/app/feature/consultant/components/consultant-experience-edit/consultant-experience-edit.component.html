@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>Edit Experience</h1>
 
+
 <form [formGroup]="experienceForm" *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()" id="experience-form">
     <mat-dialog-content>
         <mat-form-field>
@@ -68,7 +69,7 @@
 </form>
 
 <mat-dialog-actions align="end">
-   <span style="float: left"> <button mat-button color="warn" type="button" style="float: left"> DELETE </button> </span>
+    <span align="left"> <button mat-raised-button color="warn" type="button" style="float: left" (click)="removeExperience()"> DELETE </button> </span>
     <button mat-button type="button" (click)="close()">CANCEL</button>
     <button mat-raised-button color="primary" type="submit" form="experience-form">SAVE EXPERIENCE</button>
 </mat-dialog-actions>

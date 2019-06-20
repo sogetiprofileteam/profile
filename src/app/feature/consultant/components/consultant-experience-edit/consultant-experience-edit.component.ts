@@ -126,21 +126,15 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
 
   }
 
-
-  updateExperience(): void {
-    /*
-    i: Number;
-    for (var i in this.consultantStore.consultant.experience) {
-      if (this.consultantStore.consultant.experience[i].companyName === 'Justright') {
-        console.log('Match!: ' + this.consultantStore.consultant.experience[i].companyName);
-      }
-      else {
-        console.log('No Match: ' + this.consultantStore.consultant.experience[i].companyName + ' isn't Justright');
-      }
-    }
-    // console.log('This is experience-edit Consultant: ' + this.consultantStore.consultant.experience[i].companyName);
-    */
+  removeExperience(experience: Experience ): void {
+    const index = this.consultantStore.consultant.experience.indexOf(experience);
+    const updatedExperience = [ ...this.consultantStore.consultant.experience ];
+    updatedExperience.splice(index, 1);
+    //console.log('Attempting to delete: ' + experience.companyName);
   }
+  // removeExperience(experience) {
+  //   this.skillEditService.removeSkill(experience);
+  // }
 
   getFormData(): Experience {
     console.log('Form Data Value: ' + this.experienceForm.value);
