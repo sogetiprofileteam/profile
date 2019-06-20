@@ -1,0 +1,129 @@
+.name {
+    color: blue;
+    margin: 0 0 0;
+    font: bold;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    flex-wrap: nowrap;
+}
+
+.mat-divider.mat-divider-inset {
+    margin-left: 0px;
+}
+
+
+@import "breakpoints";
+
+$picture-size-lg: 100px;
+$picture-size-sm: 50px;
+
+@include media-breakpoint-down(sm) {
+    .picture-container, .button-container, .picture {
+        width: $picture-size-sm;
+        height: $picture-size-sm;
+    }
+
+    .picture-wrapper {
+        margin-bottom: 1.5em;
+    }
+
+    .consultant-title, .consultant-email {
+        font-size: 1.25em;
+        margin-bottom: .5em;
+    }
+
+    .icon {	
+        margin: 15px;
+    }
+
+    .container {
+        padding-top: 2em;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .picture-container, .button-container,  .picture {
+        width: $picture-size-lg;
+        height: $picture-size-lg;
+    }
+    
+    .picture-wrapper {
+        margin-bottom: 2em;
+    }
+
+    .icon {	
+        margin: 20px;
+    }
+
+    .container {
+        padding-top: 3.5em;
+    }
+}
+
+.container {
+    margin: 1rem;
+}
+
+.picture-wrapper {
+    display: flex;
+    justify-content: center;
+    display: relative;
+}
+
+.picture-container, .button-container {
+    position: relative;
+    border-radius: 50%;
+}
+
+.edit-overlay {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+
+    .edit-text {
+        color: white;
+        margin-top: auto;
+        margin-bottom: auto;
+        padding: 1rem;
+    }
+}
+
+.picture { 
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.edit-button {
+    position: absolute;
+    z-index: 999;
+}
+
+.consultant-name {
+    line-height: 1.25em;
+    font-size: 3em;
+    margin-bottom: .5em;
+}
+
+.icon {	
+    height: 25px;	
+    width: 25px;
+}
+
+.shadow {
+    height: 12px;
+    margin-bottom: 1em;
+    background: linear-gradient(to bottom, rgba(155,155,155,.2) 0%,rgba(255,255,255,0) 100%);
+}
