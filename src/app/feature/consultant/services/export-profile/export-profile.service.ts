@@ -14,29 +14,47 @@ export class ExportProfile {
        '\ncert' + JSON.stringify(certifications)
       );
 
-    const document = new Document();
+    const document = new Document(undefined, {
+                                      top: 1440,
+                                      right: 720,
+                                      bottom: 2880,
+                                      left: 1080,
+                                      width: 12240,
+                                      height: 15840
+                                  });
+                                  // Margins are measured in 1440th's of an inch. So 2" = 2880, 8.5" = 12240
+
+    document.Header.addParagraph(this.createHeader());
+    document.Footer.addParagraph(this.createFooter());
 
     // Creates the header with the name
     document.addParagraph(this.createName(personal[0].firstName , personal[0].lastName));
 
     // Creates the contact info section
     document.addParagraph(this.createContactInfo(personal[0].phone,
-                                                  'placehold for links',
+                                                  'Sogeti Austin',
                                                   personal[0].email,
                                                   personal[0].address,
                                                   personal[0].title,
-                                                  personal[0].practice).spacing({ before: 0, after: 0, line: 360}));
+                                                  personal[0].practice).spacing({ before: 0, after: 0, line: 240}));
                                                   // line is measured in 240ths of a line, so 360 = 1.5 lines
 
-    // Creates the Core SKills section
+    document.addParagraph(this.createHeading('Summary'));
+    document.addParagraph(this.createSummaryText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
+    ' incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ' +
+    'ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' +
+    ' Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'));
+
+    document.addParagraph(this.createHeading('Skills'));
+    // Creates the Core Skills section
     if (coreSkills.length) {
-      document.addParagraph(this.createHeading('Core Skills'));
+      document.addParagraph(this.createSubHeading('Core Skills'));
       document.addParagraph(this.createSkillList(coreSkills));
     }
 
-    // Creates the technical skills section
+    // Creates the Technical Skills section
     if (technicalSkills.length) {
-      document.addParagraph(this.createHeading('Technical Skills'));
+      document.addParagraph(this.createSubHeading('Technical Skills'));
       document.addParagraph(this.createSkillList(technicalSkills));
     }
 
@@ -67,12 +85,11 @@ export class ExportProfile {
 
       for (const position of experiences) {
         document.addParagraph(
-          this.createInstitutionHeader(position.companyName)
+          this.createInstitutionHeader(position.companyName, this.createPositionDateText(position.startDate, position.endDate))
         );
         if (position.title !== 'null' && position.title != null) {
           document.addParagraph(this.createRoleText(position.title));
         }
-        document.addParagraph(this.createPositionDateText(position.startDate, position.endDate));
 
         const bulletPoints = this.splitParagraphIntoBullets(position.descriptions);
         // console.log(JSON.stringify(bulletPoints));
@@ -87,9 +104,25 @@ export class ExportProfile {
   }
 
   // Start of methods that do things
+  createHeader() {
+    const paragraph = new Paragraph().left();
+    const text = new TextRun('Consultant Profile').font('Candara').bold().size(40).color('0070AD');
+    paragraph.addRun(text);
+    return paragraph;
+  }
+
+  createFooter() {
+    const paragraph = new Paragraph().left();
+    const text = new TextRun('Confidential & Proprietary Information of Sogeti USA').size(20);
+    paragraph.addRun(text);
+    return paragraph;
+  }
+
+  // Creates the name
   createName(firstName, lastName) {
-    const paragraph = new Paragraph().title().center();
-    const fullname = new TextRun(firstName + ' ' + lastName).font('Calibri (Body)');
+    const paragraph = new Paragraph().center();
+    const fullname = new TextRun(firstName + ' ' + lastName).font('Calibri (Body)').bold().size(28);
+    // font size measured in half-points so 28 = 14 pt font
 
     paragraph.addRun(fullname);
     return paragraph;
@@ -98,11 +131,11 @@ export class ExportProfile {
   // TODO: FIX ADDRESS FORMATTING
   createContactInfo(phoneNumber, profileUrl, email, addressIn, title, practice) {
     const paragraph = new Paragraph().center();
-    const titlePracticeRun = new TextRun(`${title} | ${practice} `).font('Calibri (Body)').break();
-    const emailRun = new TextRun(`${email}`).font('Calibri (Body)').break();
-    const links = new TextRun(`Links: ${profileUrl}`).font('Calibri (Body)').break();
+    const titlePracticeRun = new TextRun(`${title} | ${practice} `).font('Calibri (Body)').bold().size(22);
+    const emailRun = new TextRun(`${email}`).font('Calibri (Body)').break().size(22);
+    const links = new TextRun(`${profileUrl}`).font('Calibri (Body)').break().size(22);
     // const contactInfo = new TextRun(`Mobile: ${phoneNumber} | LinkedIn: ${profileUrl} | Email: ${email}`);
-    console.log('addressIn: ' + JSON.stringify(addressIn));
+    // console.log('addressIn: ' + JSON.stringify(addressIn));
 
     // the address needs to be broken out into its own class so that we can determine things like if line 2 exist
     let lineTwo = '';
@@ -114,7 +147,7 @@ export class ExportProfile {
                                 addressIn.city +  ', ' +
                                 addressIn.state +  ', ' +
                                 addressIn.zipCode +  ' ' +
-                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break();
+                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break().size(22);
 
     paragraph.addRun(titlePracticeRun);
     paragraph.addRun(emailRun);
@@ -128,28 +161,42 @@ export class ExportProfile {
 
   createHeading(text) {
     const para =  new Paragraph().heading1().thematicBreak();
-    const tr = new TextRun(text).font('Calibri (Body)').bold();
+    const tr = new TextRun(text).font('Calibri (Body)').bold().color('0070AD').size(32);
 
     para.addRun(tr);
     return para;
   }
 
   createSubHeading(text) {
-    return new Paragraph(text).heading2();
+    const para =  new Paragraph();
+    const tr = new TextRun(text).font('Calibri (Body)').bold().italics().color('12B3DB').size(28).tab();
+
+    para.addRun(tr);
+    return para;
   }
 
-  createInstitutionHeader(institutionName) {
-    const paragraph = new Paragraph();
-    const institution = new TextRun(institutionName).font('Calibri (Body)').bold();
+  createSummaryText(summary) {
+    const paragraph = new Paragraph().maxRightTabStop();
+    const text = new TextRun(summary).font('Calibri (Body)').size(22);
 
-    paragraph.addRun(institution).heading2();
+    paragraph.addRun(text);
+    paragraph.addRun(new TextRun('').break());
+    return paragraph;
+  }
+
+  createInstitutionHeader(institutionName, dateText) {
+    const paragraph = new Paragraph().maxRightTabStop();
+    const institution = new TextRun(institutionName).font('Calibri (Body)').bold().color('12B3DB').size(28);
+
+    paragraph.addRun(institution);
+    paragraph.addRun(dateText);
 
     return paragraph;
   }
 
   createRoleText(roleText) {
     const paragraph = new Paragraph();
-    const role = new TextRun(roleText).font('Calibri (Body)');
+    const role = new TextRun(roleText).font('Calibri (Body)').bold().size(22);
 
     paragraph.addRun(role);
 
@@ -158,7 +205,7 @@ export class ExportProfile {
 
   createBullet(text) {
     const para = new Paragraph();
-    const tr = new TextRun(text).font('Calibri (Body)');
+    const tr = new TextRun(text).font('Calibri (Body)').size(22);
 
     para.addRun(tr).bullet();
     return para;
@@ -172,9 +219,9 @@ export class ExportProfile {
       console.log(JSON.stringify(skill.name));
       let skillRun;
       if (count % 2 === 0) {
-        skillRun = new TextRun(skill.name).font('Calibri (Body)').break();
+        skillRun = new TextRun(skill.name).font('Calibri (Body)').break().size(22);
       } else {
-        skillRun = new TextRun(skill.name).font('Calibri (Body)').tab();
+        skillRun = new TextRun(skill.name).font('Calibri (Body)').tab().size(22);
       }
       count++;
       paragraph.addRun(skillRun);
@@ -214,7 +261,7 @@ export class ExportProfile {
     const endDateText = new Date(enddateString).toLocaleDateString();
 
     // console.log(`${startDateText} - ${endDateText}`);
-    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)');
+    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)').tab().size(22);
     paragraph.addRun(date);
 
     return paragraph;
