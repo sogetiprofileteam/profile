@@ -4,7 +4,8 @@
     <mat-dialog-content>
         <mat-form-field class="full-width" display="flex">
             <mat-label>Summary</mat-label>
-            <textarea matInput formControlName="summaryTest"></textarea>
+            <textarea matInput formControlName="summary"></textarea>
+            <mat-error>Summary is required</mat-error>
           </mat-form-field>
         <!-- <mat-form-field>
             <mat-label>Summary</mat-label>
@@ -15,6 +16,6 @@
 </form>
 
 <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="close()">CANCEL</button>
-    <button mat-raised-button color="primary" type="submit" form="summary-form" cdkFocusInitial>SAVE</button>
+    <button mat-button type="button" color="accent" (click)="close()">CANCEL</button>
+    <button mat-raised-button color="accent" type="submit" form="summary-form" cdkFocusInitial>SAVE</button>
 </mat-dialog-actions>

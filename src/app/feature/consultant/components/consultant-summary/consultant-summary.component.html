@@ -6,5 +6,5 @@
 
 <section *ngIf="consultant$ | async as consultant">
   <ng-container *ngFor="let summary of consultant.summary">
-    <p><b>{{consultant.summary}}</b></p>
+    <p>{{consultant.summary}}</p>
   </ng-container>
