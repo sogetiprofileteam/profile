@@ -2,7 +2,7 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <b> 
-        <span class="circle">{{index + 1}}</span> {{"&nbsp;&nbsp;"}}
+        <span class="circle">{{item + 1}}</span> {{"&nbsp;&nbsp;"}}
         <span class="title">Edit Education & Certification</span>
       </b>
     </mat-panel-title>
@@ -11,12 +11,14 @@
     <div class="container">
       <div class="row" class="text-field">
         <mat-radio-group aria-label="Select an option" [formControlName]="eduOrCertName">
+          {{eduOrCertName}}
           <mat-radio-button value="1">Education</mat-radio-button>
           <mat-radio-button value="2">Certifcation</mat-radio-button>
         </mat-radio-group>
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
+          {{schoolName}}
           <mat-label>Institute Name</mat-label>
           <input matInput [formControlName]="schoolName" type="text">
           <mat-error>Institute Name is required</mat-error>
@@ -24,6 +26,7 @@
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
+          {{levelOfDegreeName}}
           <mat-label>Achievement Title</mat-label>
           <input matInput [formControlName]="levelOfDegreeName" type="text">
           <mat-error>Title is required</mat-error>
@@ -31,9 +34,15 @@
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
+          {{endDateName}}
           <mat-label>Year</mat-label>
           <input matInput [formControlName]="endDateName" type="text">
         </mat-form-field>
+      </div>
+      <div class="row">
+        <button type="button" mat-stroked-button color="accent" (click)="onDelete(item)">
+          Delete
+        </button>
       </div>
     </div>
   </mat-dialog-content>

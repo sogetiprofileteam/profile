@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,8 +9,9 @@ import { FormGroup } from '@angular/forms';
 export class ConsultantEducationCertificationsEditItemComponent implements OnInit {
 
   @Input() parentForm: FormGroup;
-  @Input() index;
+  @Input() item: Number;
   @Input() panelOpen: boolean;
+  @Output() onDeleteEvent = new EventEmitter<Number>();
 
   eduOrCertName: string;
   schoolName: string;
@@ -21,10 +22,14 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
   }
 
   ngOnInit() {
-    this.eduOrCertName = `eduOrCert${this.index}`;
-    this.schoolName = `school${this.index}`;
-    this.levelOfDegreeName = `levelOfDegree${this.index}`;
-    this.endDateName = `endDate${this.index}`;
+    this.eduOrCertName = `eduOrCert${this.item}`;
+    this.schoolName = `school${this.item}`;
+    this.levelOfDegreeName = `levelOfDegree${this.item}`;
+    this.endDateName = `endDate${this.item}`;
+  }
+
+  onDelete(index){
+    this.onDeleteEvent.emit(index);
   }
 
 }

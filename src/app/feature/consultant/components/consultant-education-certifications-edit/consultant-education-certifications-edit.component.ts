@@ -16,7 +16,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
 
   private certificationArray = [];
   private educationArray = [];
-  private items = ["item"];
+  private items = [0];
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -42,22 +42,24 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     if (this.educationCertificationForm.valid) {
       const updatedData = this.getFormData();
       for (let i = 0; i < this.items.length; i++) {
-        if (updatedData[`eduOrCert${i}`] === '1') {
+        console.log("items: ", this.items)
+        if (updatedData[`eduOrCert${this.items[i]}`] === '1') {
           var education = {
-            levelOfDegree: updatedData[`levelOfDegree${i}`],
-            school: updatedData[`school${i}`],
-            endDate: updatedData[`endDate${i}`]
+            levelOfDegree: updatedData[`levelOfDegree${this.items[i]}`],
+            school: updatedData[`school${this.items[i]}`],
+            endDate: updatedData[`endDate${this.items[i]}`]
           }
           this.educationArray.push(education);
           updatedData.education = [...this.educationArray];
         } else {
           console.log("here updatedata: ", updatedData)
           var certification = {
-            dateRecieved: updatedData[`endDate${i}`],
-            name: updatedData[`school${i}`],
+            dateRecieved: updatedData[`endDate${this.items[i]}`],
+            name: updatedData[`school${this.items[i]}`],
             //database doesnt support this yet so keep it out for now
             //title: updatedData.title
           }
+          //TODO this seems to sometimes push obj full of undefineded stuff, fix
           this.certificationArray.push(certification);
           updatedData.certifications = [...this.certificationArray];
         }
@@ -70,7 +72,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   }
 
   addEduCert(): void {
-    this.items.push("item")
+    this.items.push(this.items.length);
     var outputObj = {};
     for (let i = 0; i < this.items.length; i++) {
       var outputObjTemp = {
@@ -94,6 +96,16 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     } else {
       return false;
     }
+  }
+
+  onDelete(index){
+    this.items.splice(index, 1);
+    delete this.educationCertificationForm.value[`school${index}`]
+    delete this.educationCertificationForm.value[`levelOfDegree${index}`]
+    delete this.educationCertificationForm.value[`endDate${index}`]
+    delete this.educationCertificationForm.value[`eduOrCert${index}`]
+    console.log("this.educationCertificationForm: ", this.educationCertificationForm)
+    console.log("ondelete.index: ", index)
   }
 
   ngOnDestroy(): void {
