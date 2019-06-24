@@ -1,9 +1,6 @@
 import { Component, ChangeDetectionStrategy, Inject, OnInit } from '@angular/core';
 
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Skill, SkillType, SKILL_CORE } from '@core/models';
 import { ConsultantSkillsEditService } from './consultant-skills-edit-service/consultant-skills-edit.service';

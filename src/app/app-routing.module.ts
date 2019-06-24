@@ -5,11 +5,11 @@ const routes: Routes = [
   {path: '', redirectTo: '/consultants', pathMatch: 'full'},
   {
     path: 'consultants',
-    loadChildren: './feature/consultants/consultants.module#ConsultantsModule'
+    loadChildren: () => import('./feature/consultants/consultants.module').then(m => m.ConsultantsModule)
   },
   {
     path: 'consultant',
-    loadChildren: './feature/consultant/consultant.module#ConsultantModule'
+    loadChildren: () => import('./feature/consultant/consultant.module').then(m => m.ConsultantModule)
   }
 ];
 
