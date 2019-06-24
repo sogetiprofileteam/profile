@@ -19,6 +19,11 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
   endDateName: string;
 
   constructor() {
+    // this.parentForm.value.schoolName = '';
+    // this.parentForm.value.eduOrCertName.value = '1';
+    // this.parentForm.value.levelOfDegreeName.value = '';
+    // this.parentForm.value.endDateName.value = '';
+    
   }
 
   ngOnInit() {
@@ -26,10 +31,19 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
     this.schoolName = `school${this.item}`;
     this.levelOfDegreeName = `levelOfDegree${this.item}`;
     this.endDateName = `endDate${this.item}`;
+
+    
+    this.parentForm.value[`eduOrCert${this.item}`] = '1';
+    this.parentForm.value[`school${this.item}`] = '';
+    this.parentForm.value[`levelOfDegree${this.item}`] = '';
+    this.parentForm.value[`endDate${this.item}`] = '';
+    console.log("this.parentform: ", this.parentForm)
+    console.log("this.item: ", this.item)
+  
   }
 
-  onDelete(index){
-    this.onDeleteEvent.emit(index);
+  onDelete(item){
+    this.onDeleteEvent.emit(item);
   }
 
 }

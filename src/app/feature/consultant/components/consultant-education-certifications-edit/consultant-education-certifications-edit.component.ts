@@ -68,18 +68,20 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
+
+      this.educationCertificationForm.reset({});
     }
   }
 
   addEduCert(): void {
-    this.items.push(this.items.length);
+    this.items.push(Math.max(...this.items) + 1);
     var outputObj = {};
     for (let i = 0; i < this.items.length; i++) {
       var outputObjTemp = {
-        [`school${i}`]: ['', Validators.required],
-        [`levelOfDegree${i}`]: ['', Validators.required],
-        [`endDate${i}`]: [''],
-        [`eduOrCert${i}`]: ['1']
+        [`school${this.items[i]}`]: [this.educationCertificationForm.value[`school${this.items[i]}`], Validators.required],
+        [`levelOfDegree${this.items[i]}`]: [this.educationCertificationForm.value[`levelOfDegree${this.items[i]}`], Validators.required],
+        [`endDate${this.items[i]}`]: [this.educationCertificationForm.value[`endDate${this.items[i]}`]],
+        [`eduOrCert${this.items[i]}`]: [this.educationCertificationForm.value[`eduOrCert${this.items[i]}`]]
       }
       outputObj = { ...outputObj, ...outputObjTemp }
     }
@@ -98,18 +100,15 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     }
   }
 
-  onDelete(index){
-    this.items.splice(index, 1);
-    delete this.educationCertificationForm.value[`school${index}`]
-    delete this.educationCertificationForm.value[`levelOfDegree${index}`]
-    delete this.educationCertificationForm.value[`endDate${index}`]
-    delete this.educationCertificationForm.value[`eduOrCert${index}`]
-    console.log("this.educationCertificationForm: ", this.educationCertificationForm)
-    console.log("ondelete.index: ", index)
+  onDelete(item){
+    this.items.splice(this.items.indexOf(item), 1);
+    delete this.educationCertificationForm.value[`school${item}`]
+    delete this.educationCertificationForm.value[`levelOfDegree${item}`]
+    delete this.educationCertificationForm.value[`endDate${item}`]
+    delete this.educationCertificationForm.value[`eduOrCert${item}`]
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
   }
-
 }
