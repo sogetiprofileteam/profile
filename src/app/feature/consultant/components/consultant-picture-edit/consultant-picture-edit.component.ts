@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { takeUntil } from 'rxjs/operators';

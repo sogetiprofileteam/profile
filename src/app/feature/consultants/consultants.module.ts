@@ -8,7 +8,10 @@ import {
   ConsultantsRoutingModule,
 } from './index';
 
-import { MatButtonModule, MatExpansionModule, MatCheckboxModule, MatDividerModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 import { ConsultantsStoreService } from './services/consultants-store/consultants-store.service';
 
 @NgModule({
