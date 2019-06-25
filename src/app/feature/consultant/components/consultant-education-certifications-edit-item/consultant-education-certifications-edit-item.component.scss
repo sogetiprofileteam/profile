@@ -31,4 +31,8 @@ mat-expansion-panel mat-expansion-panel-header mat-panel-title b .title {
 	margin-top: 10px;
 }
 
+mat-dialog-content {
+	overflow: hidden !important;
+}
+
 

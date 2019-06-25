@@ -106,6 +106,11 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     delete this.educationCertificationForm.value[`levelOfDegree${item}`]
     delete this.educationCertificationForm.value[`endDate${item}`]
     delete this.educationCertificationForm.value[`eduOrCert${item}`]
+    delete this.educationCertificationForm.controls[`school${item}`]
+    delete this.educationCertificationForm.controls[`levelOfDegree${item}`]
+    delete this.educationCertificationForm.controls[`endDate${item}`]
+    delete this.educationCertificationForm.controls[`eduOrCert${item}`]
+    this.educationCertificationForm.setErrors(null)
   }
 
   ngOnDestroy(): void {
