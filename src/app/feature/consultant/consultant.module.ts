@@ -23,6 +23,8 @@ import {
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
   ConsultantSectionHeaderComponent,
+  ConsultantSummaryComponent,
+  ConsultantSummaryEditComponent,
   ConsultantCoreSkillsComponent,
   ConsultantSkillsEditComponent,
   ConsultantSkillsEditAddRemoveComponent,
@@ -47,6 +49,8 @@ import {
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
+    ConsultantSummaryComponent,
+    ConsultantSummaryEditComponent,
     ConsultantCoreSkillsComponent,
     ConsultantSkillsEditComponent,
     ConsultantSkillsEditAddRemoveComponent,
@@ -73,7 +77,7 @@ import {
     ReactiveFormsModule,
     ImageCropperModule
   ],
-  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent ],
+  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent, ConsultantSummaryEditComponent, ],
   providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 })
 export class ConsultantModule { }
