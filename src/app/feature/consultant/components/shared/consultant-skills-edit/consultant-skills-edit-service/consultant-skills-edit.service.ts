@@ -5,12 +5,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Subject, combineLatest, Observable, forkJoin, ReplaySubject } from 'rxjs';
 import { tap, takeUntil, map, switchMap } from 'rxjs/operators';
 
-import {
-  MatChipInputEvent,
-  MatAutocompleteSelectedEvent,
-  MatChip,
-  MatAutocomplete
-} from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChip } from '@angular/material/chips';
 
 import { differenceWith, isEqual, pick, merge } from 'lodash';
 

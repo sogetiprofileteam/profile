@@ -1,7 +1,7 @@
 import { Consultant } from '@core/models';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
