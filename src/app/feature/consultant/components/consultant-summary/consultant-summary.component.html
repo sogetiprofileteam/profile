@@ -5,6 +5,6 @@
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
-  <ng-container *ngFor="let summary of consultant.summary">
+  <ng-container *ngIf="consultant.summary">
     <p>{{consultant.summary}}</p>
   </ng-container>
