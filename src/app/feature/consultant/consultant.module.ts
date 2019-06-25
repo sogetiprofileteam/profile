@@ -15,8 +15,10 @@ import {
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
-	MatRadioModule,
-	MatExpansionModule
+  MatRadioModule,
+  MatExpansionModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import {
@@ -78,8 +80,10 @@ import { ConsultantEducationCertificationsEditItemComponent } from './components
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-		MatRadioModule,
-		MatExpansionModule
+    MatRadioModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [
     ConsultantHeaderEditComponent,
@@ -92,7 +96,8 @@ import { ConsultantEducationCertificationsEditItemComponent } from './components
     TechnicalSkillsService,
     CoreSkillsService,
     SkillsDataService,
-    ConsultantSkillsEditService
+    ConsultantSkillsEditService,
+    MatDatepickerModule
   ]
 })
 export class ConsultantModule { }

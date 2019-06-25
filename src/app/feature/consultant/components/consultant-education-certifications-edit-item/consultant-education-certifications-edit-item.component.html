@@ -34,9 +34,9 @@
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
-          {{endDateName}}
-          <mat-label>Year</mat-label>
-          <input matInput [formControlName]="endDateName" type="text">
+          <input matInput [formControlName]="endDateName" [matDatepicker]="myDatepicker">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="row">
