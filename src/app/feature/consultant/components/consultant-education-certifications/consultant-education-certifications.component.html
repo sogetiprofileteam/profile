@@ -5,15 +5,20 @@
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
-  <ng-container *ngFor="let education of consultant.education">
-    <p><b>{{education.school}}</b></p>
-    <p>{{education.levelOfDegree}}</p>
-    <p>{{education.endDate | date: 'shortDate'}}</p>
-  </ng-container>
-
-  <ng-container *ngFor="let certification of consultant.certifications">
-    <p><b>{{certification.name}}</b></p>
-    <!-- <p>certification.levelOfDegree{{certification.levelOfDegree}}</p> not part of database model yet-->
-    <p>{{certification.dateRecieved | date: 'shortDate'}} </p>
-  </ng-container>
+  <div class="container">
+    <div class="row">
+      <div class="col-6" *ngFor="let education of consultant.education">
+        <p><b>{{education.school}}</b></p>
+        <p>{{education.levelOfDegree}}</p>
+        <p>{{education.endDate | date: 'shortDate'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6" *ngFor="let certification of consultant.certifications">
+        <p><b>{{certification.name}}</b></p>
+        <!-- <p>certification.levelOfDegree{{certification.levelOfDegree}}</p> not part of database model yet-->
+        <p>{{certification.dateRecieved | date: 'shortDate'}} </p>
+      </div>
+    </div>
+  </div>
 </section>

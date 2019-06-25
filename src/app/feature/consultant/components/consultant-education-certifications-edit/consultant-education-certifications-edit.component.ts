@@ -28,7 +28,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     school0: ['', Validators.required],
     levelOfDegree0: ['', Validators.required],
     endDate0: [''],
-    eduOrCert0: ['1']
+    eduOrCert0: ['1', Validators.required]
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.educationCertificationForm.patchValue(consultant)));
@@ -59,7 +59,6 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
             //database doesnt support this yet so keep it out for now
             //title: updatedData.title
           }
-          //TODO this seems to sometimes push obj full of undefineded stuff, fix
           this.certificationArray.push(certification);
           updatedData.certifications = [...this.certificationArray];
         }
@@ -93,14 +92,14 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   }
 
   isLastPanel(index): boolean {
-    if(this.items.length === index + 1){
+    if (this.items.length === index + 1) {
       return true;
     } else {
       return false;
     }
   }
 
-  onDelete(item){
+  onDelete(item) {
     this.items.splice(this.items.indexOf(item), 1);
     delete this.educationCertificationForm.value[`school${item}`]
     delete this.educationCertificationForm.value[`levelOfDegree${item}`]

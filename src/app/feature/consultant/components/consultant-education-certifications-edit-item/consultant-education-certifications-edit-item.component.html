@@ -37,6 +37,7 @@
           <input matInput [formControlName]="endDateName" [matDatepicker]="myDatepicker">
           <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #myDatepicker></mat-datepicker>
+          <mat-error>Date is required</mat-error>
         </mat-form-field>
       </div>
       <div class="row">
