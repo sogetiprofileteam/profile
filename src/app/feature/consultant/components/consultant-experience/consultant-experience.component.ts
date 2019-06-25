@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { Experience } from '@core/models';
 import { MatDialog, MatDialogConfig, DialogPosition, MatDialogRef } from '@angular/material';
@@ -13,7 +13,7 @@ import { ConsultantExperienceCreateComponent } from '../consultant-experience-cr
   styleUrls: ['./consultant-experience.component.scss']
 })
 export class ConsultantExperienceComponent implements OnInit {
-
+  @Input() selectedIndex: number;
   constructor(
     private consultantStore: ConsultantStore,
     private dialog: MatDialog
@@ -28,16 +28,19 @@ export class ConsultantExperienceComponent implements OnInit {
     this.dialog.open(ConsultantExperienceCreateComponent);
   }
 
-  openEditExperienceDialog(selectedIndex) {
+  openEditExperienceDialog(selectedIndex:number) {
 
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.data = {
         index: selectedIndex
     };
+    this.selectedIndex = selectedIndex;
 
     const dialogRef =  this.dialog.open(ConsultantExperienceEditComponent, dialogConfig);
     console.log('Selectd Index: ' + selectedIndex);
+    console.log('this.selectedIndex: ' + this.selectedIndex);
     console.log('Dialoag ref: ' + dialogRef.id);
   }
+
 }

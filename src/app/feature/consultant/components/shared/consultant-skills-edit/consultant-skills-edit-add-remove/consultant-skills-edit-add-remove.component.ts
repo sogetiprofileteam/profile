@@ -28,8 +28,8 @@ import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantSkillsEditAddRemoveComponent {
-  @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('skillInput', {static: false}) skillInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   @Output() chipSelectionToggled = new EventEmitter<MatChip>();
   @Output() skillRemoved = new EventEmitter<SelectedSkill>();

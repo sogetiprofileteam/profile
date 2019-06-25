@@ -69,7 +69,9 @@
 </form>
 
 <mat-dialog-actions align="end">
-    <span align="left"> <button mat-raised-button color="warn" type="button" style="float: left" (click)="removeExperience()"> DELETE </button> </span>
+    <span align="left"> <button mat-raised-button color="warn" type="button" style="float: left" (click)="removeExperience(this,consultant$)"> DELETE </button> </span>
     <button mat-button type="button" (click)="close()">CANCEL</button>
     <button mat-raised-button color="primary" type="submit" form="experience-form">SAVE EXPERIENCE</button>
 </mat-dialog-actions>
+<button mat-raised-button type="button" style="float: left" (click)="deleteExp()"> DELETE </button>
+
