@@ -1,3 +1,4 @@
+import { Consultant } from '@core/models';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
@@ -7,7 +8,7 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 import { ConsultantHeaderEditComponent } from '../consultant-header-edit/consultant-header-edit.component';
 import { ConsultantPictureEditComponent } from '../consultant-picture-edit/consultant-picture-edit.component';
 
-import { ExportProfile } from '@feature/consultant/services/export-profile/export-profile.service';
+import { ExportProfile } from '@feature/consultant/components/consultant-header/export-profile';
 import { Packer } from 'docx';
 import { saveAs } from 'file-saver';
 
@@ -35,7 +36,7 @@ export class ConsultantHeaderComponent {
     this.dialog.open(ConsultantPictureEditComponent, { width: '500px' });
   }
 
-  exportProfile(consultant: any) {
+  exportProfile(consultant: Consultant) {
 
     const personal = [
       {
@@ -43,7 +44,7 @@ export class ConsultantHeaderComponent {
         firstName: consultant.firstName,
         lastName: consultant.lastName,
         status: consultant.status,
-        phone: consultant.phone,
+        phone: consultant.phone1,
         title: consultant.title,
         practice: consultant.practice,
         email: consultant.email,

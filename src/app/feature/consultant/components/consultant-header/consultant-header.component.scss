@@ -23,6 +23,7 @@ $export-button-position-sm: 6px;
         .export-button {
             bottom: $export-button-position-sm;
             left: $export-button-position-sm;
+            background-color: green
         }
     }
 
@@ -57,6 +58,7 @@ $export-button-position-sm: 6px;
     .export-button {
         bottom: $export-button-position-lg;
         left: $export-button-position-lg;
+        background-color: green
     }
 
     .picture-wrapper {
