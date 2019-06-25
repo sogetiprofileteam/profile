@@ -12,8 +12,8 @@
           <p>
             {{consultant.practice}}
           </p>  
-          <p>
-            Available: {{consultant.status}}
+          <p *ngIf="consultant.status">
+            Available: {{consultant.status.Name}}
           </p>
           <br/>
       </div>
