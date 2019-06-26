@@ -48,9 +48,9 @@ import {
   ConsultantExperienceEditComponent,
   ConsultantExperienceCreateComponent,
   ConsultantSectionExperienceHeaderComponent,
+  ConsultantExperienceDeleteDialogComponent
 
 } from './index';
-import { ConsultantExperienceDeleteDialogComponent } from './components/consultant-experience-edit/consultant-experience-delete-dialog/consultant-experience-delete-dialog.component';
 
 @NgModule({
   declarations: [
