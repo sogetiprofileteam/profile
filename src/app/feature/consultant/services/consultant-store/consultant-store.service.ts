@@ -24,7 +24,7 @@ export const blankConsultant: Consultant = {
       state: 'TX',
       zipCode: 78759
   },
-  phone1: 1234567890,
+  phone: 1234567890,
   urlLinkedIn: null,
   urlGitHub: null,
   urlWordpress: null,
