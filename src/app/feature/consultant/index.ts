@@ -22,4 +22,5 @@ export * from './consultant-routing.module';
 export * from './services/technical-skills-data/technical-skills-data.service';
 export * from './services/core-skills-data/core-skills-data.service';
 export * from './services/skills-data/skills-data.service';
+export * from './services/consultant-experience-delete-dialog/consultant-experience-delete-dialog.service';
 export * from './components/shared/consultant-skills-edit/consultant-skills-edit-service/consultant-skills-edit.service';

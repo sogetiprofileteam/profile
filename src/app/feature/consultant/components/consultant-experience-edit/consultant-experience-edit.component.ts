@@ -14,6 +14,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { ConsultantStore } from "@feature/consultant/services/consultant-store/consultant-store.service";
 import { Experience, Consultant } from "@core/models";
 import { growShrink } from "@shared/animations/grow-shrink";
+import { ConsultantExperienceDeleteDialogService } from '@feature/consultant/services/consultant-experience-delete-dialog/consultant-experience-delete-dialog.service';
 
 @Component({
   selector: "app-consultant-experience-edit",
@@ -27,7 +28,8 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data,
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantExperienceEditComponent>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private deleteDialogService: ConsultantExperienceDeleteDialogService
   ) {}
 
   get companyName() {
@@ -116,46 +118,34 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeExperience(consultant: Consultant, index: number): void {
-    const newExperience = { ...consultant.experience };
-    newExperience.splice(index, 1);
-    console.log("index = " + index);
-    this.consultantStore.updateConsultant(this.consultant)
+// Locates by Index
+deleteExperience(): void {
+    this.deleteDialogService.openDeleteDialog('Are you sure you want to delete this experience? ')
+    .afterClosed().subscribe(res =>{
+      if(res){
+          //Delete functionality
+          const updatedExperience = [...this.consultantStore.consultant.experience];
+          updatedExperience.splice(this.data.index, 1);
+
+          this.consultantStore.updateConsultant({experience: updatedExperience})
+          .pipe(takeUntil(this._destroy$))
+          .subscribe(() => this.close());
+      }
+    });
+
+
+}
+
+deleteExper(): void {
+  const updatedExp = [ ...this.consultantStore.consultant.experience ];
+  updatedExp.splice(this.data.index, 1);
+
+//let updatedExperience = [...this.consultantStore.consultant.experience];
+  this.consultantStore.updateConsultant({ experience: updatedExp })
     .pipe(takeUntil(this._destroy$))
     .subscribe(() => this.close());
 
 }
-// by Index
-deleteExp(consultant: Consultant, experience:Experience): void {
-
-  experience = this.consultantStore.consultant.experience[this.data.index];
-  const index = this.consultantStore.consultant.experience.indexOf(experience);
-
-  const tracker= experience.companyName;
-  let updatedExperience = [...this.consultantStore.consultant.experience];
-
-  //--------------------START CONSOLE LOGS ---------------------------------
-  console.log("Index = " + tracker );
-  console.log("updatedEx = " + updatedExperience );
-  if(this.data.index === index){
-    console.log("Match! this.data.index = " + this.data.index + " and " + "splice index info = " + index );
-  }
-  console.log("Updated Splice: " + updatedExperience.splice(index, 1));
-  //--------------------END CONSOLE LOGS ---------------------------------
-
-  updatedExperience.splice(index, 1);
-
-  //check logs to see if list is updated
-  this.consultantStore.consultant.experience.forEach(element => {
-    console.log("Array List " + element.companyName);
-  });
-
-  this.consultantStore.updateConsultant(this.consultantStore.consultant)
-  .pipe(takeUntil(this._destroy$))
-  .subscribe(() => this.close());
-
-}
-
 
     // const index = this.consultantStore.consultant.experience.indexOf(experience);
     // const updatedExperience = [...this.consultantStore.consultant.experience];
