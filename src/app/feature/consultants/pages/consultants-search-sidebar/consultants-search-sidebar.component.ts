@@ -11,5 +11,4 @@ export class ConsultantsSearchSidebarComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

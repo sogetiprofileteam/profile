@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
 import { ConsultantsStoreService } from './services/consultants-store/consultants-store.service';
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ConsultantsStoreService } from './services/consultants-store/consultant
     MatButtonModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatRadioModule
   ],
   providers: [ConsultantsStoreService]
 })

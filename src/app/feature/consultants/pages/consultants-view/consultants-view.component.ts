@@ -16,7 +16,10 @@ export class ConsultantsViewComponent implements OnInit {
   constructor(private consultantsService: ConsultantsStoreService) {
     this.consultantsService.initConsultants();
   }
-  filter = { mens: true, womens: true, kids: true };
+
+  practiceFilter = new Array();
+  statusFilter = new Array();
+  filter = { statusFilter: Array, practiceFilter: Array};
   consultants$: Observable<ConsultantSearch[]>;
   filteredConsultants$: Observable<ConsultantSearch[]>;
 
@@ -25,17 +28,45 @@ export class ConsultantsViewComponent implements OnInit {
     this.filteredConsultants$ = this.consultants$;
   }
 
-  filterChange() {
+  filterChange(status: string, practice: string, coreskill: string, techskills: string,
+               grade: string, certifications: string, roles: string) {
   //   this.filteredConsultants$ = this.filteredConsultants$.filter(x =>
   //     (x.practice === 'Applications & Cloud Technology' && this.filter.kids)
   //     || (x.practice === 'Digital Transformation' && this.filter.mens)
   //     || (x.practice === 'Cloud' && this.filter.womens)
   //  );
-
-    this.filteredConsultants$ = this.consultants$.pipe(
-      map((consultants: ConsultantSearch[]) => consultants.filter(c => c.practice.includes('ACT')) )
-    );
-    console.log('box clicked');
+    this.filteredConsultants$ = this.consultants$;
+    if (status !== '' && this.filter.statusFilter.length > 1) {
+      console.log('status btn clicked: ' + status + ' filter status:' + this.filter.statusFilter.length);
+      this.filteredConsultants$ = this.consultants$.pipe(
+        map((consultants: ConsultantSearch[]) => consultants.filter(c => c.status.name.startsWith(status)) )
+      );
+    }
+    if (practice !== '' || this.filter.practiceFilter.length > 1) {
+      console.log('practice btn clicked: ' + practice + ' filter practice:' + this.filter.practiceFilter.length);
+      if (this.practiceFilter.includes(practice)) {
+        this.practiceFilter.sort();
+        const index = this.practiceFilter.indexOf(practice);
+        this.practiceFilter.splice(index, 1);
+      } else {
+        this.practiceFilter.push(practice);
+      }
+      console.log('practiceFilterlength: ' + this.practiceFilter.length);
+      /* Use this later when doing multiple filters.... maybe
+      this.practiceFilter.forEach((filter: string) => {
+        this.filteredConsultants$ = this.consultants$.pipe(
+          map((consultants: ConsultantSearch[]) => consultants.filter(c => c.practice.includes(filter)) )
+        );
+        console.log(filter);
+      }); */
+      this.filteredConsultants$ = this.consultants$.pipe(
+        map((consultants: ConsultantSearch[]) => consultants.filter(c => c.practice.includes(practice)) )
+      );
+      // this.filteredConsultants$ = this.consultants$.pipe(
+      //   map((consultants: ConsultantSearch[]) => consultants.filter(c => c.practice.includes(practice)) )
+      // );
+    } else {
+      this.filteredConsultants$ = this.consultants$;
+    }
   }
-
 }

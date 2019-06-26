@@ -2,12 +2,101 @@
   <div class="col-md-3">
     <button mat-raised-button color="primary" class="add-button" [routerLink]="['/consultant']">ADD NEW CONSULTANT</button>
     <div class="search-panel">
-        <app-consultants-search-sidebar></app-consultants-search-sidebar>
+        <!-- <app-consultants-search-sidebar></app-consultants-search-sidebar> -->
+        <mat-accordion multi="true">
+          <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Status
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox (click)="filterChange('ATO','','','','','','')">ATO</mat-checkbox><br/>
+            <mat-checkbox (click)="filterChange('At Client','','','','','','')">At Client</mat-checkbox>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Practice
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-radio-group>
+              <mat-radio-button value='All' (click)="filterChange('','','','','','','')" checked>All Practices</mat-radio-button>
+              <mat-radio-button value='Applications & Cloud Technology' (click)="filterChange('','Applications & Cloud Technology','','','','','')">Applications & Cloud Tech...</mat-radio-button>
+              <mat-radio-button value='Digital Assurance & Testing' (click)="filterChange('','Digital Assurance & Testing','','','','','')">Digital Assurance & Testing</mat-radio-button>
+              <mat-radio-button value='Digital Manufacturing' (click)="filterChange('','Digital Manufacturing','','','','','')">Digital Manufacturing</mat-radio-button>
+              <mat-radio-button value='Digital Transformation' (click)="filterChange('','Digital Transformation','','','','','')">Digital Transformation</mat-radio-button>
+              <mat-radio-button value='Insights & Data' (click)="filterChange('','Insights & Data','','','','','')">Insights & Data</mat-radio-button>
+            </mat-radio-group>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Core Skills
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox>Conflict Resolution</mat-checkbox><br/>
+            <mat-checkbox>Decision Making</mat-checkbox><br/>
+            <mat-checkbox>Adaptability</mat-checkbox><br/>
+            <mat-checkbox>Analytical Thinking</mat-checkbox><br/>
+            <mat-checkbox>Communication</mat-checkbox><br/>
+          </mat-expansion-panel>
+        
+          <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Technical Skills
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox>Angular</mat-checkbox><br/>
+            <mat-checkbox>ASP.NET</mat-checkbox><br/>
+            <mat-checkbox>C#</mat-checkbox><br/>
+            <mat-checkbox>ElasticSearch</mat-checkbox><br/>
+            <mat-checkbox>SQL</mat-checkbox><br/>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Grade
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox>A1</mat-checkbox><br/>
+            <mat-checkbox>A2</mat-checkbox><br/>
+            <mat-checkbox>B</mat-checkbox><br/>
+            <mat-checkbox>C</mat-checkbox><br/>
+            <mat-checkbox>D1</mat-checkbox><br/>
+            <mat-checkbox>D2</mat-checkbox><br/>
+            <mat-checkbox>E</mat-checkbox><br/>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Certifications
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox>AWS</mat-checkbox><br/>
+            <mat-checkbox>Azure</mat-checkbox><br/>
+            <mat-checkbox>Google</mat-checkbox>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Roles
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox>Role 1</mat-checkbox><br/>
+            <mat-checkbox>Role 2</mat-checkbox><br/>
+            <mat-checkbox>Role 3</mat-checkbox>
+          </mat-expansion-panel>
+        </mat-accordion>
     </div>
-    <button mat-raised-button (click)="filterChange()">ATO</button>
   </div>
   <div class="col-md-9">
-    <div class="row" *ngFor="let consultant of filteredConsultants$ | async">
+    <div class="row" *ngFor="let consultant of filteredConsultants$ | async ">
       <app-consultants-profile-display [consultant]="consultant" style="width:100%;"></app-consultants-profile-display>
     </div>
   </div>
