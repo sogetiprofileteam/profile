@@ -7,22 +7,22 @@
 <section *ngIf="consultant$ | async as consultant">
   <div class="container">
     <div class="row">
-      <div class="col-6" *ngFor="let education of consultant.education">
+      <div class="col-6" *ngFor="let education of consultant.education; index as i">
         <app-consultant-edu-cert-section-header
           title="{{education.school}}"
           icon="edit"
-          (actionClicked)="openEditCertificationEducationDialog()">
+          (actionClicked)="openEditCertificationEducationDialog(i)">
         </app-consultant-edu-cert-section-header>
         <p>{{education.levelOfDegree}}</p>
         <p>{{education.endDate | date: 'shortDate'}}</p>
       </div>
     </div>
     <div class="row">
-      <div class="col-6" *ngFor="let certification of consultant.certifications">
+      <div class="col-6" *ngFor="let certification of consultant.certificationsl; index as i">
           <app-consultant-edu-cert-section-header
           title="{{certification.name}}"
           icon="edit"
-          (actionClicked)="openEditCertificationEducationDialog()">
+          (actionClicked)="openEditCertificationEducationDialog(i)">
         </app-consultant-edu-cert-section-header>
         <!-- <p>certification.levelOfDegree{{certification.levelOfDegree}}</p> not part of database model yet-->
         <p>{{certification.dateRecieved | date: 'shortDate'}} </p>

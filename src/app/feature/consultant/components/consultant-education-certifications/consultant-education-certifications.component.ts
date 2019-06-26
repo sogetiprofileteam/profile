@@ -25,8 +25,13 @@ export class ConsultantEducationCertificationsComponent implements OnInit {
     this.dialog.open(ConsultantEducationCertificationsEditComponents);
   }
 
-  openEditCertificationEducationDialog() {
-    this.dialog.open(ConsultantEducationCertificationsExistingEditComponent);
+  openEditCertificationEducationDialog(index) {
+    console.log("index; ", index)
+    this.dialog.open(ConsultantEducationCertificationsExistingEditComponent, {
+      data: {
+        index: index
+      }
+    });
   }
 
 }

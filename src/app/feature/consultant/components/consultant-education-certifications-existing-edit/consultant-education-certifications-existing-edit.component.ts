@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant';
 import { MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import {MAT_DIALOG_DATA} from '@angular/material'
 
 @Component({
   selector: 'app-consultant-education-certifications-existing-edit',
@@ -13,6 +14,7 @@ import { Subject } from 'rxjs';
 export class ConsultantEducationCertificationsExistingEditComponent implements OnInit {
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantEducationCertificationsExistingEditComponent>,
     private formBuilder: FormBuilder
@@ -45,6 +47,12 @@ export class ConsultantEducationCertificationsExistingEditComponent implements O
   updateConsultant() {
     if (this.educationCertificationForm.valid) {
       const updatedData = this.getFormData();
+      // console.log("updateConsultant.this.consultantStore: ", this.consultantStore)
+      console.log("updateConsultant.this.educationCertificationForm", this.educationCertificationForm)
+      // this.consultantStore.consultant$.experience[
+      //   this.data.index
+      // ] = updatedData;
+      console.log("updateConsultant.this.data.index: ", this.data.index)
       console.log("updateConsultant.updatedData: ", updatedData)
       if (updatedData.eduOrCert0 === '1') {
         var education = {
@@ -54,7 +62,6 @@ export class ConsultantEducationCertificationsExistingEditComponent implements O
         }
         updatedData.education = [education];
       } else {
-        console.log("updateConsultant.updatedata else: ", updatedData)
         var certification = {
           dateRecieved: updatedData.endDate0,
           name: updatedData.school0,
@@ -63,11 +70,13 @@ export class ConsultantEducationCertificationsExistingEditComponent implements O
         }
         updatedData.certifications = [certification];
       }
-
+      console.log("updateConsultant.updatedData: ", updatedData)
+      //i dont need to updateConsoultant the consultant object already has it
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
-      console.log("updateConsultant.this.educationCertificationForm", this.educationCertificationForm)
+      
+      this.educationCertificationForm.reset({});
     }
   }
 

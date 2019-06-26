@@ -67,6 +67,11 @@ export class ConsultantStore implements OnDestroy {
    */
   private updatedConsultantFactory(data): Consultant {
     // Copy current consultant to preserve immutability
+
+    //redo the index thing again with this.condultant.education[this.data.index] = blah etc
+    //it might have been working.  it seems i got messed up by the console log doing its thing
+    console.log("updatedConsultantFactory.data: ", data)
+    console.log("this.consultant: ", this.consultant)
     var consultantCopy: Consultant;
     if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
       var eduOrCertVal: string = "-1";
