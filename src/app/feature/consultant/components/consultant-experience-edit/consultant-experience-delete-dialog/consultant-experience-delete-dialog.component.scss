@@ -1,5 +1,5 @@
+@import "variables";
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
  /* for dialog pop-up */
         .btn-dialog-close{
@@ -30,7 +30,6 @@ cursor: pointer;
 .confirm-dialog-container #no-button{
 height: 50px;
 width: 50%;
-background-color: #fc7169;
 color:white;
 border-radius: 0px;
 }
@@ -38,7 +37,6 @@ border-radius: 0px;
 .confirm-dialog-container #yes-button{
     height: 50px;
     width: 50%;
-    background-color: #b6bece;
     color:white;
     border-radius: 0px;
 }

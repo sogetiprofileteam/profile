@@ -4,28 +4,22 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Inject
-} from '@angular/core';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
-import { tap, takeUntil, map } from 'rxjs/operators';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
+} from "@angular/core";
+import { FormBuilder, Validators, FormArray } from "@angular/forms";
+import { tap, takeUntil, map } from "rxjs/operators";
+import { Subject, BehaviorSubject, Observable } from "rxjs";
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
-<<<<<<< HEAD
 import { ConsultantStore } from "@feature/consultant/services/consultant-store/consultant-store.service";
-import { Experience, Consultant } from "@core/models";
+import { Experience } from "@core/models";
 import { growShrink } from "@shared/animations/grow-shrink";
-import { ConsultantExperienceDeleteDialogService } from '@feature/consultant/services/consultant-experience-delete-dialog/consultant-experience-delete-dialog.service';
-=======
-import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Experience, Consultant } from '@core/models';
-import { growShrink } from '@shared/animations/grow-shrink';
->>>>>>> 02a9404e79647f27cad8dde45e3319575493021c
+import { ConsultantExperienceDeleteDialogService } from "@feature/consultant/services/consultant-experience-delete-dialog/consultant-experience-delete-dialog.service";
 
 @Component({
-  selector: 'app-consultant-experience-edit',
-  templateUrl: './consultant-experience-edit.component.html',
-  styleUrls: ['./consultant-experience-edit.component.scss'],
+  selector: "app-consultant-experience-edit",
+  templateUrl: "./consultant-experience-edit.component.html",
+  styleUrls: ["./consultant-experience-edit.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [growShrink]
 })
@@ -39,23 +33,23 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
   ) {}
 
   get companyName() {
-    return this.experienceForm.get('companyName');
+    return this.experienceForm.get("companyName");
   }
 
   get title() {
-    return this.experienceForm.get('title');
+    return this.experienceForm.get("title");
   }
 
   get startDate() {
-    return this.experienceForm.get('startDate');
+    return this.experienceForm.get("startDate");
   }
 
   get endDate() {
-    return this.experienceForm.get('endDate');
+    return this.experienceForm.get("endDate");
   }
 
   get descriptions() {
-    return this.experienceForm.get('descriptions') as FormArray;
+    return this.experienceForm.get("descriptions") as FormArray;
   }
 
   private _destroy$ = new Subject();
@@ -71,11 +65,11 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
   currentPositionControl = this.formBuilder.control(null);
 
   experienceForm = this.formBuilder.group({
-    id: [''],
-    companyName: ['', Validators.required],
-    title: ['', Validators.required],
-    startDate: ['', [Validators.required]],
-    endDate: [''],
+    id: [""],
+    companyName: ["", Validators.required],
+    title: ["", Validators.required],
+    startDate: ["", [Validators.required]],
+    endDate: [""],
     descriptions: this.formBuilder.array([])
   });
   consultant: Experience;
@@ -113,7 +107,7 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
 
   updateConsultant(): void {
     if (this.experienceForm.valid) {
-      console.log('Experience form is valid');
+      console.log("Experience form is valid");
       this.consultantStore.consultant.experience[
         this.data.index
       ] = this.experienceForm.value;
@@ -125,27 +119,29 @@ export class ConsultantExperienceEditComponent implements OnInit, OnDestroy {
     }
   }
 
-// Locates by Index
-deleteExperience(): void {
-    this.deleteDialogService.openDeleteDialog('Are you sure you want to delete this experience? ')
-    .afterClosed().subscribe(res =>{
-      if(res){
+  // Locates by Index
+  deleteExperience(): void {
+    this.deleteDialogService
+      .openDeleteDialog("Are you sure you want to delete this experience? ")
+      .afterClosed()
+      .subscribe(res => {
+        if (res) {
           //Delete functionality
-          const updatedExperience = [...this.consultantStore.consultant.experience];
+          const updatedExperience = [
+            ...this.consultantStore.consultant.experience
+          ];
           updatedExperience.splice(this.data.index, 1);
 
-          this.consultantStore.updateConsultant({experience: updatedExperience})
-          .pipe(takeUntil(this._destroy$))
-          .subscribe(() => this.close());
-      }
-    });
-
-
-}
-
+          this.consultantStore
+            .updateConsultant({ experience: updatedExperience })
+            .pipe(takeUntil(this._destroy$))
+            .subscribe(() => this.close());
+        }
+      });
+  }
 
   getFormData(): Experience {
-    console.log('Form Data Value: ' + this.experienceForm.value);
+    console.log("Form Data Value: " + this.experienceForm.value);
     return this.experienceForm.value as Experience;
   }
 

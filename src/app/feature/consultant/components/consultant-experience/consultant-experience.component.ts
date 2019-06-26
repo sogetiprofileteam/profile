@@ -38,9 +38,6 @@ export class ConsultantExperienceComponent implements OnInit {
     this.selectedIndex = selectedIndex;
 
     const dialogRef =  this.dialog.open(ConsultantExperienceEditComponent, dialogConfig);
-    console.log('Selectd Index: ' + selectedIndex);
-    console.log('this.selectedIndex: ' + this.selectedIndex);
-    console.log('Dialoag ref: ' + dialogRef.id);
   }
 
 }

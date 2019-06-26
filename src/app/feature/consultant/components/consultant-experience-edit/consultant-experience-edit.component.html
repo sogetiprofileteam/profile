@@ -68,9 +68,9 @@
     </mat-dialog-content>
 </form>
 
-<mat-dialog-actions align="end">
-    <span align="left"> <button mat-raised-button color="warn" type="button" style="float: left" (click)="deleteExperience()"> DELETE </button> </span>
-    <button mat-button type="button" (click)="close()">CANCEL</button>
-    <button mat-raised-button color="primary" type="submit" form="experience-form">SAVE EXPERIENCE</button>
+<mat-dialog-actions align="end" >
+    <button mat-raised-button color="warn" class="myButton" type="button" (click)="deleteExperience()" style=" display:inline-block;"> DELETE </button>
+    <button mat-button type="button" class="myButton" style=" display:inline-block;" (click)="close()"> CANCEL </button>
+    <button mat-raised-button color="primary"  class="myButton" style=" display:inline-block;" type="submit" form="experience-form" > SAVE EXPERIENCE</button>
 </mat-dialog-actions>
 

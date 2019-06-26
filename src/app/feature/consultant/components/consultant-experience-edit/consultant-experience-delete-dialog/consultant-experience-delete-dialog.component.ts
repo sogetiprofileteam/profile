@@ -1,3 +1,6 @@
+/*
+ *SUMMARY: This is for the Dialog box that shows up once user clicks "Delete" from the experience-edit component
+*/
 import { ConsultantExperienceEditComponent } from './../consultant-experience-edit.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Component, OnInit, Input, Inject } from '@angular/core';

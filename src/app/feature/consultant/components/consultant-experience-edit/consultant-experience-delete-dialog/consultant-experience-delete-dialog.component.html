@@ -3,8 +3,9 @@
     <div class="content-container" style="padding-bottom: 20px">
     <span align="right" class="xButton"><mat-icon id="close-icon" (click)="close()">close</mat-icon></span>
     <br>
-        <span class="content-span full-width"> {{ data.message }} </span>
+        <span class="content-span full-width" style="font-size: 15px"> {{ data.message }} </span>
     </div>
   <button mat-raised-button color="primary" id="no-button" [mat-dialog-close]="false">NO</button>
-  <button mat-button id="yes-button" style="color:red" [mat-dialog-close]="true">YES</button>
+  <button mat-raised-button id="yes-button" color="warn" style="color:white; float:right" [mat-dialog-close]="true">YES</button>
 </mat-dialog-content>
+
