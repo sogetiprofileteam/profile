@@ -78,7 +78,6 @@ export class ConsultantStore implements OnDestroy {
       })
 
       if (eduOrCertVal === "1") {
-        
         consultantCopy = {
           ...this.consultant,
           ...data,

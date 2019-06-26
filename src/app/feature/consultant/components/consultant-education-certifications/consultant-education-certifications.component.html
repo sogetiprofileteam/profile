@@ -1,21 +1,29 @@
 <app-consultant-section-header 
   title="Education & Certifications" 
   icon="add" 
-  (actionClicked)="openEditCertificationEducationDialog()">
+  (actionClicked)="openCreateCertificationEducationDialog()">
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
   <div class="container">
     <div class="row">
       <div class="col-6" *ngFor="let education of consultant.education">
-        <p><b>{{education.school}}</b></p>
+        <app-consultant-edu-cert-section-header
+          title="{{education.school}}"
+          icon="edit"
+          (actionClicked)="openEditCertificationEducationDialog()">
+        </app-consultant-edu-cert-section-header>
         <p>{{education.levelOfDegree}}</p>
         <p>{{education.endDate | date: 'shortDate'}}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-6" *ngFor="let certification of consultant.certifications">
-        <p><b>{{certification.name}}</b></p>
+          <app-consultant-edu-cert-section-header
+          title="{{certification.name}}"
+          icon="edit"
+          (actionClicked)="openEditCertificationEducationDialog()">
+        </app-consultant-edu-cert-section-header>
         <!-- <p>certification.levelOfDegree{{certification.levelOfDegree}}</p> not part of database model yet-->
         <p>{{certification.dateRecieved | date: 'shortDate'}} </p>
       </div>

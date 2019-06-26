@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantEducationCertificationsEditComponents } from '../consultant-education-certifications-edit/consultant-education-certifications-edit.component';
 import { MatDialog } from '@angular/material';
+import { ConsultantEducationCertificationsExistingEditComponent } from '../consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
 
 @Component({
   selector: 'app-consultant-education-certifications',
@@ -20,8 +21,12 @@ export class ConsultantEducationCertificationsComponent implements OnInit {
   ngOnInit() {
   }
 
-  openEditCertificationEducationDialog() {
+  openCreateCertificationEducationDialog() {
     this.dialog.open(ConsultantEducationCertificationsEditComponents);
+  }
+
+  openEditCertificationEducationDialog() {
+    this.dialog.open(ConsultantEducationCertificationsExistingEditComponent);
   }
 
 }

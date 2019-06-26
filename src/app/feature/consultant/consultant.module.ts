@@ -45,6 +45,8 @@ import {
   ConsultantSkillsEditService
 } from './index';
 import { ConsultantEducationCertificationsEditItemComponent } from './components/consultant-education-certifications-edit-item/consultant-education-certifications-edit-item.component';
+import { ConsultantEducationCertificationsExistingEditComponent } from './components/consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
+import { ConsultantEduCertSectionHeaderComponent } from './components/shared/consultant-edu-cert-section-header/consultant-edu-cert-section-header.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { ConsultantEducationCertificationsEditItemComponent } from './components
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
-    ConsultantEducationCertificationsEditItemComponent
+    ConsultantEducationCertificationsEditItemComponent,
+    ConsultantEducationCertificationsExistingEditComponent,
+    ConsultantEduCertSectionHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -89,7 +93,8 @@ import { ConsultantEducationCertificationsEditItemComponent } from './components
     ConsultantHeaderEditComponent,
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
-    ConsultantEducationCertificationsEditComponents
+    ConsultantEducationCertificationsEditComponents,
+    ConsultantEducationCertificationsExistingEditComponent
   ],
   providers: [
     ConsultantStore,
