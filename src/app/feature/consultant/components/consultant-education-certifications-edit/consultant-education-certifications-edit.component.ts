@@ -86,7 +86,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     return this.educationCertificationForm.value;
   }
 
-  isLastPanel(index): boolean {
+  isLastPanel(index: number ): boolean {
     if (this.items.length === index + 1) {
       return true;
     } else {
@@ -94,17 +94,13 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     }
   }
 
-  onDelete(item) {
+  onDelete(item: number) {
     this.items.splice(this.items.indexOf(item), 1);
-    delete this.educationCertificationForm.value[`school${item}`]
-    delete this.educationCertificationForm.value[`levelOfDegree${item}`]
-    delete this.educationCertificationForm.value[`endDate${item}`]
-    delete this.educationCertificationForm.value[`eduOrCert${item}`]
-    delete this.educationCertificationForm.controls[`school${item}`]
-    delete this.educationCertificationForm.controls[`levelOfDegree${item}`]
-    delete this.educationCertificationForm.controls[`endDate${item}`]
-    delete this.educationCertificationForm.controls[`eduOrCert${item}`]
-    this.educationCertificationForm.setErrors(null)
+    this.educationCertificationForm.removeControl(`school${item}`);
+    this.educationCertificationForm.removeControl(`levelOfDegree${item}`);
+    this.educationCertificationForm.removeControl(`endDate${item}`);
+    this.educationCertificationForm.removeControl(`eduOrCert${item}`);
+    this.educationCertificationForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {

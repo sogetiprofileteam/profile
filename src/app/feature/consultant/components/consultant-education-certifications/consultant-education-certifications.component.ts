@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 import { ConsultantEducationCertificationsEditComponents } from '../consultant-education-certifications-edit/consultant-education-certifications-edit.component';
 import { MatDialog } from '@angular/material';
@@ -9,7 +9,7 @@ import { ConsultantEducationCertificationsExistingEditComponent } from '../consu
   templateUrl: './consultant-education-certifications.component.html',
   styleUrls: ['./consultant-education-certifications.component.scss']
 })
-export class ConsultantEducationCertificationsComponent implements OnInit {
+export class ConsultantEducationCertificationsComponent {
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -18,15 +18,11 @@ export class ConsultantEducationCertificationsComponent implements OnInit {
 
   consultant$ = this.consultantStore.consultant$;
 
-  ngOnInit() {
-  }
-
   openCreateCertificationEducationDialog() {
     this.dialog.open(ConsultantEducationCertificationsEditComponents);
   }
 
-  openEditCertificationEducationDialog(edoOrCert, index) {
-    console.log("index; ", index)
+  openEditCertificationEducationDialog(edoOrCert: string, index: number) {
     this.dialog.open(ConsultantEducationCertificationsExistingEditComponent, {
       data: {
         index: index,

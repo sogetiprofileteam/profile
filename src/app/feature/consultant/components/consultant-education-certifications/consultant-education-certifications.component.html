@@ -11,7 +11,8 @@
         <app-consultant-edu-cert-section-header
           title="{{education.school}}"
           icon="edit"
-          (actionClicked)="openEditCertificationEducationDialog(i)">
+          (actionClicked)="openEditCertificationEducationDialog($event, i)"
+          eduOrCert="1">
         </app-consultant-edu-cert-section-header>
         <p>{{education.levelOfDegree}}</p>
         <p>{{education.endDate | date: 'shortDate'}}</p>
@@ -22,7 +23,8 @@
           <app-consultant-edu-cert-section-header
           title="{{certification.name}}"
           icon="edit"
-          (actionClicked)="openEditCertificationEducationDialog(i)">
+          (actionClicked)="openEditCertificationEducationDialog($event, i)"
+          eduOrCert="2">
         </app-consultant-edu-cert-section-header>
         <!-- <p>certification.levelOfDegree{{certification.levelOfDegree}}</p> not part of database model yet-->
         <p>{{certification.dateRecieved | date: 'shortDate'}} </p>

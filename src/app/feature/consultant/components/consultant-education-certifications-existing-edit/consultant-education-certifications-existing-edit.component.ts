@@ -5,13 +5,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material'
+import { Education, Certification } from '@core/models';
 
 @Component({
   selector: 'app-consultant-education-certifications-existing-edit',
   templateUrl: './consultant-education-certifications-existing-edit.component.html',
   styleUrls: ['./consultant-education-certifications-existing-edit.component.scss']
 })
-export class ConsultantEducationCertificationsExistingEditComponent implements OnInit {
+export class ConsultantEducationCertificationsExistingEditComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,20 +30,17 @@ export class ConsultantEducationCertificationsExistingEditComponent implements O
 
   consultant$ = this.consultantStore.consultant$.pipe(
     tap(consultant => {
-      console.log("this.data.eduOrCert: ", this.data.eduOrCert)
       if (this.data.eduOrCert === "1") {
         const education = consultant.education[this.data.index];
-        console.log("education: ", education)
         this.patchForm(education);
       } else {
         const cert = consultant.certifications[this.data.index];
-        console.log("certs: ", cert)
         this.patchCertForm(cert);
       }
     })
   );
 
-  patchForm(education) {
+  patchForm(education: Education) {
     this.educationCertificationForm.patchValue({
       endDate0: education.endDate,
       levelOfDegree0: education.levelOfDegree,
@@ -51,7 +49,7 @@ export class ConsultantEducationCertificationsExistingEditComponent implements O
     })
   }
 
-  patchCertForm(cert) {
+  patchCertForm(cert: Certification) {
     this.educationCertificationForm.patchValue({
       endDate0: cert.dateRecieved,
       levelOfDegree: " ", //not part of backend yet
@@ -61,8 +59,6 @@ export class ConsultantEducationCertificationsExistingEditComponent implements O
   }
 
   destroy$ = new Subject();
-
-  ngOnInit() { }
 
   updateConsultant() {
     if (this.educationCertificationForm.valid) {

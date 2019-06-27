@@ -30,7 +30,7 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
     }
   }
 
-  onDelete(item) {
+  onDelete(item: number) {
     this.onDeleteEvent.emit(item);
   }
 }
