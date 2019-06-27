@@ -1,7 +1,7 @@
 <mat-expansion-panel [expanded]="panelOpen">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <b> 
+      <b>
         <span class="circle">{{item + 1}}</span> {{"&nbsp;&nbsp;"}}
         <span class="title">Edit Education & Certification</span>
       </b>
@@ -11,14 +11,12 @@
     <div class="container">
       <div class="row" class="text-field">
         <mat-radio-group aria-label="Select an option" [formControlName]="eduOrCertName">
-          {{eduOrCertName}}
           <mat-radio-button value="1">Education</mat-radio-button>
           <mat-radio-button value="2">Certifcation</mat-radio-button>
         </mat-radio-group>
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
-          {{schoolName}}
           <mat-label>Institute Name</mat-label>
           <input matInput [formControlName]="schoolName" type="text">
           <mat-error>Institute Name is required</mat-error>
@@ -26,7 +24,6 @@
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
-          {{levelOfDegreeName}}
           <mat-label>Achievement Title</mat-label>
           <input matInput [formControlName]="levelOfDegreeName" type="text">
           <mat-error>Title is required</mat-error>
@@ -34,6 +31,7 @@
       </div>
       <div class="row">
         <mat-form-field class="full-width" display="flex">
+          <mat-label>Date</mat-label>
           <input matInput [formControlName]="endDateName" [matDatepicker]="myDatepicker">
           <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #myDatepicker></mat-datepicker>

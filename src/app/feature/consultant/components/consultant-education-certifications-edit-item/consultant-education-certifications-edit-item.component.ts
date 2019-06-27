@@ -25,12 +25,12 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
     this.schoolName = `school${this.item}`;
     this.levelOfDegreeName = `levelOfDegree${this.item}`;
     this.endDateName = `endDate${this.item}`;
-    if( this.item === 0) {
+    if (this.item === 0) {
       this.parentForm.reset()
     }
   }
 
-  onDelete(item){
+  onDelete(item) {
     this.onDeleteEvent.emit(item);
   }
 }

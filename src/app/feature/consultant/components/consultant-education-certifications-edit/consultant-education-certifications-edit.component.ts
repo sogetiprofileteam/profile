@@ -2,9 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
 import { MatDialogRef } from '@angular/material';
-
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
 @Component({
@@ -42,7 +40,6 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     if (this.educationCertificationForm.valid) {
       const updatedData = this.getFormData();
       for (let i = 0; i < this.items.length; i++) {
-        console.log("items: ", this.items)
         if (updatedData[`eduOrCert${this.items[i]}`] === '1') {
           var education = {
             levelOfDegree: updatedData[`levelOfDegree${this.items[i]}`],
@@ -52,7 +49,6 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
           this.educationArray.push(education);
           updatedData.education = [...this.educationArray];
         } else {
-          console.log("here updatedata: ", updatedData)
           var certification = {
             dateRecieved: updatedData[`endDate${this.items[i]}`],
             name: updatedData[`school${this.items[i]}`],
@@ -63,7 +59,6 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
           updatedData.certifications = [...this.certificationArray];
         }
       }
-      console.log("updateConsultant.updatedData: ", updatedData)
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());

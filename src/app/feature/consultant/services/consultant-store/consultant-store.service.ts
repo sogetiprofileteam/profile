@@ -64,22 +64,22 @@ export class ConsultantStore implements OnDestroy {
   /**
    * Build a new consultant object from existing object with updated properties.
    * @param data A partial Consultant object containing the data to update
+   * @param index optional arg which says which index in edu or cert array to replace
    */
-  private updatedConsultantFactory(data, index?): Consultant {
+  private updatedConsultantFactory(data, index?: number): Consultant {
     // Copy current consultant to preserve immutability
-
     var consultantCopy: Consultant;
     if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
-      var eduOrCertVal: string = "-1";
-      Object.keys(data).forEach(function(key) {
+      var eduOrCertVal: string;
+      Object.keys(data).forEach(function (key) {
         var re = RegExp('^eduOrCert.$');
-        if(re.test(key)){
+        if (re.test(key)) {
           eduOrCertVal = data[key]
         }
       })
 
       if (eduOrCertVal === "1") {
-        if(index !== undefined ){
+        if (index !== undefined) {
           consultantCopy = {
             ...this.consultant,
             ...data,
@@ -93,9 +93,9 @@ export class ConsultantStore implements OnDestroy {
             education: this.consultant.education.concat(data.education)
           };
         }
-        
+
       } else {
-        if(index != undefined) {
+        if (index != undefined) {
           consultantCopy = {
             ...this.consultant,
             ...data,
@@ -116,9 +116,6 @@ export class ConsultantStore implements OnDestroy {
         ...data
       };
     }
-    console.log("updatedConsultantFactory.consultantCopy: ", consultantCopy)
-    console.log("updatedConsultantFactory.data: ", data)
-    console.log("this.consultant: ", this.consultant)
     return consultantCopy;
   }
 
@@ -155,11 +152,11 @@ export class ConsultantStore implements OnDestroy {
    * explicitly add when the user chooses to), if it's an existing
    * consultant it will be saved to DB.
    * @param data A partial Consultant object containing the data to update.
+   * @param index optional arg number for replaceing at index in edu/cert arrays
    */
   updateConsultant(data: Partial<Consultant>, index?: number): Observable<Consultant | null> {
     // TODO: error handling? Leave error handling implementation up to consumer?
     const updatedConsultant = this.updatedConsultantFactory(data, index);
-    console.log("updatedConsultant: ", updatedConsultant)
     if (!this.newConsultant) {
       return this.saveToDatabase(updatedConsultant);
     } else {

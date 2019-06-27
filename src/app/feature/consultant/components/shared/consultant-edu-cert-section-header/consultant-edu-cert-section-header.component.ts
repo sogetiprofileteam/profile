@@ -6,11 +6,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./consultant-edu-cert-section-header.component.scss']
 })
 export class ConsultantEduCertSectionHeaderComponent {
-	@Input() title: string;
+  @Input() title: string;
   @Input() icon: string;
+  @Input() eduOrCert: number;
   @Output() actionClicked = new EventEmitter();
 
   actionDispatch() {
-    this.actionClicked.emit();
-	}
+    this.actionClicked.emit(this.eduOrCert);
+  }
 }
