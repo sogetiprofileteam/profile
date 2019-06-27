@@ -4,35 +4,32 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
-import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
-import { SKILL_CORE } from '@core/models';
+import { ConsultantSkillsEditComponent } from '../consultant-skills-edit/consultant-skills-edit.component';
+import { SKILL_TECHNICAL } from '@core/models';
 import { map } from 'rxjs/operators';
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 @Component({
-  selector: 'app-consultant-core-skills',
-  templateUrl: './consultant-core-skills.component.html',
-  styleUrls: ['./consultant-core-skills.component.scss'],
+  selector: 'app-consultant-technical-skills',
+  templateUrl: './consultant-technical-skills.component.html',
+  styleUrls: ['./consultant-technical-skills.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantCoreSkillsComponent {
+export class ConsultantTechnicalSkillsComponent {
 
   constructor(
     private consultantStore: ConsultantStore,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) { }
 
-  coreSkills$ =
+  technicalSkills$ =
     this.consultantStore.consultant$
       .pipe(
-        map(c => filterSortDisplaySkills(c.coreSkills))
+        map(c => filterSortDisplaySkills(c.technicalSkills))
       );
 
   openEditSkillsDialog() {
-    this.dialog.open(ConsultantSkillsEditComponent, { 
-			data: { 
-				type: SKILL_CORE 
-			} 
-		});
+    this.dialog.open(ConsultantSkillsEditComponent, { data: { type: SKILL_TECHNICAL } });
   }
+
 }

@@ -1,11 +1,9 @@
-<div class="header">
+<div class="header" [class.underline]="underline">
   <div class="title-container">
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title" [ngClass]="titleColor">{{ title }}</h1>
   </div>
 
   <div class="action-link">
-    <a queryParamsHandling="preserve" (click)="actionDispatch()">
-      <mat-icon class="icon">{{ icon }}</mat-icon>
-    </a>
+    <ng-content></ng-content>
   </div>
 </div>

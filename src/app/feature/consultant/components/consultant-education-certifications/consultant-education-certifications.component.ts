@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { ConsultantEducationCertificationsEditComponent } from '../consultant-education-certification-edit/consultant-education-certifications-edit.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-consultant-education-certifications',
@@ -9,7 +11,8 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 export class ConsultantEducationCertificationsComponent implements OnInit {
 
   constructor(
-    private consultantStore: ConsultantStore
+    private consultantStore: ConsultantStore,
+    private dialog: MatDialog,
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
@@ -17,8 +20,9 @@ export class ConsultantEducationCertificationsComponent implements OnInit {
   ngOnInit() {
   }
 
-  doSomething() {
-    // replace/rename me
+  openEditCertificationEducationDialog() {
+    this.dialog.open(ConsultantEducationCertificationsEditComponent);
   }
+
 
 }
