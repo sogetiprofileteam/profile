@@ -6,7 +6,7 @@ import {
   ConsultantsRoutingModule
 } from './index';
 
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 import { ConsultantsStoreService } from './services/consultants-store/consultants-store.service';
 
 @NgModule({

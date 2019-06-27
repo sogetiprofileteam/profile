@@ -1,7 +1,10 @@
 <section class="container">
   <ng-container *ngIf="consultant$ | async as consultant">
     <div class="picture-wrapper">
-      <div class="button-container">  
+      <div class="button-container">
+        <button mat-fab class="export-button" (click)="exportProfile(consultant)">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
         <button mat-fab class="edit-button" color="white" (click)="openEditHeaderDialog()">
           <mat-icon>edit</mat-icon>
         </button>

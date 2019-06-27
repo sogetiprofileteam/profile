@@ -11,12 +11,8 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 import { startWith, mergeMap } from 'rxjs/operators';
 
-import {
-  MatChip,
-  MatAutocompleteSelectedEvent,
-  MatChipInputEvent,
-  MatAutocomplete
-} from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatChip, MatChipInputEvent } from '@angular/material/chips';
 
 import { SelectedSkill, SkillOption } from '@core/models';
 import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/consultant-skills-edit.service';
@@ -28,8 +24,8 @@ import { ConsultantSkillsEditService } from '../consultant-skills-edit-service/c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantSkillsEditAddRemoveComponent {
-  @ViewChild('skillInput', {static: false}) skillInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+  @ViewChild('skillInput', { static: true }) skillInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', { static: true }) matAutocomplete: MatAutocomplete;
 
   @Output() chipSelectionToggled = new EventEmitter<MatChip>();
   @Output() skillRemoved = new EventEmitter<SelectedSkill>();
