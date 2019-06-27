@@ -44,12 +44,9 @@ import {
   CoreSkillsService,
   SkillsDataService,
   ConsultantSkillsEditService,
-  ConsultantExperienceEditComponent,
-  ConsultantExperienceCreateComponent,
-  ConsultantExperienceDeleteDialogComponent
-
+  ConsultantExperienceDeleteDialogComponent,
+  ConsultantExperienceFormComponent
 } from './index';
-import { ConsultantExperienceFormComponent } from './components/consultant-experience/consultant-experience-form/consultant-experience-form.component';
 
 @NgModule({
   declarations: [
@@ -68,8 +65,6 @@ import { ConsultantExperienceFormComponent } from './components/consultant-exper
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
-    ConsultantExperienceEditComponent,
-    ConsultantExperienceCreateComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],
@@ -97,8 +92,6 @@ import { ConsultantExperienceFormComponent } from './components/consultant-exper
     ConsultantHeaderEditComponent,
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
-    ConsultantExperienceEditComponent,
-    ConsultantExperienceCreateComponent,
     ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent

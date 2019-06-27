@@ -23,8 +23,7 @@ export * from './components/consultant-education-certifications/consultant-educa
 export * from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 
 export * from './components/consultant-experience/consultant-experience.component';
-export * from './components/consultant-experience-edit/consultant-experience-edit.component';
-export * from './components/consultant-experience-create/consultant-experience-create.component';
+export * from './components/consultant-experience/consultant-experience-form/consultant-experience-form.component';
 export * from './components/consultant-experience/consultant-experience-delete-dialog/consultant-experience-delete-dialog.component';
 
 export * from './components/save-new-button/save-new-button.component';
