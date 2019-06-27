@@ -131,7 +131,7 @@ export class ConsultantStore implements OnDestroy {
    */
   addNewConsultant() {
     if (this.newConsultant) {
-      console.log("Adding new consultant using (Save function) to the database!: consultant-store.service");
+      console.log('Adding new consultant using (Save function) to the database!: consultant-store.service');
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
           this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
@@ -144,10 +144,10 @@ export class ConsultantStore implements OnDestroy {
    * @param consultant object to save to DB.
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
-    console.log("Saving to the database!: consultant-store.service");
+    console.log('Saving to the database!: consultant-store.service');
     return this.consultantDataService.updateConsultant(consultant)
       .pipe(tap(res => this._consultant$.next(consultant)));
-      
+
   }
 
   ngOnDestroy() {

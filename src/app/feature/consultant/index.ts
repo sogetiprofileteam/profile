@@ -11,6 +11,7 @@ export * from './components/consultant-skills/consultant-core-skills/consultant-
 export * from './components/consultant-skills/consultant-technical-skills/consultant-technical-skills.component';
 export * from './components/consultant-skills/consultant-skills-edit/consultant-skills-edit.component';
 export * from './components/consultant-skills/consultant-skills-edit/consultant-skills-edit-service/consultant-skills-edit.service';
+/* tslint:disable:max-line-length */
 export * from './components/consultant-skills/consultant-skills-edit/consultant-skills-edit-add-remove/consultant-skills-edit-add-remove.component';
 export * from './components/consultant-skills/consultant-skills-edit/consultant-skills-edit-reorder-display/consultant-skills-edit-reorder-display.component';
 

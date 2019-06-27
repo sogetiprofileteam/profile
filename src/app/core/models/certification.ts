@@ -1,5 +1,5 @@
 export interface Certification {
-	id: string;
-	dateRecieved: Date;
-	name: string;
+    id: string;
+    dateRecieved: Date;
+    name: string;
 }
