@@ -65,13 +65,9 @@ export class ConsultantStore implements OnDestroy {
    * Build a new consultant object from existing object with updated properties.
    * @param data A partial Consultant object containing the data to update
    */
-  private updatedConsultantFactory(data): Consultant {
+  private updatedConsultantFactory(data, index?): Consultant {
     // Copy current consultant to preserve immutability
 
-    //redo the index thing again with this.condultant.education[this.data.index] = blah etc
-    //it might have been working.  it seems i got messed up by the console log doing its thing
-    console.log("updatedConsultantFactory.data: ", data)
-    console.log("this.consultant: ", this.consultant)
     var consultantCopy: Consultant;
     if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
       var eduOrCertVal: string = "-1";
@@ -83,19 +79,37 @@ export class ConsultantStore implements OnDestroy {
       })
 
       if (eduOrCertVal === "1") {
-        consultantCopy = {
-          ...this.consultant,
-          ...data,
-          education: this.consultant.education.concat(data.education)
-        };
+        if(index !== undefined ){
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            education: [...this.consultant.education]
+          };
+          consultantCopy.education[index] = data.education[0]
+        } else {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            education: this.consultant.education.concat(data.education)
+          };
+        }
+        
       } else {
-        consultantCopy = {
-          ...this.consultant,
-          ...data,
-          certifications: this.consultant.certifications.concat(data.certifications)
-        };
+        if(index != undefined) {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            certifications: [...this.consultant.certifications]
+          };
+          consultantCopy.certifications[index] = data.certifications[0];
+        } else {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            certifications: this.consultant.certifications.concat(data.certifications)
+          };
+        }
       }
-
     } else {
       consultantCopy = {
         ...this.consultant,
@@ -103,6 +117,8 @@ export class ConsultantStore implements OnDestroy {
       };
     }
     console.log("updatedConsultantFactory.consultantCopy: ", consultantCopy)
+    console.log("updatedConsultantFactory.data: ", data)
+    console.log("this.consultant: ", this.consultant)
     return consultantCopy;
   }
 
@@ -140,9 +156,9 @@ export class ConsultantStore implements OnDestroy {
    * consultant it will be saved to DB.
    * @param data A partial Consultant object containing the data to update.
    */
-  updateConsultant(data: Partial<Consultant>): Observable<Consultant | null> {
+  updateConsultant(data: Partial<Consultant>, index?: number): Observable<Consultant | null> {
     // TODO: error handling? Leave error handling implementation up to consumer?
-    const updatedConsultant = this.updatedConsultantFactory(data);
+    const updatedConsultant = this.updatedConsultantFactory(data, index);
     console.log("updatedConsultant: ", updatedConsultant)
     if (!this.newConsultant) {
       return this.saveToDatabase(updatedConsultant);
