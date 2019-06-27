@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
-import { ConsultantSkillsEditComponent } from '../shared/consultant-skills-edit/consultant-skills-edit.component';
+import { ConsultantSkillsEditComponent } from '../consultant-skills-edit/consultant-skills-edit.component';
 import { SKILL_CORE } from '@core/models';
 import { map } from 'rxjs/operators';
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';

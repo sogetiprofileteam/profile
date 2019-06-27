@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Edit Experience</h1>
+<h1 mat-dialog-title>{{ formTitle }} Experience</h1>
 
-<form [formGroup]="experienceForm" *ngIf="consultant$ | async as consultant" (ngSubmit)="updateConsultant()" id="experience-form">
+<form [formGroup]="experienceForm" (ngSubmit)="submit()" id="experience-form">
     <mat-dialog-content>
         <mat-form-field>
             <mat-label>Company Name</mat-label>
@@ -14,7 +14,7 @@
             <mat-error>Job Title is required</mat-error>
         </mat-form-field>
 
-        <div class="dateRow">
+        <div class="date-row">
             <mat-form-field>
                 <mat-label>Start Date</mat-label>
                 <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
@@ -63,7 +63,6 @@
 </form>
 
 <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="close()">Cancel</button>
-    <button mat-raised-button color="primary" type="submit" form="experience-form">Save Experience</button>
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" form="experience-form">{{ formAction }} Experience</button>
 </mat-dialog-actions>
-

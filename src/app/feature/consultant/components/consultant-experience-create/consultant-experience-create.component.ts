@@ -68,7 +68,6 @@ export class ConsultantExperienceCreateComponent implements OnInit, OnDestroy {
   }
 
   getFormData(): Experience {
-    console.log("Form Data Value: " + this.experienceForm.value);
     return this.experienceForm.value as Experience;
   }
 

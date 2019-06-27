@@ -17,12 +17,18 @@ mat-form-field {
     align-items: center;
 }
 
-.dateRow, .description {
+.date-row, .description {
   flex-direction: row;
   display: flex;
   justify-content: space-between;
 }
 
+.date-row {
+    mat-form-field {
+        max-width: calc(50% - 1rem);
+    }
+}
+
 .end-date {
     margin-left: 1rem;
-  }
+}

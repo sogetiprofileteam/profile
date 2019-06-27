@@ -15,27 +15,24 @@
         </mat-form-field>
 
         <div class="dateRow">
+            <mat-form-field>
+                <mat-label>Start Date</mat-label>
+                <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+                <mat-error>Start Date is required</mat-error>
+            </mat-form-field>
 
-            <div class="dateColumn">
-                <mat-form-field class="display: inline-block;">
-                    <mat-label>Start Date</mat-label>
-                    <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
-                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #startDatePicker></mat-datepicker>
-                    <mat-error>Start Date is required</mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="dateColumn">
-                <mat-form-field class="display: inline-block;" *ngIf="!(currentPositionValue$ | async)"
-                    @growShrinkOnEnterLeave class="end-date">
-                    <mat-label>End Date</mat-label>
-                    <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #endDatePicker></mat-datepicker>
-                    <!-- <mat-error *ngIf="startDate.errors.required">Start date is required</mat-error> -->
-                </mat-form-field>
-            </div>
+            <mat-form-field
+                *ngIf="!(currentPositionValue$ | async)"
+                @growShrinkOnEnterLeave
+                class="end-date">
+                <mat-label>End Date</mat-label>
+                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+                <!-- <mat-error *ngIf="startDate.errors.required">Start date is required</mat-error> -->
+            </mat-form-field>
         </div>
         <mat-checkbox class="checkbox" [formControl]="currentPositionControl"> <b>I am currently working this role</b>
         </mat-checkbox>
@@ -66,6 +63,6 @@
 </form>
 
 <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="close()">CANCEL</button>
-    <button mat-raised-button color="primary" type="submit" form="experience-form">SAVE EXPERIENCE</button>
+    <button mat-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" form="experience-form">Add Experience</button>
 </mat-dialog-actions>

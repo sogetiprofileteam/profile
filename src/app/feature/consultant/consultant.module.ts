@@ -44,13 +44,12 @@ import {
   CoreSkillsService,
   SkillsDataService,
   ConsultantSkillsEditService,
-  ConsultantExperienceDeleteDialogService,
   ConsultantExperienceEditComponent,
   ConsultantExperienceCreateComponent,
-  ConsultantSectionExperienceHeaderComponent,
   ConsultantExperienceDeleteDialogComponent
 
 } from './index';
+import { ConsultantExperienceFormComponent } from './components/consultant-experience/consultant-experience-form/consultant-experience-form.component';
 
 @NgModule({
   declarations: [
@@ -71,8 +70,8 @@ import {
     ConsultantPictureEditComponent,
     ConsultantExperienceEditComponent,
     ConsultantExperienceCreateComponent,
-    ConsultantSectionExperienceHeaderComponent,
-    ConsultantExperienceDeleteDialogComponent
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent
   ],
   imports: [
     CommonModule,
@@ -101,9 +100,10 @@ import {
     ConsultantExperienceEditComponent,
     ConsultantExperienceCreateComponent,
     ConsultantEducationCertificationsEditComponent,
-    ConsultantExperienceDeleteDialogComponent
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent
   ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, ConsultantExperienceDeleteDialogService ]
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 
 })
 export class ConsultantModule { }

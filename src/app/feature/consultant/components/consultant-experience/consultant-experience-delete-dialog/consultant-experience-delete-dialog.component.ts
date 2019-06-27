@@ -1,9 +1,9 @@
 /*
  *SUMMARY: This is for the Dialog box that shows up once user clicks "Delete" from the experience-edit component
 */
-import { ConsultantExperienceEditComponent } from './../consultant-experience-edit.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -13,11 +13,11 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 })
 export class ConsultantExperienceDeleteDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data,
-  private dialogRef: MatDialogRef<ConsultantExperienceEditComponent>,
-  ) {}
+  private _destroy$ = new Subject();
 
-  public confirmMessage:string;
+  constructor(
+    private dialogRef: MatDialogRef<ConsultantExperienceDeleteDialogComponent>,
+  ) {}
 
   ngOnInit() {
   }

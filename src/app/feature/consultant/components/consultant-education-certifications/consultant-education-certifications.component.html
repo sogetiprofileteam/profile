@@ -1,7 +1,7 @@
-<app-consultant-section-header 
-  title="Education & Certifications" 
-  icon="edit" 
-  (actionClicked)="openEditCertificationEducationDialog()">
+<app-consultant-section-header title="Education & Certifications" titleColor="primary" [underline]="true">
+  <button mat-icon-button color="primary" (click)="openEditCertificationEducationDialog()">
+    <mat-icon>edit</mat-icon>
+  </button>
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">

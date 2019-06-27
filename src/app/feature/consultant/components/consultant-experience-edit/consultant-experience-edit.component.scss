@@ -1,13 +1,6 @@
 mat-form-field {
     width: 100%;
 }
-@media screen and (max-width: 500px) {
-  mat-form-field #custom{
-    width: 20%;
-    height: 200%
-  }
-}
-
 
 .description-header {
     padding: 1.5rem 0 1rem 0;
@@ -21,35 +14,15 @@ mat-form-field {
 }
 
 .description {
-    flex-direction: row;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-/* Create two equal columns that floats next to each other */
-.dateColumn {
-    float: left;
-    width: 50%;
-    padding: 5px;
-  }
+.dateRow, .description {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
 
-  /* Clear floats after the columns */
-  .dateRow:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  @media screen and (max-width: 500px) {
-    .myButton {
-        display:inline-block;
-        width: 100%;
-        margin-bottom: 8px;
-    }
-  }
-
-  @media screen and (max-width: 500px) {
-    .myButton #lastButton{
-        display:inline-block;
-    }
+.end-date {
+  margin-left: 1rem;
 }
