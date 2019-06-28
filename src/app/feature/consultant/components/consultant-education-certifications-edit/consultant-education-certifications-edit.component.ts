@@ -15,6 +15,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
   private certificationArray = [];
   private educationArray = [];
   private items = [0];
+  private specified: number = -1;
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -86,16 +87,20 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
     return this.educationCertificationForm.value;
   }
 
-  isLastPanel(index: number ): boolean {
-    if (this.items.length === index + 1) {
-      return true;
-    } else {
-      return false;
-    }
+  isLastPanel(index: number): boolean {
+    return this.items.length === index + 1 ? true : false;
+  }
+
+  openSpecifed(index: number): boolean {
+    return index === this.specified ? true : false;
   }
 
   onDelete(item: number) {
+    this.specified = this.items.indexOf(item) - 1; 
+    if(this.specified === -1 ) this.specified = 0;
     this.items.splice(this.items.indexOf(item), 1);
+    console.log("onDelete.this.items: ", this.items)
+    console.log("onDelete.this.specified: ", this.specified)
     this.educationCertificationForm.removeControl(`school${item}`);
     this.educationCertificationForm.removeControl(`levelOfDegree${item}`);
     this.educationCertificationForm.removeControl(`endDate${item}`);

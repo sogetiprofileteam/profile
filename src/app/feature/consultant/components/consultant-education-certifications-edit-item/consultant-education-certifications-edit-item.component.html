@@ -1,8 +1,12 @@
-<mat-expansion-panel [expanded]="panelOpen">
+<mat-expansion-panel [expanded]="orOperation(panelOpen || openSpecifed)">
+  panelOpen{{panelOpen}}
+  openSpecifed{{openSpecifed}}
+  Ored{{panelOpen || openSpecifed}}
+  orOperation{{orOperation(panelOpen || openSpecifed)}}
   <mat-expansion-panel-header>
     <mat-panel-title>
       <b>
-        <span class="circle">{{item + 1}}</span> {{"&nbsp;&nbsp;"}}
+        <span class="circle">{{index + 1}}</span> {{"&nbsp;&nbsp;"}}
         <span class="title">Edit Education & Certification</span>
       </b>
     </mat-panel-title>
@@ -11,6 +15,7 @@
     <div class="container">
       <div class="row" class="text-field">
         <mat-radio-group aria-label="Select an option" [formControlName]="eduOrCertName">
+          {{eduOrCertName}}
           <mat-radio-button value="1">Education</mat-radio-button>
           <mat-radio-button value="2">Certifcation</mat-radio-button>
         </mat-radio-group>
@@ -19,6 +24,7 @@
         <mat-form-field class="full-width" display="flex">
           <mat-label>Institute Name</mat-label>
           <input matInput [formControlName]="schoolName" type="text">
+          {{schoolName}}
           <mat-error>Institute Name is required</mat-error>
         </mat-form-field>
       </div>
@@ -26,6 +32,7 @@
         <mat-form-field class="full-width" display="flex">
           <mat-label>Achievement Title</mat-label>
           <input matInput [formControlName]="levelOfDegreeName" type="text">
+          {{levelOfDegreeName}}
           <mat-error>Title is required</mat-error>
         </mat-form-field>
       </div>

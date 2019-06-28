@@ -6,7 +6,9 @@
       *ngFor="let item of items; let index = index"
       [parentForm]="educationCertificationForm"
       [item]="item"
+      [index]="index"
       [panelOpen]="isLastPanel(index)"
+      [openSpecifed]="openSpecifed(index)"
       (onDeleteEvent)="onDelete($event)">
     </app-consultant-education-certifications-edit-item>
   </mat-accordion>

@@ -10,7 +10,9 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
 
   @Input() parentForm: FormGroup;
   @Input() item: Number;
+  @Input() index: Number;
   @Input() panelOpen: boolean;
+  @Input() openSpecifed: boolean;
   @Output() onDeleteEvent = new EventEmitter<Number>();
 
   eduOrCertName: string;
@@ -32,5 +34,9 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
 
   onDelete(item: number) {
     this.onDeleteEvent.emit(item);
+  }
+
+  orOperation(panelOpen, openSpecifed): boolean{
+    return panelOpen || openSpecifed;
   }
 }
