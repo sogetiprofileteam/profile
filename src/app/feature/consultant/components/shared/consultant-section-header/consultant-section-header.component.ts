@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-consultant-section-header',
@@ -7,10 +7,6 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class ConsultantSectionHeaderComponent {
   @Input() title: string;
-  @Input() icon: string;
-  @Output() actionClicked = new EventEmitter();
-
-  actionDispatch() {
-    this.actionClicked.emit();
-  }
+  @Input() titleColor: 'primary' | 'accent' | 'warn';
+  @Input() underline: boolean;
 }

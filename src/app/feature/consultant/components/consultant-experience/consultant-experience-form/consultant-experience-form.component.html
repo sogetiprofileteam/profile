@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>{{ formTitle }} Experience</h1>
+
+<form [formGroup]="experienceForm" (ngSubmit)="submit()" id="experience-form">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input matInput formControlName="companyName" type="text">
+            <mat-error>A Company Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="title" type="text">
+            <mat-error>Job Title is required</mat-error>
+        </mat-form-field>
+
+        <div class="date-row">
+            <mat-form-field>
+                <mat-label>Start Date</mat-label>
+                <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+                <mat-error>Start Date is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                *ngIf="!(currentPositionValue$ | async)"
+                @growShrinkOnEnterLeave
+                class="end-date">
+                <mat-label>End Date</mat-label>
+                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+                <!-- <mat-error *ngIf="startDate.errors.required">Start date is required</mat-error> -->
+            </mat-form-field>
+        </div>
+        <mat-checkbox class="checkbox" [formControl]="currentPositionControl"> <b>I am currently working this role</b>
+        </mat-checkbox>
+
+        <div class="description-header">
+            <h2>Job Description</h2>
+
+            <button mat-button title="Add Job Description" type="button" color="primary" (click)="addDescription()">
+                + JOB DESCRIPTION
+            </button>
+
+        </div>
+
+        <div formArrayName="descriptions">
+            <div class="description" *ngFor="let description of descriptions.controls; let i = index;">
+                <mat-form-field [formGroup]="description">
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="summary" type="text-box">
+                    <!--<mat-error *ngIf="description?.errors?.required">A description is required</mat-error> -->
+                    <button mat-icon-button matSuffix title="Remove Description" type="button"
+                        (click)="removeDescription(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+</form>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" form="experience-form">{{ formAction }} Experience</button>
+</mat-dialog-actions>

@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import { ImageCropperModule } from 'ngx-image-cropper';
-
 import {
   MatDialogModule,
   MatInputModule,
@@ -20,7 +17,6 @@ import {
   MatDatepickerModule,
   MatNativeDateModule
 } from '@angular/material';
-
 import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
@@ -33,7 +29,7 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
-  ConsultantEducationCertificationsEditComponents,
+  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -42,11 +38,14 @@ import {
   TechnicalSkillsService,
   CoreSkillsService,
   SkillsDataService,
-  ConsultantSkillsEditService
+  ConsultantSkillsEditService,
+  ConsultantExperienceDeleteDialogComponent,
+  ConsultantExperienceFormComponent
 } from './index';
 import { ConsultantEducationCertificationsEditItemComponent } from './components/consultant-education-certifications-edit-item/consultant-education-certifications-edit-item.component';
 import { ConsultantEducationCertificationsExistingEditComponent } from './components/consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
 import { ConsultantEduCertSectionHeaderComponent } from './components/shared/consultant-edu-cert-section-header/consultant-edu-cert-section-header.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -61,13 +60,15 @@ import { ConsultantEduCertSectionHeaderComponent } from './components/shared/con
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantEducationCertificationsEditComponents,
+    ConsultantEducationCertificationsEditItemComponent,
+    ConsultantEducationCertificationsExistingEditComponent,
+    ConsultantEduCertSectionHeaderComponent,
+    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
-    ConsultantEducationCertificationsEditItemComponent,
-    ConsultantEducationCertificationsExistingEditComponent,
-    ConsultantEduCertSectionHeaderComponent
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent
   ],
   imports: [
     CommonModule,
@@ -84,17 +85,20 @@ import { ConsultantEduCertSectionHeaderComponent } from './components/shared/con
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    MatRadioModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   entryComponents: [
     ConsultantHeaderEditComponent,
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
-    ConsultantEducationCertificationsEditComponents,
-    ConsultantEducationCertificationsExistingEditComponent
+    ConsultantEducationCertificationsEditComponent,
+    ConsultantEducationCertificationsExistingEditComponent,
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent
   ],
   providers: [
     ConsultantStore,
@@ -105,4 +109,5 @@ import { ConsultantEduCertSectionHeaderComponent } from './components/shared/con
     MatDatepickerModule
   ]
 })
+
 export class ConsultantModule { }

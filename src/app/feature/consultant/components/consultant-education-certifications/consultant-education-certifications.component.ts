@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { ConsultantEducationCertificationsEditComponents } from '../consultant-education-certifications-edit/consultant-education-certifications-edit.component';
+import { ConsultantEducationCertificationsEditComponent } from '../consultant-education-certifications-edit/consultant-education-certifications-edit.component';
 import { MatDialog } from '@angular/material';
 import { ConsultantEducationCertificationsExistingEditComponent } from '../consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
 
@@ -19,7 +19,7 @@ export class ConsultantEducationCertificationsComponent {
   consultant$ = this.consultantStore.consultant$;
 
   openCreateCertificationEducationDialog() {
-    this.dialog.open(ConsultantEducationCertificationsEditComponents);
+    this.dialog.open(ConsultantEducationCertificationsEditComponent);
   }
 
   openEditCertificationEducationDialog(edoOrCert: string, index: number) {
@@ -30,5 +30,4 @@ export class ConsultantEducationCertificationsComponent {
       }
     });
   }
-
 }

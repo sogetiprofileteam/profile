@@ -81,7 +81,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
     this.skillProperty = propertyName;
 
     this.availableSkills$ =
-      combineLatest(this.selectedSkills$, this._getSkills$)
+      combineLatest([this.selectedSkills$, this._getSkills$])
         .pipe(
           // We need to know which skills are in the selectedSkills Observable so we can
           // disable them in the dropdown options to prevent duplicates.

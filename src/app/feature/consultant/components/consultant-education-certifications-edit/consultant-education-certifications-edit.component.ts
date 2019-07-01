@@ -10,7 +10,7 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
   templateUrl: './consultant-education-certifications-edit.component.html',
   styleUrls: ['./consultant-education-certifications-edit.component.scss'],
 })
-export class ConsultantEducationCertificationsEditComponents implements OnDestroy {
+export class ConsultantEducationCertificationsEditComponent implements OnDestroy {
 
   private certificationArray = [];
   private educationArray = [];
@@ -19,7 +19,7 @@ export class ConsultantEducationCertificationsEditComponents implements OnDestro
 
   constructor(
     private consultantStore: ConsultantStore,
-    private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponents>,
+    private dialogRef: MatDialogRef<ConsultantEducationCertificationsEditComponent>,
     private formBuilder: FormBuilder
   ) { }
 

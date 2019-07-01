@@ -48,12 +48,17 @@ export class ConsultantStore implements OnDestroy {
   private _destroy$ = new Subject();
 
   /** Consultant ReplaySubject allows late subscribers to get most recent data */
-  private readonly _consultant = new ReplaySubject<Consultant>(1);
+  private readonly _consultant$ = new ReplaySubject<Consultant>(1);
 
   /** Consultant Observable to subscribe to for most recent state. */
-  readonly consultant$ = this._consultant.asObservable().pipe(tap(c => this.consultant = c));
+  readonly consultant$ = this._consultant$.asObservable().pipe(tap(c => this._consultant = c));
 
-  private consultant: Consultant;
+  private _consultant: Consultant;
+
+  /** Most recent consultant object */
+  get consultant() {
+    return this._consultant;
+  }
 
   private _newConsultant: boolean;
 
@@ -135,10 +140,10 @@ export class ConsultantStore implements OnDestroy {
         .pipe(
           take(1),
           takeUntil(this._destroy$)
-        ).subscribe(consultant => this._consultant.next(consultant));
+        ).subscribe(consultant => this._consultant$.next(consultant));
     } else {
       this._newConsultant = true;
-      this._consultant.next(blankConsultant);
+      this._consultant$.next(blankConsultant);
     }
 
   }
@@ -164,7 +169,7 @@ export class ConsultantStore implements OnDestroy {
     if (!this.newConsultant) {
       return this.saveToDatabase(updatedConsultant);
     } else {
-      this._consultant.next(updatedConsultant);
+      this._consultant$.next(updatedConsultant);
       return of(null);
     }
   }
@@ -175,6 +180,7 @@ export class ConsultantStore implements OnDestroy {
    */
   addNewConsultant() {
     if (this.newConsultant) {
+      console.log('Adding new consultant using (Save function) to the database!: consultant-store.service');
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
           this.router.navigate(['/consultant'], { queryParams: { id: consultant.id } });
@@ -187,8 +193,9 @@ export class ConsultantStore implements OnDestroy {
    * @param consultant object to save to DB.
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
+    console.log('Saving to the database!: consultant-store.service');
     return this.consultantDataService.updateConsultant(consultant)
-      .pipe(tap(() => this._consultant.next(consultant)));
+      .pipe(tap(res => this._consultant$.next(consultant)));
   }
 
   ngOnDestroy() {
