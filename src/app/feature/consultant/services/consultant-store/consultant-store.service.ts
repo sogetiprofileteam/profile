@@ -73,8 +73,6 @@ export class ConsultantStore implements OnDestroy {
    */
   private updatedConsultantFactory(data, index?: number): Consultant {
     // Copy current consultant to preserve immutability
-    console.log("updatedConsultantFactory.data: ", data)
-    console.log("updatedConsultantFactory.this.consultant: ", this.consultant)
     var consultantCopy: Consultant;
     if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
       var eduOrCertVal: string;
@@ -124,7 +122,6 @@ export class ConsultantStore implements OnDestroy {
       };
     }
 
-    console.log("updatedConsultantFactory.consultantCopy: ", consultantCopy)
     return consultantCopy;
   }
 

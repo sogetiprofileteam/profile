@@ -96,11 +96,9 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
   }
 
   onDelete(item: number) {
-    this.specified = this.items.indexOf(item) - 1; 
-    if(this.specified === -1 ) this.specified = 0;
+    this.specified = this.items.indexOf(item) - 1;
+    if (this.specified === -1) this.specified = 0;
     this.items.splice(this.items.indexOf(item), 1);
-    console.log("onDelete.this.items: ", this.items)
-    console.log("onDelete.this.specified: ", this.specified)
     this.educationCertificationForm.removeControl(`school${item}`);
     this.educationCertificationForm.removeControl(`levelOfDegree${item}`);
     this.educationCertificationForm.removeControl(`endDate${item}`);
