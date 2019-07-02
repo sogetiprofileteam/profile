@@ -37,13 +37,14 @@ import {
   CoreSkillsService,
   SkillsDataService,
   ConsultantSkillsEditService,
+  NotificationsService,
   ConsultantExperienceDeleteDialogComponent,
   ConsultantExperienceFormComponent
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { MatNativeDateModule } from '@angular/material';
     MatNativeDateModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     ConsultantHeaderEditComponent,
@@ -93,7 +95,7 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, NotificationsService ]
 
 })
 export class ConsultantModule { }

@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 
 import { Experience } from '@core/models';
 import { ConsultantStore } from '../../services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import {
   ConsultantExperienceDeleteDialogComponent
 } from './consultant-experience-delete-dialog/consultant-experience-delete-dialog.component';
@@ -20,6 +21,7 @@ import { ConsultantExperienceFormComponent } from './consultant-experience-form/
 export class ConsultantExperienceComponent implements OnInit {
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialog: MatDialog
   ) { }
 
@@ -78,8 +80,10 @@ export class ConsultantExperienceComponent implements OnInit {
 
     updatedExperience.splice(selectedIndex, 1);
 
+    this.notification.openDeletedExperience();
     return this.consultantStore
       .updateConsultant({ experience: updatedExperience })
       .pipe(takeUntil(this._destroy$));
+
   }
 }

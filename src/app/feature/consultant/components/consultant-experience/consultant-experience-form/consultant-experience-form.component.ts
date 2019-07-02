@@ -2,6 +2,7 @@ import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, Inject, Optional
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -21,6 +22,7 @@ import { growShrink } from '@shared/animations/grow-shrink';
 export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
+    private notification: NotificationsService,
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantExperienceFormComponent>,
     private formBuilder: FormBuilder
@@ -103,17 +105,23 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
       if (!experience) {
         experience = [];
       }
-
       experience.push(newExperience);
       this.close(experience);
+      this.notification.openUpdatedSnackBar();
     }
   }
 
   private updateExperience(): void {
+    const experience = this.consultantStore.consultant.experience;
+
     if (this.experienceForm.valid) {
-      const experience = this.consultantStore.consultant.experience;
       experience[this.data.index] = this.getFormData();
       this.close(experience);
+      this.notification.openUpdatedSnackBar();
+    }
+    else {
+      this.close(experience);
+      this.notification.openErrorUpdatingSnackBar();
     }
   }
 
