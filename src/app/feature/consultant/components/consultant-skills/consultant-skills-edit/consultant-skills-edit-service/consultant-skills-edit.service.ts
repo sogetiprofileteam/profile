@@ -2,13 +2,21 @@ import { Injectable, OnDestroy, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Subject, combineLatest, Observable, forkJoin, ReplaySubject } from 'rxjs';
+import {
+  Subject,
+  combineLatest,
+  Observable,
+  forkJoin,
+  ReplaySubject
+} from 'rxjs';
 import { tap, takeUntil, map, switchMap } from 'rxjs/operators';
 
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocomplete
+} from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChip } from '@angular/material/chips';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
-
 
 import { differenceWith, isEqual, pick, merge } from 'lodash';
 
@@ -16,12 +24,7 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 import { SkillsDataService } from '@feature/consultant/services/skills-data/skills-data.service';
 
-import {
-  SelectedSkill,
-  Skill,
-  SkillType,
-  SkillOption
-} from '@core/models';
+import { SelectedSkill, Skill, SkillType, SkillOption } from '@core/models';
 
 import { dynamicSort } from '@shared/helpers/dynamic-sort';
 
@@ -41,29 +44,24 @@ export class ConsultantSkillsEditService implements OnDestroy {
   private notification: NotificationsService;
   availableSkills$: Observable<SkillOption[]>;
 
-
   closeDialog$ = this._closeDialog$.asObservable();
 
-  consultant$ =
-    this.consultantStore.consultant$
-      .pipe(
-        tap(consultant => this._selectedSkills$.next(consultant[this.skillProperty]))
-      );
+  consultant$ = this.consultantStore.consultant$.pipe(
+    tap(consultant =>
+      this._selectedSkills$.next(consultant[this.skillProperty])
+    )
+  );
 
-  selectedSkills$ =
-    this._selectedSkills$.asObservable()
-      .pipe(
-        map(skills => skills.sort(dynamicSort('name'))),
-        tap(skills => this.selectedSkills = skills)
-      );
+  selectedSkills$ = this._selectedSkills$.asObservable().pipe(
+    map(skills => skills.sort(dynamicSort('name'))),
+    tap(skills => (this.selectedSkills = skills))
+  );
 
   // Skills that the user selects to be displayed on their profile.
-  displaySkills$ =
-    this.selectedSkills$
-      .pipe(
-        map(skills => filterSortDisplaySkills(skills)),
-        tap(skills => this.displaySkills = skills)
-      );
+  displaySkills$ = this.selectedSkills$.pipe(
+    map(skills => filterSortDisplaySkills(skills)),
+    tap(skills => (this.displaySkills = skills))
+  );
 
   private get displaySkillsCount() {
     return this.selectedSkills.filter(skill => skill.display === true).length;
@@ -71,8 +69,8 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
-    private skillService: SkillsDataService,
-  ) { }
+    private skillService: SkillsDataService
+  ) {}
 
   ngOnDestroy() {
     this._destroy$.next();
@@ -80,60 +78,83 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   init(skillType: SkillType, propertyName: string) {
     this.skillType = skillType;
-    this._getSkills$ = this.skillService.getSkills(skillType).pipe(takeUntil(this._destroy$));
+    this._getSkills$ = this.skillService
+      .getSkills(skillType)
+      .pipe(takeUntil(this._destroy$));
     this.skillProperty = propertyName;
 
-    this.availableSkills$ =
-      combineLatest(this.selectedSkills$, this._getSkills$)
-        .pipe(
-          // We need to know which skills are in the selectedSkills Observable so we can
-          // disable them in the dropdown options to prevent duplicates.
-          map(([selectedSkills, availableSkills]) => {
-            return this.buildSkillOptions(selectedSkills, availableSkills);
-          })
-        );
+    this.availableSkills$ = combineLatest(
+      this.selectedSkills$,
+      this._getSkills$
+    ).pipe(
+      // We need to know which skills are in the selectedSkills Observable so we can
+      // disable them in the dropdown options to prevent duplicates.
+      map(([selectedSkills, availableSkills]) => {
+        return this.buildSkillOptions(selectedSkills, availableSkills);
+      })
+    );
   }
 
   filterSkills(name: string): Observable<SkillOption[]> {
     const filterName = name.toLowerCase();
-    return this.availableSkills$
-      .pipe(
-        map(skills => skills.filter(skill => skill.name.toLowerCase().indexOf(filterName) === 0))
-      );
+    return this.availableSkills$.pipe(
+      map(skills =>
+        skills.filter(
+          skill => skill.name.toLowerCase().indexOf(filterName) === 0
+        )
+      )
+    );
   }
 
-  private buildSkillOptions(selectedSkills: SelectedSkill[], availableSkills: Skill[]): SkillOption[] {
+  private buildSkillOptions(
+    selectedSkills: SelectedSkill[],
+    availableSkills: Skill[]
+  ): SkillOption[] {
     const selectedSkillsOptions = this.createSelectedOptions(selectedSkills);
 
     // Similar to above but we get the items that aren't inside the selectedSkills array
     // Lodash's differenceWith() and isEqual() are a godsend here
-    const pickedSelectedSkills = selectedSkills.map(skill => this.pickSkill(skill));
-    const unselectedSkills: SelectedSkill[] = differenceWith(availableSkills, pickedSelectedSkills, isEqual);
-    const unselectedSkillsOptions = this.createUnselectedOptions(unselectedSkills);
+    const pickedSelectedSkills = selectedSkills.map(skill =>
+      this.pickSkill(skill)
+    );
+    const unselectedSkills: SelectedSkill[] = differenceWith(
+      availableSkills,
+      pickedSelectedSkills,
+      isEqual
+    );
+    const unselectedSkillsOptions = this.createUnselectedOptions(
+      unselectedSkills
+    );
 
     const availableSkillsOptions: SkillOption[] = [
       ...selectedSkillsOptions,
       ...unselectedSkillsOptions
     ];
 
-    return availableSkillsOptions.sort(dynamicSort('name'))  ;
+    return availableSkillsOptions.sort(dynamicSort('name'));
   }
 
-  private createSelectedOptions(selectedSkills: SelectedSkill[]): SkillOption[] {
+  private createSelectedOptions(
+    selectedSkills: SelectedSkill[]
+  ): SkillOption[] {
     // Add the selected boolean to selectedSkills, ignore skills with null ID because those
     // were entered via freetext and shouldn't be added to the avialableSkills until added to DB
     // which happens on save.
-    return selectedSkills.map(skill => {
-      const pickedSkill = this.pickSkill(skill);
-      const selectedSkill: SkillOption = {
-        ...pickedSkill,
-        selected: true
-      };
-      return selectedSkill;
-    }).filter(skill => skill.id !== null);
+    return selectedSkills
+      .map(skill => {
+        const pickedSkill = this.pickSkill(skill);
+        const selectedSkill: SkillOption = {
+          ...pickedSkill,
+          selected: true
+        };
+        return selectedSkill;
+      })
+      .filter(skill => skill.id !== null);
   }
 
-  private createUnselectedOptions(unselectedSkills: SelectedSkill[]): SkillOption[] {
+  private createUnselectedOptions(
+    unselectedSkills: SelectedSkill[]
+  ): SkillOption[] {
     return unselectedSkills.map(skill => {
       const selectedSkill: SkillOption = {
         ...skill,
@@ -147,7 +168,11 @@ export class ConsultantSkillsEditService implements OnDestroy {
     return pick(skill, ['id', 'name', 'type']) as Skill;
   }
 
-  addSkill(event: MatAutocompleteSelectedEvent, control: FormControl, input: ElementRef<HTMLInputElement>): void {
+  addSkill(
+    event: MatAutocompleteSelectedEvent,
+    control: FormControl,
+    input: ElementRef<HTMLInputElement>
+  ): void {
     // Need to strip the selected property from a selected option so that
     // we don't accidentally duplicate the option in the availableSkills$ observable
     const newSkill: SelectedSkill = {
@@ -175,7 +200,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
           id: null,
           display: false,
           displayOrder: null,
-          type: this.skillType,
+          type: this.skillType
         };
         this._selectedSkills$.next([...this.selectedSkills, skill]);
       }
@@ -189,11 +214,14 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   removeSkill(skill: SelectedSkill): void {
     const index = this.selectedSkills.indexOf(skill);
-    let updatedSkills = [ ...this.selectedSkills ];
+    let updatedSkills = [...this.selectedSkills];
     updatedSkills.splice(index, 1);
 
     if (skill.display) {
-      updatedSkills = this.reorderSkillsAfterRemovedSkill(updatedSkills, skill.displayOrder);
+      updatedSkills = this.reorderSkillsAfterRemovedSkill(
+        updatedSkills,
+        skill.displayOrder
+      );
     }
 
     this._selectedSkills$.next(updatedSkills);
@@ -212,15 +240,22 @@ export class ConsultantSkillsEditService implements OnDestroy {
   }
 
   private updateWithNewSkills(): void {
-    const existingSkills = this.selectedSkills.filter(skill => skill.id !== null);
+    const existingSkills = this.selectedSkills.filter(
+      skill => skill.id !== null
+    );
     const newSkills = this.selectedSkills.filter(skill => skill.id === null);
-    const newSkillRequests = newSkills.map(skill => this.skillService.addNewSkill(skill.name, this.skillType));
+    const newSkillRequests = newSkills.map(skill =>
+      this.skillService.addNewSkill(skill.name, this.skillType)
+    );
 
     forkJoin(newSkillRequests)
       .pipe(
         switchMap((responseSkills: Skill[]) => {
           // Merge so that we get the display property and proper ID from the server
-          const mergedResponseNewSkills: SelectedSkill[] = merge(newSkills, responseSkills);
+          const mergedResponseNewSkills: SelectedSkill[] = merge(
+            newSkills,
+            responseSkills
+          );
 
           const skills: SelectedSkill[] = [
             ...mergedResponseNewSkills,
@@ -234,15 +269,15 @@ export class ConsultantSkillsEditService implements OnDestroy {
   }
 
   private updateWithExistingSkills(): void {
-    this.updateSkills(this.selectedSkills)
-      .subscribe(() => this._closeDialog$.next());
+    this.updateSkills(this.selectedSkills).subscribe(() =>
+      this._closeDialog$.next()
+    );
   }
 
   private updateSkills(skills: SelectedSkill[]) {
     return this.consultantStore
       .updateConsultant({ [this.skillProperty]: skills })
       .pipe(takeUntil(this._destroy$));
-
   }
 
   chipClicked(chip: MatChip): void {
@@ -260,13 +295,22 @@ export class ConsultantSkillsEditService implements OnDestroy {
     this.updateDisplayOfSelectedSkill(chip, skill, true);
   }
 
-  private removeOneFromDisplaySkills(chip: MatChip, skill: SelectedSkill): void {
+  private removeOneFromDisplaySkills(
+    chip: MatChip,
+    skill: SelectedSkill
+  ): void {
     this.updateDisplayOfSelectedSkill(chip, skill, false);
   }
 
-  private updateDisplayOfSelectedSkill(chip: MatChip, skill: SelectedSkill, displayVal: boolean): void {
+  private updateDisplayOfSelectedSkill(
+    chip: MatChip,
+    skill: SelectedSkill,
+    displayVal: boolean
+  ): void {
     const updateIndex = this.selectedSkills.indexOf(skill);
-    const selectedSkillsWithoutUpdatedSkill = this.selectedSkills.filter((existingSkill, currIndex) => currIndex !== updateIndex);
+    const selectedSkillsWithoutUpdatedSkill = this.selectedSkills.filter(
+      (existingSkill, currIndex) => currIndex !== updateIndex
+    );
 
     const updatedSkill: SelectedSkill = {
       ...skill,
@@ -277,26 +321,41 @@ export class ConsultantSkillsEditService implements OnDestroy {
       if (this.displaySkillsCount < this.maxDisplaySkills) {
         chip.toggleSelected();
         updatedSkill.displayOrder = this.displaySkillsCount + 1;
-        this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdatedSkill, updatedSkill);
+        this.updateSelectedDisplaySkills(
+          selectedSkillsWithoutUpdatedSkill,
+          updatedSkill
+        );
       } else {
         // Need to replace with UI alert, probably a snackbar
         console.warn('You are trying to add too many display skills');
       }
     } else {
       chip.toggleSelected();
-      const selectedSkillsUpdated = this.reorderSkillsAfterRemovedSkill(selectedSkillsWithoutUpdatedSkill, updatedSkill.displayOrder);
+      const selectedSkillsUpdated = this.reorderSkillsAfterRemovedSkill(
+        selectedSkillsWithoutUpdatedSkill,
+        updatedSkill.displayOrder
+      );
 
       updatedSkill.displayOrder = 0;
       this.updateSelectedDisplaySkills(selectedSkillsUpdated, updatedSkill);
     }
   }
 
-  private reorderSkillsAfterRemovedSkill(selectedSkillsWithoutUpdated: SelectedSkill[], updatedSkillDisplayOrder: number) {
-    return selectedSkillsWithoutUpdated
-      .map(s => (s.display && (s.displayOrder > updatedSkillDisplayOrder) ? {...s, displayOrder: s.displayOrder - 1 } : s));
+  private reorderSkillsAfterRemovedSkill(
+    selectedSkillsWithoutUpdated: SelectedSkill[],
+    updatedSkillDisplayOrder: number
+  ) {
+    return selectedSkillsWithoutUpdated.map(s =>
+      s.display && s.displayOrder > updatedSkillDisplayOrder
+        ? { ...s, displayOrder: s.displayOrder - 1 }
+        : s
+    );
   }
 
-  private updateSelectedDisplaySkills(selectedSkillsClone: SelectedSkill[], updatedSkill: SelectedSkill) {
+  private updateSelectedDisplaySkills(
+    selectedSkillsClone: SelectedSkill[],
+    updatedSkill: SelectedSkill
+  ) {
     const updatedSelectedSkills: SelectedSkill[] = [
       ...selectedSkillsClone,
       updatedSkill
@@ -305,16 +364,20 @@ export class ConsultantSkillsEditService implements OnDestroy {
   }
 
   displaySkillReordered(event: CdkDragDrop<SelectedSkill[]>) {
-    const displaySkillsClone = [
-      ...this.displaySkills
-    ];
-    moveItemInArray(displaySkillsClone, event.previousIndex, event.currentIndex);
+    const displaySkillsClone = [...this.displaySkills];
+    moveItemInArray(
+      displaySkillsClone,
+      event.previousIndex,
+      event.currentIndex
+    );
 
     for (let index = 0; index < displaySkillsClone.length; index++) {
       displaySkillsClone[index].displayOrder = index + 1;
     }
 
-    const selectedSkillsNoDisplay = this.selectedSkills.filter(skill => skill.display === false);
+    const selectedSkillsNoDisplay = this.selectedSkills.filter(
+      skill => skill.display === false
+    );
     const reorderedSelectedSkills = [
       ...selectedSkillsNoDisplay,
       ...displaySkillsClone

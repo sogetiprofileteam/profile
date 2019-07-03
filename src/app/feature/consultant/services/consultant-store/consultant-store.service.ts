@@ -21,10 +21,10 @@ export const blankConsultant: Consultant = {
   username: null,
   status: null,
   address: {
-      lineOne: '10900 Stonelake Blvd. Suite 195',
-      city: 'Austin',
-      state: 'TX',
-      zipCode: 78759
+    lineOne: '10900 Stonelake Blvd. Suite 195',
+    city: 'Austin',
+    state: 'TX',
+    zipCode: 78759
   },
   phone1: 1234567890,
   urlLinkedIn: null,
@@ -40,13 +40,12 @@ export const blankConsultant: Consultant = {
 
 @Injectable()
 export class ConsultantStore implements OnDestroy {
-
   constructor(
     private consultantDataService: ConsultantDataService,
     private notification: NotificationsService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   private _destroy$ = new Subject();
 
@@ -54,7 +53,9 @@ export class ConsultantStore implements OnDestroy {
   private readonly _consultant$ = new ReplaySubject<Consultant>(1);
 
   /** Consultant Observable to subscribe to for most recent state. */
-  readonly consultant$ = this._consultant$.asObservable().pipe(tap(c => this._consultant = c));
+  readonly consultant$ = this._consultant$
+    .asObservable()
+    .pipe(tap(c => (this._consultant = c)));
 
   private _consultant: Consultant;
 
@@ -91,16 +92,17 @@ export class ConsultantStore implements OnDestroy {
 
     if (consultantId) {
       this._newConsultant = false;
-      this.consultantDataService.getConsultant(consultantId)
+      this.consultantDataService
+        .getConsultant(consultantId)
         .pipe(
           take(1),
           takeUntil(this._destroy$)
-        ).subscribe(consultant => this._consultant$.next(consultant));
+        )
+        .subscribe(consultant => this._consultant$.next(consultant));
     } else {
       this._newConsultant = true;
       this._consultant$.next(blankConsultant);
     }
-
   }
 
   /**
@@ -134,12 +136,14 @@ export class ConsultantStore implements OnDestroy {
    */
   addNewConsultant() {
     if (this.newConsultant) {
-      console.log("Adding new consultant using (Save function) to the database!: consultant-store.service");
-      this.saveToDatabase(this.consultant)
-        .subscribe(consultant => {
-          this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
+      console.log(
+        'Adding new consultant using (Save function) to the database!: consultant-store.service'
+      );
+      this.saveToDatabase(this.consultant).subscribe(consultant => {
+        this.router.navigate(['/consultant'], {
+          queryParams: { id: consultant.id }
         });
-
+      });
     }
   }
 
@@ -148,17 +152,15 @@ export class ConsultantStore implements OnDestroy {
    * @param consultant object to save to DB.
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
-    console.log("Saving to the database!: consultant-store.service");
-    if (HttpErrorResponse){
+    console.log('Saving to the database!: consultant-store.service');
+    if (HttpErrorResponse) {
       this.notification.openErrorSavingSnackBar();
-    }
-    else {
+    } else {
       this.notification.openSavedSnackBar();
     }
-    return this.consultantDataService.updateConsultant(consultant)
+    return this.consultantDataService
+      .updateConsultant(consultant)
       .pipe(tap(res => this._consultant$.next(consultant)));
-
-
   }
 
   ngOnDestroy() {

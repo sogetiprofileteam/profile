@@ -8,11 +8,15 @@ export class NotificationsService {
   constructor(public snackbar: MatSnackBar) {}
 
   openSavedSnackBar() {
-    const snackbarRef = this.snackbar.open('Consultant Profile Saved Successfully!', null, {
-      horizontalPosition: 'end',
-      panelClass: ['green-snackbar'],
-      duration: 3000
-    });
+    const snackbarRef = this.snackbar.open(
+      'Consultant Profile Saved Successfully!',
+      null,
+      {
+        horizontalPosition: 'end',
+        panelClass: ['green-snackbar'],
+        duration: 3000
+      }
+    );
     return snackbarRef;
   }
 
@@ -84,7 +88,7 @@ export class NotificationsService {
     return snackbarRef;
   }
 
-  openErrorUpdatingPicture()  {
+  openErrorUpdatingPicture() {
     const snackbarRef = this.snackbar.open(
       'Error: Profile picture did not upload!',
       null,
