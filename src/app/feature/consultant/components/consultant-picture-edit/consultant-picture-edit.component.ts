@@ -5,6 +5,8 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Consultant } from '@core/models';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
+
 
 @Component({
   selector: 'app-consultant-picture-edit',
@@ -16,6 +18,7 @@ export class ConsultantPictureEditComponent implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantPictureEditComponent>,
   ) { }
 
@@ -47,10 +50,17 @@ export class ConsultantPictureEditComponent implements OnDestroy {
         ...consultant,
         urlProfileImage: this.croppedImage
       };
-
-      this.consultantStore.updateConsultant(updatedData)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.close());
+      // Ensures that the notification isn't triggered until image is officially cropped
+      if(this.croppedImage){
+       this.consultantStore.updateConsultant(updatedData)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(() => this.close());
+          this.notification.openUpdatedPicture();
+        }
+        else {
+          this.notification.openErrorUpdatingPicture();
+        }
     }
+
   }
 }

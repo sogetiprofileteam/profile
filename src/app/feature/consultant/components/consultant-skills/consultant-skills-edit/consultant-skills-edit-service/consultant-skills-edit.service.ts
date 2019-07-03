@@ -7,6 +7,8 @@ import { tap, takeUntil, map, switchMap } from 'rxjs/operators';
 
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChip } from '@angular/material/chips';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
+
 
 import { differenceWith, isEqual, pick, merge } from 'lodash';
 
@@ -36,8 +38,9 @@ export class ConsultantSkillsEditService implements OnDestroy {
   private _selectedSkills$ = new ReplaySubject<SelectedSkill[]>(1);
   private _destroy$ = new Subject();
   private _getSkills$: Observable<Skill[]>;
-
+  private notification: NotificationsService;
   availableSkills$: Observable<SkillOption[]>;
+
 
   closeDialog$ = this._closeDialog$.asObservable();
 
@@ -223,7 +226,6 @@ export class ConsultantSkillsEditService implements OnDestroy {
             ...mergedResponseNewSkills,
             ...existingSkills
           ];
-
           return this.updateSkills(skills);
         }),
         takeUntil(this._destroy$)
@@ -240,6 +242,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
     return this.consultantStore
       .updateConsultant({ [this.skillProperty]: skills })
       .pipe(takeUntil(this._destroy$));
+
   }
 
   chipClicked(chip: MatChip): void {

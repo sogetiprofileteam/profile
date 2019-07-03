@@ -5,56 +5,95 @@ import { MatSnackBar } from '@angular/material';
   providedIn: 'root'
 })
 export class NotificationsService {
+  constructor(public snackbar: MatSnackBar) {}
 
-  constructor(public snackbar: MatSnackBar) { }
-
-  openSavedSnackBar(){
-    const snackbarRef = this.snackbar.open('Consultant Saved', null, {
-        horizontalPosition: 'end',
-        panelClass: ['red-snackbar'],
-        duration: 3000
-    })
-    console.log("SnackBar Here!");
+  openSavedSnackBar() {
+    const snackbarRef = this.snackbar.open('Consultant Profile Saved Successfully!', null, {
+      horizontalPosition: 'end',
+      panelClass: ['green-snackbar'],
+      duration: 3000
+    });
     return snackbarRef;
   }
 
-  openErrorSavingSnackBar(){
-    const snackbarRef = this.snackbar.open('There was an error saving consultant', null, {
+  openErrorSavingSnackBar() {
+    const snackbarRef = this.snackbar.open(
+      'There was an error saving consultant',
+      null,
+      {
         horizontalPosition: 'end',
         panelClass: ['red-snackbar'],
         duration: 3000
-    })
-    console.log("SnackBar Error Here!");
+      }
+    );
     return snackbarRef;
   }
 
-  openUpdatedSnackBar(){
+  openUpdatedSnackBar() {
     const snackbarRef = this.snackbar.open('Consultant Updated', null, {
-        horizontalPosition: 'end',
-        panelClass: ['green-snackbar'],
-        duration: 3000
-    })
-    console.log("SnackBar Here!");
+      horizontalPosition: 'end',
+      panelClass: ['green-snackbar'],
+      duration: 3000
+    });
     return snackbarRef;
   }
 
-  openErrorUpdatingSnackBar(){
-    const snackbarRef = this.snackbar.open('There was an error updating consultant', null, {
+  openErrorUpdatingSnackBar() {
+    const snackbarRef = this.snackbar.open(
+      'There was an error updating consultant',
+      null,
+      {
         horizontalPosition: 'end',
         panelClass: ['red-snackbar'],
         duration: 3000
-    })
-    console.log("SnackBar Error Here!");
+      }
+    );
     return snackbarRef;
   }
 
-  openDeletedExperience(){
-    const snackbarRef = this.snackbar.open('Deleted experience', null, {
+  openDeletedExperience() {
+    const snackbarRef = this.snackbar.open('Experience Deleted', null, {
+      horizontalPosition: 'end',
+      panelClass: ['red-snackbar'],
+      duration: 3000
+    });
+
+    return snackbarRef;
+  }
+
+  openDeletedEducation() {
+    const snackbarRef = this.snackbar.open('Education Deleted', null, {
+      horizontalPosition: 'end',
+      panelClass: ['red-snackbar'],
+      duration: 3000
+    });
+
+    return snackbarRef;
+  }
+
+  openUpdatedPicture() {
+    const snackbarRef = this.snackbar.open(
+      'Profile Picture Uploaded Successfully!',
+      null,
+      {
         horizontalPosition: 'end',
         panelClass: ['green-snackbar'],
         duration: 3000
-    })
-    console.log("SnackBar Error Here!");
+      }
+    );
+    return snackbarRef;
+  }
+
+  openErrorUpdatingPicture()  {
+    const snackbarRef = this.snackbar.open(
+      'Error: Profile picture did not upload!',
+      null,
+      {
+        horizontalPosition: 'end',
+        panelClass: ['red-snackbar'],
+        duration: 3000
+      }
+    );
     return snackbarRef;
   }
 }

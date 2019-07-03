@@ -2,6 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
+
 
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -16,6 +18,7 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantHeaderEditComponent>,
     private formBuilder: FormBuilder
   ) { }
@@ -48,6 +51,10 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
+        this.notification.openUpdatedSnackBar();
+    }
+    else {
+      this.notification.openErrorUpdatingSnackBar();
     }
   }
 

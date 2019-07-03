@@ -5,8 +5,10 @@ import { ConsultantDataService } from '@core/services/consultant-data/consultant
 
 import { Observable, Subject, ReplaySubject, of } from 'rxjs';
 import { tap, takeUntil, take } from 'rxjs/operators';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 
 import { Consultant } from '@core/models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const blankConsultant: Consultant = {
   id: null,
@@ -41,6 +43,7 @@ export class ConsultantStore implements OnDestroy {
 
   constructor(
     private consultantDataService: ConsultantDataService,
+    private notification: NotificationsService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -136,6 +139,7 @@ export class ConsultantStore implements OnDestroy {
         .subscribe(consultant => {
           this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
         });
+
     }
   }
 
@@ -145,9 +149,16 @@ export class ConsultantStore implements OnDestroy {
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
     console.log("Saving to the database!: consultant-store.service");
+    if (HttpErrorResponse){
+      this.notification.openErrorSavingSnackBar();
+    }
+    else {
+      this.notification.openSavedSnackBar();
+    }
     return this.consultantDataService.updateConsultant(consultant)
       .pipe(tap(res => this._consultant$.next(consultant)));
-      
+
+
   }
 
   ngOnDestroy() {

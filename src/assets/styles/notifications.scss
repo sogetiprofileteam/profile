@@ -7,3 +7,10 @@
   background: rgb(11, 170, 11);
   color: white;
 }
+
+@media screen and (max-width: 499px) {
+  .red-snackbar {
+  //  padding-left: 50%;
+    width: 20px;
+  }
+}
