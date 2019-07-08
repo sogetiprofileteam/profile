@@ -19,10 +19,10 @@ export const blankConsultant: Consultant = {
   username: null,
   status: null,
   address: {
-      lineOne: '10900 Stonelake Blvd. Suite 195',
-      city: 'Austin',
-      state: 'TX',
-      zipCode: 78759
+    lineOne: '10900 Stonelake Blvd. Suite 195',
+    city: 'Austin',
+    state: 'TX',
+    zipCode: 78759
   },
   phone1: 1234567890,
   urlLinkedIn: null,
@@ -69,13 +69,58 @@ export class ConsultantStore implements OnDestroy {
   /**
    * Build a new consultant object from existing object with updated properties.
    * @param data A partial Consultant object containing the data to update
+   * @param index optional arg which says which index in edu or cert array to replace
    */
-  private updatedConsultantFactory(data: Partial<Consultant>): Consultant {
+  private updatedConsultantFactory(data, index?: number): Consultant {
     // Copy current consultant to preserve immutability
-    const consultantCopy = {
-      ...this.consultant,
-      ...data
-    };
+    var consultantCopy: Consultant;
+    if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
+      var eduOrCertVal: string;
+      Object.keys(data).forEach(function (key) {
+        var re = RegExp('^eduOrCert.$');
+        if (re.test(key)) {
+          eduOrCertVal = data[key]
+        }
+      })
+
+      if (eduOrCertVal === "1") {
+        if (index !== undefined) {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            education: [...this.consultant.education]
+          };
+          consultantCopy.education[index] = data.education[0]
+        } else {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            education: this.consultant.education.concat(data.education)
+          };
+        }
+
+      } else {
+        if (index != undefined) {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            certifications: [...this.consultant.certifications]
+          };
+          consultantCopy.certifications[index] = data.certifications[0];
+        } else {
+          consultantCopy = {
+            ...this.consultant,
+            ...data,
+            certifications: this.consultant.certifications.concat(data.certifications)
+          };
+        }
+      }
+    } else {
+      consultantCopy = {
+        ...this.consultant,
+        ...data
+      };
+    }
 
     return consultantCopy;
   }
@@ -113,10 +158,11 @@ export class ConsultantStore implements OnDestroy {
    * explicitly add when the user chooses to), if it's an existing
    * consultant it will be saved to DB.
    * @param data A partial Consultant object containing the data to update.
+   * @param index optional arg number for replaceing at index in edu/cert arrays
    */
-  updateConsultant(data: Partial<Consultant>): Observable<Consultant | null> {
+  updateConsultant(data: Partial<Consultant>, index?: number): Observable<Consultant | null> {
     // TODO: error handling? Leave error handling implementation up to consumer?
-    const updatedConsultant = this.updatedConsultantFactory(data);
+    const updatedConsultant = this.updatedConsultantFactory(data, index);
     if (!this.newConsultant) {
       return this.saveToDatabase(updatedConsultant);
     } else {
@@ -134,7 +180,7 @@ export class ConsultantStore implements OnDestroy {
       console.log('Adding new consultant using (Save function) to the database!: consultant-store.service');
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
-          this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
+          this.router.navigate(['/consultant'], { queryParams: { id: consultant.id } });
         });
     }
   }
@@ -147,7 +193,6 @@ export class ConsultantStore implements OnDestroy {
     console.log('Saving to the database!: consultant-store.service');
     return this.consultantDataService.updateConsultant(consultant)
       .pipe(tap(res => this._consultant$.next(consultant)));
-
   }
 
   ngOnDestroy() {

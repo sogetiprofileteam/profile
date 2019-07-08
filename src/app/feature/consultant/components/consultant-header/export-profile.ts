@@ -4,46 +4,36 @@ export class ExportProfile {
 
   create(personal, experiences, educations, coreSkills, technicalSkills, certifications) {
 
-    // TODO: Remove this later
-    console.log('INSIDE EXPORT PROFILE:\n' +
-      // 'personal:' + JSON.stringify(personal[0]) +
-       '\nexp: ' + JSON.stringify(experiences) +
-      // '\nedu:' + JSON.stringify(educations) +
-      // '\ncs: ' + JSON.stringify(coreSkills)  +
-      // '\nts: ' + JSON.stringify(technicalSkills) +
-       '\ncert' + JSON.stringify(certifications)
-      );
-
     const document = new Document(undefined, {
-                                      top: 1440,
-                                      right: 720,
-                                      bottom: 2880,
-                                      left: 1080,
-                                      width: 12240,
-                                      height: 15840
-                                  });
-                                  // Margins are measured in 1440th's of an inch. So 2" = 2880, 8.5" = 12240
+      top: 1440,
+      right: 720,
+      bottom: 2880,
+      left: 1080,
+      width: 12240,
+      height: 15840
+    });
+    // Margins are measured in 1440th's of an inch. So 2" = 2880, 8.5" = 12240
 
     document.Header.addParagraph(this.createHeader());
     document.Footer.addParagraph(this.createFooter());
 
     // Creates the header with the name
-    document.addParagraph(this.createName(personal[0].firstName , personal[0].lastName));
+    document.addParagraph(this.createName(personal[0].firstName, personal[0].lastName));
 
     // Creates the contact info section
     document.addParagraph(this.createContactInfo(personal[0].phone,
-                                                  'Sogeti Austin',
-                                                  personal[0].email,
-                                                  personal[0].address,
-                                                  personal[0].title,
-                                                  personal[0].practice).spacing({ before: 0, after: 0, line: 240}));
-                                                  // line is measured in 240ths of a line, so 360 = 1.5 lines
+      'Sogeti Austin',
+      personal[0].email,
+      personal[0].address,
+      personal[0].title,
+      personal[0].practice).spacing({ before: 0, after: 0, line: 240 }));
+    // line is measured in 240ths of a line, so 360 = 1.5 lines
 
     document.addParagraph(this.createHeading('Summary'));
     document.addParagraph(this.createSummaryText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
-    ' incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ' +
-    'ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' +
-    ' Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'));
+      ' incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ' +
+      'ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' +
+      ' Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'));
 
     document.addParagraph(this.createHeading('Skills'));
     // Creates the Core Skills section
@@ -92,10 +82,8 @@ export class ExportProfile {
         }
 
         const bulletPoints = this.splitParagraphIntoBullets(position.descriptions);
-        // console.log(JSON.stringify(bulletPoints));
         bulletPoints.forEach((bulletPoint) => {
-          // console.log('bulletpoint: ' + JSON.stringify(bulletPoint));
-          document.addParagraph(this.createBullet(bulletPoint.summary).spacing({ before: 0, after: 120, line: 240}));
+          document.addParagraph(this.createBullet(bulletPoint.summary).spacing({ before: 0, after: 120, line: 240 }));
         });
       }
     }
@@ -134,8 +122,6 @@ export class ExportProfile {
     const titlePracticeRun = new TextRun(`${title} | ${practice} `).font('Calibri (Body)').bold().size(22);
     const emailRun = new TextRun(`${email}`).font('Calibri (Body)').break().size(22);
     const links = new TextRun(`${profileUrl}`).font('Calibri (Body)').break().size(22);
-    // const contactInfo = new TextRun(`Mobile: ${phoneNumber} | LinkedIn: ${profileUrl} | Email: ${email}`);
-    // console.log('addressIn: ' + JSON.stringify(addressIn));
 
     // the address needs to be broken out into its own class so that we can determine things like if line 2 exist
     let lineTwo = '';
@@ -143,11 +129,11 @@ export class ExportProfile {
       lineTwo = ', ' + addressIn.lineTwo;
     }
     const address = new TextRun(addressIn.lineOne +
-                                lineTwo + ', ' +
-                                addressIn.city +  ', ' +
-                                addressIn.state +  ', ' +
-                                addressIn.zipCode +  ' ' +
-                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break().size(22);
+      lineTwo + ', ' +
+      addressIn.city + ', ' +
+      addressIn.state + ', ' +
+      addressIn.zipCode + ' ' +
+      `| Phone: ${phoneNumber}`).font('Calibri (Body)').break().size(22);
 
     paragraph.addRun(titlePracticeRun);
     paragraph.addRun(emailRun);
@@ -160,7 +146,7 @@ export class ExportProfile {
   }
 
   createHeading(text) {
-    const para =  new Paragraph().heading1().thematicBreak();
+    const para = new Paragraph().heading1().thematicBreak();
     const tr = new TextRun(text).font('Calibri (Body)').bold().color('0070AD').size(32);
 
     para.addRun(tr);
@@ -168,7 +154,7 @@ export class ExportProfile {
   }
 
   createSubHeading(text) {
-    const para =  new Paragraph();
+    const para = new Paragraph();
     const tr = new TextRun(text).font('Calibri (Body)').bold().italics().color('12B3DB').size(28).tab();
 
     para.addRun(tr);
@@ -216,7 +202,6 @@ export class ExportProfile {
     // const skillConcat = skills.map((skill) => skill.name).join(', ') + '.';
     let count = 0;
     for (const skill of skills) {
-      console.log(JSON.stringify(skill.name));
       let skillRun;
       if (count % 2 === 0) {
         skillRun = new TextRun(skill.name).font('Calibri (Body)').break().size(22);
@@ -260,7 +245,6 @@ export class ExportProfile {
     const enddateString = startDate;
     const endDateText = new Date(enddateString).toLocaleDateString();
 
-    // console.log(`${startDateText} - ${endDateText}`);
     const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)').tab().size(22);
     paragraph.addRun(date);
 
