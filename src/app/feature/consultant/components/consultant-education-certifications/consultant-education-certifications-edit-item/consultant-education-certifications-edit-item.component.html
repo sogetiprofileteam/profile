@@ -1,0 +1,48 @@
+<mat-expansion-panel [expanded]="orOperation(panelOpen || openSpecifed)">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>
+        <span class="circle">{{index + 1}}</span> {{"&nbsp;&nbsp;"}}
+        <span class="title">Edit Education & Certification</span>
+      </b>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-dialog-content [formGroup]="parentForm">
+    <div class="container">
+      <div class="row" class="text-field">
+        <mat-radio-group aria-label="Select an option" [formControlName]="eduOrCertName">
+          <mat-radio-button value="1">Education</mat-radio-button>
+          <mat-radio-button value="2">Certifcation</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="row">
+        <mat-form-field class="full-width" display="flex">
+          <mat-label>Institute Name</mat-label>
+          <input matInput [formControlName]="schoolName" type="text">
+          <mat-error>Institute Name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="full-width" display="flex">
+          <mat-label>Achievement Title</mat-label>
+          <input matInput [formControlName]="levelOfDegreeName" type="text">
+          <mat-error>Title is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="full-width" display="flex">
+          <mat-label>Date</mat-label>
+          <input matInput [formControlName]="endDateName" [matDatepicker]="myDatepicker">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+          <mat-error>Date is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <button type="button" mat-stroked-button color="accent" (click)="onDelete(item)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</mat-expansion-panel>

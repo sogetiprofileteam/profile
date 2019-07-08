@@ -1,3 +1,4 @@
+import { ConsultantSearch } from '@core/models/consultantSearch';
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { ConsultantDataService } from '@core/services/consultant-data/consultant-data.service';
@@ -13,7 +14,7 @@ export class ConsultantsStoreService implements OnDestroy {
   private _destroy$ = new Subject();
 
   /** Consultants ReplaySubject allows late subscribers to get most recent data */
-  private readonly _consultants = new ReplaySubject<Consultant[]>(1);
+  private readonly _consultants = new ReplaySubject<ConsultantSearch[]>(1);
 
   /** Consultants Observable to subscribe to for most recent state. */
   readonly consultants$ = this._consultants.asObservable();
@@ -32,7 +33,7 @@ export class ConsultantsStoreService implements OnDestroy {
   /**
    * Calls the data service to fetch consultants.
    */
-  private getConsultants(): Observable<Consultant[]> {
+  private getConsultants(): Observable<ConsultantSearch[]> {
     return this.consultantDataService.getConsultants();
   }
 

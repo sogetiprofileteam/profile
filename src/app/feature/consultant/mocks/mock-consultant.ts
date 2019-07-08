@@ -9,7 +9,10 @@ export const mockConsultant: Consultant = {
     practice: 'Applications and Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
     username: 'jbarnes',
-    status: '',
+    status: {
+        id: '1',
+        name: 'Test Status'
+    },
     address: {
         lineOne: '1234 Fake Street',
         city: 'Austin',
@@ -93,6 +96,8 @@ export const mockConsultant: Consultant = {
             id: '1',
             dateRecieved: new Date(),
             name: 'Amazon AWS Engineer',
+            // title not supported in database yet keep out for now
+            // title: 'AWS Solution Architect'
         }
     ],
     education: [

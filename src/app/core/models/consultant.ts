@@ -3,7 +3,8 @@ import {
     SelectedSkill,
     Education,
     Experience,
-    Certification
+    Certification,
+    Status
 } from './index';
 
 export interface Consultant {
@@ -14,7 +15,7 @@ export interface Consultant {
     secondName?: string;
     title: string;
     practice: string;
-    status: string;
+    status?: Status;
     email: string;
     username: string;
     address: Address;
