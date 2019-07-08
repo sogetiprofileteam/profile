@@ -26,6 +26,8 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
   headerForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
+    title: ['', Validators.required],
+    practice: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
     urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
@@ -57,6 +59,13 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+  get title() {
+    return this.headerForm.get('title');
+  }
+
+  get practice() {
+    return this.headerForm.get('practice');
   }
 
   get email() {

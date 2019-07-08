@@ -19,7 +19,7 @@ export const mockConsultant: Consultant = {
         state: 'Texas',
         zipCode: 78732
     },
-    phone1: 5129999999,
+    phone: 5129999999,
     urlLinkedIn: 'https://linkedin.com',
     urlGitHub: 'https://github.com',
     urlWordpress: 'https://wordpress.com',
