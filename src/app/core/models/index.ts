@@ -7,3 +7,4 @@ export * from './skill-option';
 export * from './education';
 export * from './certification';
 export * from './description';
+export * from './status';

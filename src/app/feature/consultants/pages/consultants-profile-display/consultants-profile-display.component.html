@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="row">
+      <div class="picture-container">
+          <img *ngIf="consultant.urlProfileImage" class="picture" src="{{consultant.urlProfileImage}}">
+          <img *ngIf="!consultant.urlProfileImage"class="picture" src="../../../../../assets/img/blank-profile.png">
+      </div>
+      <div class="text-area">
+          <h2 class="name" [routerLink]="['/consultant']" [queryParams]="{ id: consultant.id }">
+            <a>{{consultant.firstName}} {{consultant.lastName}} - {{consultant.title}}</a>
+          </h2>
+          <p>
+            {{consultant.practice}}
+          </p>  
+          <p *ngIf="consultant.status">
+            Available: {{consultant.status.Name}}
+          </p>
+          <br/>
+      </div>
+    </div>
+</div>
+<mat-divider [inset]="true"></mat-divider>
+
+
