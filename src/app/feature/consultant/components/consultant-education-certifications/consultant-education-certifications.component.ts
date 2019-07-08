@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { ConsultantEducationCertificationsEditComponent } from '../consultant-education-certifications-edit/consultant-education-certifications-edit.component';
+import { ConsultantEducationCertificationsEditComponent } from './consultant-education-certifications-edit/consultant-education-certifications-edit.component';
 import { MatDialog } from '@angular/material';
-import { ConsultantEducationCertificationsExistingEditComponent } from '../consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
+import { ConsultantEducationCertificationsExistingEditComponent } from './consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
 
 @Component({
   selector: 'app-consultant-education-certifications',

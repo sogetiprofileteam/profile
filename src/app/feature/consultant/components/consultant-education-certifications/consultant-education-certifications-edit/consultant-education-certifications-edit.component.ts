@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material';
-import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { ConsultantStore } from '../../../services/consultant-store/consultant-store.service';
 
 @Component({
   selector: 'app-consultant-education-certifications-edit',

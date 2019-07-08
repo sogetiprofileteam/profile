@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ConsultantStore } from '@feature/consultant';
+import { ConsultantStore } from '../../../services/consultant-store/consultant-store.service';
 import { MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material'
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { Education, Certification } from '@core/models';
 
 @Component({

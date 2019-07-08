@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
-import { ConsultantHeaderEditComponent } from '../consultant-header-edit/consultant-header-edit.component';
-import { ConsultantPictureEditComponent } from '../consultant-picture-edit/consultant-picture-edit.component';
+import { ConsultantHeaderEditComponent } from './consultant-header-edit/consultant-header-edit.component';
+import { ConsultantPictureEditComponent } from './consultant-picture-edit/consultant-picture-edit.component';
 
 import { ExportProfile } from '@feature/consultant/components/consultant-header/export-profile';
 import { Packer } from 'docx';
