@@ -80,7 +80,7 @@ export class ConsultantExperienceComponent implements OnInit {
 
     updatedExperience.splice(selectedIndex, 1);
 
-    this.notification.openDeletedExperience();
+    this.notification.openDeletedExperienceSnackBar();
     return this.consultantStore
       .updateConsultant({ experience: updatedExperience })
       .pipe(takeUntil(this._destroy$));

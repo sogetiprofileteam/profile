@@ -42,10 +42,10 @@ export class ConsultantSkillsEditComponent implements OnInit {
   updateConsultant() {
     this.skillEditService.updateConsultant();
     if(this.skillEditService.updateConsultant() == void{} ){
-      this.notification.openUpdatedSnackBar();
+      this.notification.openAddingSkillSnackBar();
     }
     else {
-      this.notification.openErrorUpdatingSnackBar();
+      this.notification.openErrorAddingSkillSnackBar();
     }
   }
 

@@ -8,7 +8,7 @@ import { tap, takeUntil, take } from 'rxjs/operators';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
 
 import { Consultant } from '@core/models';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 
 export const blankConsultant: Consultant = {
   id: null,
@@ -153,11 +153,6 @@ export class ConsultantStore implements OnDestroy {
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
     console.log('Saving to the database!: consultant-store.service');
-    if (HttpErrorResponse) {
-      this.notification.openErrorSavingSnackBar();
-    } else {
-      this.notification.openSavedSnackBar();
-    }
     return this.consultantDataService
       .updateConsultant(consultant)
       .pipe(tap(res => this._consultant$.next(consultant)));

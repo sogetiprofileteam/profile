@@ -55,10 +55,10 @@ export class ConsultantPictureEditComponent implements OnDestroy {
        this.consultantStore.updateConsultant(updatedData)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => this.close());
-          this.notification.openUpdatedPicture();
+          this.notification.openUpdatedPictureSnackBar();
         }
         else {
-          this.notification.openErrorUpdatingPicture();
+          this.notification.openErrorUpdatingPictureSnackBar();
         }
     }
 

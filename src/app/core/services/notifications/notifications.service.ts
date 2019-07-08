@@ -55,7 +55,7 @@ export class NotificationsService {
     return snackbarRef;
   }
 
-  openDeletedExperience() {
+  openDeletedExperienceSnackBar() {
     const snackbarRef = this.snackbar.open('Experience Deleted', null, {
       horizontalPosition: 'end',
       panelClass: ['red-snackbar'],
@@ -65,7 +65,7 @@ export class NotificationsService {
     return snackbarRef;
   }
 
-  openDeletedEducation() {
+  openDeletedEducationSnackBar() {
     const snackbarRef = this.snackbar.open('Education Deleted', null, {
       horizontalPosition: 'end',
       panelClass: ['red-snackbar'],
@@ -75,7 +75,7 @@ export class NotificationsService {
     return snackbarRef;
   }
 
-  openUpdatedPicture() {
+  openUpdatedPictureSnackBar() {
     const snackbarRef = this.snackbar.open(
       'Profile Picture Uploaded Successfully!',
       null,
@@ -88,9 +88,35 @@ export class NotificationsService {
     return snackbarRef;
   }
 
-  openErrorUpdatingPicture() {
+  openErrorUpdatingPictureSnackBar() {
     const snackbarRef = this.snackbar.open(
       'Error: Profile picture did not upload!',
+      null,
+      {
+        horizontalPosition: 'end',
+        panelClass: ['red-snackbar'],
+        duration: 3000
+      }
+    );
+    return snackbarRef;
+  }
+
+  openAddingSkillSnackBar() {
+    const snackbarRef = this.snackbar.open(
+      'Skills updated!',
+      null,
+      {
+        horizontalPosition: 'end',
+        panelClass: ['green-snackbar'],
+        duration: 3000
+      }
+    );
+    return snackbarRef;
+  }
+
+  openErrorAddingSkillSnackBar() {
+    const snackbarRef = this.snackbar.open(
+      'Error updating skills',
       null,
       {
         horizontalPosition: 'end',
