@@ -73,26 +73,26 @@ export class ConsultantStore implements OnDestroy {
    */
   private updatedConsultantFactory(data, index?: number): Consultant {
     // Copy current consultant to preserve immutability
-    var consultantCopy: Consultant;
+    let consultantCopy: Consultant;
     console.log("updatedConsultantFactory.this.consultant:", this.consultant)
     if ((this.consultant.certifications !== undefined && this.consultant.certifications.length > 0) ||
       (this.consultant.education !== undefined && this.consultant.education.length > 0)) {
-      var eduOrCertVal: string;
-      Object.keys(data).forEach(function (key) {
-        var re = RegExp('^eduOrCert.$');
+      let eduOrCertVal: string;
+      Object.keys(data).forEach((key) => {
+        const re = RegExp('^eduOrCert.$');
         if (re.test(key)) {
-          eduOrCertVal = data[key]
+          eduOrCertVal = data[key];
         }
-      })
+      });
 
-      if (eduOrCertVal === "1") {
+      if (eduOrCertVal === '1') {
         if (index !== undefined) {
           consultantCopy = {
             ...this.consultant,
             ...data,
             education: [...this.consultant.education]
           };
-          consultantCopy.education[index] = data.education[0]
+          consultantCopy.education[index] = data.education[0];
         } else {
           consultantCopy = {
             ...this.consultant,
@@ -102,7 +102,7 @@ export class ConsultantStore implements OnDestroy {
         }
 
       } else {
-        if (index != undefined) {
+        if (index !== undefined) {
           consultantCopy = {
             ...this.consultant,
             ...data,

@@ -54,13 +54,13 @@ export class ConsultantHeaderComponent {
 
     const documentCreator = new ExportProfile();
     const doc = documentCreator.create(
-          personal,
-          consultant.experience,
-          consultant.education,
-          consultant.coreSkills,
-          consultant.technicalSkills,
-          consultant.certifications
-        );
+      personal,
+      consultant.experience,
+      consultant.education,
+      consultant.coreSkills,
+      consultant.technicalSkills,
+      consultant.certifications
+    );
 
     const packer = new Packer();
 

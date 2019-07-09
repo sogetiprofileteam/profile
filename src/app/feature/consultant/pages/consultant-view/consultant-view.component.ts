@@ -9,7 +9,7 @@ import { ConsultantStore } from '@feature/consultant/services/consultant-store/c
 })
 export class ConsultantViewComponent {
 
-  constructor(private consultantStore: ConsultantStore ) {
-      this.consultantStore.initConsultant();
+  constructor(private consultantStore: ConsultantStore) {
+    this.consultantStore.initConsultant();
   }
 }

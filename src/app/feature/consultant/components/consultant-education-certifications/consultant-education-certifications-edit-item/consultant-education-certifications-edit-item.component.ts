@@ -13,7 +13,7 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
   @Input() index: number;
   @Input() panelOpen: boolean;
   @Input() openSpecifed: boolean;
-  @Output() DeleteEvent = new EventEmitter<number>();
+  @Output() deleteEvent = new EventEmitter<number>();
 
   eduOrCertName: string;
   schoolName: string;
@@ -33,7 +33,7 @@ export class ConsultantEducationCertificationsEditItemComponent implements OnIni
   }
 
   onDelete(item: number) {
-    this.DeleteEvent.emit(item);
+    this.deleteEvent.emit(item);
   }
 
   orOperation(panelOpen, openSpecifed): boolean {

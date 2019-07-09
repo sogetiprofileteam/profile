@@ -15,7 +15,7 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
   private certificationArray = [];
   private educationArray = [];
   private items = [0];
-  private specified: number = -1;
+  private specified = -1;
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -42,21 +42,21 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
       const updatedData = this.getFormData();
       for (let i = 0; i < this.items.length; i++) {
         if (updatedData[`eduOrCert${this.items[i]}`] === '1') {
-          var education = {
+          const education = {
             levelOfDegree: updatedData[`levelOfDegree${this.items[i]}`],
             school: {
               name: updatedData[`school${this.items[i]}`]
             },
             endDate: updatedData[`endDate${this.items[i]}`]
-          }
+          };
           this.educationArray.push(education);
           updatedData.education = [...this.educationArray];
         } else {
-          var certification = {
+          const certification = {
             dateRecieved: updatedData[`endDate${this.items[i]}`],
             name: updatedData[`school${this.items[i]}`],
             title: updatedData[`levelOfDegree${this.items[i]}`]
-          }
+          };
           this.certificationArray.push(certification);
           updatedData.certifications = [...this.certificationArray];
         }
@@ -72,17 +72,17 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
 
   addEduCert(): void {
     this.items.push(Math.max(...this.items) + 1);
-    var outputObj = {};
+    let outputObj = {};
     for (let i = 0; i < this.items.length; i++) {
-      var outputObjTemp = {
+      const outputObjTemp = {
         [`school${this.items[i]}`]: [this.educationCertificationForm.value[`school${this.items[i]}`], Validators.required],
         [`levelOfDegree${this.items[i]}`]: [this.educationCertificationForm.value[`levelOfDegree${this.items[i]}`], Validators.required],
         [`endDate${this.items[i]}`]: [this.educationCertificationForm.value[`endDate${this.items[i]}`]],
         [`eduOrCert${this.items[i]}`]: [this.educationCertificationForm.value[`eduOrCert${this.items[i]}`]]
-      }
-      outputObj = { ...outputObj, ...outputObjTemp }
+      };
+      outputObj = { ...outputObj, ...outputObjTemp };
     }
-    this.educationCertificationForm = this.formBuilder.group(outputObj)
+    this.educationCertificationForm = this.formBuilder.group(outputObj);
   }
 
   getFormData() {
@@ -99,7 +99,7 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
 
   onDelete(item: number) {
     this.specified = this.items.indexOf(item) - 1;
-    if (this.specified === -1) this.specified = 0;
+    if (this.specified === -1) { this.specified = 0; }
     this.items.splice(this.items.indexOf(item), 1);
     this.educationCertificationForm.removeControl(`school${item}`);
     this.educationCertificationForm.removeControl(`levelOfDegree${item}`);
