@@ -1,3 +1,4 @@
+import { ConsultantSearch } from './../../models/consultantSearch';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
@@ -14,8 +15,8 @@ export class ConsultantDataService {
 
   private baseurl = environment.api + '/consultant';
 
-  public getConsultants(): Observable<Consultant[]> {
-    return this.http.get<Consultant[]>(this.baseurl);
+  public getConsultants(): Observable<ConsultantSearch[]> {
+    return this.http.get<ConsultantSearch[]>(this.baseurl);
   }
 
   public getConsultant(id: string): Observable<Consultant> {
