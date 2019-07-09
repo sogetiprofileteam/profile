@@ -4,7 +4,6 @@ import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
 
-
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
@@ -15,13 +14,12 @@ import { Consultant } from '@core/models';
   styleUrls: ['consultant-header-edit.component.scss']
 })
 export class ConsultantHeaderEditComponent implements OnDestroy {
-
   constructor(
     private consultantStore: ConsultantStore,
     private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantHeaderEditComponent>,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   readonly urlPattern = new RegExp('^(http|https)://');
   readonly phonePattern = new RegExp('^\\d+$');
@@ -34,10 +32,12 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
     urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
     urlGitHub: ['', Validators.pattern(this.urlPattern)],
     urlWordpress: ['', Validators.pattern(this.urlPattern)],
-    urlPersonal: ['', Validators.pattern(this.urlPattern)],
+    urlPersonal: ['', Validators.pattern(this.urlPattern)]
   });
 
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.headerForm.patchValue(consultant)));
+  consultant$ = this.consultantStore.consultant$.pipe(
+    tap(consultant => this.headerForm.patchValue(consultant))
+  );
   destroy$ = new Subject();
 
   close(): void {
@@ -48,12 +48,12 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
     if (this.headerForm.valid) {
       const updatedData = this.getFormData();
 
-      this.consultantStore.updateConsultant(updatedData)
+      this.consultantStore
+        .updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
-        this.notification.openUpdatedSnackBar();
-    }
-    else {
+      this.notification.openUpdatedSnackBar();
+    } else {
       this.notification.openErrorUpdatingSnackBar();
     }
   }

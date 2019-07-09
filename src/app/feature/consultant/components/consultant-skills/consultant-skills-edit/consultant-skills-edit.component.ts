@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Inject,
+  OnInit
+} from '@angular/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Skill, SkillType, SKILL_CORE } from '@core/models';
@@ -19,7 +24,8 @@ export interface SkillsEditDialogData {
 })
 export class ConsultantSkillsEditComponent implements OnInit {
   readonly skillType: SkillType = this.data.type;
-  readonly skillProperty = this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
+  readonly skillProperty =
+    this.skillType === SKILL_CORE ? 'coreSkills' : 'technicalSkills';
 
   readonly title = this.skillType === SKILL_CORE ? 'Core' : 'Technical';
 
@@ -27,8 +33,8 @@ export class ConsultantSkillsEditComponent implements OnInit {
     private skillEditService: ConsultantSkillsEditService,
     @Inject(MAT_DIALOG_DATA) public data: SkillsEditDialogData,
     private notification: NotificationsService,
-    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
-  ) { }
+    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>
+  ) {}
 
   // Would normally have this be the ConsultantStore observable but the
   // skillEditService is already injected and uses the ConsultantStore
@@ -36,15 +42,16 @@ export class ConsultantSkillsEditComponent implements OnInit {
 
   ngOnInit() {
     this.skillEditService.init(this.skillType, this.skillProperty);
-    this.skillEditService.closeDialog$.pipe(take(1)).subscribe(() => this.close());
+    this.skillEditService.closeDialog$
+      .pipe(take(1))
+      .subscribe(() => this.close());
   }
 
   updateConsultant() {
     this.skillEditService.updateConsultant();
-    if(this.skillEditService.updateConsultant() == void{} ){
+    if (this.skillEditService.updateConsultant() == void {}) {
       this.notification.openAddingSkillSnackBar();
-    }
-    else {
+    } else {
       this.notification.openErrorAddingSkillSnackBar();
     }
   }
@@ -52,5 +59,4 @@ export class ConsultantSkillsEditComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
-
 }

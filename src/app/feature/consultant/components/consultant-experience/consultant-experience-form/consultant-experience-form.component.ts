@@ -1,4 +1,11 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, Inject, Optional } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  OnInit,
+  Inject,
+  Optional
+} from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
@@ -15,9 +22,7 @@ import { growShrink } from '@shared/animations/grow-shrink';
   templateUrl: './consultant-experience-form.component.html',
   styleUrls: ['./consultant-experience-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    growShrink
-  ]
+  animations: [growShrink]
 })
 export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
   constructor(
@@ -26,7 +31,7 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantExperienceFormComponent>,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   formTitle: string;
   formAction: string;
@@ -118,8 +123,7 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
       experience[this.data.index] = this.getFormData();
       this.close(experience);
       this.notification.openUpdatedSnackBar();
-    }
-    else {
+    } else {
       this.close(experience);
       this.notification.openErrorUpdatingSnackBar();
     }

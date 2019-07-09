@@ -8,9 +8,7 @@ import { MatDialog } from '@angular/material';
 import { Experience } from '@core/models';
 import { ConsultantStore } from '../../services/consultant-store/consultant-store.service';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
-import {
-  ConsultantExperienceDeleteDialogComponent
-} from './consultant-experience-delete-dialog/consultant-experience-delete-dialog.component';
+import { ConsultantExperienceDeleteDialogComponent } from './consultant-experience-delete-dialog/consultant-experience-delete-dialog.component';
 import { ConsultantExperienceFormComponent } from './consultant-experience-form/consultant-experience-form.component';
 
 @Component({
@@ -23,13 +21,12 @@ export class ConsultantExperienceComponent implements OnInit {
     private consultantStore: ConsultantStore,
     private notification: NotificationsService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   private _destroy$ = new Subject();
   consultant$ = this.consultantStore.consultant$;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   openCreateExperienceDialog() {
     this.dialog
@@ -38,7 +35,9 @@ export class ConsultantExperienceComponent implements OnInit {
       .pipe(
         switchMap(updatedExperience => {
           return updatedExperience
-            ? this.consultantStore.updateConsultant( { experience: updatedExperience } )
+            ? this.consultantStore.updateConsultant({
+                experience: updatedExperience
+              })
             : of(null);
         }),
         takeUntil(this._destroy$)
@@ -46,14 +45,21 @@ export class ConsultantExperienceComponent implements OnInit {
       .subscribe();
   }
 
-  openEditExperienceDialog(selectedExperience: Experience, selectedIndex: number) {
+  openEditExperienceDialog(
+    selectedExperience: Experience,
+    selectedIndex: number
+  ) {
     this.dialog
-      .open(ConsultantExperienceFormComponent, { data: { experience: selectedExperience, index: selectedIndex } })
+      .open(ConsultantExperienceFormComponent, {
+        data: { experience: selectedExperience, index: selectedIndex }
+      })
       .afterClosed()
       .pipe(
         switchMap(updatedExperience => {
           return updatedExperience
-            ? this.consultantStore.updateConsultant( { experience: updatedExperience } )
+            ? this.consultantStore.updateConsultant({
+                experience: updatedExperience
+              })
             : of(null);
         }),
         takeUntil(this._destroy$)
@@ -63,20 +69,22 @@ export class ConsultantExperienceComponent implements OnInit {
 
   openDeleteExperienceDialog(selectedIndex: number) {
     this.dialog
-      .open(ConsultantExperienceDeleteDialogComponent, { width: '400px', data: { index: selectedIndex } })
+      .open(ConsultantExperienceDeleteDialogComponent, {
+        width: '400px',
+        data: { index: selectedIndex }
+      })
       .afterClosed()
       .pipe(
-        switchMap(shouldDelete => shouldDelete ? this.deleteExperience(selectedIndex) :  of(null)),
+        switchMap(shouldDelete =>
+          shouldDelete ? this.deleteExperience(selectedIndex) : of(null)
+        ),
         takeUntil(this._destroy$)
       )
       .subscribe();
   }
 
-
   private deleteExperience(selectedIndex: number) {
-    const updatedExperience = [
-      ...this.consultantStore.consultant.experience
-    ];
+    const updatedExperience = [...this.consultantStore.consultant.experience];
 
     updatedExperience.splice(selectedIndex, 1);
 
@@ -84,6 +92,5 @@ export class ConsultantExperienceComponent implements OnInit {
     return this.consultantStore
       .updateConsultant({ experience: updatedExperience })
       .pipe(takeUntil(this._destroy$));
-
   }
 }

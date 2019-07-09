@@ -16,7 +16,6 @@ import {
   MatAutocomplete
 } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChip } from '@angular/material/chips';
-import { NotificationsService } from '@core/services/notifications/notifications.service';
 
 import { differenceWith, isEqual, pick, merge } from 'lodash';
 
@@ -41,7 +40,6 @@ export class ConsultantSkillsEditService implements OnDestroy {
   private _selectedSkills$ = new ReplaySubject<SelectedSkill[]>(1);
   private _destroy$ = new Subject();
   private _getSkills$: Observable<Skill[]>;
-  private notification: NotificationsService;
   availableSkills$: Observable<SkillOption[]>;
 
   closeDialog$ = this._closeDialog$.asObservable();

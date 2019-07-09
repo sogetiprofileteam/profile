@@ -102,28 +102,20 @@ export class NotificationsService {
   }
 
   openAddingSkillSnackBar() {
-    const snackbarRef = this.snackbar.open(
-      'Skills updated!',
-      null,
-      {
-        horizontalPosition: 'end',
-        panelClass: ['green-snackbar'],
-        duration: 3000
-      }
-    );
+    const snackbarRef = this.snackbar.open('Skills updated!', null, {
+      horizontalPosition: 'end',
+      panelClass: ['green-snackbar'],
+      duration: 3000
+    });
     return snackbarRef;
   }
 
   openErrorAddingSkillSnackBar() {
-    const snackbarRef = this.snackbar.open(
-      'Error updating skills',
-      null,
-      {
-        horizontalPosition: 'end',
-        panelClass: ['red-snackbar'],
-        duration: 3000
-      }
-    );
+    const snackbarRef = this.snackbar.open('Error updating skills', null, {
+      horizontalPosition: 'end',
+      panelClass: ['red-snackbar'],
+      duration: 3000
+    });
     return snackbarRef;
   }
 }
