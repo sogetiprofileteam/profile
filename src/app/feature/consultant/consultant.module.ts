@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { ImageCropperModule } from 'ngx-image-cropper';
-import {
-  MatDialogModule,
-  MatInputModule,
-  MatFormFieldModule,
-  MatButtonModule,
-  MatIconModule,
-  MatSelectModule,
-  MatChipsModule,
-  MatAutocompleteModule,
-  MatRadioModule,
-  MatExpansionModule,
-  MatDatepickerModule,
-  MatNativeDateModule
-} from '@angular/material';
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
 import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
@@ -44,10 +42,10 @@ import {
   ConsultantExperienceDeleteDialogComponent,
   ConsultantExperienceFormComponent
 } from './index';
-import { ConsultantEducationCertificationsEditItemComponent } from './components/consultant-education-certifications/consultant-education-certifications-edit-item/consultant-education-certifications-edit-item.component';
-import { ConsultantEducationCertificationsExistingEditComponent } from './components/consultant-education-certifications/consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
-import { ConsultantEduCertSectionHeaderComponent } from './components/shared/consultant-edu-cert-section-header/consultant-edu-cert-section-header.component';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -64,9 +62,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantEducationCertificationsEditItemComponent,
-    ConsultantEducationCertificationsExistingEditComponent,
-    ConsultantEduCertSectionHeaderComponent,
     ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
@@ -89,7 +84,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
@@ -101,18 +95,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ConsultantPictureEditComponent,
     ConsultantSummaryEditComponent,
     ConsultantEducationCertificationsEditComponent,
-    ConsultantEducationCertificationsExistingEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],
-  providers: [
-    ConsultantStore,
-    TechnicalSkillsService,
-    CoreSkillsService,
-    SkillsDataService,
-    ConsultantSkillsEditService,
-    MatDatepickerModule
-  ]
-})
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 
+})
 export class ConsultantModule { }
