@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Edit Education and Certifcation</h1>
+
+<form *ngIf="consultant$ | async" [formGroup]="educationCertificationForm" (ngSubmit)="updateConsultant()">
+  <mat-accordion>
+    <app-consultant-education-certifications-edit-item
+      *ngFor="let item of items; let index = index"
+      [parentForm]="educationCertificationForm"
+      [item]="item"
+      [index]="index"
+      [panelOpen]="isLastPanel(index)"
+      [openSpecifed]="openSpecifed(index)"
+      (onDeleteEvent)="onDelete($event)">
+    </app-consultant-education-certifications-edit-item>
+  </mat-accordion>
+
+  <mat-dialog-actions align="end">
+    <button class="add-edu-cert"mat-stroked-button type="button" color="accent" (click)="addEduCert()">
+      <i class="material-icons"> add </i> EDUCATION/CERTIFICATION
+    </button>
+    <span class="right-button">
+      <button mat-stroked-button color="accent" type="button" (click)="close()">CANCEL</button>
+      <button mat-raised-button class="save" color="accent" type="submit" cdkFocusInitial>SAVE</button>
+    </span>
+  </mat-dialog-actions>
+</form>

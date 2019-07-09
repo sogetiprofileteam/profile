@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import { ImageCropperModule } from 'ngx-image-cropper';
-
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-
+import {
+  MatDialogModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  MatIconModule,
+  MatSelectModule,
+  MatChipsModule,
+  MatAutocompleteModule,
+  MatRadioModule,
+  MatExpansionModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+} from '@angular/material';
 import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
@@ -29,6 +31,7 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
+  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -37,8 +40,14 @@ import {
   TechnicalSkillsService,
   CoreSkillsService,
   SkillsDataService,
-  ConsultantSkillsEditService
+  ConsultantSkillsEditService,
+  ConsultantExperienceDeleteDialogComponent,
+  ConsultantExperienceFormComponent
 } from './index';
+import { ConsultantEducationCertificationsEditItemComponent } from './components/consultant-education-certifications/consultant-education-certifications-edit-item/consultant-education-certifications-edit-item.component';
+import { ConsultantEducationCertificationsExistingEditComponent } from './components/consultant-education-certifications/consultant-education-certifications-existing-edit/consultant-education-certifications-existing-edit.component';
+import { ConsultantEduCertSectionHeaderComponent } from './components/shared/consultant-edu-cert-section-header/consultant-edu-cert-section-header.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -55,9 +64,15 @@ import {
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
+    ConsultantEducationCertificationsEditItemComponent,
+    ConsultantEducationCertificationsExistingEditComponent,
+    ConsultantEduCertSectionHeaderComponent,
+    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
-    ConsultantPictureEditComponent
+    ConsultantPictureEditComponent,
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent
   ],
   imports: [
     CommonModule,
@@ -73,9 +88,31 @@ import {
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
-  entryComponents: [ ConsultantHeaderEditComponent, ConsultantSkillsEditComponent, ConsultantPictureEditComponent, ConsultantSummaryEditComponent, ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
+  entryComponents: [
+    ConsultantHeaderEditComponent,
+    ConsultantSkillsEditComponent,
+    ConsultantPictureEditComponent,
+    ConsultantSummaryEditComponent,
+    ConsultantEducationCertificationsEditComponent,
+    ConsultantEducationCertificationsExistingEditComponent,
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent
+  ],
+  providers: [
+    ConsultantStore,
+    TechnicalSkillsService,
+    CoreSkillsService,
+    SkillsDataService,
+    ConsultantSkillsEditService,
+    MatDatepickerModule
+  ]
 })
+
 export class ConsultantModule { }

@@ -2,6 +2,9 @@
   <ng-container *ngIf="consultant$ | async as consultant">
     <div class="picture-wrapper">
       <div class="button-container">
+        <button mat-fab class="export-button" (click)="exportProfile(consultant)">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
         <button mat-fab class="edit-button" color="white" (click)="openEditHeaderDialog()">
           <mat-icon>edit</mat-icon>
         </button>
@@ -36,7 +39,7 @@
     <ng-container *ngIf="consultant.address as address">
       <p>
         <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
-        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone1 }} |
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
         Fax: {{ consultant.fax }}
       </p>
     </ng-container>

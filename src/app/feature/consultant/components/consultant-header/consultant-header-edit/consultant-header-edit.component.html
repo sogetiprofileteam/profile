@@ -15,6 +15,23 @@
         </mat-form-field>
 
         <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" type="text">
+            <mat-error>Title is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Practice</mat-label>
+            <mat-select formControlName = "practice" placeholder = "No Practice Selected">
+                <mat-option value = "Applications and Cloud Technology">Applications and Cloud Technology</mat-option>
+                <mat-option value = "Digital Assurance and Testing">Digital Assurance and Testing</mat-option>
+                <mat-option value = "Digital Manufacturing">Digital Manufacturing</mat-option>
+                <mat-option value = "Digital Transformation">Digital Transformation</mat-option>
+                <mat-option value = "Insights and Data">Insights and Data</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" type="email">
             <mat-error *ngIf="email?.errors?.email">Email is not in valid email format, e.g. name@address.com</mat-error>
@@ -55,6 +72,6 @@
 </form>
 
 <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="close()">CANCEL</button>
-    <button mat-raised-button color="primary" type="submit" form="header-form" cdkFocusInitial>SAVE HEADER</button>
+    <button mat-stroked-button color="accent" (click)="close()">CANCEL</button>
+    <button mat-raised-button color="accent" class="save" type="submit" form="header-form" cdkFocusInitial>SAVE</button>
 </mat-dialog-actions>
