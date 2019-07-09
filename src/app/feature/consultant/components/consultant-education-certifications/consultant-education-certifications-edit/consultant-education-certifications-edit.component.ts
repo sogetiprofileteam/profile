@@ -44,7 +44,9 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
         if (updatedData[`eduOrCert${this.items[i]}`] === '1') {
           var education = {
             levelOfDegree: updatedData[`levelOfDegree${this.items[i]}`],
-            school: updatedData[`school${this.items[i]}`],
+            school: {
+              name: updatedData[`school${this.items[i]}`]
+            },
             endDate: updatedData[`endDate${this.items[i]}`]
           }
           this.educationArray.push(education);
@@ -53,13 +55,13 @@ export class ConsultantEducationCertificationsEditComponent implements OnDestroy
           var certification = {
             dateRecieved: updatedData[`endDate${this.items[i]}`],
             name: updatedData[`school${this.items[i]}`],
-            //database doesnt support this yet so keep it out for now
-            //title: updatedData.title
+            title: updatedData[`levelOfDegree${this.items[i]}`]
           }
           this.certificationArray.push(certification);
           updatedData.certifications = [...this.certificationArray];
         }
       }
+      console.log("updateConsultant.updatedata: ", updatedData)
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());

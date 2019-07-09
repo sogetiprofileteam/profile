@@ -28,13 +28,38 @@ export class ConsultantDataService {
     return this.http.post<Consultant>(this.baseurl, consultant);
   }
 
-  public updateConsultant(consultant: Consultant): Observable<Consultant> {
+  public updateConsultant(consultant): Observable<Consultant> {
+    
+    // let consultant = {
+    //   id: string;
+    //   urlProfileImage: string;
+    //   firstName: string;
+    //   lastName: string;
+    //   title: string;
+    //   practice: string;
+    //   status?: Status;
+    //   email: string;
+    //   username: string;
+    //   address: Address;
+    //   phone: number;
+    //   certifications: Certification[];
+    //   coreSkills: SelectedSkill[];
+    //   technicalSkills: SelectedSkill[];
+    //   education: Education[];
+    //   experience: Experience[];
+    // }
+    delete consultant.education;
+    delete consultant.eduOrCert0;
+    delete consultant.endDate0;
+    delete consultant.levelOfDegree0;
+    delete consultant.school0;
+    console.log("updateConsultant.consultant:", consultant)
     return this.http.put<Consultant>(this.baseurl, consultant);
   }
 
-  public deleteConsultant(id: string): Observable<Consultant> {
-    const deleteUrl = this.baseurl + '/' + id;
-    return this.http.delete<Consultant>(deleteUrl);
-  }
+  public deleteConsultant(id: string): Observable < Consultant > {
+  const deleteUrl = this.baseurl + '/' + id;
+  return this.http.delete<Consultant>(deleteUrl);
+}
 
 }

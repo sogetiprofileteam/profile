@@ -74,7 +74,9 @@ export class ConsultantStore implements OnDestroy {
   private updatedConsultantFactory(data, index?: number): Consultant {
     // Copy current consultant to preserve immutability
     var consultantCopy: Consultant;
-    if (this.consultant.certifications.length > 0 || this.consultant.education.length > 0) {
+    console.log("updatedConsultantFactory.this.consultant:", this.consultant)
+    if ((this.consultant.certifications !== undefined && this.consultant.certifications.length > 0) ||
+      (this.consultant.education !== undefined && this.consultant.education.length > 0)) {
       var eduOrCertVal: string;
       Object.keys(data).forEach(function (key) {
         var re = RegExp('^eduOrCert.$');

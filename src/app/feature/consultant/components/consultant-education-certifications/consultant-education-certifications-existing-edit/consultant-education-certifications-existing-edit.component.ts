@@ -66,7 +66,9 @@ export class ConsultantEducationCertificationsExistingEditComponent {
       if (updatedData.eduOrCert0 === '1') {
         var education = {
           levelOfDegree: updatedData.levelOfDegree0,
-          school: updatedData.school0,
+          school: {
+            name: updatedData.school0
+          },
           endDate: updatedData.endDate0
         }
         updatedData.education = [education];
@@ -74,8 +76,7 @@ export class ConsultantEducationCertificationsExistingEditComponent {
         var certification = {
           dateRecieved: updatedData.endDate0,
           name: updatedData.school0,
-          //database doesnt support this yet so keep it out for now
-          //title: updatedData.title
+          title: updatedData.levelOfDegree0
         }
         updatedData.certifications = [certification];
       }
