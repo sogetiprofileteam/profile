@@ -30,7 +30,7 @@ export class ConsultantEducationCertificationsExistingEditComponent {
 
   consultant$ = this.consultantStore.consultant$.pipe(
     tap(consultant => {
-      if (this.data.eduOrCert === "1") {
+      if (this.data.eduOrCert === '1') {
         const education = consultant.education[this.data.index];
         this.patchForm(education);
       } else {
@@ -40,43 +40,43 @@ export class ConsultantEducationCertificationsExistingEditComponent {
     })
   );
 
+  destroy$ = new Subject();
+
   patchForm(education: Education) {
     this.educationCertificationForm.patchValue({
       endDate0: education.endDate,
       levelOfDegree0: education.levelOfDegree,
       school0: education.school,
-      eduOrCert0: "1"
-    })
+      eduOrCert0: '1'
+    });
   }
 
   patchCertForm(cert: Certification) {
     this.educationCertificationForm.patchValue({
       endDate0: cert.dateRecieved,
-      levelOfDegree: " ", //not part of backend yet
+      levelOfDegree: ' ', // not part of backend yet
       school0: cert.name,
-      eduOrCert0: "2"
-    })
+      eduOrCert0: '2'
+    });
   }
-
-  destroy$ = new Subject();
 
   updateConsultant() {
     if (this.educationCertificationForm.valid) {
       const updatedData = this.getFormData();
       if (updatedData.eduOrCert0 === '1') {
-        var education = {
+        const education = {
           levelOfDegree: updatedData.levelOfDegree0,
           school: updatedData.school0,
           endDate: updatedData.endDate0
-        }
+        };
         updatedData.education = [education];
       } else {
-        var certification = {
+        const certification = {
           dateRecieved: updatedData.endDate0,
           name: updatedData.school0,
-          //database doesnt support this yet so keep it out for now
-          //title: updatedData.title
-        }
+          // database doesnt support this yet so keep it out for now
+          // title: updatedData.title
+        };
         updatedData.certifications = [certification];
       }
       this.consultantStore.updateConsultant(updatedData, this.data.index)
