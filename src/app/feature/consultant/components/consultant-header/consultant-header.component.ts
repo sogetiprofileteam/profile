@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
 
-import { ConsultantHeaderEditComponent } from './consultant-header-edit/consultant-header-edit.component';
-import { ConsultantPictureEditComponent } from './consultant-picture-edit/consultant-picture-edit.component';
+import { ConsultantHeaderEditComponent } from '../consultant-header-edit/consultant-header-edit.component';
+import { ConsultantPictureEditComponent } from '../consultant-picture-edit/consultant-picture-edit.component';
 
 import { ExportProfile } from '@feature/consultant/components/consultant-header/export-profile';
 import { Packer } from 'docx';
@@ -52,6 +52,15 @@ export class ConsultantHeaderComponent {
       }
     ];
 
+    /* TODO: Used for debugging...
+      console.log('personal:' + JSON.stringify(personal) +
+      '\nexp: ' + JSON.stringify(consultant.experience) +
+      '\nedu:' + JSON.stringify(consultant.education) +
+      '\ncs: ' + JSON.stringify(consultant.coreSkills) +
+      '\ncs: ' + JSON.stringify(consultant.technicalSkills) +
+      '\ncert' + JSON.stringify(consultant.certifications)
+      );
+    */
     const documentCreator = new ExportProfile();
     const doc = documentCreator.create(
           personal,
@@ -65,6 +74,7 @@ export class ConsultantHeaderComponent {
     const packer = new Packer();
 
     packer.toBlob(doc).then(blob => {
+      console.log(blob);
       saveAs(blob, consultant.firstName + '_' + consultant.lastName + '_resume.docx');
       console.log('Document created successfully');
     });
