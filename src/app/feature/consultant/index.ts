@@ -6,8 +6,11 @@ export * from './components/consultant-body/consultant-body.component';
 export * from './components/consultant-header/consultant-header-edit/consultant-header-edit.component';
 
 export * from './components/shared/consultant-section-header/consultant-section-header.component';
+
 export * from './components/consultant-education-certifications/consultant-education-certifications-edit/consultant-education-certifications-edit.component';
 
+export * from './components/consultant-summary/consultant-summary.component';
+export * from './components/consultant-summary-edit/consultant-summary-edit.component';
 export * from './components/consultant-skills/consultant-core-skills/consultant-core-skills.component';
 export * from './components/consultant-skills/consultant-technical-skills/consultant-technical-skills.component';
 export * from './components/consultant-skills/consultant-skills-edit/consultant-skills-edit.component';
