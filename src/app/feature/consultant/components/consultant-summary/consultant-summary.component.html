@@ -1,7 +1,7 @@
-<app-consultant-section-header 
-  title="Summary" 
-  icon="edit" 
-  (actionClicked)="openEditSummaryDialog()">
+<app-consultant-section-header title="Summary" titleColor="primary" [underline]="true">
+  <button mat-icon-button color="primary" (click)="openEditSummaryDialog()">
+	  <mat-icon>edit</mat-icon>
+	</button>
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">

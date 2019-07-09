@@ -1,11 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
-import { MatDialog } from '@angular/material';
-
+import { MatDialog } from '@angular/material/dialog';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-
 import { ConsultantSummaryEditComponent } from '../consultant-summary-edit/consultant-summary-edit.component';
-
 
 @Component({
   selector: 'app-consultant-summary',
@@ -13,6 +10,7 @@ import { ConsultantSummaryEditComponent } from '../consultant-summary-edit/consu
   styleUrls: ['./consultant-summary.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ConsultantSummaryComponent {
 
   constructor(
