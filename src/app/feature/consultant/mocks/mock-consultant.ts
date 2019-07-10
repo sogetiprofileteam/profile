@@ -6,8 +6,9 @@ export const mockConsultant: Consultant = {
     firstName: 'Jane',
     lastName: 'Barnes',
     title: 'Consultant',
-    practice: 'Applications & Cloud Technology',
+    practice: 'Applications and Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
+    username: 'jbarnes',
     status: {
         id: '1',
         name: 'Test Status'

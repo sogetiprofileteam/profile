@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import {
+    ConsultantEducationCertificationsEditComponent
+} from '../consultant-education-certification-edit/consultant-education-certifications-edit.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -20,6 +23,7 @@ export class ConsultantEducationCertificationsComponent implements OnInit {
   }
 
   openEditCertificationEducationDialog() {
+    this.dialog.open(ConsultantEducationCertificationsEditComponent);
   }
 
 

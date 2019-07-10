@@ -6,7 +6,8 @@
 
 <section *ngIf="consultant$ | async as consultant">
   <ng-container *ngFor="let education of consultant.education">
-    <p><b>{{education.school.name}}</b></p>
+		{{ consultant | json}}
+    <p><b>{{education.school}}</b></p>
     <p>{{education.levelOfDegree}}, {{consultant.subject}}</p>
     <p>{{education.endDate | date: 'shortDate'}}</p>
   </ng-container>
