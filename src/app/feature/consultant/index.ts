@@ -21,9 +21,7 @@ export * from './services/skills-data/skills-data.service';
 export * from './services/technical-skills-data/technical-skills-data.service';
 export * from './services/core-skills-data/core-skills-data.service';
 
-export * from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 export * from './components/consultant-education-certifications/consultant-education-certifications.component';
-export * from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 
 export * from './components/consultant-experience/consultant-experience.component';
 export * from './components/consultant-experience/consultant-experience-form/consultant-experience-form.component';

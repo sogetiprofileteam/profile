@@ -29,7 +29,6 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
-  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -46,6 +45,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { ConsultantEducationCertificationsFormComponent } from './components/consultant-education-certifications/consultant-education-certifications-form/consultant-education-certifications-form.component';
+import { ConsultantEducationCertificationsDeleteDialogComponent } from './components/consultant-education-certifications/consultant-education-certifications-delete-dialog/consultant-education-certifications-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,12 +63,13 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
-    ConsultantExperienceFormComponent
+    ConsultantExperienceFormComponent,
+    ConsultantEducationCertificationsFormComponent,
+    ConsultantEducationCertificationsDeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -94,9 +96,10 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
     ConsultantSummaryEditComponent,
-    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceDeleteDialogComponent,
-    ConsultantExperienceFormComponent
+    ConsultantExperienceFormComponent,
+    ConsultantEducationCertificationsFormComponent,
+    ConsultantEducationCertificationsDeleteDialogComponent
   ],
   providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
 

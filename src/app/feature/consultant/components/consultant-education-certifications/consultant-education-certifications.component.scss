@@ -1,0 +1,13 @@
+.edu-cert-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    button:first-of-type {
+        margin-left: 1.5rem;
+    }
+
+    button {
+        margin-left: .5rem;
+    }
+}
