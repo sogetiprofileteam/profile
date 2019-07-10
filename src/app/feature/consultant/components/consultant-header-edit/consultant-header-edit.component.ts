@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Consultant } from '@core/models';
 
 @Component({
@@ -16,6 +17,7 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantHeaderEditComponent>,
     private formBuilder: FormBuilder
   ) { }
@@ -50,7 +52,10 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
-    }
+        this.notification.openUpdatedSnackBar();
+      } else {
+        this.notification.openErrorUpdatingSnackBar();
+      }
   }
 
   getFormData(): Partial<Consultant> {

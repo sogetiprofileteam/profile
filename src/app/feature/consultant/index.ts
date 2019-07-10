@@ -1,5 +1,6 @@
 export * from './services/consultant-store/consultant-store.service';
 export * from './pages/consultant-view/consultant-view.component';
+export * from '../../core/services/notifications/notifications.service';
 
 export * from './components/consultant-header/consultant-header.component';
 export * from './components/consultant-body/consultant-body.component';
@@ -21,9 +22,7 @@ export * from './services/skills-data/skills-data.service';
 export * from './services/technical-skills-data/technical-skills-data.service';
 export * from './services/core-skills-data/core-skills-data.service';
 
-export * from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 export * from './components/consultant-education-certifications/consultant-education-certifications.component';
-export * from './components/consultant-education-certification-edit/consultant-education-certifications-edit.component';
 
 export * from './components/consultant-experience/consultant-experience.component';
 export * from './components/consultant-experience/consultant-experience-form/consultant-experience-form.component';

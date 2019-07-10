@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Consultant } from '@core/models';
 
 @Component({
@@ -16,6 +17,7 @@ export class ConsultantSummaryEditComponent {
 
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantSummaryEditComponent>,
     private formBuilder: FormBuilder
   ) { }
@@ -38,7 +40,13 @@ export class ConsultantSummaryEditComponent {
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => this.close());
+        this.notification.openSummaryUpdatedSnackBar();
     }
+    else {
+      this.close();
+      this.notification.openErrorUpdatingSummarySnackBar();
+  }
+
   }
 
   getFormData(): Partial<Consultant> {

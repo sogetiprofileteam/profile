@@ -1,3 +1,4 @@
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Injectable, OnDestroy, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -68,6 +69,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private skillService: SkillsDataService,
   ) { }
 
@@ -273,6 +275,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
         this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdatedSkill, updatedSkill);
       } else {
         // Need to replace with UI alert, probably a snackbar
+        this.notification.openTooManySkillsSnackBar();
         console.warn('You are trying to add too many display skills');
       }
     } else {

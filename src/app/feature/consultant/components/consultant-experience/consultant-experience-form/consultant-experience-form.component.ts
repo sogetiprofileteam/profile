@@ -6,6 +6,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Experience } from '@core/models';
 import { growShrink } from '@shared/animations/grow-shrink';
 
@@ -22,6 +23,7 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantExperienceFormComponent>,
     private formBuilder: FormBuilder
   ) { }
@@ -106,14 +108,20 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
 
       experience.push(newExperience);
       this.close(experience);
+      this.notification.openUpdatedSnackBar();
+
     }
   }
 
   private updateExperience(): void {
+    const experience = this.consultantStore.consultant.experience;
     if (this.experienceForm.valid) {
-      const experience = this.consultantStore.consultant.experience;
       experience[this.data.index] = this.getFormData();
       this.close(experience);
+      this.notification.openUpdatedSnackBar();
+    } else {
+      this.close(experience);
+      this.notification.openErrorUpdatingSnackBar();
     }
   }
 

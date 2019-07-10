@@ -2,6 +2,7 @@ import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Consultant } from '@core/models';
@@ -16,6 +17,7 @@ export class ConsultantPictureEditComponent implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantPictureEditComponent>,
   ) { }
 
@@ -48,9 +50,15 @@ export class ConsultantPictureEditComponent implements OnDestroy {
         urlProfileImage: this.croppedImage
       };
 
-      this.consultantStore.updateConsultant(updatedData)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.close());
+      if(this.croppedImage){
+        this.consultantStore.updateConsultant(updatedData)
+           .pipe(takeUntil(this.destroy$))
+           .subscribe(() => this.close());
+           this.notification.openUpdatedPictureSnackBar();
+         }
+         else {
+           this.notification.openErrorUpdatingPictureSnackBar();
+         }
     }
   }
 }
