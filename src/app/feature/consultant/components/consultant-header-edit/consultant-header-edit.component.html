@@ -32,6 +32,14 @@
         </mat-form-field>
 
         <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName= "status" placeholder = "At Client">
+                <mat-option value = "At Client">At Client</mat-option>
+                <mat-option value = "ATO">ATO</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" type="email">
             <mat-error *ngIf="email?.errors?.email">Email is not in valid email format, e.g. name@address.com</mat-error>
