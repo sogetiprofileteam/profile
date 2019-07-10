@@ -29,6 +29,7 @@ import {
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
+  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -61,6 +62,7 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
+    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
@@ -92,6 +94,7 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
     ConsultantSummaryEditComponent,
+    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],
