@@ -134,7 +134,7 @@ export class ConsultantStore implements OnDestroy {
       console.log('Adding new consultant using (Save function) to the database!: consultant-store.service');
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
-          this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
+          this.router.navigate([ '/consultants']);
         });
     }
   }
@@ -144,9 +144,15 @@ export class ConsultantStore implements OnDestroy {
    * @param consultant object to save to DB.
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
-    console.log('Saving to the database!: consultant-store.service');
-    return this.consultantDataService.updateConsultant(consultant)
-      .pipe(tap(res => this._consultant$.next(consultant)));
+    if (consultant.id !== null) {
+      console.log('Saving update to the database!: consultant-store.service');
+      return this.consultantDataService.updateConsultant(consultant)
+        .pipe(tap(res => this._consultant$.next(consultant)));
+    } else {
+      console.log('Saving new consultant to the database!: consultant-store.service');
+      return this.consultantDataService.createConsultant(consultant)
+        .pipe(tap(res => this._consultant$.next(consultant)));
+    }
 
   }
 

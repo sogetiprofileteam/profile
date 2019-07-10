@@ -17,7 +17,6 @@ export interface Consultant {
     practice: string;
     status?: Status;
     email: string;
-    username: string;
     address: Address;
     phone: number;
     fax?: number;
