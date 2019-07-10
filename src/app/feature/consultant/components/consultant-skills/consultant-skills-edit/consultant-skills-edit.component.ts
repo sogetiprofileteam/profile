@@ -43,9 +43,9 @@ export class ConsultantSkillsEditComponent implements OnInit {
   updateConsultant() {
     this.skillEditService.updateConsultant();
     if (this.skillEditService.updateConsultant() == void {}) {
-      this.notification.openAddingSkillSnackBar();
+      this.notification.notificationsBar('Skills updated!', 'success');
     } else {
-      this.notification.openErrorAddingSkillSnackBar();
+      this.notification.notificationsBar('Error updating skills', 'error');
     }
   }
 

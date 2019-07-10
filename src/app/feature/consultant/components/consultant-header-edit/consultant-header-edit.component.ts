@@ -51,10 +51,8 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
       this.consultantStore.updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.close());
-        this.notification.openUpdatedSnackBar();
-      } else {
-        this.notification.openErrorUpdatingSnackBar();
+        .subscribe(() => this.close(), () => this.notification.notificationsBar('There was an error updating consultant', 'error'), () => this.notification.notificationsBar('Consultant Updated', 'success'));
+
       }
   }
 

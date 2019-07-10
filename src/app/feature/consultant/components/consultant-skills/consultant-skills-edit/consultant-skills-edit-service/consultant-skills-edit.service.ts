@@ -275,7 +275,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
         this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdatedSkill, updatedSkill);
       } else {
         // Need to replace with UI alert, probably a snackbar
-        this.notification.openTooManySkillsSnackBar();
+        this.notification.notificationsBar('Error: Only 10 display skills can be selected', 'warn');
         console.warn('You are trying to add too many display skills');
       }
     } else {

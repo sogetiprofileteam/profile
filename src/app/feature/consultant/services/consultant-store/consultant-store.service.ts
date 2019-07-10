@@ -1,3 +1,4 @@
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -41,6 +42,7 @@ export class ConsultantStore implements OnDestroy {
 
   constructor(
     private consultantDataService: ConsultantDataService,
+    private notification: NotificationsService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -136,6 +138,10 @@ export class ConsultantStore implements OnDestroy {
         .subscribe(consultant => {
           this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
         });
+        this.notification.notificationsBar('Consultant Profile Saved Successfully!', 'success');
+    }
+    else {
+      this.notification.notificationsBar('There was an error saving consultant', 'error');
     }
   }
 

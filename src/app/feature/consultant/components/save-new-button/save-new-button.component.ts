@@ -17,6 +17,7 @@ export class SaveNewButtonComponent implements OnInit {
 
   save() {
     this.consultantStore.addNewConsultant();
+    
   }
 
 }

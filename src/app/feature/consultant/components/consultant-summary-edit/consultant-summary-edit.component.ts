@@ -14,19 +14,20 @@ import { Consultant } from '@core/models';
   styleUrls: ['consultant-summary-edit.component.scss']
 })
 export class ConsultantSummaryEditComponent {
-
   constructor(
     private consultantStore: ConsultantStore,
     private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantSummaryEditComponent>,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   summaryForm = this.formBuilder.group({
-    summary: ['', Validators.required],
+    summary: ['', Validators.required]
   });
 
-  consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.summaryForm.patchValue(consultant)));
+  consultant$ = this.consultantStore.consultant$.pipe(
+    tap(consultant => this.summaryForm.patchValue(consultant))
+  );
   destroy$ = new Subject();
 
   close(): void {
@@ -37,16 +38,20 @@ export class ConsultantSummaryEditComponent {
     if (this.summaryForm.valid) {
       const updatedData = this.getFormData();
 
-      this.consultantStore.updateConsultant(updatedData)
+      this.consultantStore
+        .updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.close());
-        this.notification.openSummaryUpdatedSnackBar();
+        .subscribe(
+          () => this.close(),
+          () =>
+            this.notification.notificationsBar(
+              'Error updating summary!',
+              'error'
+            ),
+          () =>
+            this.notification.notificationsBar('Summary Updated!', 'success')
+        );
     }
-    else {
-      this.close();
-      this.notification.openErrorUpdatingSummarySnackBar();
-  }
-
   }
 
   getFormData(): Partial<Consultant> {

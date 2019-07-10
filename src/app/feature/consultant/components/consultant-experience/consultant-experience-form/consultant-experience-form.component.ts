@@ -108,7 +108,7 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
 
       experience.push(newExperience);
       this.close(experience);
-      this.notification.openUpdatedSnackBar();
+      this.notification.notificationsBar('Experience Added Successfully!', 'success');
 
     }
   }
@@ -118,10 +118,10 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
     if (this.experienceForm.valid) {
       experience[this.data.index] = this.getFormData();
       this.close(experience);
-      this.notification.openUpdatedSnackBar();
+      this.notification.notificationsBar('Consultant Updated!', 'success');
     } else {
       this.close(experience);
-      this.notification.openErrorUpdatingSnackBar();
+      this.notification.notificationsBar('There was an error updating consultant', 'success');
     }
   }
 
