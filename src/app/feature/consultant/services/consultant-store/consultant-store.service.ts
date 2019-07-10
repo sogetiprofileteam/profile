@@ -24,6 +24,7 @@ export const blankConsultant: Consultant = {
       zipCode: 78759
   },
   phone: 1234567890,
+  summary: null,
   urlLinkedIn: null,
   urlGitHub: null,
   urlWordpress: null,
