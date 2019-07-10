@@ -144,9 +144,15 @@ export class ConsultantStore implements OnDestroy {
    * @param consultant object to save to DB.
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
-    console.log('Saving to the database!: consultant-store.service');
-    return this.consultantDataService.updateConsultant(consultant)
-      .pipe(tap(res => this._consultant$.next(consultant)));
+    if (consultant.id !== null) {
+      console.log('Saving update to the database!: consultant-store.service');
+      return this.consultantDataService.updateConsultant(consultant)
+        .pipe(tap(res => this._consultant$.next(consultant)));
+    } else {
+      console.log('Saving new consultant to the database!: consultant-store.service');
+      return this.consultantDataService.createConsultant(consultant)
+        .pipe(tap(res => this._consultant$.next(consultant)));
+    }
 
   }
 
