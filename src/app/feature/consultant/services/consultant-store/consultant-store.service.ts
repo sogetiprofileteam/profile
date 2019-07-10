@@ -133,7 +133,7 @@ export class ConsultantStore implements OnDestroy {
       console.log('Adding new consultant using (Save function) to the database!: consultant-store.service');
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
-          this.router.navigate([ '/']);
+          this.router.navigate([ '/consultants']);
         });
     }
   }
