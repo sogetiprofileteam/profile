@@ -45,7 +45,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { phonePipe } from './components/shared/phone.pipe';
+import { PhonePipe } from './components/shared/phone.pipe';
 import { ConsultantEducationCertificationsFormComponent } from './components/consultant-education-certifications/consultant-education-certifications-form/consultant-education-certifications-form.component';
 import { ConsultantEducationCertificationsDeleteDialogComponent } from './components/consultant-education-certifications/consultant-education-certifications-delete-dialog/consultant-education-certifications-delete-dialog.component';
 
@@ -69,7 +69,7 @@ import { ConsultantEducationCertificationsDeleteDialogComponent } from './compon
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent,
-    phonePipe,
+    PhonePipe,
     ConsultantEducationCertificationsFormComponent,
     ConsultantEducationCertificationsDeleteDialogComponent
   ],
@@ -103,7 +103,7 @@ import { ConsultantEducationCertificationsDeleteDialogComponent } from './compon
     ConsultantEducationCertificationsFormComponent,
     ConsultantEducationCertificationsDeleteDialogComponent
   ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, phonePipe]
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService]
 
 })
 export class ConsultantModule { }
