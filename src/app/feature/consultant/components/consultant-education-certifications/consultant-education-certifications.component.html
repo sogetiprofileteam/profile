@@ -1,21 +1,39 @@
 <app-consultant-section-header title="Education & Certifications" titleColor="primary" [underline]="true">
-  <button mat-icon-button color="primary" (click)="openEditCertificationEducationDialog()">
-    <mat-icon>edit</mat-icon>
+  <button mat-icon-button color="primary" (click)="openAddEducationCertificationDialog()">
+    <mat-icon>add</mat-icon>
   </button>
 </app-consultant-section-header>
 
 <section *ngIf="consultant$ | async as consultant">
-  <ng-container *ngFor="let education of consultant.education">
-		{{ consultant | json}}
-    <p><b>{{education.school}}</b></p>
-    <p>{{education.levelOfDegree}}, {{consultant.subject}}</p>
+  <ng-container *ngFor="let education of consultant.education; let i = index">
+    <div class="edu-cert-header">
+      <b>{{education.school.name}}</b>
+
+      <button mat-icon-button (click)="openDeleteEducationCertificationDialog(i, 'education')">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button (click)="openEditEducationCertificationDialog(education, i, 'education')">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <p>{{education.subject}}</p>
     <p>{{education.endDate | date: 'shortDate'}}</p>
   </ng-container>
 
-  <ng-container *ngFor="let certification of consultant.certification">
-    <p><b>{{consultant.school}}</b></p>
-    <p>{{consultant.levelOfDegree}}, {{consultant.subject}}</p>
-    <p>{{consultant.startDate | date: 'shortDate'}} - {{consultant.endDate | date: 'shortDate'}}</p>
+  <ng-container *ngFor="let certification of consultant.certifications; let i = index">
+    <div class="edu-cert-header">
+      <b>{{certification.name}}</b>
+      <button mat-icon-button (click)="openDeleteEducationCertificationDialog(i, 'certifications')">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button (click)="openEditEducationCertificationDialog(certification, i, 'certifications')">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <p>{{certification.title}}</p>
+    <p>{{certification.dateRecieved | date: 'shortDate'}}</p>
   </ng-container>
   <!-- <p>{{consultant.school}}</p> -->
 </section>
