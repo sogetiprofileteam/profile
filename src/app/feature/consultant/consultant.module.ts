@@ -69,12 +69,9 @@ import { ConsultantEducationCertificationsDeleteDialogComponent } from './compon
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent,
-<<<<<<< HEAD
-    phonePipe
-=======
+    phonePipe,
     ConsultantEducationCertificationsFormComponent,
     ConsultantEducationCertificationsDeleteDialogComponent
->>>>>>> develop
   ],
   imports: [
     CommonModule,
