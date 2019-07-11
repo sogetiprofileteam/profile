@@ -40,12 +40,11 @@ export class ExportProfile {
                                                   // line is measured in 240ths of a line, so 360 = 1.5 lines
 
     document.addParagraph(this.createHeading('Summary'));
-    document.addParagraph(this.createSummaryText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
-    ' incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ' +
-    'ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' +
-    ' Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'));
+    document.addParagraph(this.createSummaryText(personal[0].summary));
 
-    document.addParagraph(this.createHeading('Skills'));
+    if (coreSkills.length || technicalSkills.length) {
+      document.addParagraph(this.createHeading('Skills'));
+    }
     // Creates the Core Skills section
     if (coreSkills.length) {
       document.addParagraph(this.createSubHeading('Core Skills'));
@@ -216,15 +215,17 @@ export class ExportProfile {
     // const skillConcat = skills.map((skill) => skill.name).join(', ') + '.';
     let count = 0;
     for (const skill of skills) {
-      console.log(JSON.stringify(skill.name));
-      let skillRun;
-      if (count % 2 === 0) {
-        skillRun = new TextRun(skill.name).font('Calibri (Body)').break().size(22);
-      } else {
-        skillRun = new TextRun(skill.name).font('Calibri (Body)').tab().size(22);
+      if (skill.displayOrder > 0) {
+        console.log(JSON.stringify(skill.name));
+        let skillRun;
+        if (count % 2 === 0) {
+          skillRun = new TextRun(skill.name).font('Calibri (Body)').break().size(22);
+        } else {
+          skillRun = new TextRun(skill.name).font('Calibri (Body)').tab().size(22);
+        }
+        count++;
+        paragraph.addRun(skillRun);
       }
-      count++;
-      paragraph.addRun(skillRun);
     }
     paragraph.addRun(new TextRun('').break());
     return paragraph;

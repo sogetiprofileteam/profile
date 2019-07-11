@@ -43,6 +43,7 @@ export class ConsultantHeaderComponent {
         id: consultant.id,
         firstName: consultant.firstName,
         lastName: consultant.lastName,
+        summary: consultant.summary,
         status: consultant.status,
         phone: consultant.phone,
         title: consultant.title,

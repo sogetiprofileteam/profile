@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Consultant } from '@core/models';
+import { Consultant, Status } from '@core/models';
 
 @Component({
   templateUrl: 'consultant-header-edit.component.html',
@@ -28,6 +28,7 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
     lastName: ['', Validators.required],
     title: ['', Validators.required],
     practice: ['', Validators.required],
+    status: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
     urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
@@ -66,6 +67,10 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   get practice() {
     return this.headerForm.get('practice');
+  }
+
+  get status() {
+    return this.headerForm.get('status');
   }
 
   get email() {

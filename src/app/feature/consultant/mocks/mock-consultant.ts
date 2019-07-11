@@ -8,10 +8,7 @@ export const mockConsultant: Consultant = {
     title: 'Consultant',
     practice: 'Applications & Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
-    status: {
-        id: '1',
-        name: 'Test Status'
-    },
+    status: 'ATO',
     address: {
         lineOne: '1234 Fake Street',
         city: 'Austin',
@@ -19,6 +16,7 @@ export const mockConsultant: Consultant = {
         zipCode: 78732
     },
     phone: 5129999999,
+    summary: 'This is a summary about Jane Barnes',
     urlLinkedIn: 'https://linkedin.com',
     urlGitHub: 'https://github.com',
     urlWordpress: 'https://wordpress.com',

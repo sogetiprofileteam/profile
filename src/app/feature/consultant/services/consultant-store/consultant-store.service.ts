@@ -24,6 +24,7 @@ export const blankConsultant: Consultant = {
       zipCode: 78759
   },
   phone: 1234567890,
+  summary: null,
   urlLinkedIn: null,
   urlGitHub: null,
   urlWordpress: null,
@@ -152,6 +153,7 @@ export class ConsultantStore implements OnDestroy {
       return this.consultantDataService.createConsultant(consultant)
         .pipe(tap(res => this._consultant$.next(consultant)));
     }
+
   }
 
   ngOnDestroy() {

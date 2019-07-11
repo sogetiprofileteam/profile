@@ -15,11 +15,11 @@ export interface Consultant {
     secondName?: string;
     title: string;
     practice: string;
-    status?: Status;
+    status?: string;
     email: string;
     address: Address;
     phone: number;
-    fax?: number;
+    summary: string;
     urlLinkedIn?: string;
     urlGitHub?: string;
     urlWordpress?: string;
