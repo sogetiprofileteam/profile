@@ -12,10 +12,13 @@ import { ExportProfile } from '@feature/consultant/components/consultant-header/
 import { Packer } from 'docx';
 import { saveAs } from 'file-saver';
 
+import { phonePipe } from '@feature/consultant/components/shared/phone.pipe'
+
 @Component({
   selector: 'app-consultant-header',
   templateUrl: './consultant-header.component.html',
   styleUrls: ['./consultant-header.component.scss'],
+  providers: [phonePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantHeaderComponent {
@@ -23,6 +26,7 @@ export class ConsultantHeaderComponent {
   constructor(
     private consultantStore: ConsultantStore,
     private dialog: MatDialog,
+    private phone: phonePipe
   ) { }
 
   consultant$ = this.consultantStore.consultant$;
