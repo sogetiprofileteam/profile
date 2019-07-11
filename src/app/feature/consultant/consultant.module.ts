@@ -21,6 +21,7 @@ import {
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
   ConsultantSectionHeaderComponent,
+  ConsultantSectionSubHeaderComponent,
   ConsultantSummaryComponent,
   ConsultantSummaryEditComponent,
   ConsultantCoreSkillsComponent,
@@ -39,14 +40,14 @@ import {
   SkillsDataService,
   ConsultantSkillsEditService,
   ConsultantExperienceDeleteDialogComponent,
-  ConsultantExperienceFormComponent
+  ConsultantExperienceFormComponent,
+  ConsultantEducationCertificationsDeleteDialogComponent,
+  ConsultantEducationCertificationsFormComponent
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { ConsultantEducationCertificationsFormComponent } from './components/consultant-education-certifications/consultant-education-certifications-form/consultant-education-certifications-form.component';
-import { ConsultantEducationCertificationsDeleteDialogComponent } from './components/consultant-education-certifications/consultant-education-certifications-delete-dialog/consultant-education-certifications-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ConsultantEducationCertificationsDeleteDialogComponent } from './compon
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
+    ConsultantSectionSubHeaderComponent,
     ConsultantSummaryComponent,
     ConsultantSummaryEditComponent,
     ConsultantCoreSkillsComponent,
