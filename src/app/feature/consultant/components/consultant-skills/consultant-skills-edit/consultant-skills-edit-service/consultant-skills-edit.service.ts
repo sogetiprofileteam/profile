@@ -153,7 +153,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
     const newSkill: SelectedSkill = {
       ...this.pickSkill(event.option.value),
       display: false,
-      displayOrder: null
+      displayOrder: 0
     };
 
     this._selectedSkills$.next([...this.selectedSkills, newSkill]);
@@ -174,7 +174,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
           name: skillName,
           id: null,
           display: false,
-          displayOrder: null,
+          displayOrder: 0,
           type: this.skillType,
         };
         this._selectedSkills$.next([...this.selectedSkills, skill]);
