@@ -49,12 +49,9 @@ export class ConsultantPictureEditComponent implements OnDestroy {
         ...consultant,
         urlProfileImage: this.croppedImage
       };
-
-      if(this.croppedImage){
         this.consultantStore.updateConsultant(updatedData)
            .pipe(takeUntil(this.destroy$))
            .subscribe(() => this.close(), () => this.notification.notificationsBar('Error: Profile picture did not upload!', 'error'), () =>  this.notification.notificationsBar('Profile Picture Uploaded Successfully!', 'success'));
-      }
     }
   }
 }
