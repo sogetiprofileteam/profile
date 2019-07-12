@@ -1,13 +1,15 @@
-import { Document, Paragraph, Packer, TextRun, Table } from 'docx';
+import { Document, Paragraph, Packer, TextRun, Media } from 'docx';
+import { readFileSync } from 'fs';
+import * as fs from 'fs';
 
 export class ExportProfile {
 
   create(personal, experiences, educations, coreSkills, technicalSkills, certifications) {
-
+    const fs = require('fs');
     // TODO: Remove this later
     console.log('INSIDE EXPORT PROFILE:\n' +
       // 'personal:' + JSON.stringify(personal[0]) +
-       '\nexp: ' + JSON.stringify(experiences) +
+      // '\nexp: ' + JSON.stringify(experiences) +
       // '\nedu:' + JSON.stringify(educations) +
       // '\ncs: ' + JSON.stringify(coreSkills)  +
       // '\nts: ' + JSON.stringify(technicalSkills) +
@@ -23,8 +25,12 @@ export class ExportProfile {
                                       height: 15840
                                   });
                                   // Margins are measured in 1440th's of an inch. So 2" = 2880, 8.5" = 12240
-
+    // Logo still does not work, error with Buffer
+    // const sogetiLogo = Media.addImage(document, fs.readFileSync('./../../../../../assets/img/sogeti_logo.png'));
+    // const logoParagraph = new Paragraph().maxRightTabStop();
+    // logoParagraph.addImage(sogetiLogo).tab();
     document.Header.addParagraph(this.createHeader());
+    // document.Header.addParagraph(logoParagraph);
     document.Footer.addParagraph(this.createFooter());
 
     // Creates the header with the name
@@ -58,25 +64,27 @@ export class ExportProfile {
     }
 
     // TODO: Format for education and certification
-    /* if (educations.length) {
-      document.addParagraph(this.createHeading('Education'));
-      for (const education of educations) {
-        document.addParagraph(
-          this.createInstitutionHeader(education.school, `${education.startDate} - ${education.endDate}`),
-        );
-        document.addParagraph(this.createRoleText(`${education.subject} - ${education.levelOfDegree}`));
-
-        /* const bulletPoints = this.splitParagraphIntoBullets(education.notes);
-        bulletPoints.forEach((bulletPoint) => {
-          document.addParagraph(this.createBullet(bulletPoint));
-        });
+    if (educations.length || certifications.length) {
+      document.addParagraph(this.createHeading('Education & Certifications'));
+      if ( educations.length) {
+        for (const education of educations) {
+          document.addParagraph(
+            this.createInstitutionHeader(education.school.name, this.createEduCertDateText(education.endDate))
+          );
+          document.addParagraph(this.createRoleText(`${education.subject}`));
+        }
       }
-
-      // TODO: Add code for certifications once we have data for it
       if (certifications.length) {
-        document.addParagraph(this.createHeading('Certifications'));
+        if (educations.length) { document.addParagraph(new Paragraph().addRun(new TextRun('').break())); }
+        for (const certification of certifications) {
+          document.addParagraph(
+            this.createInstitutionHeader(certification.name, this.createEduCertDateText(certification.dateRecieved))
+          );
+          document.addParagraph(this.createRoleText(`${certification.title}`));
+        }
       }
-    } */
+      document.addParagraph(new Paragraph().addRun(new TextRun('').break()));
+    }
 
     // Creates the Experiences section
     if (experiences.length) {
@@ -96,6 +104,7 @@ export class ExportProfile {
           // console.log('bulletpoint: ' + JSON.stringify(bulletPoint));
           document.addParagraph(this.createBullet(bulletPoint.summary).spacing({ before: 0, after: 120, line: 240}));
         });
+        document.addParagraph(new Paragraph().addRun(new TextRun('').break()));
       }
     }
 
@@ -118,7 +127,7 @@ export class ExportProfile {
   }
 
   // Creates the name
-  createName(firstName, lastName) {
+  createName(firstName: string, lastName: string) {
     const paragraph = new Paragraph().center();
     const fullname = new TextRun(firstName + ' ' + lastName).font('Calibri (Body)').bold().size(28);
     // font size measured in half-points so 28 = 14 pt font
@@ -128,11 +137,11 @@ export class ExportProfile {
   }
 
   // TODO: FIX ADDRESS FORMATTING
-  createContactInfo(phoneNumber, profileUrl, email, addressIn, title, practice) {
+  createContactInfo(phoneNumber: string, unitName: string, email: string, addressIn: any, title: string, practice: string) {
     const paragraph = new Paragraph().center();
-    const titlePracticeRun = new TextRun(`${title} | ${practice} `).font('Calibri (Body)').bold().size(22);
-    const emailRun = new TextRun(`${email}`).font('Calibri (Body)').break().size(22);
-    const links = new TextRun(`${profileUrl}`).font('Calibri (Body)').break().size(22);
+    // const titlePracticeRun = new TextRun(`${title} | ${practice} `).font('Calibri (Body)').bold().size(22);
+    // const emailRun = new TextRun(`${email}`).font('Calibri (Body)').break().size(22);
+    const links = new TextRun(`${unitName}`).font('Calibri (Body)').size(24).bold();
     // const contactInfo = new TextRun(`Mobile: ${phoneNumber} | LinkedIn: ${profileUrl} | Email: ${email}`);
     // console.log('addressIn: ' + JSON.stringify(addressIn));
 
@@ -146,11 +155,11 @@ export class ExportProfile {
                                 addressIn.city +  ', ' +
                                 addressIn.state +  ', ' +
                                 addressIn.zipCode +  ' ' +
-                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break().size(22);
+                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break().size(24);
 
-    paragraph.addRun(titlePracticeRun);
-    paragraph.addRun(emailRun);
-    if (profileUrl.length) {
+    // paragraph.addRun(titlePracticeRun);
+    // paragraph.addRun(emailRun);
+    if (unitName.length) {
       paragraph.addRun(links);
     }
     paragraph.addRun(address);
@@ -158,34 +167,34 @@ export class ExportProfile {
     return paragraph;
   }
 
-  createHeading(text) {
+  createHeading(text: string) {
     const para =  new Paragraph().heading1().thematicBreak();
-    const tr = new TextRun(text).font('Calibri (Body)').bold().color('0070AD').size(32);
+    const tr = new TextRun(text).font('Calibri (Body)').bold().color('0070AD').size(36);
 
     para.addRun(tr);
     return para;
   }
 
-  createSubHeading(text) {
+  createSubHeading(text: string) {
     const para =  new Paragraph();
-    const tr = new TextRun(text).font('Calibri (Body)').bold().italics().color('12B3DB').size(28).tab();
+    const tr = new TextRun(text).font('Calibri (Body)').bold().italics().color('12B3DB').size(32);
 
     para.addRun(tr);
     return para;
   }
 
-  createSummaryText(summary) {
+  createSummaryText(summary: string) {
     const paragraph = new Paragraph().maxRightTabStop();
-    const text = new TextRun(summary).font('Calibri (Body)').size(22);
+    const text = new TextRun(summary).font('Calibri (Body)').size(24);
 
     paragraph.addRun(text);
     paragraph.addRun(new TextRun('').break());
     return paragraph;
   }
 
-  createInstitutionHeader(institutionName, dateText) {
+  createInstitutionHeader(institutionName: string, dateText: any) {
     const paragraph = new Paragraph().maxRightTabStop();
-    const institution = new TextRun(institutionName).font('Calibri (Body)').bold().color('12B3DB').size(28);
+    const institution = new TextRun(institutionName).font('Calibri (Body)').bold().color('12B3DB').size(32);
 
     paragraph.addRun(institution);
     paragraph.addRun(dateText);
@@ -193,56 +202,46 @@ export class ExportProfile {
     return paragraph;
   }
 
-  createRoleText(roleText) {
+  createRoleText(roleText: string) {
     const paragraph = new Paragraph();
-    const role = new TextRun(roleText).font('Calibri (Body)').bold().size(22);
+    const role = new TextRun(roleText).font('Calibri (Body)').bold().size(24);
 
     paragraph.addRun(role);
 
     return paragraph;
   }
 
-  createBullet(text) {
+  createBullet(text: string) {
     const para = new Paragraph();
-    const tr = new TextRun(text).font('Calibri (Body)').size(22);
+    const tr = new TextRun(text).font('Calibri (Body)').size(24);
 
     para.addRun(tr).bullet();
     return para;
   }
 
-  createSkillList(skills) {
-    const paragraph = new Paragraph().maxRightTabStop();
+  createSkillList(skills: any) {
+    const paragraph = new Paragraph().leftTabStop(6000);
     // const skillConcat = skills.map((skill) => skill.name).join(', ') + '.';
     let count = 0;
     for (const skill of skills) {
       if (skill.displayOrder > 0) {
-        console.log(JSON.stringify(skill.name));
-        let skillRun;
+        // console.log(JSON.stringify(skill.name));
+        let skillTextRun;
         if (count % 2 === 0) {
-          skillRun = new TextRun(skill.name).font('Calibri (Body)').break().size(22);
+          skillTextRun = new TextRun('- ' + skill.name).font('Calibri (Body)').break().size(24);
         } else {
-          skillRun = new TextRun(skill.name).font('Calibri (Body)').tab().size(22);
+          skillTextRun = new TextRun('- ' + skill.name).font('Calibri (Body)').tab().size(24);
         }
         count++;
-        paragraph.addRun(skillRun);
+        paragraph.addRun(skillTextRun);
       }
     }
+
     paragraph.addRun(new TextRun('').break());
     return paragraph;
   }
 
-  // TODO: I don't think this is needed anymore. Possibly remove later
-  createAchivementsList(achivements) {
-    const arr = [];
-
-    for (const achievement of achivements) {
-      arr.push(new Paragraph(achievement.name).bullet());
-    }
-
-    return arr;
-  }
-
-  splitParagraphIntoBullets(descriptions) {
+  splitParagraphIntoBullets(descriptions: any) {
     const arr = [];
 
     for (const desc of descriptions) {
@@ -251,24 +250,41 @@ export class ExportProfile {
     return arr;
   }
 
-  createPositionDateText(startDate, endDate) {
+  createPositionDateText(startDate: string, endDate: string) {
     const paragraph = new Paragraph();
     // const startDateText = this.getMonthFromInt(startDate.month) + '. ' + startDate.year;
     const startdateString = startDate;
     const startDateText = new Date(startdateString).toLocaleDateString();
 
     // const endDateText = isCurrent ? 'Present' : `${this.getMonthFromInt(endDate.month)}. ${endDate.year}`;
-    const enddateString = startDate;
-    const endDateText = new Date(enddateString).toLocaleDateString();
+    let endDateText: any;
+    if (endDate != null) {
+      const enddateString = endDate;
+      endDateText = new Date(enddateString).toLocaleDateString();
+    } else {
+      endDateText = 'Present';
+    }
 
     // console.log(`${startDateText} - ${endDateText}`);
-    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)').tab().size(22);
+    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)').tab().size(24);
     paragraph.addRun(date);
 
     return paragraph;
   }
 
-  getMonthFromInt(value) {
+  createEduCertDateText(endDate: string) {
+    const paragraph = new Paragraph().rightTabStop(10000);
+    const enddateString = endDate;
+    const endDateText = new Date(enddateString).toLocaleDateString();
+
+    // console.log(`${startDateText} - ${endDateText}`);
+    const date = new TextRun(`${endDateText}`).font('Calibri (Body)').tab().size(24);
+    paragraph.addRun(date);
+
+    return date;
+  }
+
+  getMonthFromInt(value: any) {
     switch (value) {
       case 1:
         return 'Jan';

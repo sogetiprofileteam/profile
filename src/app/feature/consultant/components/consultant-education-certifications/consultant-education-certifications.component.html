@@ -20,15 +20,15 @@
   </ng-container>
 
   <ng-container *ngFor="let certification of consultant.certifications; let i = index">
-    <app-consultant-section-header [title]="certification.name" titleColor="accent" [underline]="false">
+    <app-consultant-section-sub-header [title]="certification.name" titleColor="accent" [underline]="false" class="edu-cert-header">
       <!-- <b>{{certification.name}}</b> -->
-      <button mat-icon-button (click)="openDeleteEducationCertificationDialog(i, 'certifications')">
+      <button mat-icon-button color="accent" (click)="openDeleteEducationCertificationDialog(i, 'certifications')">
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-icon-button (click)="openEditEducationCertificationDialog(certification, i, 'certifications')">
+      <button mat-icon-button color="accent" (click)="openEditEducationCertificationDialog(certification, i, 'certifications')">
         <mat-icon>edit</mat-icon>
       </button>
-    </app-consultant-section-header>
+    </app-consultant-section-sub-header>
 
     <p class="certTitleSpace">{{certification.title}}</p>
     <p class="dateSpace">{{certification.dateRecieved | date: 'shortDate'}}</p>
