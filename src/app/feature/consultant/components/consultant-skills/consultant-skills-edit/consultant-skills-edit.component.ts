@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Inject, OnInit } from '@angular/cor
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Skill, SkillType, SKILL_CORE } from '@core/models';
+import { Skill, SkillType, SKILL_CORE, SelectedSkill } from '@core/models';
 import { ConsultantSkillsEditService } from './consultant-skills-edit-service/consultant-skills-edit.service';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { take } from 'rxjs/operators';
@@ -40,13 +40,8 @@ export class ConsultantSkillsEditComponent implements OnInit {
     this.skillEditService.closeDialog$.pipe(take(1)).subscribe(() => this.close());
   }
 
-  updateConsultant() {
+  updateConsultant(): void {
     this.skillEditService.updateConsultant();
-    if (this.skillEditService.updateConsultant() == void {}) {
-      this.notification.notificationsBar('Skills updated!', 'success');
-    } else {
-      this.notification.notificationsBar('Error updating skills', 'error');
-    }
   }
 
   close(): void {

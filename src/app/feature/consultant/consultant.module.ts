@@ -40,12 +40,13 @@ import {
   ConsultantSkillsEditService,
   NotificationsService,
   ConsultantExperienceDeleteDialogComponent,
-  ConsultantExperienceFormComponent
+  ConsultantExperienceFormComponent,
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
-    ConsultantExperienceFormComponent
+    ConsultantExperienceFormComponent,
   ],
   imports: [
     CommonModule,

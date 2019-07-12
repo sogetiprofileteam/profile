@@ -108,7 +108,7 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
 
       experience.push(newExperience);
       this.close(experience);
-      this.notification.notificationsBar('Experience Added Successfully!', 'success');
+     this.notification.notificationsBar('Experience Added Successfully!', 'success');
 
     }
   }

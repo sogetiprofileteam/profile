@@ -239,7 +239,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   private updateWithExistingSkills(): void {
     this.updateSkills(this.selectedSkills)
-      .subscribe(() => this._closeDialog$.next());
+      .subscribe(() => this._closeDialog$.next(), () => this.notification.notificationsBar('Error Skills did not update', 'error') , () => this.notification.notificationsBar('Skills updated!', 'success'));
   }
 
   private updateSkills(skills: SelectedSkill[]) {
@@ -275,7 +275,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
         this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdatedSkill, updatedSkill);
       } else {
         // Need to replace with UI alert, probably a snackbar
-        this.notification.notificationsBar('Error: Only 10 display skills can be selected', 'warn');
+        this.notification.notificationsBar('Error: Only 10 display skills can be selected', 'error');
         console.warn('You are trying to add too many display skills');
       }
     } else {

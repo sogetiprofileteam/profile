@@ -137,8 +137,7 @@ export class ConsultantStore implements OnDestroy {
       this.saveToDatabase(this.consultant)
         .subscribe(consultant => {
           this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
-        });
-        this.notification.notificationsBar('Consultant Profile Saved Successfully!', 'success');
+        }, () =>  this.notification.notificationsBar('There was an error saving consultant', 'error' ), () =>  this.notification.notificationsBar('Consultant Profile Saved Successfully!', 'success', ));
     }
     else {
       this.notification.notificationsBar('There was an error saving consultant', 'error');
