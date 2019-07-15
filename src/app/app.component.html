@@ -1,6 +1,8 @@
 <app-header></app-header>
 
-<div class="top-bar"></div>
+<div class="top-bar">
+  <button mat-raised-button type="button" [routerLink]="['/consultants']" routerLinkActive="router-link-active" >Go Home</button>
+</div>
 
 <section class="content">
     <router-outlet></router-outlet>

@@ -11,11 +11,11 @@ import { Consultant } from '@core/models';
 export const blankConsultant: Consultant = {
   id: null,
   urlProfileImage: null,
-  firstName: 'First',
-  lastName: 'Last',
-  title: 'Title',
-  practice: 'Practice',
-  email: 'Email',
+  firstName: '',
+  lastName: '',
+  title: '',
+  practice: '',
+  email: '',
   status: null,
   address: {
       lineOne: '10900 Stonelake Blvd. Suite 195',
@@ -23,7 +23,7 @@ export const blankConsultant: Consultant = {
       state: 'TX',
       zipCode: 78759
   },
-  phone: 1234567890,
+  phone: null,
   summary: null,
   urlLinkedIn: null,
   urlGitHub: null,
