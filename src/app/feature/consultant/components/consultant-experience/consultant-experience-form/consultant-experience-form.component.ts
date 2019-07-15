@@ -65,8 +65,15 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
     }
   }
 
+
   private patchExperienceForm(experience: Experience) {
     this.experienceForm.patchValue(experience);
+
+    // Check current role box and remove end date field if no end date (current role)
+    if (experience && !experience.endDate) {
+        this.currentPositionControl.setValue(true);
+        this.currentPositionValue$.next(true);
+    }
 
     experience.descriptions.forEach(description =>
       this.descriptions.push(
