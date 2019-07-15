@@ -71,6 +71,8 @@ import { PhonePipe } from './components/shared/phone.pipe';
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent,
+    ConsultantEducationCertificationsFormComponent,
+    ConsultantEducationCertificationsDeleteDialogComponent,
     PhonePipe,
   ],
   imports: [
