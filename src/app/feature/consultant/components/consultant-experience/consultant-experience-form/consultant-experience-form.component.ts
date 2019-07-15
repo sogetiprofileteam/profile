@@ -45,7 +45,6 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
   currentPositionValue$ = new BehaviorSubject<boolean>(false);
 
   ngOnInit() {
-    console.log(this.data);
     this.configureForAddOrEdit();
     this.watchCurrentPositionControl();
   }
