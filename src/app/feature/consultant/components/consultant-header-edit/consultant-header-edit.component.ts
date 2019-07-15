@@ -21,7 +21,7 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
   ) { }
 
   readonly urlPattern = new RegExp('^(http|https)://');
-  readonly phonePattern = new RegExp('^\\d+$');
+  readonly phonePattern = new RegExp('^\\d{10}$');
 
   headerForm = this.formBuilder.group({
     firstName: ['', Validators.required],

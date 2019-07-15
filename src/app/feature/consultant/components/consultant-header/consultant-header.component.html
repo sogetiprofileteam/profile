@@ -39,7 +39,7 @@
     <ng-container *ngIf="consultant.address as address">
       <p>
         <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
-        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }}
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone | phone }}
       </p>
     </ng-container>
 

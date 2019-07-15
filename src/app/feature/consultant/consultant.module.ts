@@ -48,6 +48,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { PhonePipe } from './components/shared/phone.pipe';
 
 @NgModule({
   declarations: [
@@ -70,8 +71,7 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent,
-    ConsultantEducationCertificationsFormComponent,
-    ConsultantEducationCertificationsDeleteDialogComponent
+    PhonePipe,
   ],
   imports: [
     CommonModule,
@@ -103,7 +103,7 @@ import { MatNativeDateModule } from '@angular/material';
     ConsultantEducationCertificationsFormComponent,
     ConsultantEducationCertificationsDeleteDialogComponent
   ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService ]
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService]
 
 })
 export class ConsultantModule { }
