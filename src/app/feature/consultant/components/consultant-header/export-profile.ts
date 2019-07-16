@@ -1,11 +1,11 @@
 import { Document, Paragraph, Packer, TextRun, Media } from 'docx';
-import { readFileSync } from 'fs';
-import * as fs from 'fs';
+// import { readFileSync } from 'fs';
+// import * as fs from 'fs';
 
 export class ExportProfile {
 
   create(personal, experiences, educations, coreSkills, technicalSkills, certifications) {
-    const fs = require('fs');
+    // const fs = require('fs');
     // TODO: Remove this later
     console.log('INSIDE EXPORT PROFILE:\n' +
       // 'personal:' + JSON.stringify(personal[0]) +
