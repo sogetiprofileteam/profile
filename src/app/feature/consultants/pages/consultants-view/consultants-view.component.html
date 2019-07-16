@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3 col-lg-2">
+  <div class="col-md-3">
     <button mat-raised-button color="primary" class="add-button" [routerLink]="['/consultant']">ADD NEW CONSULTANT</button>
     <div class="search-panel">
         <!-- <app-consultants-search-sidebar></app-consultants-search-sidebar> -->
@@ -21,12 +21,12 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-radio-group>
-              <mat-radio-button value='All' (click)="filterChange('','','','','','','')" checked>All Practices</mat-radio-button><br />
-              <mat-radio-button value='Applications & Cloud Technology' (click)="filterChange('','Applications & Cloud Technology','','','','','')">Applications & Cloud Tech...</mat-radio-button><br />
-              <mat-radio-button value='Digital Assurance & Testing' (click)="filterChange('','Digital Assurance & Testing','','','','','')">Digital Assurance & Testing</mat-radio-button><br />
-              <mat-radio-button value='Digital Manufacturing' (click)="filterChange('','Digital Manufacturing','','','','','')">Digital Manufacturing</mat-radio-button><br />
-              <mat-radio-button value='Digital Transformation' (click)="filterChange('','Digital Transformation','','','','','')">Digital Transformation</mat-radio-button><br />
-              <mat-radio-button value='Insights & Data' (click)="filterChange('','Insights & Data','','','','','')">Insights & Data</mat-radio-button><br />
+              <mat-radio-button value='All' (click)="filterChange('','','','','','','')" checked>All Practices</mat-radio-button>
+              <mat-radio-button value='Applications & Cloud Technology' (click)="filterChange('','Applications & Cloud Technology','','','','','')">Applications & Cloud Tech...</mat-radio-button>
+              <mat-radio-button value='Digital Assurance & Testing' (click)="filterChange('','Digital Assurance & Testing','','','','','')">Digital Assurance & Testing</mat-radio-button>
+              <mat-radio-button value='Digital Manufacturing' (click)="filterChange('','Digital Manufacturing','','','','','')">Digital Manufacturing</mat-radio-button>
+              <mat-radio-button value='Digital Transformation' (click)="filterChange('','Digital Transformation','','','','','')">Digital Transformation</mat-radio-button>
+              <mat-radio-button value='Insights & Data' (click)="filterChange('','Insights & Data','','','','','')">Insights & Data</mat-radio-button>
             </mat-radio-group>
           </mat-expansion-panel>
           
