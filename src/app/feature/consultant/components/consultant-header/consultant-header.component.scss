@@ -1,13 +1,29 @@
 @import "breakpoints";
 
+$picture-size-lg: 250px;
+$picture-size-sm: 200px;
+
+$edit-button-position-lg: 12px;
+$edit-button-position-sm: 6px;
+
+$export-button-position-lg: 12px;
+$export-button-position-sm: 6px;
+
+
 @include media-breakpoint-down(sm) {
-    .picture-container, .picture {
-        width: 250px;
-        height: 250px;
+    .picture-container, .button-container, .picture {
+        width: $picture-size-sm;
+        height: $picture-size-sm;
 
         .edit-button {
-            bottom: 12px;
-            right: 12px;
+            bottom: $edit-button-position-sm;
+            right: $edit-button-position-sm;
+        }
+
+        .export-button {
+            bottom: $export-button-position-sm;
+            left: $export-button-position-sm;
+            background-color: green
         }
     }
 
@@ -23,17 +39,26 @@
     .icon {	
         margin: 15px;
     }
+
+    .container {
+        padding-top: 2em;
+    }
 }
 
 @include media-breakpoint-up(sm) {
-    .picture-container, .picture {
-        width: 375px;
-        height: 375px;
+    .picture-container, .button-container,  .picture {
+        width: $picture-size-lg;
+        height: $picture-size-lg;
     }
 
     .edit-button {
-        bottom: 32px;
-        right: 32px;
+        bottom: $edit-button-position-lg;
+        right: $edit-button-position-lg;
+    }
+    .export-button {
+        bottom: $export-button-position-lg;
+        left: $export-button-position-lg;
+        background-color: green
     }
 
     .picture-wrapper {
@@ -43,20 +68,48 @@
     .icon {	
         margin: 20px;
     }
+
+    .container {
+        padding-top: 3.5em;
+    }
 }
 
 .container {
     text-align: center;
-    padding-top: 3.5em;
 }
 
 .picture-wrapper {
     display: flex;
     justify-content: center;
+    display: relative;
 }
 
-.picture-container {
+.picture-container, .button-container {
     position: relative;
+    border-radius: 50%;
+}
+
+.edit-overlay {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+
+    .edit-text {
+        color: white;
+        margin-top: auto;
+        margin-bottom: auto;
+        padding: 1rem;
+    }
 }
 
 .picture { 
@@ -65,6 +118,11 @@
 }
 
 .edit-button {
+    position: absolute;
+    z-index: 998;
+}
+
+.export-button {
     position: absolute;
     z-index: 999;
 }

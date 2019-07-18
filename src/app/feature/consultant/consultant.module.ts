@@ -4,32 +4,52 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-import {
-  MatDialogModule,
-  MatInputModule,
-  MatFormFieldModule,
-  MatButtonModule,
-  MatIconModule,
-  MatSelectModule,
-  MatChipsModule,
-  MatAutocompleteModule,
-} from '@angular/material';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
-import { ConsultantRoutingModule,
-  ConsultantServiceModule,
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+// import { readFileSync } from 'fs';
+
+import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
   ConsultantSectionHeaderComponent,
+  ConsultantSectionSubHeaderComponent,
+  ConsultantSummaryComponent,
+  ConsultantSummaryEditComponent,
   ConsultantCoreSkillsComponent,
   ConsultantSkillsEditComponent,
+  ConsultantSkillsEditAddRemoveComponent,
+  ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
   ConsultantExperienceComponent,
-  ConsultantSkillsEditAddRemoveComponent,
-  ConsultantSkillsEditReorderDisplayComponent
+  SaveNewButtonComponent,
+  ConsultantPictureEditComponent,
+  ConsultantRoutingModule,
+  ConsultantStore,
+  TechnicalSkillsService,
+  CoreSkillsService,
+  SkillsDataService,
+  ConsultantSkillsEditService,
+  ConsultantExperienceDeleteDialogComponent,
+  ConsultantExperienceFormComponent,
+  ConsultantEducationCertificationsDeleteDialogComponent,
+  ConsultantEducationCertificationsFormComponent
 } from './index';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { PhonePipe } from './components/shared/phone.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +58,9 @@ import { ConsultantRoutingModule,
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
+    ConsultantSectionSubHeaderComponent,
+    ConsultantSummaryComponent,
+    ConsultantSummaryEditComponent,
     ConsultantCoreSkillsComponent,
     ConsultantSkillsEditComponent,
     ConsultantSkillsEditAddRemoveComponent,
@@ -45,10 +68,16 @@ import { ConsultantRoutingModule,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
     ConsultantExperienceComponent,
+    SaveNewButtonComponent,
+    ConsultantPictureEditComponent,
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent,
+    ConsultantEducationCertificationsFormComponent,
+    ConsultantEducationCertificationsDeleteDialogComponent,
+    PhonePipe,
   ],
   imports: [
     CommonModule,
-    ConsultantServiceModule,
     ConsultantRoutingModule,
     DragDropModule,
     MatButtonModule,
@@ -60,8 +89,24 @@ import { ConsultantRoutingModule,
     MatAutocompleteModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageCropperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
-  entryComponents: [ConsultantHeaderEditComponent, ConsultantSkillsEditComponent],
+  entryComponents: [
+    ConsultantHeaderEditComponent,
+    ConsultantSkillsEditComponent,
+    ConsultantPictureEditComponent,
+    ConsultantSummaryEditComponent,
+    ConsultantExperienceDeleteDialogComponent,
+    ConsultantExperienceFormComponent,
+    ConsultantEducationCertificationsFormComponent,
+    ConsultantEducationCertificationsDeleteDialogComponent
+  ],
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService]
+
 })
 export class ConsultantModule { }

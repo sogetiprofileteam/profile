@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {path: '', redirectTo: '/consultants', pathMatch: 'full'},
   {
     path: 'consultants',
-    loadChildren: './feature/consultants/consultants.module#ConsultantsModule'
+    loadChildren: () => import('./feature/consultants/consultants.module').then(m => m.ConsultantsModule)
   },
   {
     path: 'consultant',
-    loadChildren: './feature/consultant/consultant.module#ConsultantModule'
+    loadChildren: () => import('./feature/consultant/consultant.module').then(m => m.ConsultantModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

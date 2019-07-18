@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{ formTitle }} {{ (type | titlecase) || 'Education or Certification'}}</h1>
+
+<form [formGroup]="eduCertForm" (ngSubmit)="submit()" id="edu-cert-form">
+  <mat-dialog-content>
+    <mat-radio-group *ngIf="formTitle === 'Add'" formControlName="eduOrCert">
+      <mat-label>Type</mat-label>
+      <mat-radio-button value="education">Education</mat-radio-button>
+      <mat-radio-button value="certifications">Certification</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field>
+      <mat-label>Institution</mat-label>
+      <input matInput formControlName="institution" type="text">
+      <mat-error>Institution is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Achievement</mat-label>
+      <input matInput formControlName="title" type="text">
+      <mat-error>Achievement is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date Received</mat-label>
+      <input matInput [matDatepicker]="datePicker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+      <mat-error>Date Received is required</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+</form>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" type="submit" form="edu-cert-form">{{ formAction }}
+    {{ type | titlecase}}</button>
+</mat-dialog-actions>

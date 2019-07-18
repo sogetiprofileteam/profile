@@ -6,17 +6,17 @@ export const mockConsultant: Consultant = {
     firstName: 'Jane',
     lastName: 'Barnes',
     title: 'Consultant',
-    practice: 'Applications and Cloud Technology',
+    practice: 'Applications & Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
-    username: 'jbarnes',
-    status: '',
+    status: 'ATO',
     address: {
         lineOne: '1234 Fake Street',
         city: 'Austin',
         state: 'Texas',
         zipCode: 78732
     },
-    phone1: 5129999999,
+    phone: 5129999999,
+    summary: 'This is a summary about Jane Barnes',
     urlLinkedIn: 'https://linkedin.com',
     urlGitHub: 'https://github.com',
     urlWordpress: 'https://wordpress.com',
@@ -93,12 +93,16 @@ export const mockConsultant: Consultant = {
             id: '1',
             dateRecieved: new Date(),
             name: 'Amazon AWS Engineer',
+            title: 'AWS Solution Architect'
         }
     ],
     education: [
         {
             id: '1',
-            school: 'UT Austin',
+            school: {
+                id: '1',
+                name: 'UT Austin'
+            },
             subject: 'Computer Science',
             startDate: new Date('August 1, 2012'),
             endDate: new Date('May 1, 2016'),

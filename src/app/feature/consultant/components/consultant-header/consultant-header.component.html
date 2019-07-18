@@ -1,12 +1,25 @@
 <section class="container">
   <ng-container *ngIf="consultant$ | async as consultant">
     <div class="picture-wrapper">
-      <div class="picture-container">
-        <button mat-fab class="edit-button" color="white" (click)="openEditDialog()">
+      <div class="button-container">
+        <button mat-fab class="export-button" (click)="exportProfile(consultant)">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+        <button mat-fab class="edit-button" color="white" (click)="openEditHeaderDialog()">
           <mat-icon>edit</mat-icon>
         </button>
+        
+        <div class="picture-container">
+          <img *ngIf="consultant.urlProfileImage" class="picture" src="{{consultant.urlProfileImage}}">
+          <img *ngIf="!consultant.urlProfileImage"class="picture" src="../../../../../assets/img/blank-profile.png">
 
-        <img class="picture" src="../../../../../assets/mock-profile-picture.jpg">
+          <div class="edit-overlay" (click)="openEditPictureDialog()">
+            <span class="edit-text">
+              <mat-icon>photo_camera</mat-icon>
+              <h2>Change profile picture</h2>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -26,24 +39,23 @@
     <ng-container *ngIf="consultant.address as address">
       <p>
         <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
-        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone }} |
-        Fax: {{ consultant.fax }}
+        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone | phone }}
       </p>
     </ng-container>
 
-    <a href="{{consultant.urlLinkedIn}}">
+    <a href="{{consultant.urlLinkedIn}}" *ngIf="consultant.urlLinkedIn" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/linkedin-brands.svg">
     </a>
 
-    <a href="{{consultant.urlGitHub}}">
+    <a href="{{consultant.urlGitHub}}" *ngIf="consultant.urlGitHub" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/github-brands.svg">
     </a>
 
-    <a href="{{consultant.urlWordpress}}">
+    <a href="{{consultant.urlWordpress}}" *ngIf="consultant.urlWordpress" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/wordpress-brands.svg">
     </a>
 
-    <a href="{{consultant.urlPersonal}}">
+    <a href="{{consultant.urlPersonal}}" *ngIf="consultant.urlPersonal" target="_blank">
       <img class="icon" src="../../../../../assets/svg/icons/desktop-solid.svg">
     </a>
   </ng-container>

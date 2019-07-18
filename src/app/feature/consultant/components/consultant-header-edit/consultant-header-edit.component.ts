@@ -3,10 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { Consultant } from '@core/models';
+import { Consultant, Status } from '@core/models';
 
 @Component({
   templateUrl: 'consultant-header-edit.component.html',
@@ -20,13 +20,21 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
     private formBuilder: FormBuilder
   ) { }
 
+  readonly urlPattern = new RegExp('^(http|https)://');
+  readonly phonePattern = new RegExp('^\\d{10}$');
+
   headerForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    urlLinkedIn: [''],
-    urlGitHub: [''],
-    urlWordpress: [''],
-    urlPersonal: [''],
+    title: ['', Validators.required],
+    practice: ['', Validators.required],
+    status: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
+    urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
+    urlGitHub: ['', Validators.pattern(this.urlPattern)],
+    urlWordpress: ['', Validators.pattern(this.urlPattern)],
+    urlPersonal: ['', Validators.pattern(this.urlPattern)],
   });
 
   consultant$ = this.consultantStore.consultant$.pipe(tap(consultant => this.headerForm.patchValue(consultant)));
@@ -52,5 +60,40 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+  get title() {
+    return this.headerForm.get('title');
+  }
+
+  get practice() {
+    return this.headerForm.get('practice');
+  }
+
+  get status() {
+    return this.headerForm.get('status');
+  }
+
+  get email() {
+    return this.headerForm.get('email');
+  }
+
+  get phone() {
+    return this.headerForm.get('phone');
+  }
+
+  get linkedIn() {
+    return this.headerForm.get('urlLinkedIn');
+  }
+
+  get gitHub() {
+    return this.headerForm.get('urlGitHub');
+  }
+
+  get wordpress() {
+    return this.headerForm.get('urlWordpress');
+  }
+
+  get personal() {
+    return this.headerForm.get('urlPersonal');
   }
 }
