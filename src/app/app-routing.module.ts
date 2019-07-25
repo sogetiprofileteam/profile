@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { AuthenticationGuard } from 'microsoft-adal-angular6';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/consultants', pathMatch: 'full'},
+  {path: '', component: AppComponent, pathMatch: 'full', canActivate: [AuthenticationGuard]}, // , redirectTo: '/consultants'
   {
     path: 'consultants',
     loadChildren: () => import('./feature/consultants/consultants.module').then(m => m.ConsultantsModule)
