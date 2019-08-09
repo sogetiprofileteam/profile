@@ -10,29 +10,29 @@ import { map } from 'rxjs/operators';
 import { filterSortDisplaySkills } from '@feature/consultant/shared/helpers/filter-sort-display-skills';
 
 @Component({
-  selector: 'app-consultant-core-skills',
-  templateUrl: './consultant-core-skills.component.html',
-  styleUrls: ['./consultant-core-skills.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-consultant-core-skills',
+    templateUrl: './consultant-core-skills.component.html',
+    styleUrls: ['./consultant-core-skills.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantCoreSkillsComponent {
 
-  constructor(
-    private consultantStore: ConsultantStore,
-    private dialog: MatDialog,
-  ) { }
+    constructor(
+        private consultantStore: ConsultantStore,
+        private dialog: MatDialog,
+    ) { }
 
-  coreSkills$ =
-    this.consultantStore.consultant$
-      .pipe(
-        map(c => filterSortDisplaySkills(c.coreSkills))
-      );
+    coreSkills$ =
+        this.consultantStore.consultant$
+            .pipe(
+                map(c => filterSortDisplaySkills(c.coreSkills))
+            );
 
-  openEditSkillsDialog() {
-    this.dialog.open(ConsultantSkillsEditComponent, { 
-			data: { 
-				type: SKILL_CORE 
-			} 
-		});
-  }
+    openEditSkillsDialog() {
+        this.dialog.open(ConsultantSkillsEditComponent, {
+            data: {
+                type: SKILL_CORE
+            }
+        });
+    }
 }

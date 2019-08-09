@@ -21,13 +21,14 @@ import {
   ConsultantBodyComponent,
   ConsultantHeaderEditComponent,
   ConsultantSectionHeaderComponent,
+  ConsultantSummaryComponent,
+  ConsultantSummaryEditComponent,
   ConsultantCoreSkillsComponent,
   ConsultantSkillsEditComponent,
   ConsultantSkillsEditAddRemoveComponent,
   ConsultantSkillsEditReorderDisplayComponent,
   ConsultantTechnicalSkillsComponent,
   ConsultantEducationCertificationsComponent,
-  ConsultantEducationCertificationsEditComponent,
   ConsultantExperienceComponent,
   SaveNewButtonComponent,
   ConsultantPictureEditComponent,
@@ -39,7 +40,7 @@ import {
   ConsultantSkillsEditService,
   NotificationsService,
   ConsultantExperienceDeleteDialogComponent,
-  ConsultantExperienceFormComponent
+  ConsultantExperienceFormComponent,
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -53,18 +54,19 @@ import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
     ConsultantBodyComponent,
     ConsultantHeaderEditComponent,
     ConsultantSectionHeaderComponent,
+    ConsultantSummaryComponent,
+    ConsultantSummaryEditComponent,
     ConsultantCoreSkillsComponent,
     ConsultantSkillsEditComponent,
     ConsultantSkillsEditAddRemoveComponent,
     ConsultantSkillsEditReorderDisplayComponent,
     ConsultantTechnicalSkillsComponent,
     ConsultantEducationCertificationsComponent,
-    ConsultantEducationCertificationsEditComponent,
     ConsultantExperienceComponent,
     SaveNewButtonComponent,
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
-    ConsultantExperienceFormComponent
+    ConsultantExperienceFormComponent,
   ],
   imports: [
     CommonModule,
@@ -91,7 +93,7 @@ import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
     ConsultantHeaderEditComponent,
     ConsultantSkillsEditComponent,
     ConsultantPictureEditComponent,
-    ConsultantEducationCertificationsEditComponent,
+    ConsultantSummaryEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],

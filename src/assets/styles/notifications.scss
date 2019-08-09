@@ -1,16 +1,40 @@
-.red-snackbar {
+.error {
   background: rgb(221, 11, 11);
   color: white;
+  position: relative;
+  top: -55px;
 }
 
-.green-snackbar {
+.success {
   background: rgb(11, 170, 11);
   color: white;
+  position: relative;
+  top: -55px;
+}
+.warn {
+  background: rgb(224, 54, 54);
+  color: white;
+  position: relative;
+  top: -55px;
 }
 
 @media screen and (max-width: 499px) {
-  .red-snackbar {
+  .error {
     //  padding-left: 50%;
     width: 20px;
+    position: relative;
+    top: -55px;
+  }
+  .warn {
+    //  padding-left: 50%;
+    width: 20px;
+    position: relative;
+    top: -55px;
+  }
+  .success {
+    //  padding-left: 50%;
+    width: 20px;
+    position: relative;
+    top: -55px;
   }
 }

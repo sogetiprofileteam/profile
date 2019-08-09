@@ -26,7 +26,7 @@ export const blankConsultant: Consultant = {
     state: 'TX',
     zipCode: 78759
   },
-  phone1: 1234567890,
+  phone: 1234567890,
   urlLinkedIn: null,
   urlGitHub: null,
   urlWordpress: null,
@@ -136,14 +136,14 @@ export class ConsultantStore implements OnDestroy {
    */
   addNewConsultant() {
     if (this.newConsultant) {
-      console.log(
-        'Adding new consultant using (Save function) to the database!: consultant-store.service'
-      );
-      this.saveToDatabase(this.consultant).subscribe(consultant => {
-        this.router.navigate(['/consultant'], {
-          queryParams: { id: consultant.id }
-        });
-      });
+      console.log('Adding new consultant using (Save function) to the database!: consultant-store.service');
+      this.saveToDatabase(this.consultant)
+        .subscribe(consultant => {
+          this.router.navigate([ '/consultant'], { queryParams: { id: consultant.id } });
+        }, () =>  this.notification.notificationsBar('There was an error saving consultant', 'error' ), () =>  this.notification.notificationsBar('Consultant Profile Saved Successfully!', 'success', ));
+    }
+    else {
+      this.notification.notificationsBar('There was an error saving consultant', 'error');
     }
   }
 
@@ -153,9 +153,9 @@ export class ConsultantStore implements OnDestroy {
    */
   private saveToDatabase(consultant: Consultant): Observable<Consultant> {
     console.log('Saving to the database!: consultant-store.service');
-    return this.consultantDataService
-      .updateConsultant(consultant)
+    return this.consultantDataService.updateConsultant(consultant)
       .pipe(tap(res => this._consultant$.next(consultant)));
+
   }
 
   ngOnDestroy() {

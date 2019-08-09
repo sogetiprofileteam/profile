@@ -9,11 +9,11 @@ import {
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { NotificationsService } from '@core/services/notifications/notifications.service';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Experience } from '@core/models';
 import { growShrink } from '@shared/animations/grow-shrink';
 
@@ -27,8 +27,8 @@ import { growShrink } from '@shared/animations/grow-shrink';
 export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
-    private notification: NotificationsService,
     private consultantStore: ConsultantStore,
+    private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantExperienceFormComponent>,
     private formBuilder: FormBuilder
   ) {}
@@ -112,20 +112,20 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
       }
       experience.push(newExperience);
       this.close(experience);
-      this.notification.openUpdatedSnackBar();
+     this.notification.notificationsBar('Experience Added Successfully!', 'success');
+
     }
   }
 
   private updateExperience(): void {
     const experience = this.consultantStore.consultant.experience;
-
     if (this.experienceForm.valid) {
       experience[this.data.index] = this.getFormData();
       this.close(experience);
-      this.notification.openUpdatedSnackBar();
+      this.notification.notificationsBar('Consultant Updated!', 'success');
     } else {
       this.close(experience);
-      this.notification.openErrorUpdatingSnackBar();
+      this.notification.notificationsBar('There was an error updating consultant', 'success');
     }
   }
 

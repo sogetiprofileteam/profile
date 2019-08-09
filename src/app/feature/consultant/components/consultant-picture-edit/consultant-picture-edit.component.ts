@@ -50,16 +50,9 @@ export class ConsultantPictureEditComponent implements OnDestroy {
         ...consultant,
         urlProfileImage: this.croppedImage
       };
-      // Ensures that the notification isn't triggered until image is officially cropped
-      if(this.croppedImage){
-       this.consultantStore.updateConsultant(updatedData)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(() => this.close());
-          this.notification.openUpdatedPictureSnackBar();
-        }
-        else {
-          this.notification.openErrorUpdatingPictureSnackBar();
-        }
+        this.consultantStore.updateConsultant(updatedData)
+           .pipe(takeUntil(this.destroy$))
+           .subscribe(() => this.close(), () => this.notification.notificationsBar('Error: Profile picture did not upload!', 'error'), () =>  this.notification.notificationsBar('Profile Picture Uploaded Successfully!', 'success'));
     }
 
   }

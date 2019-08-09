@@ -2,11 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { NotificationsService } from '@core/services/notifications/notifications.service';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Consultant } from '@core/models';
 
 @Component({
@@ -27,6 +27,8 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
   headerForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
+    title: ['', Validators.required],
+    practice: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
     urlLinkedIn: ['', Validators.pattern(this.urlPattern)],
@@ -51,11 +53,9 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
       this.consultantStore
         .updateConsultant(updatedData)
         .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.close());
-      this.notification.openUpdatedSnackBar();
-    } else {
-      this.notification.openErrorUpdatingSnackBar();
-    }
+        .subscribe(() => this.close(), () => this.notification.notificationsBar('There was an error updating consultant', 'error'), () => this.notification.notificationsBar('Consultant Updated', 'success'));
+
+      }
   }
 
   getFormData(): Partial<Consultant> {
@@ -64,6 +64,13 @@ export class ConsultantHeaderEditComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+  get title() {
+    return this.headerForm.get('title');
+  }
+
+  get practice() {
+    return this.headerForm.get('practice');
   }
 
   get email() {

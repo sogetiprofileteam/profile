@@ -1,3 +1,4 @@
+import { NotificationsService } from '@core/services/notifications/notifications.service';
 import { Injectable, OnDestroy, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -67,8 +68,9 @@ export class ConsultantSkillsEditService implements OnDestroy {
 
   constructor(
     private consultantStore: ConsultantStore,
-    private skillService: SkillsDataService
-  ) {}
+    private notification: NotificationsService,
+    private skillService: SkillsDataService,
+  ) { }
 
   ngOnDestroy() {
     this._destroy$.next();
@@ -81,16 +83,17 @@ export class ConsultantSkillsEditService implements OnDestroy {
       .pipe(takeUntil(this._destroy$));
     this.skillProperty = propertyName;
 
-    this.availableSkills$ = combineLatest(
-      this.selectedSkills$,
-      this._getSkills$
-    ).pipe(
-      // We need to know which skills are in the selectedSkills Observable so we can
-      // disable them in the dropdown options to prevent duplicates.
-      map(([selectedSkills, availableSkills]) => {
-        return this.buildSkillOptions(selectedSkills, availableSkills);
-      })
-    );
+    this.availableSkills$ =
+      combineLatest([this.selectedSkills$, this._getSkills$])
+        .pipe(
+          // We need to know which skills are in the selectedSkills Observable so we can
+          // disable them in the dropdown options to prevent duplicates.
+          map(([selectedSkills, availableSkills]) => {
+            // mapping to pickSkill is a workaround for the backend saving display and displayOrder
+            // properties on skills that aren't on a consultant. If this changes, this map can be removed
+            return this.buildSkillOptions(selectedSkills, availableSkills.map(skill => this.pickSkill(skill)));
+          })
+        );
   }
 
   filterSkills(name: string): Observable<SkillOption[]> {
@@ -111,18 +114,9 @@ export class ConsultantSkillsEditService implements OnDestroy {
     const selectedSkillsOptions = this.createSelectedOptions(selectedSkills);
 
     // Similar to above but we get the items that aren't inside the selectedSkills array
-    // Lodash's differenceWith() and isEqual() are a godsend here
-    const pickedSelectedSkills = selectedSkills.map(skill =>
-      this.pickSkill(skill)
-    );
-    const unselectedSkills: SelectedSkill[] = differenceWith(
-      availableSkills,
-      pickedSelectedSkills,
-      isEqual
-    );
-    const unselectedSkillsOptions = this.createUnselectedOptions(
-      unselectedSkills
-    );
+    const pickedSelectedSkills = selectedSkills.map(skill => this.pickSkill(skill));
+    const unselectedSkills: SelectedSkill[] = differenceWith(availableSkills, pickedSelectedSkills, isEqual);
+    const unselectedSkillsOptions = this.createUnselectedOptions(unselectedSkills);
 
     const availableSkillsOptions: SkillOption[] = [
       ...selectedSkillsOptions,
@@ -162,7 +156,9 @@ export class ConsultantSkillsEditService implements OnDestroy {
     });
   }
 
-  private pickSkill(skill: SelectedSkill): Skill {
+  // Change skill param type back to only SelectedSkill when/if backend
+  // doesn't save display and displayOrder on skills that aren't saved to consultants
+  private pickSkill(skill: SelectedSkill | Skill): Skill {
     return pick(skill, ['id', 'name', 'type']) as Skill;
   }
 
@@ -250,13 +246,11 @@ export class ConsultantSkillsEditService implements OnDestroy {
       .pipe(
         switchMap((responseSkills: Skill[]) => {
           // Merge so that we get the display property and proper ID from the server
-          const mergedResponseNewSkills: SelectedSkill[] = merge(
-            newSkills,
-            responseSkills
-          );
+          const merged = [...newSkills];
+          merge(merged, responseSkills);
 
           const skills: SelectedSkill[] = [
-            ...mergedResponseNewSkills,
+            ...merged,
             ...existingSkills
           ];
           return this.updateSkills(skills);
@@ -267,9 +261,8 @@ export class ConsultantSkillsEditService implements OnDestroy {
   }
 
   private updateWithExistingSkills(): void {
-    this.updateSkills(this.selectedSkills).subscribe(() =>
-      this._closeDialog$.next()
-    );
+    this.updateSkills(this.selectedSkills)
+      .subscribe(() => this._closeDialog$.next(), () => this.notification.notificationsBar('Error Skills did not update', 'error') , () => this.notification.notificationsBar('Skills updated!', 'success'));
   }
 
   private updateSkills(skills: SelectedSkill[]) {
@@ -283,33 +276,15 @@ export class ConsultantSkillsEditService implements OnDestroy {
     const selectedSkill: SelectedSkill = chip.value;
 
     if (previouslySelected) {
-      this.removeOneFromDisplaySkills(chip, selectedSkill);
+      this.updateDisplayOfSelectedSkill(chip, selectedSkill, false);
     } else {
-      this.addOneToDisplaySkills(chip, selectedSkill);
+      this.updateDisplayOfSelectedSkill(chip, selectedSkill, true);
     }
   }
 
-  private addOneToDisplaySkills(chip: MatChip, skill: SelectedSkill): void {
-    this.updateDisplayOfSelectedSkill(chip, skill, true);
-  }
-
-  private removeOneFromDisplaySkills(
-    chip: MatChip,
-    skill: SelectedSkill
-  ): void {
-    this.updateDisplayOfSelectedSkill(chip, skill, false);
-  }
-
-  private updateDisplayOfSelectedSkill(
-    chip: MatChip,
-    skill: SelectedSkill,
-    displayVal: boolean
-  ): void {
+  private updateDisplayOfSelectedSkill(chip: MatChip, skill: SelectedSkill, displayVal: boolean): void {
     const updateIndex = this.selectedSkills.indexOf(skill);
-    const selectedSkillsWithoutUpdatedSkill = this.selectedSkills.filter(
-      (existingSkill, currIndex) => currIndex !== updateIndex
-    );
-
+    const selectedSkillsWithoutUpdatedSkill = this.selectedSkills.filter((_, currIndex) => currIndex !== updateIndex);
     const updatedSkill: SelectedSkill = {
       ...skill,
       display: displayVal
@@ -319,12 +294,11 @@ export class ConsultantSkillsEditService implements OnDestroy {
       if (this.displaySkillsCount < this.maxDisplaySkills) {
         chip.toggleSelected();
         updatedSkill.displayOrder = this.displaySkillsCount + 1;
-        this.updateSelectedDisplaySkills(
-          selectedSkillsWithoutUpdatedSkill,
-          updatedSkill
-        );
+
+        this.updateSelectedDisplaySkills(selectedSkillsWithoutUpdatedSkill, updatedSkill);
       } else {
         // Need to replace with UI alert, probably a snackbar
+        this.notification.notificationsBar('Error: Only 10 display skills can be selected', 'error');
         console.warn('You are trying to add too many display skills');
       }
     } else {
@@ -358,6 +332,7 @@ export class ConsultantSkillsEditService implements OnDestroy {
       ...selectedSkillsClone,
       updatedSkill
     ];
+
     this._selectedSkills$.next(updatedSelectedSkills);
   }
 

@@ -8,8 +8,8 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Skill, SkillType, SKILL_CORE } from '@core/models';
 import { ConsultantSkillsEditService } from './consultant-skills-edit-service/consultant-skills-edit.service';
-import { take } from 'rxjs/operators';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
+import { take } from 'rxjs/operators';
 
 export interface SkillsEditDialogData {
   type: SkillType;
@@ -33,8 +33,8 @@ export class ConsultantSkillsEditComponent implements OnInit {
     private skillEditService: ConsultantSkillsEditService,
     @Inject(MAT_DIALOG_DATA) public data: SkillsEditDialogData,
     private notification: NotificationsService,
-    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>
-  ) {}
+    private dialogRef: MatDialogRef<ConsultantSkillsEditComponent>,
+  ) { }
 
   // Would normally have this be the ConsultantStore observable but the
   // skillEditService is already injected and uses the ConsultantStore
@@ -50,9 +50,9 @@ export class ConsultantSkillsEditComponent implements OnInit {
   updateConsultant() {
     this.skillEditService.updateConsultant();
     if (this.skillEditService.updateConsultant() == void {}) {
-      this.notification.openAddingSkillSnackBar();
+     // this.notification.openAddingSkillSnackBar();
     } else {
-      this.notification.openErrorAddingSkillSnackBar();
+      //this.notification.openErrorAddingSkillSnackBar();
     }
   }
 
