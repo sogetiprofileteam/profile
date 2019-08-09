@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Edit {{ title }} Skills</h1>
+
+<form mat-dialog-content *ngIf="consultant$ | async" (ngSubmit)="updateConsultant()" id="skill-form">
+  <app-skills-edit-add-remove>
+  </app-skills-edit-add-remove>
+
+  <app-skills-edit-reorder-display>
+  </app-skills-edit-reorder-display>
+</form>
+
+<mat-dialog-actions mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">CANCEL</button>
+  <button mat-raised-button color="primary" type="submit" form="skill-form">SAVE</button>
+</mat-dialog-actions>

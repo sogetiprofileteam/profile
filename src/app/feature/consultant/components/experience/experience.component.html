@@ -1,0 +1,27 @@
+<app-section-header title="Experience" titleColor="primary" [underline]="true">
+  <button mat-icon-button color="primary" (click)="openCreateExperienceDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</app-section-header>
+
+ <section *ngIf="consultant$ | async as consultant">
+  <ng-container *ngFor="let experience of consultant.experience; let i = index" >
+    <app-section-sub-header [title]="experience.companyName" titleColor="accent" [underline]="false">
+      <button mat-icon-button color="accent" (click)="openDeleteExperienceDialog(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button mat-icon-button color="accent" (click)="openEditExperienceDialog(experience, i)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </app-section-sub-header>
+
+    <p class="jobTitleSpace"> <b> {{experience.title}} </b> </p>
+    <p class="dateSpace">{{experience.startDate | date: 'shortDate'}} - {{experience.endDate ? (experience.endDate | date: 'shortDate') : 'Present'}}</p>
+    <p *ngFor="let description of experience.descriptions">
+      - {{description.summary}}
+    </p>
+  </ng-container>
+</section>
+
+
