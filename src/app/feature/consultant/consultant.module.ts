@@ -14,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-// import { readFileSync } from 'fs';
 
 import {
   ConsultantViewComponent,
@@ -49,7 +48,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { PhonePipe } from './components/shared/phone.pipe';
+import { PhonePipe } from './shared/pipes/phone.pipe';
 
 @NgModule({
   declarations: [

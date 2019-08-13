@@ -1,23 +1,21 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
-import { ConsultantsSearchSidebarComponent } from './consultants-search-sidebar.component';
+import { SearchSidebarComponent } from './search-sidebar.component';
 
 describe('ConsultantsSearchSidebarComponent', () => {
-  let component: ConsultantsSearchSidebarComponent;
-  let fixture: ComponentFixture<ConsultantsSearchSidebarComponent>;
+  let component: SearchSidebarComponent;
+  let fixture: ComponentFixture<SearchSidebarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConsultantsSearchSidebarComponent ]
+      declarations: [ SearchSidebarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsultantsSearchSidebarComponent);
+    fixture = TestBed.createComponent(SearchSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

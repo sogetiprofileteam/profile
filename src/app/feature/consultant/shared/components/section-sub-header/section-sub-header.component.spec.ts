@@ -1,23 +1,21 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
-import { ConsultantSectionSubHeaderComponent } from './consultant-section-sub-header.component';
+import { SectionSubHeaderComponent } from './section-sub-header.component';
 
 describe('ConsultantSectionSubHeaderComponent', () => {
-  let component: ConsultantSectionSubHeaderComponent;
-  let fixture: ComponentFixture<ConsultantSectionSubHeaderComponent>;
+  let component: SectionSubHeaderComponent;
+  let fixture: ComponentFixture<SectionSubHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConsultantSectionSubHeaderComponent ]
+      declarations: [ SectionSubHeaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsultantSectionSubHeaderComponent);
+    fixture = TestBed.createComponent(SectionSubHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

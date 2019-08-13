@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { ConsultantsSearchSidebarComponent } from './pages/consultants-search-sidebar/consultants-search-sidebar.component';
-import { ConsultantsProfileDisplayComponent } from './pages/consultants-profile-display/consultants-profile-display.component';
+import { SearchSidebarComponent } from './components/search-sidebar/search-sidebar.component';
+import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -18,8 +18,8 @@ import { ConsultantsStoreService } from './services/consultants-store/consultant
 @NgModule({
   declarations: [
     ConsultantsViewComponent,
-    ConsultantsProfileDisplayComponent,
-    ConsultantsSearchSidebarComponent
+    ProfileDisplayComponent,
+    SearchSidebarComponent
   ],
   imports: [
     CommonModule,

@@ -5,8 +5,8 @@ export * from './components/header/header.component';
 export * from './components/body/body.component';
 export * from './components/header/header-edit/header-edit.component';
 
-export * from './components/shared/section-header/section-header.component';
-export * from './components/shared/section-sub-header/section-sub-header.component';
+export * from './shared/components/section-header/section-header.component';
+export * from './shared/components/section-sub-header/section-sub-header.component';
 
 export * from './components/summary/summary.component';
 export * from './components/summary/summary-edit/summary-edit.component';

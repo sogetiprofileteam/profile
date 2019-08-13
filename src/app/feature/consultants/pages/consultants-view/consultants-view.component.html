@@ -97,7 +97,7 @@
   </div>
   <div class="col-md-9">
     <div class="row" *ngFor="let consultant of filteredConsultants$ | async ">
-      <app-consultants-profile-display [consultant]="consultant" style="width:100%;"></app-consultants-profile-display>
+      <app-profile-display [consultant]="consultant" style="width:100%;"></app-profile-display>
     </div>
   </div>
 </div>

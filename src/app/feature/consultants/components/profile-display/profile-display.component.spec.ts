@@ -1,23 +1,21 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
-import { ConsultantsProfileDisplayComponent } from './consultants-profile-display.component';
+import { ProfileDisplayComponent } from './profile-display.component';
 
 describe('ConsultantsProfileDisplayComponent', () => {
-  let component: ConsultantsProfileDisplayComponent;
-  let fixture: ComponentFixture<ConsultantsProfileDisplayComponent>;
+  let component: ProfileDisplayComponent;
+  let fixture: ComponentFixture<ProfileDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConsultantsProfileDisplayComponent ]
+      declarations: [ ProfileDisplayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsultantsProfileDisplayComponent);
+    fixture = TestBed.createComponent(ProfileDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
