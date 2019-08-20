@@ -34,7 +34,9 @@
                 "src/assets/styles"
               ]
             },
-            "scripts": [],
+            "scripts": [
+              "src/assets/lib/azure-storage.blob.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

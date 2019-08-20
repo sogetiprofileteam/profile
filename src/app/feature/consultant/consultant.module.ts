@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+
+
 import {
   ConsultantViewComponent,
   ConsultantHeaderComponent,
@@ -41,11 +43,19 @@ import {
   NotificationsService,
   ConsultantExperienceDeleteDialogComponent,
   ConsultantExperienceFormComponent,
+  ProfileImagesService
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
+import { BLOB_STORAGE_TOKEN, IBlobStorage } from '@core/services/profileImages/profile-images';
+
+export function azureBlobStorageFactory(): IBlobStorage {
+  console.log(window)
+  return window['AzureStorage'].Blob;
+}
+
 
 @NgModule({
   declarations: [
@@ -97,7 +107,12 @@ import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, NotificationsService ]
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, NotificationsService,
+    ProfileImagesService,
+    {
+      provide: BLOB_STORAGE_TOKEN,
+      useFactory: azureBlobStorageFactory
+    } ]
 
 })
 export class ConsultantModule { }
