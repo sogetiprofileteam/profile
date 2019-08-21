@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProfileImage } from './../../models/profileImage';
 import { environment } from 'environments/environment';
-import * as Azure from "@azure/storage-blob";
+import * as Azure from '@azure/storage-blob';
 
 declare var AzureStorage: any;
 
@@ -12,15 +12,15 @@ export class ProfileImagesService {
 
   private blobContainerUrl: string;
   constructor() {
-   //this.blobContainerUrl = 'https://' + environment.azureContainers.profileImage + '.' + environment.azureContainers.baserUrl;
+  // this.blobContainerUrl = 'https://' + environment.azureContainers.profileImage + '.' + environment.azureContainers.baserUrl;
    }
 
-   getPlaylist(): Promise<ProfileImage[]>{
+   getPlaylist(): Promise<ProfileImage[]> {
 
      const blobService = AzureStorage.createBlobServiceAnonymous(this.blobContainerUrl);
      return new Promise(resolve => {
        blobService.getBlobToText('profileImage', 'images.json', function(err, blobContent, blob){
-         resolve(JSON.parse(blobContent))
+         resolve(JSON.parse(blobContent));
        });
      });
 
