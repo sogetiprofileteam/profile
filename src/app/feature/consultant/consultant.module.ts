@@ -1,3 +1,4 @@
+import { ProfileImageService } from './../../core/services/profileImagesZ/profile-image.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -112,7 +113,7 @@ export function azureBlobStorageFactory(): IBlobStorage {
     {
       provide: BLOB_STORAGE_TOKEN,
       useFactory: azureBlobStorageFactory
-    } ]
+    }, ProfileImageService ]
 
 })
 export class ConsultantModule { }

@@ -24,6 +24,7 @@ import {
   TokenCredential,
  // SharedKeyCredential
 } from "@azure/storage-blob";
+import { ProfileImageService } from '@core/services/profileImagesZ/profile-image.service';
 
 
 interface IUploadProgress {
@@ -45,6 +46,7 @@ export class ConsultantPictureEditComponent implements OnDestroy {
     private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantPictureEditComponent>,
     private http: HttpClient,
+    private _profileImageService: ProfileImageService
    // private blobStorage: ProfileImagesService,
   ) { }
 
@@ -59,7 +61,7 @@ export class ConsultantPictureEditComponent implements OnDestroy {
   //private baseurl = environment.api + '/api/FileUpload/SaveFile/';
 
   //private baseurl = environment.api + '/api/FileUpload/SaveFile/';
-  private baseurl = environment.api + '/profilepics/SaveFile';
+  private baseurl = environment.api + '/saveFile';
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
@@ -89,6 +91,20 @@ export class ConsultantPictureEditComponent implements OnDestroy {
            .subscribe(() => this.close(), () => this.notification.notificationsBar('Error: Profile picture did not upload!', 'error'), () =>  this.notification.notificationsBar('Profile Picture Uploaded Successfully!', 'success'));
     }
   }
+
+  // -------------------Testing azure blob ------------------------------------------------
+  test(){
+    const formData = new FormData();
+    formData.append(this.selectedFile.name, this.selectedFile, this.selectedFile.name);
+    //this._profileImageService.uploadFile('', this.selectedFile);
+    // this._profileImageService.postTest(this.selectedFile)
+    this._profileImageService.postImages(formData)
+      .subscribe(res => {
+        console.log(res);
+      })
+
+  }
+
   /*
    // Enter your storage account name and shared key
     account = "profileappphotostorage";
@@ -130,106 +146,4 @@ export class ConsultantPictureEditComponent implements OnDestroy {
 
 */
 
-  // -------------------Testing azure blob ------------------------------------------------
-  test(){
-    const fd = new FormData();
-   // fd.append('image', this.selectedFile, this.selectedFile.name);
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-     //this.http.put('https://profileappphotostorage.blob.core.windows.net/images/' + this.selectedFile.name + this.sas, this.selectedFile)
-   return this.http.post(this.baseurl, fd)
-      .subscribe(res => {
-        console.log(res);
-      })
-  }
-//---------------------------Theory 2 ---------------------------------------------------------------
-
-  // uploadProgress$: Observable<IUploadProgress[]>;
-  // filesSelected = false;
-
-
-  // onFileChange(event: any): void {
-  //   this.filesSelected = true;
-  //   this.uploadFile(this.selectedFile);
-
-  //   this.uploadProgress$ = from(this.imageChangedEvent.target.files as FileList).pipe(
-  //     map(file => this.uploadFile(file)),
-  //     combineAll()
-  //   );
-  // }
-
-
-  // uploadFile(file: File): Observable<IUploadProgress> {
-  //   const accessToken: ISasToken = {
-  //     container: 'images',
-  //     filename: file.name,
-  //     storageAccessToken:
-  //     this.sas,
-  //     storageUri: 'https://profileappphotostorage.blob.core.windows.net/images/' + this.selectedFile.name
-  //   };
-
-  //   return this.blobStorage
-  //     .uploadToBlobStorage(accessToken, file)
-  //     .pipe(map(progress => this.mapProgress(file, progress)));
-  // }
-
-  // private mapProgress(file: File, progress: number): IUploadProgress {
-  //   return {
-  //     filename: file.name,
-  //     progress: progress
-  //   };
-  // }
-
-
-//  ---------------------------Added ----------------------------------
-  // public uploader: FileUploader = new FileUploader({ url: URL, method: 'PUT' });
-  //   public hasBaseDropZoneOver: boolean = false;
-  //   public files: FileItem[] = this.uploader.queue;
-
-  //   public r: Response;
-
-  //   public getUploader(): FileUploader {
-  //       return this.uploader;
-  //   }
-
-  //   public fileOverBase(e: any): void {
-  //       this.hasBaseDropZoneOver = e;
-  //   }
-
-  //   public uploadAll(): void {
-
-  //       this.http.get(getToken)
-  //           .subscribe(
-  //           result => {
-  //               if (result.ok) {
-
-  //                   for (var n = 1; n <= this.files.length; n++) {
-
-  //                       let fullUrl = URL + this.files[n].file.name + result.json();
-  //                       console.log('--> send url ' + fullUrl);
-
-  //                       this.uploader.setOptions({
-  //                           url: fullUrl, method: 'PUT',
-  //                           headers: [{ name: 'x-ms-blob-type', value: 'BlockBlob' }]
-  //                       });
-
-  //                       this.uploader.uploadItem(this.files[n]);
-  //                   }
-  //               }
-  //               else {
-  //                   console.log('--> get token error ' + result.statusText);
-  //               }
-  //           });
-  //   }
-
-  //   public cancelAll(): void {
-  //       this.uploader.cancelAll();
-  //   }
-
-  //   public clearQueue(): void {
-  //       this.uploader.clearQueue();
-  //   }
 }
-
-
-
-//---------------------------------

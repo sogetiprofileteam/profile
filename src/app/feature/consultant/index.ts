@@ -2,6 +2,7 @@ export * from './services/consultant-store/consultant-store.service';
 export * from './pages/consultant-view/consultant-view.component';
 export * from '../../core/services/notifications/notifications.service';
 export * from '../../core/services/profileImages/profile-images.service';
+export * from '../../core/services/profileImagesZ/profile-image.service';
 
 export * from './components/consultant-header/consultant-header.component';
 export * from './components/consultant-body/consultant-body.component';

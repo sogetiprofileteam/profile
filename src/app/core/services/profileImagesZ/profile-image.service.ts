@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
@@ -21,8 +21,25 @@ export class ProfileImageService {
   // Form Data as image to pass to API to be pushed to Azure Storage
   public postImages(formData: FormData): Observable<any> {
     const saveImageUrl = this.baseurl + '/SaveFile';
+    console.log('in postImages function from service');
     return this._httpClient.post(saveImageUrl, formData);
     // .subscribe(load image and return status's here)
+  }
+
+  public postTest(file: File){
+    const url = this.baseurl + '/SaveFile';
+    let formData = new FormData();
+    formData.append('upload', file);
+
+    let params = new HttpParams();
+
+    const options = {
+      params: params,
+      reportProgress: true,
+    };
+
+    const req = new HttpRequest('POST', url, formData, options);
+    return this._httpClient.request(req);
   }
 
   public postImagesAsString(formData: FormData): Observable<any> {
@@ -37,4 +54,25 @@ export class ProfileImageService {
     return this._httpClient.put(editImageUrl, formData);
     // .subscribe(load image and return status's here)
   }
+
+
+
+  // file from event.target.files[0]
+  uploadFile(url: string, file: File): Observable<HttpEvent<any>> {
+    url = this.baseurl + '/SaveFile';
+    let formData = new FormData();
+    formData.append('upload', file);
+
+    let params = new HttpParams();
+
+    const options = {
+      params: params,
+      reportProgress: true,
+    };
+
+    const req = new HttpRequest('POST', url, formData, options);
+    return this._httpClient.request(req);
+  }
 }
+
+
