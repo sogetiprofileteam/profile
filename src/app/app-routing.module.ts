@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { MsalGuard } from '@azure/msal-angular'
 
 const routes: Routes = [
-  {path: '', redirectTo: '/consultants', pathMatch: 'full'},
+  {path: '', redirectTo: '/consultants', pathMatch: 'full', canActivate: [MsalGuard]},
   {
     path: 'consultants',
-    loadChildren: () => import('./feature/consultants/consultants.module').then(m => m.ConsultantsModule)
+    loadChildren: () => import('./feature/consultants/consultants.module').then(m => m.ConsultantsModule),
+    canActivate: [MsalGuard]
   },
   {
     path: 'consultant',
-    loadChildren: () => import('./feature/consultant/consultant.module').then(m => m.ConsultantModule)
+    loadChildren: () => import('./feature/consultant/consultant.module').then(m => m.ConsultantModule),
+    canActivate: [MsalGuard]
   }
 ];
 
