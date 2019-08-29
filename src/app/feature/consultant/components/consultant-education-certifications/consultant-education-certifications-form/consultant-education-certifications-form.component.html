@@ -30,8 +30,12 @@
   </mat-dialog-content>
 </form>
 
-<mat-dialog-actions align="end">
+<!-- <mat-dialog-actions align="end">
   <button mat-button type="button" mat-dialog-close>Cancel</button>
   <button mat-raised-button color="primary" type="submit" form="edu-cert-form">{{ formAction }}
     {{ type | titlecase}}</button>
+</mat-dialog-actions> -->
+<mat-dialog-actions align="end">
+  <button mat-button type="button" color="accent" mat-dialog-close>CANCEL</button>
+  <button mat-raised-button color="accent" type="submit" form="edu-cert-form" cdkFocusInitial>SAVE</button>
 </mat-dialog-actions>
