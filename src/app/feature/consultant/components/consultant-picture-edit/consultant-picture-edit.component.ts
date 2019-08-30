@@ -25,6 +25,7 @@ import {
  // SharedKeyCredential
 } from "@azure/storage-blob";
 import { ProfileImageService } from '@core/services/profileImagesZ/profile-image.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 interface IUploadProgress {
@@ -46,9 +47,16 @@ export class ConsultantPictureEditComponent implements OnDestroy {
     private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantPictureEditComponent>,
     private http: HttpClient,
-    private _profileImageService: ProfileImageService
+    private _profileImageService: ProfileImageService,
+    private formBuilder: FormBuilder
    // private blobStorage: ProfileImagesService,
   ) { }
+
+  ngOnInit(){
+    this.uploadForm = this.formBuilder.group({
+      profilePic: ['']
+    });
+  }
 
   destroy$ = new Subject();
   consultant$ = this.consultantStore.consultant$;
@@ -62,14 +70,17 @@ export class ConsultantPictureEditComponent implements OnDestroy {
 
   //private baseurl = environment.api + '/api/FileUpload/SaveFile/';
   private baseurl = environment.api + '/saveFile';
+  uploadForm: FormGroup;
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
     this.selectedFile = <File>this.imageChangedEvent.target.files[0];
+    this.uploadForm.get('profilePic').setValue(this.imageChangedEvent);
   }
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    //this.selectedFile = <File>this.croppedImage.target.files[0];
   }
 
   ngOnDestroy() {
@@ -94,56 +105,16 @@ export class ConsultantPictureEditComponent implements OnDestroy {
 
   // -------------------Testing azure blob ------------------------------------------------
   test(){
+    //const file = new File([this.selectedFile],this.selectedFile.name);
     const formData = new FormData();
-    formData.append(this.selectedFile.name, this.selectedFile, this.selectedFile.name);
-    //this._profileImageService.uploadFile('', this.selectedFile);
-    // this._profileImageService.postTest(this.selectedFile)
+    formData.append(this.selectedFile.name, this.selectedFile, this.selectedFile.name)
     this._profileImageService.postImages(formData)
       .subscribe(res => {
         console.log(res);
       })
 
+
   }
 
-  /*
-   // Enter your storage account name and shared key
-    account = "profileappphotostorage";
-    accountKey = "Rz4Bva3VkAipBe2pTE3rGKJyXJYUx9cG4AunSRBC5S9p1EFebeaMFAp3V1jIoCoNc3g+GTjuoDz7PCcFj089SA==";
-
-      // Use SharedKeyCredential with storage account and account key
-   sharedKeyCredential = new SharedKeyCredential(this.account, this.accountKey);
-
-      // Use sharedKeyCredential, tokenCredential or anonymousCredential to create a pipeline
-   pipeline = StorageURL.newPipeline(this.sharedKeyCredential);
-
-
-
-   serviceURL = new ServiceURL(
-    // When using AnonymousCredential, following url should include a valid SAS or support public access
-    `https://${this.account}.blob.core.windows.net`,
-    this.pipeline
-  );
-
-  // Create a container
-  async uploadProfile(){
-  const containerName = 'images';
-  const containerURL = ContainerURL.fromServiceURL(this.serviceURL, containerName);
-
-  const content = this.selectedFile;
-  const blobName = this.selectedFile.name + new Date().getTime();
-  const blobURL = BlobURL.fromContainerURL(containerURL, blobName);
-  const blockBlobURL = BlockBlobURL.fromBlobURL(blobURL);
-  const uploadBlobResponse = await blockBlobURL.upload(
-    Aborter.none,
-    content,
-    content.size
-  );
-  console.log(
-    `Upload block blob ${blobName} successfully`,
-    uploadBlobResponse.requestId
-  );
-  }
-
-*/
 
 }

@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Change Profile Picture</h1>
 
-<form *ngIf="consultant$ | async as consultant" (ngSubmit)="updateConsultant(consultant)" id="picture-form">
+<form *ngIf="consultant$ | async as consultant" (ngSubmit)="updateConsultant(consultant)" id="picture-form" >
   <mat-dialog-content>
     <button mat-raised-button color="primary" class="upload-button" (click)="upload.click()">CHOOSE FILE</button>
     <input type="file" class="file-input" (change)="fileChangeEvent($event)" #upload />
