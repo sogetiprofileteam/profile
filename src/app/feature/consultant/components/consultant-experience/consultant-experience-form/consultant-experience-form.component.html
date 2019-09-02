@@ -40,8 +40,8 @@
         <div class="description-header">
             <h2>Job Description</h2>
 
-            <button mat-button title="Add Job Description" type="button" color="primary" (click)="addDescription()">
-                + JOB DESCRIPTION
+            <button mat-raised-button title="Add Job Description" type="button" (click)="addDescription()">
+                + Job Description
             </button>
 
         </div>
@@ -62,11 +62,7 @@
     </mat-dialog-content>
 </form>
 
-<!-- <mat-dialog-actions align="end">
-    <button mat-button type="button" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit" form="experience-form">{{ formAction }} Experience</button>
-</mat-dialog-actions>  -->
 <mat-dialog-actions align="end">
-    <button mat-button type="button" color="accent" mat-dialog-close>CANCEL</button>
-    <button mat-raised-button color="accent" type="submit" form="experience-form" cdkFocusInitial>SAVE</button>
-  </mat-dialog-actions>
+    <button mat-raised-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" type="submit" form="experience-form" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

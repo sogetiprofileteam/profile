@@ -8,11 +8,7 @@
   </app-consultant-skills-edit-reorder-display>
 </form>
 
-<!-- <mat-dialog-actions mat-dialog-actions align="end">
-  <button mat-button type="button" (click)="close()">CANCEL</button>
-  <button mat-raised-button color="primary" type="submit" form="skill-form">SAVE</button>
-</mat-dialog-actions> -->
 <mat-dialog-actions align="end">
-  <button mat-button type="button" color="accent" (click)="close()">CANCEL</button>
-  <button mat-raised-button color="accent" type="submit" form="skill-form" cdkFocusInitial>SAVE</button>
+  <button mat-raised-button type="button" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" type="submit" form="skill-form" cdkFocusInitial>Save</button>
 </mat-dialog-actions>
