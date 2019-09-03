@@ -16,18 +16,22 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
     private consultantStore: ConsultantStore,
     private dialogRef: MatDialogRef<ConsultantEducationCertificationsFormComponent>,
     private formBuilder: FormBuilder
-  ) { }
+  ){}
 
   formTitle: string;
   formAction: string;
   type: string;
+  date: Date = new Date(); 
 
   eduCertForm = this.formBuilder.group({
     id: [null],
     institution: [null, Validators.required],
     title: [null, Validators.required],
-    date: [null, Validators.required]
+    month: [null, Validators.required],
+    year: [null, Validators.required]
   });
+
+  
 
   ngOnInit() {
     this.configureForAddOrEdit();
@@ -119,10 +123,13 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   mapToCert(formData: any): Certification {
+    const year = parseInt(formData.year);
+    const month = parseInt(formData.month);
     const cert = {
       name: formData.institution,
       title: formData.title,
-      dateRecieved: formData.date,
+      endDate: formData.date,
+      dateRecieved: new Date(year, month, 1, 0, 0, 0, 0),
       id: formData.id
     };
 

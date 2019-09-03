@@ -20,12 +20,29 @@
       <mat-error>Achievement is required</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>Date Received</mat-label>
       <input matInput [matDatepicker]="datePicker" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
       <mat-datepicker #datePicker></mat-datepicker>
       <mat-error>Date Received is required</mat-error>
+    </mat-form-field> -->
+    <mat-form-field>
+        <mat-label>Month Received</mat-label>
+        <mat-select formControlName= "month">
+          <mat-option value = "1">January</mat-option>
+          <mat-option value = "2">February</mat-option>
+        </mat-select>
+        <mat-error>Month received is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Year Received</mat-label>
+        <mat-select formControlName= "year">
+          <mat-option value = "2000">2000</mat-option>
+          <mat-option value = "2001">2001</mat-option>
+        </mat-select>
+        <mat-error>Year received is required</mat-error>
     </mat-form-field>
   </mat-dialog-content>
 </form>
