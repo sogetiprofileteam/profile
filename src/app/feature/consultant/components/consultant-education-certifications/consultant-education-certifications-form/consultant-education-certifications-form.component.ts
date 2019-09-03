@@ -21,7 +21,7 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   formTitle: string;
   formAction: string;
   type: string;
-  date: Date = new Date(); 
+  
 
   eduCertForm = this.formBuilder.group({
     id: [null],
@@ -30,8 +30,6 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
     month: [null, Validators.required],
     year: [null, Validators.required]
   });
-
-  
 
   ngOnInit() {
     this.configureForAddOrEdit();
@@ -110,26 +108,29 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   mapToEdu(formData: any): Education {
+    let year = formData.year;
+    let month = formData.month;
     const edu = {
       id: formData.id,
       school: {
        name:  formData.institution,
       },
       subject: formData.title,
-      endDate: formData.date
+      startDate: new Date(year, month, 1),
+      endDate: new Date(year, month, 1)
     };
 
     return edu as Education;
   }
 
   mapToCert(formData: any): Certification {
-    const year = parseInt(formData.year);
-    const month = parseInt(formData.month);
+    let year = formData.year;
+    let month = formData.month;
     const cert = {
       name: formData.institution,
       title: formData.title,
       endDate: formData.date,
-      dateRecieved: new Date(year, month, 1, 0, 0, 0, 0),
+      dateRecieved: new Date(year, month, 1),
       id: formData.id
     };
 
