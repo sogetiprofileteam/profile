@@ -16,7 +16,7 @@
       </button>
     </app-consultant-section-sub-header>
     <p class="eduSubjectSpace">{{education.subject}}</p>
-    <p class="dateSpace">{{education.endDate | date: 'shortDate'}}</p>
+    <p class="dateSpace">{{education.endDate | date: 'MMMM, y'}}</p>
   </ng-container>
 
   <ng-container *ngFor="let certification of consultant.certifications; let i = index">
