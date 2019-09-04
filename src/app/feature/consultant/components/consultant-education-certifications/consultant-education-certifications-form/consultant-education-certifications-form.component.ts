@@ -21,6 +21,8 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   formTitle: string;
   formAction: string;
   type: string;
+  _years:any = [];
+
   
 
   eduCertForm = this.formBuilder.group({
@@ -116,21 +118,22 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
        name:  formData.institution,
       },
       subject: formData.title,
-      startDate: new Date(year, month, 1),
-      endDate: new Date(year, month, 1)
+      startDate: new Date(year, month, 30),
+      endDate: new Date(year, month, 30)
     };
 
     return edu as Education;
   }
 
   mapToCert(formData: any): Certification {
-    let year = formData.year;
-    let month = formData.month;
+    console.log(formData.month);
+    newDate: new Date(2017,1);
+    let year = parseInt(formData.year);
+    let month = parseInt(formData.month);
     const cert = {
       name: formData.institution,
       title: formData.title,
-      endDate: formData.date,
-      dateRecieved: new Date(year, month, 1),
+      dateRecieved: new Date(2017,12),
       id: formData.id
     };
 
