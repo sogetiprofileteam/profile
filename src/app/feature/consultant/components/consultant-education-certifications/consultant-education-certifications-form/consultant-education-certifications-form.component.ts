@@ -21,6 +21,7 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   formTitle: string;
   formAction: string;
   type: string;
+  years:any = [];
 
   eduCertForm = this.formBuilder.group({
     id: [null],
@@ -34,7 +35,19 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
     this.configureForAddOrEdit();
   }
 
+  public yearList() {
+    let years = [];
+    let today = new Date();
+    let year = today.getFullYear() - 60;
+    while(year != (today.getFullYear() + 6)){
+      years.push(year);
+      year++;
+    }
+    return years;
+  }
+
   private configureForAddOrEdit() {
+    this.years = this.yearList();
     if (this.data) {
       this.formTitle = 'Edit';
       this.formAction = 'Save';
@@ -139,8 +152,4 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
     return this.eduCertForm.get('eduOrCert');
   }
 
-  public yearListt() {
-    // years:any = [];
-    return self;
-  }
 }
