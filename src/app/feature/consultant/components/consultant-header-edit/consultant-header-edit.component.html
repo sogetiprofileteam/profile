@@ -16,8 +16,16 @@
 
         <mat-form-field>
             <mat-label>Title</mat-label>
-            <input matInput formControlName="title" type="text">
-            <mat-error>Title is required</mat-error>
+            <mat-select formControlName="title" placeholder="Title">
+              <mat-option value = "Associate Consultant">Associate Consultant</mat-option>
+              <mat-option value = "Consultant">Consultant</mat-option>
+              <mat-option value = "Senior Consultant">Senior Consultant</mat-option>
+              <mat-option value = "Manager">Manager</mat-option>
+              <mat-option value = "Senior Manager">Senior Manager</mat-option>
+              <mat-option value = "Director">Director</mat-option>
+              <mat-option value = "Vice President">Vice President</mat-option>
+            </mat-select>
+          <mat-error>Title is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field>
