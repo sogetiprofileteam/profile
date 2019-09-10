@@ -24,9 +24,8 @@ export class ProfileImageService {
 
   // Form Data as image to pass to API to be pushed to Azure Storage
   public postImages(formData: FormData, options?: any): Observable<any> {
-    const saveImageUrl = this.baseurl + '/SaveFile';
   //use below to test UploadFileAsync Function
-    // const saveImageUrl = this.baseurl + '/UploadFileAsync';
+     const saveImageUrl = this.baseurl + '/UploadFileAsync';
     console.log('in postImages function from service');
     return this._httpClient.post<any>(saveImageUrl, formData, options);
     // .subscribe(load image and return status's here)

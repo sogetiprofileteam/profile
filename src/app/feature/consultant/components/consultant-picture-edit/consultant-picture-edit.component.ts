@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
@@ -40,7 +40,7 @@ interface IUploadProgress {
   styleUrls: ['./consultant-picture-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConsultantPictureEditComponent implements OnDestroy {
+export class ConsultantPictureEditComponent implements OnDestroy, OnInit {
 
   constructor(
     private consultantStore: ConsultantStore,
@@ -51,13 +51,13 @@ export class ConsultantPictureEditComponent implements OnDestroy {
     private formBuilder: FormBuilder
    // private blobStorage: ProfileImagesService,
   ) { }
-
+    consultant: Consultant;
   ngOnInit(){
-    this.uploadForm = this.formBuilder.group({
-      profilePic: ['']
-    });
-  }
 
+      this.consultant.urlProfileImage = "https://profileappphotostorage.blob.core.windows.net/images/coolImage.jpg?sv=2018-03-28&ss=b&srt=sco&sp=rwlacu&st=2019-08-13T19%3A36%3A10Z&se=2019-09-14T19%3A36%3A00Z&sig=2tv54y9CZt9TEmW6KHxzXR0TOOgvsRN94rT3Hzg8LPk%3D"
+      console.log("ngOnInit " + this.consultant.urlProfileImage);
+  }
+  
   destroy$ = new Subject();
   consultant$ = this.consultantStore.consultant$;
 
@@ -66,16 +66,12 @@ export class ConsultantPictureEditComponent implements OnDestroy {
   croppedImage: any = '';
   sas: string = '?sv=2018-03-28&ss=b&srt=sco&sp=rwlacu&st=2019-08-13T19%3A36%3A10Z&se=2019-09-14T19%3A36%3A00Z&sig=2tv54y9CZt9TEmW6KHxzXR0TOOgvsRN94rT3Hzg8LPk%3D';
 
-  //private baseurl = environment.api + '/api/FileUpload/SaveFile/';
 
-  //private baseurl = environment.api + '/api/FileUpload/SaveFile/';
-  private baseurl = environment.api + '/saveFile';
-  uploadForm: FormGroup;
+  private baseurl = environment.api + '/profilepics/UploadFileAsync';
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
     this.selectedFile = <File>this.imageChangedEvent.target.files[0];
-    this.uploadForm.get('profilePic').setValue(this.imageChangedEvent);
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -102,12 +98,10 @@ export class ConsultantPictureEditComponent implements OnDestroy {
            .subscribe(() => this.close(), () => this.notification.notificationsBar('Error: Profile picture did not upload!', 'error'), () =>  this.notification.notificationsBar('Profile Picture Uploaded Successfully!', 'success'));
     }
   }
-
-  // -------------------Testing azure blob ------------------------------------------------
-  test(){
-    //const file = new File([this.selectedFile],this.selectedFile.name);
+  // -------------------Upload to Azure blob ------------------------------------------------
+  uploadProfilePic(){
     const formData = new FormData();
-    formData.append(this.selectedFile.name, this.selectedFile, this.selectedFile.name)
+    formData.append('file', this.selectedFile, this.selectedFile.name)
     this._profileImageService.postImages(formData)
       .subscribe(res => {
         console.log(res);
