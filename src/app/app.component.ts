@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     login() {
-      this.authService.loginPopup(['api.read', 'api://a88bb933-319c-41b5-9f04-eff36d985612/access_as_user']);
+      this.authService.loginPopup(['api.read', 'api://5972006a-33d3-4ef5-b37e-e08cf85e8cd8/api.read']);
     }
 
     logout() {

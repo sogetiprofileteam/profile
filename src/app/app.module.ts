@@ -13,11 +13,9 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MsalInterceptor, MsalModule} from '@azure/msal-angular';
 import {LogLevel} from 'msal';
 
-export function loggerCallback(logLevel, message, piiEnabled){
+export function loggerCallback(logLevel, message, piiEnabled) {
   console.log('Client logging ' + message);
 }
-
-export const protectedResourceMap: [string, string[]][] = [ ['https://localhost:5000', ['api.read', 'api.write', 'api.delete']] ];
 
 @NgModule({
   declarations: [
@@ -42,6 +40,7 @@ export const protectedResourceMap: [string, string[]][] = [ ['https://localhost:
       logger: loggerCallback,
       level: LogLevel.Info,
       piiLoggingEnabled: false,
+      protectedResourceMap: [ ['http://localhost:5000/', ['api.read', 'api.write', 'api.delete']] ]
     }
     ),
   ],
