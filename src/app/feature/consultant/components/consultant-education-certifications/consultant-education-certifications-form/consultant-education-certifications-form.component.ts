@@ -35,6 +35,8 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
     this.configureForAddOrEdit();
   }
 
+  //Creates a list of years for drop down. 
+  //Ranges from 60 years prior to today and 6 years in the futurey.
   public yearList() {
     let years = [];
     let today = new Date();
@@ -47,6 +49,7 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   private configureForAddOrEdit() {
+    console.log("configureForAddOrEdit");
     this.years = this.yearList();
     if (this.data) {
       this.formTitle = 'Edit';
@@ -61,17 +64,21 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   private patchForm(eduOrCert: Education | Certification) {
+    console.log("patchForm");
     this.type === 'education' ? this.patchWithEdu(eduOrCert as Education) : this.patchWithCert(eduOrCert as Certification);
   }
 
   private patchWithEdu(edu: Education) {
+    console.log("pathWithEdu");
     const patchVal = {
       id: edu.id,
       institution: edu.school.name,
       title: edu.subject,
-      date: edu.endDate
+      // date: edu.endDate,
+      month: edu.endDate.getMonth(),
+      year: edu.endDate.getFullYear()
     };
-
+    console.log("patchValue is " + patchVal.institution);
     this.eduCertForm.patchValue(patchVal);
   }
 
@@ -88,9 +95,11 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
 
   submit() {
     this.data ? this.updateEduCert() : this.addEduCert();
+    console.log("submit fxn - data:" + this.data);
   }
 
   addEduCert() {
+    console.log("addEduCert");
     if (this.eduCertForm.valid) {
       // THIS NEEDS TO BE THE VALUE FROM THE RADIO CONTROL NOT TYPE, CUS WITH ADD THERE IS NO TYPE
       const newEduOrCert =
@@ -109,6 +118,7 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   updateEduCert() {
+    console.log("updateEduCert");
     if (this.eduCertForm.valid) {
       const eduOrCerts = this.consultantStore.consultant[this.type];
       eduOrCerts[this.data.index] =
@@ -120,6 +130,7 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   mapToEdu(formData: any): Education {
+    console.log("mapToEdu");
     let year = formData.year;
     let monthIndex = formData.month;
     const edu = {
@@ -149,6 +160,8 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   }
 
   get propertyType() {
+    console.log("propertyType fxn eduCertForm: " + this.eduCertForm);
+    console.log("propertyType fxn eduCertForm.get(('eduOrCert'): " + this.eduCertForm.get('eduOrCert'));
     return this.eduCertForm.get('eduOrCert');
   }
 

@@ -21,22 +21,22 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Month Received</mat-label>
-        <mat-select formControlName= "month">
-          <mat-option value = "0">January</mat-option>
-          <mat-option value = "1">February</mat-option>
-          <mat-option value = "2">March</mat-option>
-          <mat-option value = "3">April</mat-option>
-          <mat-option value = "4">May</mat-option>
-          <mat-option value = "5">June</mat-option>
-          <mat-option value = "6">July</mat-option>
-          <mat-option value = "7">August</mat-option>
-          <mat-option value = "8">September</mat-option>
-          <mat-option value = "9">October</mat-option>
-          <mat-option value = "10">November</mat-option>
-          <mat-option value = "11">December</mat-option>
-        </mat-select>
-        <mat-error>Month received is required</mat-error>
+      <mat-label>Month Received</mat-label>
+      <mat-select formControlName= "month">
+        <mat-option value = "0">0</mat-option>
+        <mat-option value = "1">February</mat-option>
+        <mat-option value = "2">March</mat-option>
+        <mat-option value = "3">April</mat-option>
+        <mat-option value = "4">May</mat-option>
+        <mat-option value = "5">5</mat-option>
+        <mat-option value = "6">July</mat-option>
+        <mat-option value = "7">August</mat-option>
+        <mat-option value = "8">September</mat-option>
+        <mat-option value = "9">October</mat-option>
+        <mat-option value = "10">November</mat-option>
+        <mat-option value = "11">December</mat-option>
+        <mat-error>Month is required</mat-error>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field>
@@ -46,7 +46,7 @@
             <mat-option value = "{{year}}">{{year}}</mat-option>
           </ng-container>
         </mat-select>
-        <mat-error>Year received is required</mat-error>
+        <mat-error>Year is required</mat-error>
     </mat-form-field>
   </mat-dialog-content>
 </form>
