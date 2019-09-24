@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Delete confirmation</h1>
+
+<mat-dialog-content>
+    <p>Are you sure you want to delete delete this?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+  <button mat-raised-button type="button" mat-dialog-close>CANCEL</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">DELETE</button>
+</mat-dialog-actions>
+
