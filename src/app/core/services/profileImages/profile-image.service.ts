@@ -18,8 +18,9 @@ export class ProfileImageService {
   private baseurl = environment.api + '/profilepics';
 
   // change from any to type image.
-  public getImages(): Observable<any> {
-    return this._httpClient.get(this.baseurl);
+  public getImages(url: string): Observable<any> {
+   const savedImagedUrl = url;
+    return this._httpClient.get(savedImagedUrl);
   }
 
   // Form Data as image to pass to API to be pushed to Azure Storage
@@ -29,30 +30,6 @@ export class ProfileImageService {
     console.log('in postImages function from service');
     return this._httpClient.post<any>(saveImageUrl, formData, options);
     // .subscribe(load image and return status's here)
-  }
-
-  // Same as above..testing to see if file makes a difference... soon to be depricated
-  public postImagesUsingFile(file: File): Observable<any> {
-    const saveImageUrl = this.baseurl + '/UploadFileAsync';
-    console.log('in postImages function from service');
-    return this._httpClient.post<File>(saveImageUrl, file);
-    // .subscribe(load image and return status's here)
-  }
-
-  public postTest(file: File) {
-    const url = this.baseurl + '/SaveFile';
-    let formData = new FormData();
-    formData.append('upload', file);
-
-    let params = new HttpParams();
-
-    const options = {
-      params: params,
-      reportProgress: true
-    };
-
-    const req = new HttpRequest('POST', url, formData, options);
-    return this._httpClient.request(req);
   }
 
   public postImagesAsString(formData: FormData): Observable<any> {

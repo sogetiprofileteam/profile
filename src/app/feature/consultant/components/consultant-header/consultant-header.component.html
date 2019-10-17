@@ -10,8 +10,9 @@
         </button>
         
         <div class="picture-container">
+          
           <img *ngIf="consultant.urlProfileImage" class="picture" src="{{consultant.urlProfileImage}}">
-          <img *ngIf="!consultant.urlProfileImage"class="picture" src="../../../../../assets/img/blank-profile.png">
+          <img *ngIf="!consultant.urlProfileImage" class="picture" src="../../../../../assets/img/blank-profile.png">
 
           <div class="edit-overlay" (click)="openEditPictureDialog()">
             <span class="edit-text">

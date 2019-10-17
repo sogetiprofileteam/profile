@@ -48,7 +48,8 @@ export class ConsultantHeaderComponent {
         title: consultant.title,
         practice: consultant.practice,
         email: consultant.email,
-        address: consultant.address
+        address: consultant.address,
+        urlProfileImage: consultant.urlProfileImage
       }
     ];
 

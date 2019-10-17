@@ -27,3 +27,8 @@
   <button mat-raised-button color="primary" type="submit" (click)="uploadProfilePic($event)" form="picture-form" name="file"  cdkFocusInitial>CROP & SAVE</button>
 </mat-dialog-actions>
 
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">GET</button>
+  <button mat-raised-button color="red"  (click)="getProfilePic()" form="picture-form" name="file"  cdkFocusInitial>CROP & SAVE</button>
+</mat-dialog-actions>
+<img src="https://profileappphotostorage.blob.core.windows.net/images/wow%20-%20Copy.jpg" width="200px" height="200px">

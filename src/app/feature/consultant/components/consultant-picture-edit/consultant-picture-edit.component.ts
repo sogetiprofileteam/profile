@@ -1,3 +1,4 @@
+import { Consultant } from '@core/models/consultant';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -8,13 +9,12 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ConsultantStore } from '@feature/consultant/services/consultant-store/consultant-store.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { Consultant } from '@core/models';
+import { takeUntil, switchMap } from 'rxjs/operators';
+import { Subject, of } from 'rxjs';
+//import { Consultant } from '@core/models';
 import { NotificationsService } from '@core/services/notifications/notifications.service';
-//import { ProfileImagesService } from '../../../../core/services/profileImages/profile-images.service';
 import { environment } from '@env/environment';
-import { ProfileImageService } from '@core/services/profileImagesZ/profile-image.service';
+import { ProfileImageService } from '@core/services/profileImages/profile-image.service';
 
 interface IUploadProgress {
   filename: string;
@@ -28,13 +28,14 @@ interface IUploadProgress {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsultantPictureEditComponent implements OnDestroy, OnInit {
+  urlProfileImage: any;
   constructor(
     private consultantStore: ConsultantStore,
     private notification: NotificationsService,
     private dialogRef: MatDialogRef<ConsultantPictureEditComponent>,
     private http: HttpClient,
     private _profileImageService: ProfileImageService,
-  ) // private blobStorage: ProfileImagesService,
+  )
   {}
   consultant: Consultant;
   ngOnInit() {
@@ -43,13 +44,10 @@ export class ConsultantPictureEditComponent implements OnDestroy, OnInit {
 
   destroy$ = new Subject();
   consultant$ = this.consultantStore.consultant$;
-
+  storedURL: string;
   selectedFile: File = null;
   imageChangedEvent: any = '';
   croppedImage: any = '';
-  sas: string =
-    '?sv=2018-03-28&ss=b&srt=sco&sp=rwlacu&st=2019-08-13T19%3A36%3A10Z&se=2019-09-14T19%3A36%3A00Z&sig=2tv54y9CZt9TEmW6KHxzXR0TOOgvsRN94rT3Hzg8LPk%3D';
-
   private baseurl = environment.api + '/profilepics/UploadFileAsync';
 
   fileChangeEvent(event: any): void {
@@ -99,7 +97,42 @@ export class ConsultantPictureEditComponent implements OnDestroy, OnInit {
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
     this._profileImageService.postImages(formData).subscribe(res => {
-      console.log(res);
+
+      //Sends the Response, which should be a url to the picture within the blob to the Get function
+      this.getProfilePic(res); // send data to getProfilePic function and assign it there
+      console.log("this is the response " + res);
     });
   }
+
+
+  //-------------------Get picture from Azure blob -------------------------------------------
+  getProfilePic(data){
+    this.storedURL = data;
+
+      if(this.storedURL == null ){
+        //.. do nothing
+      }
+      console.log("this.storedURL: " + this.storedURL);
+
+      const updatedData: Consultant = {
+        ...data,
+        urlProfileImage: this.croppedImage
+      }
+
+      this.consultant$
+          .pipe(
+            switchMap(updatePicture => {
+              return updatePicture
+            //  ? this.consultantStore.updateConsultant(updatedData) //Try both of these in the debugging stage (uncomment the 3 lines below or vise versa)
+                ? this.consultantStore.updateConsultant({
+                    urlProfileImage: this.storedURL
+                  })
+                : of(null);
+            }),
+            takeUntil(this.destroy$)
+          )
+          .subscribe();
+
+
+;  }
 }

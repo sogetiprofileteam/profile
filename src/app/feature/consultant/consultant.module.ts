@@ -1,4 +1,4 @@
-import { ProfileImageService } from './../../core/services/profileImagesZ/profile-image.service';
+import { ProfileImageService } from './../../core/services/profileImages/profile-image.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,18 +44,11 @@ import {
   NotificationsService,
   ConsultantExperienceDeleteDialogComponent,
   ConsultantExperienceFormComponent,
-  ProfileImagesService
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
-import { BLOB_STORAGE_TOKEN, IBlobStorage } from '@core/services/profileImages/profile-images';
-
-export function azureBlobStorageFactory(): IBlobStorage {
-  console.log(window)
-  return window['AzureStorage'].Blob;
-}
 
 
 @NgModule({
@@ -108,12 +101,7 @@ export function azureBlobStorageFactory(): IBlobStorage {
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent
   ],
-  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, NotificationsService,
-    ProfileImagesService,
-    {
-      provide: BLOB_STORAGE_TOKEN,
-      useFactory: azureBlobStorageFactory
-    }, ProfileImageService ]
+  providers: [ ConsultantStore, TechnicalSkillsService, CoreSkillsService, SkillsDataService, ConsultantSkillsEditService, NotificationsService, ProfileImageService ]
 
 })
 export class ConsultantModule { }
