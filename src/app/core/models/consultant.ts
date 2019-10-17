@@ -13,14 +13,14 @@ export interface Consultant {
     firstName: string;
     lastName: string;
     secondName?: string;
+    username: string,
     title: string;
     practice: string;
     status?: Status;
     email: string;
-    username: string;
     address: Address;
     phone: number;
-    fax?: number;
+    summary: string;
     urlLinkedIn?: string;
     urlGitHub?: string;
     urlWordpress?: string;

@@ -6,9 +6,10 @@ export const mockConsultant: Consultant = {
     firstName: 'Jane',
     lastName: 'Barnes',
     title: 'Consultant',
+    username: 'jabarnes',
+    summary: '',
     practice: 'Applications and Cloud Technology',
     email: 'jane.barnes@us.sogeti.com',
-    username: 'jbarnes',
     status: {
         id: '1',
         name: 'Test Status'
@@ -103,7 +104,10 @@ export const mockConsultant: Consultant = {
     education: [
         {
             id: '1',
-            school: 'UT Austin',
+            school: {
+              name:  'UT Austin',
+              id: '1'
+            },
             subject: 'Computer Science',
             startDate: new Date('August 1, 2012'),
             endDate: new Date('May 1, 2016'),

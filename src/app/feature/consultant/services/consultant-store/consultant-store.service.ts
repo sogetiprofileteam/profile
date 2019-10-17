@@ -19,6 +19,7 @@ export const blankConsultant: Consultant = {
   practice: 'Practice',
   email: 'Email',
   username: null,
+  summary: '',
   status: null,
   address: {
     lineOne: '10900 Stonelake Blvd. Suite 195',

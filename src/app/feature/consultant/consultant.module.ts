@@ -1,3 +1,4 @@
+import { PhonePipe } from './components/shared/phone.pipe';
 import { ProfileImageService } from './../../core/services/profileImages/profile-image.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -44,6 +45,9 @@ import {
   NotificationsService,
   ConsultantExperienceDeleteDialogComponent,
   ConsultantExperienceFormComponent,
+  ConsultantSectionSubHeaderComponent,
+  ConsultantEducationCertificationsDeleteDialogComponent,
+  ConsultantEducationCertificationsFormComponent,
 } from './index';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -71,6 +75,10 @@ import { MatNativeDateModule, MatSnackBarModule } from '@angular/material';
     ConsultantPictureEditComponent,
     ConsultantExperienceDeleteDialogComponent,
     ConsultantExperienceFormComponent,
+    ConsultantSectionSubHeaderComponent,
+    ConsultantEducationCertificationsDeleteDialogComponent,
+    ConsultantEducationCertificationsFormComponent,
+    PhonePipe,
   ],
   imports: [
     CommonModule,
