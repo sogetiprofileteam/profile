@@ -16,8 +16,16 @@
 
         <mat-form-field>
             <mat-label>Title</mat-label>
-            <input matInput formControlName="title" type="text">
-            <mat-error>Title is required</mat-error>
+            <mat-select formControlName="title" placeholder="Title">
+              <mat-option value = "Associate Consultant">Associate Consultant</mat-option>
+              <mat-option value = "Consultant">Consultant</mat-option>
+              <mat-option value = "Senior Consultant">Senior Consultant</mat-option>
+              <mat-option value = "Manager">Manager</mat-option>
+              <mat-option value = "Senior Manager">Senior Manager</mat-option>
+              <mat-option value = "Director">Director</mat-option>
+              <mat-option value = "Vice President">Vice President</mat-option>
+            </mat-select>
+          <mat-error>Title is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -47,7 +55,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Phone Number</mat-label>
+            <mat-label>Phone Number - Optional</mat-label>
             <input matInput formControlName="phone" type="tel">
             <mat-error *ngIf="phone?.errors?.required">Phone number is required</mat-error>
             <mat-error *ngIf="phone?.errors?.pattern">Phone number must only contain numbers</mat-error>
@@ -80,6 +88,6 @@
 </form>
 
 <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="close()">CANCEL</button>
-    <button mat-raised-button color="primary" type="submit" form="header-form" cdkFocusInitial>SAVE HEADER</button>
+    <button mat-raised-button type="button" mat-dialog-close>CANCEL</button>
+    <button mat-raised-button color="accent" type="submit" form="header-form" cdkFocusInitial>SAVE</button>
 </mat-dialog-actions>

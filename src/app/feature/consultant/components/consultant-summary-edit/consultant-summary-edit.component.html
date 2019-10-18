@@ -6,11 +6,11 @@
             <mat-label>Summary</mat-label>
             <textarea matInput formControlName="summary"></textarea>
             <mat-error>Summary is required</mat-error>
-          </mat-form-field>
+        </mat-form-field>
     </mat-dialog-content>
 </form>
 
 <mat-dialog-actions align="end">
-    <button mat-button type="button" color="accent" (click)="close()">CANCEL</button>
+    <button mat-raised-button type="button" mat-dialog-close>CANCEL</button>
     <button mat-raised-button color="accent" type="submit" form="summary-form" cdkFocusInitial>SAVE</button>
 </mat-dialog-actions>
