@@ -1,0 +1,20 @@
+@import "variables";
+
+.top-bar {
+    background-color: white;
+    flex-shrink: 0;
+} 
+
+.img-home {
+    width: 100px;
+    height: 100px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-input-element {
+    width: 90%;
+    vertical-align: middle;
+}

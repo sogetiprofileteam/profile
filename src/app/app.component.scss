@@ -4,11 +4,11 @@
     flex: 1 0 auto; 
 }
 
-.top-bar {
-    height: 20px;
+.blue-bar {
+    height: 30px;
     background-color: $vibrant-blue;
 }
 
-.top-bar, app-header {
+.blue-bar, app-header {
     flex-shrink: 0;
   }
