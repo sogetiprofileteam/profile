@@ -44,7 +44,7 @@ export class ExportProfile {
                                                   personal[0].title,
                                                   personal[0].practice).spacing({ before: 0, after: 0, line: 240}));
                                                   // line is measured in 240ths of a line, so 360 = 1.5 lines
-
+    document.addParagraph(new Paragraph().addRun(new TextRun('')));
     document.addParagraph(this.createHeading('Summary'));
     document.addParagraph(this.createSummaryText(personal[0].summary));
 
@@ -153,9 +153,8 @@ export class ExportProfile {
     const address = new TextRun(addressIn.lineOne +
                                 lineTwo + ', ' +
                                 addressIn.city +  ', ' +
-                                addressIn.state +  ', ' +
-                                addressIn.zipCode +  ' ' +
-                                `| Phone: ${phoneNumber}`).font('Calibri (Body)').break().size(24);
+                                addressIn.state +  ' ' +
+                                addressIn.zipCode).font('Calibri (Body)').break().size(24);
 
     // paragraph.addRun(titlePracticeRun);
     // paragraph.addRun(emailRun);
@@ -193,7 +192,7 @@ export class ExportProfile {
   }
 
   createInstitutionHeader(institutionName: string, dateText: any) {
-    const paragraph = new Paragraph().maxRightTabStop();
+    const paragraph = new Paragraph();
     const institution = new TextRun(institutionName).font('Calibri (Body)').bold().color('12B3DB').size(32);
 
     paragraph.addRun(institution);
@@ -254,31 +253,36 @@ export class ExportProfile {
     const paragraph = new Paragraph();
     // const startDateText = this.getMonthFromInt(startDate.month) + '. ' + startDate.year;
     const startdateString = startDate;
-    const startDateText = new Date(startdateString).toLocaleDateString();
+    const startDateMonth = new Date(startdateString).getMonth() + 1;
+    const startDateText = this.getMonthFromInt(startDateMonth) + ' ' +  new Date(startdateString).getFullYear().toString();
+
+
 
     // const endDateText = isCurrent ? 'Present' : `${this.getMonthFromInt(endDate.month)}. ${endDate.year}`;
     let endDateText: any;
     if (endDate != null) {
       const enddateString = endDate;
-      endDateText = new Date(enddateString).toLocaleDateString();
+      const endDateMonth = new Date(enddateString).getMonth() + 1;
+      endDateText = this.getMonthFromInt(endDateMonth) + ' ' + new Date(enddateString).getFullYear().toString();
     } else {
       endDateText = 'Present';
     }
 
     // console.log(`${startDateText} - ${endDateText}`);
-    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)').tab().size(24);
+    const date = new TextRun(`${startDateText} - ${endDateText}`).font('Calibri (Body)').break().size(24);
     paragraph.addRun(date);
 
     return paragraph;
   }
 
   createEduCertDateText(endDate: string) {
-    const paragraph = new Paragraph().rightTabStop(10000);
+    const paragraph = new Paragraph();
     const enddateString = endDate;
-    const endDateText = new Date(enddateString).toLocaleDateString();
+    const endDateMonth = new Date(enddateString).getMonth() + 1;
+    const endDateText = this.getMonthFromInt(endDateMonth) + ' ' + new Date(enddateString).getFullYear().toString();
 
     // console.log(`${startDateText} - ${endDateText}`);
-    const date = new TextRun(`${endDateText}`).font('Calibri (Body)').tab().size(24);
+    const date = new TextRun(`${endDateText}`).font('Calibri (Body)').break().size(24);
     paragraph.addRun(date);
 
     return date;

@@ -1,4 +1,5 @@
 @import "breakpoints";
+@import "variables";
 
 $picture-size-lg: 250px;
 $picture-size-sm: 200px;
@@ -23,7 +24,7 @@ $export-button-position-sm: 6px;
         .export-button {
             bottom: $export-button-position-sm;
             left: $export-button-position-sm;
-            background-color: green
+            background-color: $vibrant-blue;
         }
     }
 
@@ -58,7 +59,7 @@ $export-button-position-sm: 6px;
     .export-button {
         bottom: $export-button-position-lg;
         left: $export-button-position-lg;
-        background-color: green
+        background-color:$vibrant-blue;
     }
 
     .picture-wrapper {
