@@ -24,12 +24,13 @@
     </div>
 
     <h1 class="consultant-name">
-      {{ consultant.firstName }}
-      {{ consultant.lastName }}
+      <p><span *ngIf="consultant.firstName">{{consultant.firstName }} </span> <span *ngIf="consultant.lastName">{{consultant.lastName}}</span></p>
+      <p><span *ngIf="!consultant.firstName">First Name </span><span *ngIf="!consultant.lastName">Last Name</span></p>
     </h1>
 
     <h2 class="consultant-title">
-      {{ consultant.title }} | <b>{{ consultant.practice }}</b>
+      <p><span *ngIf="consultant.title">{{ consultant.title }}</span><span *ngIf="consultant.title &&  consultant.practice"> | </span><b *ngIf="consultant.practice">{{ consultant.practice }}</b></p>
+      <p><span *ngIf="!consultant.title">Consultant Title</span><span *ngIf="!consultant.title &&  !consultant.practice"> | </span><b *ngIf="!consultant.practice">Consultant Practice</b></p>
     </h2>
 
     <h2 class="consultant-email">
@@ -39,7 +40,7 @@
     <ng-container *ngIf="consultant.address as address">
       <p>
         <b>Sogeti Austin</b> | {{ address.lineOne }}, {{ address.lineTwo }} | Quarry Oaks | {{ address.city }}, {{
-        address.state }} {{ address.zipCode }} | Phone: {{ consultant.phone | phone }}
+        address.state }} {{ address.zipCode }} <span *ngIf="consultant.phone">| Phone: {{consultant.phone | phone}}</span>
       </p>
     </ng-container>
 

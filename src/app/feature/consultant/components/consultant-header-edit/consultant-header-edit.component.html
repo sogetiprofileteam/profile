@@ -57,7 +57,6 @@
         <mat-form-field>
             <mat-label>Phone Number - Optional</mat-label>
             <input matInput formControlName="phone" type="tel">
-            <mat-error *ngIf="phone?.errors?.required">Phone number is required</mat-error>
             <mat-error *ngIf="phone?.errors?.pattern">Phone number must only contain numbers</mat-error>
         </mat-form-field>
 

@@ -18,7 +18,7 @@ export interface Consultant {
     status?: string;
     email: string;
     address: Address;
-    phone: number;
+    phone: string;
     summary: string;
     urlLinkedIn?: string;
     urlGitHub?: string;

@@ -76,7 +76,7 @@ export class ConsultantHeaderComponent {
 
     packer.toBlob(doc).then(blob => {
       console.log(blob);
-      saveAs(blob, consultant.firstName + '_' + consultant.lastName + '_resume.docx');
+      saveAs(blob, consultant.firstName + '_' + consultant.lastName + '_Profile.docx');
       console.log('Document created successfully');
     });
   }
