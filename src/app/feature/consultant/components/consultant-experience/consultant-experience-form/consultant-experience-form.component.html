@@ -38,6 +38,13 @@
         </mat-checkbox>
 
         <div class="description-header">
+            <mat-form-field>
+                <mat-label>Position Summary</mat-label>
+                <input matInput formControlName="summary" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="description-header">
             <h2>Job Description</h2>
 
             <button mat-raised-button title="Add Job Description" type="button" (click)="addDescription()">

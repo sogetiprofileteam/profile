@@ -5,6 +5,7 @@ import {
 export interface Experience {
     id: string;
     companyName: string;
+    summary: string;
     descriptions: Description[];
     startDate: Date;
     endDate?: Date;
