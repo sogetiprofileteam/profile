@@ -17,7 +17,8 @@
     </app-consultant-section-sub-header>
 
     <p class="jobTitleSpace"> <b> {{experience.title}} </b> </p>
-    <p class="dateSpace">{{experience.startDate | date: 'shortDate'}} - {{experience.endDate ? (experience.endDate | date: 'shortDate') : 'Present'}}</p>
+    <p class="dateSpace">{{experience.startDate | date: 'MM / y'}} - {{experience.endDate ? (experience.endDate | date: 'MM / y') : 'Present'}}</p>
+    <p class="jobSummarySpace">{{experience.summary}} </p>
     <p *ngFor="let description of experience.descriptions">
       - {{description.summary}}
     </p>

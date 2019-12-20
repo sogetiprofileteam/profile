@@ -31,6 +31,7 @@ export * from './components/consultant-experience/consultant-experience-form/con
 export * from './components/consultant-experience/consultant-experience-delete-dialog/consultant-experience-delete-dialog.component';
 
 export * from './components/save-new-button/save-new-button.component';
+export * from './components/download-profile-button/download-profile-button.component';
 export * from './components/consultant-picture-edit/consultant-picture-edit.component';
 
 

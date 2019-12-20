@@ -1,6 +1,6 @@
 <section class="container">
   <app-save-new-button *ngIf="isNewConsultant"></app-save-new-button>
-
+  <app-download-profile-button *ngIf="!isNewConsultant"></app-download-profile-button>
   <app-consultant-summary></app-consultant-summary>
   <app-consultant-core-skills></app-consultant-core-skills>
   <app-consultant-technical-skills></app-consultant-technical-skills>
