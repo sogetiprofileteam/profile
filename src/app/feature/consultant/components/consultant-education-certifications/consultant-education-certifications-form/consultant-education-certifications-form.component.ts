@@ -25,7 +25,7 @@ export class ConsultantEducationCertificationsFormComponent implements OnInit {
   eduCertForm = this.formBuilder.group({
     id: [null],
     institution: [null, Validators.required],
-    title: [null, Validators.required],
+    title: [null],
     date: [null, Validators.required]
   });
 

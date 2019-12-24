@@ -115,6 +115,7 @@ export const mockConsultant: Consultant = {
             companyName: 'Sogeti USA',
             title: 'Consultant',
             startDate: new Date(),
+            summary: '',
             descriptions: [
                 {
                     id: '1',

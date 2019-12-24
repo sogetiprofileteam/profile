@@ -33,6 +33,7 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
     id: [null],
     companyName: [null, Validators.required],
     title: [null, Validators.required],
+    summary: [null],
     startDate: [null, [Validators.required]],
     endDate: [null],
     descriptions: this.formBuilder.array([])
@@ -161,5 +162,9 @@ export class ConsultantExperienceFormComponent implements OnInit, OnDestroy {
 
   get descriptions() {
     return this.experienceForm.get('descriptions') as FormArray;
+  }
+
+  get summary() {
+    return this.experienceForm.get('summary');
   }
 }

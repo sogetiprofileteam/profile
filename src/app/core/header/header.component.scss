@@ -2,8 +2,12 @@
 
 .top-bar {
     background-color: white;
-    flex-shrink: 0;
+    flex-shrink: 0;  
 } 
+.row {
+    margin: 0 0 0 0;
+}
+
 
 .img-home {
     width: 100px;
@@ -11,10 +15,25 @@
 }
 
 .mat-form-field {
+    display: initial;
     width: 100%;
+    position: relative;
+    top: 2em;
+    right: 1em;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+    padding: 0.5em 0 0.5em 0 !important;
 }
 
 .mat-input-element {
-    width: 90%;
     vertical-align: middle;
+}
+
+.search-box .mat-button {
+    padding: 0 0 0 0 !important;
+    line-height: 0;
+    position: absolute;
+    right: 0;
+    top: 0px;
 }
