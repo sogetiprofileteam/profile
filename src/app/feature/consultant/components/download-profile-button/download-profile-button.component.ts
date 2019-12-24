@@ -17,6 +17,8 @@ export class DownloadProfileButtonComponent implements OnInit {
     private consultantStore: ConsultantStore
   ) { }
 
+  consultant$ = this.consultantStore.consultant$;
+
   ngOnInit() {
   }
 
