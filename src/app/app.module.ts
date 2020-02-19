@@ -27,28 +27,11 @@ export function loggerCallback(logLevel, message, piiEnabled) {
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    HttpClientModule,
-    MsalModule.forRoot({
-      clientID: '5972006a-33d3-4ef5-b37e-e08cf85e8cd8',
-      authority: 'https://login.microsoftonline.com/6085de46-5c5f-404e-bdc2-2a7227ddce84',
-      validateAuthority: true,
-      redirectUri: environment.host,
-      cacheLocation: 'localStorage',
-      postLogoutRedirectUri: environment.host,
-      navigateToLoginRequestUrl: true,
-      popUp: false,
-      consentScopes: ['user.read'],
-      logger: loggerCallback,
-      level: LogLevel.Info,
-      piiLoggingEnabled: false,
-      protectedResourceMap: [[environment.api, ['api.read', 'api.write', 'api.delete']]]
-    }
-    ),
+    HttpClientModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '850px', hasBackdrop: true } },
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
-    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
   ],
   bootstrap: [AppComponent]
 })
