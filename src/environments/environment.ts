@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: 'http://localhost:5000',
-  host: 'http://localhost:4200'
+  host: 'https://profile-ci-web.azurewebsites.net'
 };
 
 /*
