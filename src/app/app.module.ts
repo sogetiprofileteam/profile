@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -31,23 +32,23 @@ export function loggerCallback(logLevel, message, piiEnabled) {
       clientID: '5972006a-33d3-4ef5-b37e-e08cf85e8cd8',
       authority: 'https://login.microsoftonline.com/6085de46-5c5f-404e-bdc2-2a7227ddce84',
       validateAuthority: true,
-      redirectUri: 'https://localhost:4200',
+      redirectUri: environment.host,
       cacheLocation: 'localStorage',
-      postLogoutRedirectUri: 'https://localhost:4200',
+      postLogoutRedirectUri: environment.host,
       navigateToLoginRequestUrl: true,
       popUp: false,
       consentScopes: ['user.read'],
       logger: loggerCallback,
       level: LogLevel.Info,
       piiLoggingEnabled: false,
-      protectedResourceMap: [ ['https://localhost:5000/', ['api.read', 'api.write', 'api.delete']] ]
+      protectedResourceMap: [[environment.api, ['api.read', 'api.write', 'api.delete']]]
     }
     ),
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: '850px', hasBackdrop: true } },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
-    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
